@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "landing-page-type-one": {
+    "angular-productive": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/landing-page-type-one",
+            "outputPath": "dist/angular-productive",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "landing-page-type-one:build"
+            "browserTarget": "angular-productive:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "landing-page-type-one:build:production"
+              "browserTarget": "angular-productive:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "landing-page-type-one:build"
+            "browserTarget": "angular-productive:build"
           }
         },
         "test": {
@@ -110,15 +110,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "landing-page-type-one:serve"
+            "devServerTarget": "angular-productive:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "landing-page-type-one:serve:production"
+              "devServerTarget": "angular-productive:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "landing-page-type-one"
+  "defaultProject": "angular-productive"
 }
