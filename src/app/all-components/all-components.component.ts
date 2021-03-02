@@ -9,4 +9,8 @@ export class AllComponentsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  aa() {
+    console.log('aa');
+  }
 }

@@ -79,6 +79,7 @@ label {
 .btn,
 .btn-small,
 .btn-large {
+  position: relative;
   margin: 0 5px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
   background-color: var(--primary);
@@ -119,4 +120,36 @@ label {
 .flat:hover {
   background-color: rgba(0, 0, 0, 0.1);
   box-shadow: none;
+}
+
+.ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  --scale: 0;
+  --opacity: 0;
+  --ripple-color: rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+}
+.ripple:after {
+  content: "";
+  display: block;
+  width: 100%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.15);
+  transform: scale(var(--scale));
+  opacity: var(--opacity);
+  transition: transform 0.8s ease-out, opacity 0.3s;
+}
+.ripple:not(:empty) {
+  transform: translateZ(0);
 }
