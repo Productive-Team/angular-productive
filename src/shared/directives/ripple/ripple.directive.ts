@@ -4,6 +4,8 @@ import {
   ElementRef,
   OnInit,
   Input,
+  Host,
+  HostBinding,
 } from '@angular/core';
 
 @Directive({
@@ -15,14 +17,14 @@ export class RippleDirective {
   @Input() rippleUnbounded = false;
   constructor(el: ElementRef) {
     el.nativeElement.classList.add('ripple-container');
-    console.log(this.rippleUnbounded);
     if (this.rippleUnbounded) {
       console.log('ob');
       el.nativeElement.style.overflow = 'visible';
     }
   }
 
-  @HostListener('mousedown', ['$event']) logCons(event) {
+  @HostListener('pointerdown', ['$event']) logCons(event) {
+    console.log(event);
     const element = event.target;
     const ripple = document.createElement('span');
     ripple.setAttribute('class', 'ripple');
@@ -36,13 +38,27 @@ export class RippleDirective {
     ripple.style.setProperty('--opacity', '1');
     ripple.style.setProperty('--scale', scale.toString());
 
-    function calmRipple() {
-      ripple.removeEventListener('transitionend', calmRipple);
-      ripple.style.setProperty('--opacity', '0');
-      ripple.addEventListener('transitionend', () => {
-        ripple.remove();
+    // function calmRipple() {
+    // ripple.removeEventListener('transitionend', calmRipple);
+    // ripple.style.setProperty('--opacity', '0');
+    // ripple.addEventListener('transitionend', () => {
+    //   ripple.remove();
+    // });
+    // }
+
+    // ripple.addEventListener('transitionend', calmRipple);
+  }
+  @HostListener('pointerup', ['$event']) logPoint(event) {
+    const element = event.target;
+    const ripple = element.querySelectorAll('span');
+    ripple.forEach((b) => {
+      b.addEventListener('transitionend', () => {
+        b.style.setProperty('--opacity', '0');
+        b.addEventListener('transitionend', () => {
+          b.remove();
+        });
       });
-    }
-    ripple.addEventListener('transitionend', calmRipple);
+    });
+    console.log(event);
   }
 }

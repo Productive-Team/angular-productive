@@ -66,6 +66,10 @@ label {
   line-height: 56px;
 }
 
+i {
+  pointer-events: none;
+}
+
 .btn-small i {
   line-height: 34px;
 }
