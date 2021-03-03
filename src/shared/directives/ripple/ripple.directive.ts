@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[appRipple]',
+  // tslint:disable-next-line: directive-selector
+  selector: '[pRipple]',
 })
 export class RippleDirective implements OnInit {
   @Input() ripplecolor: string;
