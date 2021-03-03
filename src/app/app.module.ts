@@ -6,9 +6,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AllComponentsComponent } from './all-components/all-components.component';
+import { BtnComponent } from './btn/btn.component';
 
 @NgModule({
-  declarations: [AppComponent, AllComponentsComponent],
+  declarations: [AppComponent, AllComponentsComponent, BtnComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -15,6 +15,7 @@ body {
   height: 100vh;
   font-family: Roboto;
   font-size: 16px;
+  color: #262626;
   font-weight: 400;
 }
 
@@ -28,6 +29,14 @@ span,
 p,
 label {
   margin: 0;
+}
+
+br {
+  user-select: none;
+}
+
+i {
+  pointer-events: none;
 }
 
 .container {
@@ -65,19 +74,14 @@ label {
   height: 56px;
   line-height: 56px;
 }
-
-i {
-  pointer-events: none;
-}
-
 .btn-small i {
-  line-height: 34px;
+  line-height: 36px;
 }
 .btn i {
-  line-height: 44px;
+  line-height: 46px;
 }
 .btn-large i {
-  line-height: 54px;
+  line-height: 56px;
 }
 
 .btn,
@@ -85,24 +89,44 @@ i {
 .btn-large {
   position: relative;
   margin: 0 5px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-  background-color: var(--primary);
-  color: white;
+  background-color: #cfcfcf;
+  color: #2e2e2e;
   border: 0;
   outline: none;
   font-size: 16px;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: 0.2s ease-in;
+  transition: 0.1s ease-in;
   user-select: none;
+  font-weight: 400;
 }
-
-.btn:hover,
-.btn-small:hover,
-.btn-large:hover {
+.btn:active,
+.btn-small:active,
+.btn-large:active {
+  filter: brightness(110%);
+}
+.btn:disabled,
+.btn-small:disabled,
+.btn-large:disabled {
+  pointer-events: none;
+  box-shadow: none;
+  opacity: 0.5;
+}
+.btn.elevation,
+.btn-small.elevation,
+.btn-large.elevation {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+.btn.elevation:hover,
+.btn-small.elevation:hover,
+.btn-large.elevation:hover {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
 }
-
+.btn.elevation:active,
+.btn-small.elevation:active,
+.btn-large.elevation:active {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
 .btn i.left,
 .btn-small i.left,
 .btn-large i.left {
@@ -116,13 +140,32 @@ i {
   margin-left: 15px;
 }
 
+.btn-small.floating {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+}
+.btn.floating {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border-radius: 50%;
+}
+.btn-large.floating {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 50%;
+}
+
 .flat {
   color: black;
   background-color: transparent;
   box-shadow: none;
 }
 .flat:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.05);
   box-shadow: none;
 }
 
@@ -130,13 +173,14 @@ i {
   position: relative;
   overflow: hidden;
 }
-
 .ripple {
   --scale: 0;
   --opacity: 0;
-  --ripple-color: rgba(0, 0, 0, 0.15);
+  --ripple-color: rgba(0, 0, 0, 0.1);
   pointer-events: none;
   display: block;
+  width: 1px;
+  height: 1px;
   position: absolute;
   top: 0;
   left: 0;
@@ -145,14 +189,30 @@ i {
 .ripple:after {
   content: "";
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 2px;
+  height: 2px;
   border-radius: 50%;
   background-color: var(--ripple-color);
   transform: scale(var(--scale));
   opacity: var(--opacity);
-  transition: transform 0.8s ease-out, opacity 0.3s linear;
+  transition: transform 1.3s ease-out, opacity 0.3s linear;
 }
 .ripple:not(:empty) {
   transform: translateZ(0);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+  color: white;
+}
+.bg-secondary {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.primary {
+  color: var(--primary);
+}
+.secondary {
+  color: var(--secondary);
 }

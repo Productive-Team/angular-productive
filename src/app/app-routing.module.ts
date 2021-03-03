@@ -1,11 +1,16 @@
+import { BtnComponent } from './btn/btn.component';
 import { AllComponentsComponent } from './all-components/all-components.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '1',
+    path: '',
     component: AllComponentsComponent,
+  },
+  {
+    path: 'Buttons',
+    component: BtnComponent,
   },
 ];
 

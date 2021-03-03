@@ -34,7 +34,9 @@ export class RippleDirective implements OnInit {
 
     const y = Math.abs(positions.top - event.clientY);
     const x = Math.abs(positions.left - event.clientX);
-    let scale = Math.min(positions.height, positions.width);
+    const scale = Math.min(positions.width + positions.height);
+    // let scale = Math.min(positions.width, positions.height);
+    console.log(positions.width);
     if (this.rippleCentered === false) {
       ripple.style.transform = `translateY(${y}px) translateX(${x}px)`;
     } else {
@@ -42,9 +44,6 @@ export class RippleDirective implements OnInit {
       const heightHalf = positions.height / 2.05;
       ripple.style.top = heightHalf + 'px';
       ripple.style.left = widthHalf + 'px';
-    }
-    if (scale > 250) {
-      scale = 250;
     }
     ripple.style.setProperty('--opacity', '1');
     ripple.style.setProperty('--scale', scale.toString());
@@ -71,12 +70,18 @@ export class RippleDirective implements OnInit {
           b.remove();
         });
       });
+    });
+  }
+  @HostListener('mouseout', ['$event']) mouseOut(event): void {
+    const element = event.target;
+    const ripple = element.querySelectorAll('span');
+    ripple.forEach((b) => {
       setTimeout(() => {
         b.style.setProperty('--opacity', '0');
         b.addEventListener('transitionend', () => {
           b.remove();
         });
-      }, 910);
+      }, 800);
     });
   }
 }
