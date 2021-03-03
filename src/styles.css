@@ -152,7 +152,7 @@ i {
   background-color: rgba(0, 0, 0, 0.15);
   transform: scale(var(--scale));
   opacity: var(--opacity);
-  transition: transform 0.8s ease-out, opacity 0.3s;
+  transition: transform 0.8s ease-out, opacity 0.3s linear;
 }
 .ripple:not(:empty) {
   transform: translateZ(0);

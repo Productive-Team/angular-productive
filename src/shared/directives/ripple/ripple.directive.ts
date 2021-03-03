@@ -24,7 +24,6 @@ export class RippleDirective {
   }
 
   @HostListener('pointerdown', ['$event']) logCons(event) {
-    console.log(event);
     const element = event.target;
     const ripple = document.createElement('span');
     ripple.setAttribute('class', 'ripple');
@@ -58,7 +57,12 @@ export class RippleDirective {
           b.remove();
         });
       });
+      setTimeout(() => {
+        b.style.setProperty('--opacity', '0');
+        b.addEventListener('transitionend', () => {
+          b.remove();
+        });
+      }, 810);
     });
-    console.log(event);
   }
 }
