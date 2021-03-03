@@ -213,7 +213,7 @@ i {
 .btn-large {
   position: relative;
   margin: 0 5px;
-  background-color: #cfcfcf;
+  background-color: #e4e4e4;
   color: #2e2e2e;
   border: 0;
   outline: none;
@@ -223,6 +223,7 @@ i {
   transition: 0.1s ease-in;
   user-select: none;
   font-weight: 400;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn:active,
 .btn-small:active,
@@ -341,9 +342,9 @@ i {
 
 /* #region TextColors */
 .primary {
-  color: var(--primary);
+  color: var(--primary) !important;
 }
 .secondary {
-  color: var(--secondary);
+  color: var(--secondary) !important;
 }
 /* #endregion TextColors */
