@@ -40,10 +40,9 @@ export class RippleDirective implements OnInit {
     if (this.rippleCentered === false) {
       ripple.style.transform = `translateY(${y}px) translateX(${x}px)`;
     } else {
-      const widthHalf = positions.width / 2.05;
-      const heightHalf = positions.height / 2.05;
-      ripple.style.top = heightHalf + 'px';
-      ripple.style.left = widthHalf + 'px';
+      ripple.style.top = '50%';
+      ripple.style.left = '50%';
+      ripple.style.transform = 'translate(-50%, -50%)';
     }
     ripple.style.setProperty('--opacity', '1');
     ripple.style.setProperty('--scale', scale.toString());

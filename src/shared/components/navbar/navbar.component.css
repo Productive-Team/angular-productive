@@ -1,0 +1,7 @@
+.navbar {
+  background-color: black;
+  color: set-text-color(var(--bg-color));
+  width: 100%;
+  outline: none;
+  border: none;
+}
