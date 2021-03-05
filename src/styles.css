@@ -388,6 +388,11 @@ i {
 .navbar.medium .btn-small.floating {
   top: 5px;
 }
+.navbar.small .btn.floating,
+.navbar.small .btn-small.floating,
+.navbar.small .btn-large.floating {
+  top: 0px;
+}
 .navbar.large .btn.floating,
 .navbar.large .btn-small.floating,
 .navbar.large .btn-large.floating {

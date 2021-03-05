@@ -1,5 +1,7 @@
-<nav class="navbar">
-  <div class="wrapper">
-    <ng-content select="[navbarContent]"></ng-content>
-  </div>
-</nav>
+<div [class]="fixed ? 'wrap-out-nav' : ''" id="wrap-1">
+  <nav class="navbar">
+    <div class="wrapper">
+      <ng-content select="[navbarContent]"></ng-content>
+    </div>
+  </nav>
+</div>

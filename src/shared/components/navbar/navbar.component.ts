@@ -68,6 +68,11 @@ export class NavbarComponent implements OnInit {
     if (this.elevated) {
       navbarElement.classList.add('elevation');
     }
+    if (this.fixed) {
+      navbarElement.classList.add('fixed');
+      const outWrap = document.getElementById('wrap-1');
+      outWrap.style.height = navbarElement.offsetHeight.toString() + 'px';
+    }
   }
 
   getContrastYIQ(hexcolor): string {
