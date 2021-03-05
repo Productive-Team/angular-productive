@@ -52,6 +52,12 @@ i {
   margin: 0 auto;
 }
 
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 .row .col {
   box-sizing: border-box;
   float: left;
@@ -188,6 +194,7 @@ i {
   padding: 0 6px;
   height: 36px;
   line-height: 36px;
+  font-size: 14px !important;
 }
 .btn {
   padding: 0 12px;
@@ -211,6 +218,7 @@ i {
 .btn,
 .btn-small,
 .btn-large {
+  display: inline-block;
   position: relative;
   margin: 0 5px;
   background-color: #e4e4e4;
@@ -285,7 +293,6 @@ i {
 .btn.flat,
 .btn-small.flat,
 .btn-large.flat {
-  color: black;
   background-color: transparent;
   box-shadow: none;
 }
@@ -313,7 +320,7 @@ i {
   left: 0;
   background-color: transparent;
 }
-.ripple:after {
+.ripple::after {
   content: "";
   display: block;
   width: 2px;
@@ -322,7 +329,7 @@ i {
   background-color: var(--ripple-color);
   transform: scale(var(--scale));
   opacity: var(--opacity);
-  transition: transform 1.3s ease-out, opacity 0.3s linear;
+  transition: transform 1.3s ease-out, opacity 0.35s linear;
 }
 .ripple:not(:empty) {
   transform: translateZ(0);
@@ -331,12 +338,12 @@ i {
 
 /*#region BackColors*/
 .bg-primary {
-  background-color: var(--primary);
-  color: white;
+  background-color: var(--primary) !important;
+  color: white !important;
 }
 .bg-secondary {
-  background-color: var(--secondary);
-  color: white;
+  background-color: var(--secondary) !important;
+  color: white !important;
 }
 /*#endregion BackColors*/
 
@@ -348,3 +355,51 @@ i {
   color: var(--secondary) !important;
 }
 /* #endregion TextColors */
+
+/* #region NavbarStyles */
+.navbar ul.left {
+  float: left;
+  height: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar ul.right {
+  float: right;
+  height: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar ul.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  height: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar ul li {
+  display: inline;
+}
+.navbar.medium .btn.floating,
+.navbar.medium .btn-small.floating {
+  top: 5px;
+}
+.navbar.large .btn.floating,
+.navbar.large .btn-small.floating,
+.navbar.large .btn-large.floating {
+  top: 5px;
+}
+@media screen and (max-width: 800px) {
+  .navbar .right,
+  .navbar .left {
+    display: none;
+  }
+  .navbar .center {
+    width: 100%;
+  }
+}
+/* #endregion NavbarStyles */

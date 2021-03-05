@@ -1,7 +1,17 @@
 .navbar {
-  background-color: black;
-  color: set-text-color(var(--bg-color));
-  width: 100%;
+  background-color: rgb(240, 240, 240);
+  color: black;
+  padding: 0 0.5rem;
   outline: none;
   border: none;
+}
+.navbar .wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+.elevation {
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
+    0 1px 5px 0 rgb(0 0 0 / 20%);
 }

@@ -7,9 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AllComponentsComponent } from './all-components/all-components.component';
 import { BtnComponent } from './btn/btn.component';
+import { GridComponent } from './grid/grid.component';
 
 @NgModule({
-  declarations: [AppComponent, AllComponentsComponent, BtnComponent],
+  declarations: [AppComponent, AllComponentsComponent, BtnComponent, GridComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -1,5 +1,29 @@
-<div class="container">
-  <h1 class="text-center">Angular Productive</h1>
-  <hr>
-</div>
+<app-navbar size="medium" backgroundColor="#171717">
+  <ng-container navbarContent>
+    <ul class="left">
+      <li>
+        <button class="btn floating flat" pRipple rippleCentered="true" ripplecolor="#ffffff26">
+          <i class="material-icons">menu</i>
+        </button>
+      </li>
+    </ul>
+    <ul class="center">
+      <li>
+        <h3>Angular Productive</h3>
+      </li>
+    </ul>
+    <ul class="right">
+      <li>
+        <button class="btn bg-primary" pRipple ripplecolor="#ffffff26">
+          Acessar
+        </button>
+      </li>
+      <li>
+        <button class="btn flat" pRipple ripplecolor="#ffffff26">
+          Saiba Mais
+        </button>
+      </li>
+    </ul>
+  </ng-container>
+</app-navbar>
 <router-outlet></router-outlet>
