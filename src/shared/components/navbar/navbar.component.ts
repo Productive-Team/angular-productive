@@ -1,4 +1,3 @@
-import { wrapReference } from '@angular/compiler/src/render3/util';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -36,13 +35,48 @@ export class NavbarComponent implements OnInit {
       default:
         navbarElement.style.height = '56px';
         navbarElement.style.lineHeight = '56px';
+        navbarElement.classList.add('medium');
     }
     switch (this.backgroundColor) {
       case 'bg-primary':
         navbarElement.classList.add('bg-primary');
+        navbarElement.childNodes.forEach((x) => {
+          const node = x.childNodes;
+          let i = 0;
+          for (; i < node.length; i++) {
+            const nodeElement = node[i];
+            nodeElement.childNodes.forEach((c) => {
+              const node2 = c.childNodes;
+              node2.forEach((v) => {
+                const node3 = v as HTMLDivElement;
+                const color = getComputedStyle(document.body).getPropertyValue(
+                  '--primary'
+                );
+                node3.style.color = this.getContrastYIQ(color.trim());
+              });
+            });
+          }
+        });
         break;
       case 'bg-secondary':
         navbarElement.classList.add('bg-secondary');
+        navbarElement.childNodes.forEach((x) => {
+          const node = x.childNodes;
+          let i = 0;
+          for (; i < node.length; i++) {
+            const nodeElement = node[i];
+            nodeElement.childNodes.forEach((c) => {
+              const node2 = c.childNodes;
+              node2.forEach((v) => {
+                const node3 = v as HTMLDivElement;
+                const color = getComputedStyle(document.body).getPropertyValue(
+                  '--secondary'
+                );
+                node3.style.color = this.getContrastYIQ(color.trim());
+              });
+            });
+          }
+        });
         break;
       case undefined:
         break;
@@ -67,6 +101,8 @@ export class NavbarComponent implements OnInit {
     }
     if (this.elevated) {
       navbarElement.classList.add('elevation');
+    } else {
+      navbarElement.classList.remove('elevation');
     }
     if (this.fixed) {
       navbarElement.classList.add('fixed');

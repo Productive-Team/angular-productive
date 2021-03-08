@@ -41,8 +41,19 @@ i {
   padding: 15px 5px;
   margin: 0 5%;
 }
+.container-sidenav {
+  padding: 15px 10px;
+  margin-left: 250px;
+}
+@media screen and (max-width: 1000px) {
+  .container-sidenav {
+    padding: 15px 5px;
+    margin: 0 5%;
+  }
+}
 @media screen and (max-width: 600px) {
-  .container {
+  .container,
+  .container-sidenav {
     padding: 10px 2.5px;
     margin: 0 2%;
   }

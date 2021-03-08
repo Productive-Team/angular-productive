@@ -1,4 +1,4 @@
-<app-navbar size="small" backgroundColor="#171717" fixed="true">
+<app-navbar backgroundColor="bg-secondary" [elevated]="false">
   <ng-container navbarContent>
     <ul class="left">
       <li>
@@ -14,7 +14,7 @@
     </ul>
     <ul class="right">
       <li>
-        <button class="btn bg-primary" pRipple ripplecolor="#ffffff26">
+        <button class="btn flat" pRipple ripplecolor="#ffffff26">
           Acessar
         </button>
       </li>
@@ -26,4 +26,5 @@
     </ul>
   </ng-container>
 </app-navbar>
+<app-sidenav></app-sidenav>
 <router-outlet></router-outlet>
