@@ -1,8 +1,9 @@
-<app-navbar backgroundColor="bg-secondary" [elevated]="false">
+<p-sidenav [hidden]="true"></p-sidenav>
+<app-navbar backgroundColor="bg-secondary">
   <ng-container navbarContent>
     <ul class="left">
       <li>
-        <button class="btn floating flat" pRipple rippleCentered="true" ripplecolor="#ffffff26">
+        <button class="btn floating flat" pRipple rippleCentered="true" ripplecolor="#ffffff26" p-sidenav-trigger>
           <i class="material-icons">menu</i>
         </button>
       </li>
@@ -26,5 +27,6 @@
     </ul>
   </ng-container>
 </app-navbar>
-<app-sidenav></app-sidenav>
-<router-outlet></router-outlet>
+<div class="container-sidenav">
+  <router-outlet></router-outlet>
+</div>

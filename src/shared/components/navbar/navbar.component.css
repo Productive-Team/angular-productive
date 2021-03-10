@@ -3,6 +3,7 @@
   color: black;
   padding: 0 0.5rem;
   outline: none;
+  /* transition: 0.2s; */
   border: none;
 }
 .navbar .wrapper {
@@ -26,4 +27,10 @@
 .wrap-out-nav {
   position: relative;
   width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+  .navbar {
+    margin-left: 0 !important;
+  }
 }

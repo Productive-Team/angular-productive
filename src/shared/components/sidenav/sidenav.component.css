@@ -1,10 +1,12 @@
 .sidenav {
   background-color: red;
   width: 250px;
+  margin-right: 250px;
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
+  z-index: 999;
   transition: 0.2s ease-out;
 }
 
@@ -14,12 +16,13 @@
 }
 
 .elevation {
-  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
-    0 1px 5px 0 rgb(0 0 0 / 20%);
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.45);
+  -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.45);
 }
 
 @media screen and (max-width: 1000px) {
   .sidenav {
-    transform: translateX(-100%);
+    transform: translateX(-150%);
   }
 }

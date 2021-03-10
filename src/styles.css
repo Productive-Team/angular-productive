@@ -311,6 +311,11 @@ i {
   background-color: rgba(0, 0, 0, 0.05);
   box-shadow: none;
 }
+.btn.floating.flat:hover,
+.btn-small.floating.flat:hover,
+.btn-large.floating.flat:hover {
+  background-color: transparent;
+}
 /*#endregion Buttons */
 
 /*#region RippleEffect*/
@@ -340,7 +345,8 @@ i {
   background-color: var(--ripple-color);
   transform: scale(var(--scale));
   opacity: var(--opacity);
-  transition: transform 1.3s ease-out, opacity 0.35s linear;
+  transition: transform 1s ease-out, opacity 0.3s ease-out;
+  /* ease-out */
 }
 .ripple:not(:empty) {
   transform: translateZ(0);
@@ -419,3 +425,18 @@ i {
   }
 }
 /* #endregion NavbarStyles */
+
+/* #region BackdropStyle */
+.backdrop {
+  position: fixed;
+  cursor: pointer;
+  z-index: 998;
+  background-color: #000;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  opacity: 0;
+  transition: 0.15s linear;
+  -webkit-tap-highlight-color: transparent;
+}
+/* #endregion BackdropStyle*/

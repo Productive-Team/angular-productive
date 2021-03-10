@@ -8,35 +8,59 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   @Input() size: string;
   @Input() backgroundColor: string;
-  @Input() elevated = true;
+  @Input() elevated = false;
   @Input() fixed = false;
+  @Input() hasSidenav = false;
 
   textColor: string;
   constructor() {}
 
   ngOnInit(): void {
-    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
-    switch (this.size) {
-      case 'small':
-        navbarElement.style.height = '46px';
-        navbarElement.style.lineHeight = '46px';
-        navbarElement.classList.add('small');
-        break;
-      case 'medium':
-        navbarElement.style.height = '56px';
-        navbarElement.style.lineHeight = '56px';
-        navbarElement.classList.add('medium');
-        break;
-      case 'large':
-        navbarElement.style.height = '66px';
-        navbarElement.style.lineHeight = '66px';
-        navbarElement.classList.add('large');
-        break;
-      default:
-        navbarElement.style.height = '56px';
-        navbarElement.style.lineHeight = '56px';
-        navbarElement.classList.add('medium');
+    this.navbarSize();
+    this.navbarBackground();
+    if (this.elevated) {
+      this.navElevation();
     }
+    if (this.hasSidenav) {
+      this.navHasSide();
+    }
+    if (this.fixed) {
+      this.navFixed();
+    }
+  }
+
+  getContrastYIQ(hexcolor): string {
+    hexcolor = hexcolor.replace('#', '');
+    const r = parseInt(hexcolor.substr(0, 2), 16);
+    const g = parseInt(hexcolor.substr(2, 2), 16);
+    const b = parseInt(hexcolor.substr(4, 2), 16);
+    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+    return yiq >= 125 ? 'black' : 'white';
+  }
+
+  navFixed(): void {
+    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+    navbarElement.classList.add('fixed');
+    const outWrap = document.getElementById('wrap-1');
+    outWrap.style.height = navbarElement.offsetHeight.toString() + 'px';
+  }
+
+  navElevation(): void {
+    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+    navbarElement.classList.add('elevation');
+  }
+
+  navHasSide(): void {
+    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+    if (window.innerWidth > 1000) {
+      navbarElement.style.marginLeft = '250px';
+    } else {
+      navbarElement.style.marginLeft = '0';
+    }
+  }
+
+  navbarBackground(): void {
+    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
     switch (this.backgroundColor) {
       case 'bg-primary':
         navbarElement.classList.add('bg-primary');
@@ -99,30 +123,30 @@ export class NavbarComponent implements OnInit {
         });
         break;
     }
-    if (this.elevated) {
-      navbarElement.classList.add('elevation');
-    } else {
-      navbarElement.classList.remove('elevation');
-    }
-    if (this.fixed) {
-      navbarElement.classList.add('fixed');
-      const outWrap = document.getElementById('wrap-1');
-      outWrap.style.height = navbarElement.offsetHeight.toString() + 'px';
-    }
   }
 
-  getContrastYIQ(hexcolor): string {
-    hexcolor = hexcolor.replace('#', '');
-    const r = parseInt(hexcolor.substr(0, 2), 16);
-    const g = parseInt(hexcolor.substr(2, 2), 16);
-    const b = parseInt(hexcolor.substr(4, 2), 16);
-    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    return yiq >= 125 ? 'black' : 'white';
+  navbarSize(): void {
+    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+    switch (this.size) {
+      case 'small':
+        navbarElement.style.height = '46px';
+        navbarElement.style.lineHeight = '46px';
+        navbarElement.classList.add('small');
+        break;
+      case 'medium':
+        navbarElement.style.height = '56px';
+        navbarElement.style.lineHeight = '56px';
+        navbarElement.classList.add('medium');
+        break;
+      case 'large':
+        navbarElement.style.height = '66px';
+        navbarElement.style.lineHeight = '66px';
+        navbarElement.classList.add('large');
+        break;
+      default:
+        navbarElement.style.height = '56px';
+        navbarElement.style.lineHeight = '56px';
+        navbarElement.classList.add('medium');
+    }
   }
-}
-
-export class SizeEnum {
-  small = 1;
-  medium = 2;
-  big = 3;
 }
