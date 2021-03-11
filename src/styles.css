@@ -529,3 +529,10 @@ a.btn-large.floating {
   -webkit-tap-highlight-color: transparent;
 }
 /* #endregion BackdropStyle*/
+
+/* #region InputStyles */
+.p-input {
+  padding: 5px 10px;
+  outline: none;
+}
+/* #endregion InputStyles */

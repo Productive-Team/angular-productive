@@ -7,6 +7,7 @@ import {
   SidenavComponent,
 } from './components/sidenav/sidenav.component';
 import { CardComponent } from './components/card/card.component';
+import { FieldsetComponent } from './components/fieldset/fieldset.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -16,6 +17,7 @@ import { CardComponent } from './components/card/card.component';
     SidenavComponent,
     SidenavTriggerDirective,
     CardComponent,
+    FieldsetComponent,
   ],
   exports: [
     RippleDirective,
