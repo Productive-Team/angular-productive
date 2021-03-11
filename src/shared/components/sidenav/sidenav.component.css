@@ -1,13 +1,13 @@
 .sidenav {
-  background-color: red;
+  background-color: #fff;
   width: 250px;
-  margin-right: 250px;
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   z-index: 999;
   transition: 0.2s ease-out;
+  overflow: hidden;
 }
 
 .sidenav-wrap {

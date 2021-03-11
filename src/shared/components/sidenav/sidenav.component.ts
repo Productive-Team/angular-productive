@@ -53,6 +53,7 @@ export class SidenavTriggerDirective {
 export class SidenavComponent implements OnInit {
   @Input() elevated = false;
   @Input() hidden = false;
+  @Input() backgroundColor: string;
 
   @HostListener('window:resize', ['$event']) onResize(event) {
     if (!this.hidden) {

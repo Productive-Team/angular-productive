@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'Components',
     component: AllComponentsComponent,
   },
-  // {
-  //   path: '',
-  //   component: BtnComponent,
-  // },
+  {
+    path: 'Button',
+    component: BtnComponent,
+  },
 ];
 
 @NgModule({

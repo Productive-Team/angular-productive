@@ -3,7 +3,6 @@
   color: black;
   padding: 0 0.5rem;
   outline: none;
-  /* transition: 0.2s; */
   border: none;
 }
 .navbar .wrapper {
@@ -23,7 +22,6 @@
   top: 0;
   z-index: 10;
 }
-
 .wrap-out-nav {
   position: relative;
   width: 100%;
