@@ -1,3 +1,4 @@
+import { ClassField } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -35,7 +36,11 @@ export class NavbarComponent implements OnInit {
     const g = parseInt(hexcolor.substr(2, 2), 16);
     const b = parseInt(hexcolor.substr(4, 2), 16);
     const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    return yiq >= 125 ? 'black' : 'white';
+    if (isNaN(yiq)) {
+      return '#8a8a8a';
+    } else {
+      return yiq >= 145 ? 'black' : 'white';
+    }
   }
 
   navFixed(): void {
@@ -61,67 +66,39 @@ export class NavbarComponent implements OnInit {
 
   navbarBackground(): void {
     const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+    const buttons = navbarElement.getElementsByTagName('button');
+    const hrefTags = navbarElement.getElementsByTagName('a');
     switch (this.backgroundColor) {
       case 'bg-primary':
         navbarElement.classList.add('bg-primary');
-        navbarElement.childNodes.forEach((x) => {
-          const node = x.childNodes;
-          let i = 0;
-          for (; i < node.length; i++) {
-            const nodeElement = node[i];
-            nodeElement.childNodes.forEach((c) => {
-              const node2 = c.childNodes;
-              node2.forEach((v) => {
-                const node3 = v as HTMLDivElement;
-                const color = getComputedStyle(document.body).getPropertyValue(
-                  '--primary'
-                );
-                node3.style.color = this.getContrastYIQ(color.trim());
-              });
-            });
-          }
-        });
+        this.backgroundColor = getComputedStyle(document.body)
+          .getPropertyValue('--primary')
+          .trim();
         break;
       case 'bg-secondary':
         navbarElement.classList.add('bg-secondary');
-        navbarElement.childNodes.forEach((x) => {
-          const node = x.childNodes;
-          let i = 0;
-          for (; i < node.length; i++) {
-            const nodeElement = node[i];
-            nodeElement.childNodes.forEach((c) => {
-              const node2 = c.childNodes;
-              node2.forEach((v) => {
-                const node3 = v as HTMLDivElement;
-                const color = getComputedStyle(document.body).getPropertyValue(
-                  '--secondary'
-                );
-                node3.style.color = this.getContrastYIQ(color.trim());
-              });
-            });
-          }
-        });
+        this.backgroundColor = getComputedStyle(document.body)
+          .getPropertyValue('--secondary')
+          .trim();
         break;
       case undefined:
         break;
       default:
         navbarElement.style.backgroundColor = this.backgroundColor;
-        navbarElement.classList.add('medium');
-        navbarElement.childNodes.forEach((x) => {
-          const node = x.childNodes;
-          let i = 0;
-          for (; i < node.length; i++) {
-            const nodeElement = node[i];
-            nodeElement.childNodes.forEach((c) => {
-              const node2 = c.childNodes;
-              node2.forEach((v) => {
-                const node3 = v as HTMLDivElement;
-                node3.style.color = this.getContrastYIQ(this.backgroundColor);
-              });
-            });
-          }
-        });
         break;
+    }
+    if (this.backgroundColor !== undefined) {
+      this.backgroundColor.trim();
+      const textColor = this.getContrastYIQ(this.backgroundColor);
+      let b = 0;
+      for (; b < buttons.length; b++) {
+        buttons[b].style.color = textColor;
+      }
+      let a = 0;
+      for (; a < hrefTags.length; a++) {
+        hrefTags[a].style.color = textColor;
+      }
+      navbarElement.style.color = textColor;
     }
   }
 

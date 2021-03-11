@@ -455,12 +455,12 @@ a.btn-large.floating {
   top: 5px;
 }
 @media screen and (max-width: 800px) {
-  .navbar .right,
-  .navbar .left {
+  .navbar ul.right,
+  .navbar ul.left {
     display: none;
   }
-  .navbar .center {
-    width: 100%;
+  .navbar ul.sidenav-trigger-parent {
+    display: block;
   }
 }
 /* #endregion NavbarStyles */
@@ -477,7 +477,7 @@ a.btn-large.floating {
   padding: 0 5px;
   height: 46px;
   line-height: 46px;
-  color: #2e2e2e;
+  color: #262626;
   font-size: 16px;
   font-weight: 400;
   text-align: start;
@@ -519,7 +519,6 @@ a.btn-large.floating {
 /* #region BackdropStyle */
 .backdrop {
   position: fixed;
-  cursor: pointer;
   z-index: 998;
   background-color: #000;
   width: 100%;

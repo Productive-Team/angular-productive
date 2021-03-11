@@ -6,6 +6,7 @@ import {
   SidenavTriggerDirective,
   SidenavComponent,
 } from './components/sidenav/sidenav.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -14,12 +15,14 @@ import {
     NavbarComponent,
     SidenavComponent,
     SidenavTriggerDirective,
+    CardComponent,
   ],
   exports: [
     RippleDirective,
     NavbarComponent,
     SidenavComponent,
     SidenavTriggerDirective,
+    CardComponent,
   ],
 })
 export class SharedModule {}

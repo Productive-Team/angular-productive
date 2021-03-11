@@ -1,4 +1,4 @@
-<p-sidenav [hidden]="true">
+<p-sidenav [hidden]="false" [elevated]="true">
   <ng-container side-content>
     <li>
       <div class="img-container">
@@ -29,7 +29,7 @@
     </li>
   </ng-container>
 </p-sidenav>
-<app-navbar backgroundColor="bg-primary">
+<app-navbar backgroundColor="bg-secondary" [hasSidenav]="true">
   <ng-container navbarContent>
     <ul class="left">
       <li>
@@ -45,7 +45,7 @@
     </ul>
     <ul class="right">
       <li>
-        <button class="btn-small flat bg-secondary" pRipple ripplecolor="#ffffff26">
+        <button class="btn-small flat bg-secondary" pRipple ripplecolor="#ffffff26" [routerLink]="['/Components']">
           Components
         </button>
       </li>
@@ -60,6 +60,6 @@
     </ul>
   </ng-container>
 </app-navbar>
-<div class="container">
+<div class="container-sidenav">
   <router-outlet></router-outlet>
 </div>
