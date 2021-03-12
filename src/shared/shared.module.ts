@@ -25,6 +25,7 @@ import { FieldsetComponent } from './components/fieldset/fieldset.component';
     SidenavComponent,
     SidenavTriggerDirective,
     CardComponent,
+    FieldsetComponent,
   ],
 })
 export class SharedModule {}

@@ -35,8 +35,8 @@ export class RippleDirective implements OnInit {
 
     const y = Math.abs(positions.top - event.clientY);
     const x = Math.abs(positions.left - event.clientX);
-    const scale = Math.min(positions.width + positions.height);
-    // let scale = Math.min(positions.width, positions.height);
+    // const scale = Math.min(positions.width + positions.height);
+    const scale = (element.clientWidth / 2) * 3.25;
     if (this.rippleCentered === false) {
       ripple.style.transform = `translateY(${y}px) translateX(${x}px)`;
     } else {

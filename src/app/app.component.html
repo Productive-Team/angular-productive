@@ -29,7 +29,7 @@
     </li>
   </ng-container>
 </p-sidenav>
-<app-navbar backgroundColor="bg-secondary" [hasSidenav]="true">
+<app-navbar backgroundColor="bg-primary" [hasSidenav]="true">
   <ng-container navbarContent>
     <ul class="left">
       <li>
@@ -45,15 +45,21 @@
     </ul>
     <ul class="right">
       <li>
-        <button class="btn-small flat bg-secondary" pRipple ripplecolor="#ffffff26" [routerLink]="['/Components']">
+        <button class="btn flat bg-secondary" pRipple ripplecolor="#ffffff26" [routerLink]="['/Components']">
           Components
         </button>
       </li>
       <li>
-        <a class="btn-small flat" pRipple ripplecolor="#ffffff26" rippleCentered="true"
+        <a class="btn flat" pRipple ripplecolor="#ffffff26">
+          <i class="material-icons left">home</i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a class="btn flat" pRipple ripplecolor="#ffffff26" rippleCentered="true"
           href="https://github.com/Productive-Team/angular-productive" target="_blank">
           <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
-            style="top: 6px; position: relative;" class="left">
+            style="top: 12px; position: relative;" class="left">
           Github
         </a>
       </li>

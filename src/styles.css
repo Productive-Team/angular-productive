@@ -327,13 +327,6 @@ a.disabled {
 a.btn,
 a.btn-small,
 a.btn-large {
-  vertical-align: middle;
-  text-decoration: none;
-  -webkit-user-drag: none;
-}
-a.btn.floating,
-a.btn-small.floating,
-a.btn-large.floating {
   vertical-align: top;
   text-decoration: none;
   -webkit-user-drag: none;
@@ -454,6 +447,14 @@ a.btn-large.floating {
 .navbar.large .btn-large.floating {
   top: 5px;
 }
+
+.navbar a.btn,
+.navbar a.btn-small,
+.navbar a.btn-large {
+  vertical-align: middle;
+  text-decoration: none;
+  -webkit-user-drag: none;
+}
 @media screen and (max-width: 800px) {
   .navbar ul.right,
   .navbar ul.left {
@@ -531,8 +532,43 @@ a.btn-large.floating {
 /* #endregion BackdropStyle*/
 
 /* #region InputStyles */
-.p-input {
-  padding: 5px 10px;
-  outline: none;
+.fieldset {
+  position: relative;
 }
+.p-input-label {
+  position: absolute;
+  bottom: 8px;
+  left: 5px;
+  color: rgba(0, 0, 0, 0.5);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.p-input {
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.01);
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 16px;
+  outline: none;
+  padding: 5px;
+  padding-top: 10px;
+  width: 100%;
+}
+.p-input-bar {
+  position: relative;
+  border-bottom: 2px solid var(--primary);
+  width: 0;
+  bottom: 2px;
+  transform: translateX(-50%);
+  left: 50%;
+}
+.p-input:focus ~ .p-input-bar {
+  transition: 0.25s ease-out;
+  width: 100%;
+}
+/* .p-input:focus ~ .p-input-label {
+  transform: scale(0.5);
+  transform: translateY(-10%);
+} */
 /* #endregion InputStyles */
