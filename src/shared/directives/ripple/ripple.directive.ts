@@ -15,6 +15,10 @@ export class RippleDirective implements OnInit {
   @Input() pRippleUnbounded = false;
   @Input() pRippleDuration = 450;
   @Input() pRippleRadius = 0;
+
+  isPointerDown?: boolean;
+  activeRipples = [];
+  transitionedRipples = [];
   constructor(private el: ElementRef) {
     el.nativeElement.classList.add('p-ripple-container');
   }
@@ -25,73 +29,18 @@ export class RippleDirective implements OnInit {
     }
   }
 
-  // @HostListener('pointerdown', ['$event']) createRipple(event) {
-  //   const element = event.target;
-  //   const ripple = document.createElement('div');
-  //   ripple.setAttribute('class', 'ripple');
-  //   element.insertAdjacentElement('beforeend', ripple);
-  //   const positions = element.getBoundingClientRect();
-  //   console.log(element);
-  //   console.log(positions);
-
-  //   let y = Math.abs(positions.top - event.clientY);
-  //   let x = Math.abs(positions.left - event.clientX);
-  //   if (this.rippleCentered) {
-  //     x = positions.width / 2;
-  //     y = positions.height / 2;
-  //   }
-  //   ripple.style.transform = `translateY(${y}px) translateX(${x}px)`;
-
-  //   const a = this.distanceToFurthestCorner(x, y, positions);
-  //   console.log(a);
-  //   const scale = (element.clientWidth / 2) * 3.25;
-  //   ripple.style.setProperty('--opacity', '1');
-  //   ripple.style.width = `${a}px`;
-  //   ripple.style.height = `${a}px`;
-  //   console.log(ripple);
-  //   // ripple.style.setProperty('--scale', scale.toString());
-
-  //   if (this.ripplecolor !== undefined && this.ripplecolor !== '') {
-  //     ripple.style.setProperty('--ripple-color', this.ripplecolor);
-  //   }
-  //   // function calmRipple() {
-  //   // ripple.removeEventListener('transitionend', calmRipple);
-  //   // ripple.style.setProperty('--opacity', '0');
-  //   // ripple.addEventListener('transitionend', () => {
-  //   //   ripple.remove();
-  //   // });
-  //   // }
-  //   // ripple.addEventListener('transitionend', calmRipple);
-  // }
-  // @HostListener('pointerup', ['$event']) removeRippleOnPointerUp(event) {
-  //   const element = event.target;
-  //   const ripple = element.querySelectorAll('div');
-  //   ripple.forEach((b) => {
-  //     b.addEventListener('transitionend', () => {
-  //       b.style.setProperty('--opacity', '0');
-  //       b.addEventListener('transitionend', () => {
-  //         b.remove();
-  //       });
-  //     });
-  //   });
-  // }
-  // @HostListener('mouseout', ['$event']) removeRippleOnMouseOut(event): void {
-  //   const element = event.target;
-  //   const ripple = element.querySelectorAll('div');
-  //   ripple.forEach((b) => {
-  //     setTimeout(() => {
-  //       b.style.setProperty('--opacity', '0');
-  //       b.addEventListener('transitionend', () => {
-  //         b.remove();
-  //       });
-  //     }, 800);
-  //   });
-  // }
-
   @HostListener('pointerdown', ['$event']) onMouseClick(event) {
+    this.isPointerDown = true;
     this.createRippleEffect(event.target, event.clientX, event.clientY);
   }
-
+  @HostListener('pointerup', ['$event']) onMouseUp(event) {
+    this.isPointerDown = false;
+    this.fadeOutRipple(event.target);
+  }
+  @HostListener('mouseout', ['$event']) onMouseOut(event) {
+    this.isPointerDown = false;
+    this.fadeOutRipple(event.target);
+  }
   createRippleEffect(element: HTMLElement, x: number, y: number): void {
     const rippleContainerElement = element;
     const ripple = document.createElement('div');
@@ -125,6 +74,37 @@ export class RippleDirective implements OnInit {
     this.persistStyleChanges(ripple);
 
     ripple.style.transform = 'scale(1)';
+    ripple.addEventListener('transitionend', () => {
+      ripple.classList.add('ripple-transitioned');
+    });
+  }
+
+  fadeOutRipple(element: HTMLElement): void {
+    const rippleContainerElement = element;
+    const ripplesTransitioned = rippleContainerElement.getElementsByClassName(
+      'ripple-transitioned'
+    );
+    const ripplesNotTransitioned = rippleContainerElement.getElementsByClassName(
+      'p-ripple'
+    );
+    let rnt = 0;
+    for (; rnt < ripplesNotTransitioned.length; rnt++) {
+      const ripNTransitioned = ripplesNotTransitioned[rnt] as HTMLDivElement;
+      ripNTransitioned.addEventListener('transitionend', () => {
+        ripNTransitioned.style.opacity = '0';
+        ripNTransitioned.addEventListener('transitionend', () => {
+          ripNTransitioned.remove();
+        });
+      });
+    }
+    let rt = 0;
+    for (; rt < ripplesTransitioned.length; rt++) {
+      const ripTransitioned = ripplesTransitioned[rt] as HTMLDivElement;
+      ripTransitioned.style.opacity = '0';
+      ripTransitioned.addEventListener('transitionend', () => {
+        ripTransitioned.remove();
+      });
+    }
   }
 
   persistStyleChanges(element: HTMLElement): void {
