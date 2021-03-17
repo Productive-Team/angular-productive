@@ -523,6 +523,19 @@ a.btn-large {
 /* #region InputStyles */
 .fieldset {
   position: relative;
+  margin: 5px 0;
+}
+.p-input {
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.05);
+  border: 0;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 17px;
+  outline: none;
+  padding: 17px 8px 5px 8px;
+  width: 100%;
 }
 .p-input-label {
   position: absolute;
@@ -530,35 +543,70 @@ a.btn-large {
   left: 5px;
   color: rgba(0, 0, 0, 0.5);
   user-select: none;
+  cursor: text;
+  transition: 0.2s ease-out;
   -webkit-user-drag: none;
 }
-.p-input {
-  box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.01);
-  border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  color: rgba(0, 0, 0, 0.75);
-  font-size: 16px;
-  outline: none;
-  padding: 5px;
-  padding-top: 10px;
-  width: 100%;
+.p-input.classic {
+  background-color: transparent;
+  border-radius: 0;
+  padding-left: 0;
+}
+.p-input.classic + .p-input-label {
+  left: 0;
+}
+.p-input.outlined {
+  background-color: transparent;
+  padding: 10px 10px 10px 10px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  transition: 0.1s linear;
+}
+.p-input.outlined:focus {
+  border-color: var(--primary);
+}
+.p-input.outlined ~ .p-input-bar {
+  display: none;
+}
+.p-input.outlined + .p-input-label {
+  bottom: 12px;
+  left: 10px;
 }
 .p-input-bar {
   position: relative;
   border-bottom: 2px solid var(--primary);
-  width: 0;
+  width: 50%;
   bottom: 2px;
   transform: translateX(-50%);
   left: 50%;
+  opacity: 0;
 }
 .p-input:focus ~ .p-input-bar {
-  transition: 0.25s ease-out;
+  opacity: 1;
+  transition: width 0.2s ease-out;
   width: 100%;
 }
-.p-input:focus > .p-input-label {
-  transform: scale(0.5);
-  transform: translateY(-10%);
+.p-input + .p-input-label.active {
+  transform: scale(0.8);
+  bottom: 27px;
+  left: -2px;
+}
+.p-input.classic + .p-input-label.active {
+  transform: scale(0.8);
+  bottom: 27px;
+  left: -10px;
+}
+.p-input.outlined + .p-input-label.active {
+  transform: scale(0.8);
+  bottom: 33px;
+  left: -5px;
+  background-color: white;
+  padding: 0 5px;
+}
+.p-input:focus + .p-input-label,
+.p-input.classic:focus + .p-input-label,
+.p-input.outlined:focus + .p-input-label {
+  color: var(--primary);
 }
 /* #endregion InputStyles */
 

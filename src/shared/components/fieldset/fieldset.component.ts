@@ -1,4 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Directive,
+  HostListener,
+  Input,
+  OnInit,
+} from '@angular/core';
+
+@Directive({
+  selector: '[app-input], [p-input], [pInput]',
+})
+export class InputDirective {
+  @HostListener('focus', ['$event']) onFocus(event) {
+    const input = event.target as HTMLInputElement;
+    const label = input.nextSibling as HTMLElement;
+    label.classList.add('active');
+  }
+  @HostListener('focusout', ['$event']) onFocusOut(event) {
+    const input = event.target as HTMLInputElement;
+    const label = input.nextSibling as HTMLElement;
+    if (
+      input.value === '' ||
+      input.value === undefined ||
+      input.value === null
+    ) {
+      label.classList.remove('active');
+    }
+  }
+}
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -9,22 +37,10 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FieldsetComponent implements OnInit {
   @Input() labelText: string;
   @Input() labelIcon: string;
-  // @Input() labelId: string;
+  @Input() labelId: string;
   @Input() trailingButton = false;
 
-  labelId: string;
   constructor() {}
 
-  ngOnInit(): void {
-    this.setLabelId();
-  }
-
-  setLabelId(): void {
-    const parent = document.querySelector('.fieldset');
-    const inputs = parent.getElementsByTagName('input');
-    let i = 0;
-    for (; i < inputs.length; i++) {
-      this.labelId = inputs[i].id;
-    }
-  }
+  ngOnInit(): void {}
 }

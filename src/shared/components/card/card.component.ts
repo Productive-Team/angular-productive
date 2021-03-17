@@ -17,7 +17,9 @@ export class CardComponent implements OnInit {
     }
   }
   elevateCard(): void {
-    const card = document.querySelector('.card') as HTMLDivElement;
-    card.classList.add('elevation');
+    const card = document.querySelectorAll('.card');
+    card.forEach((x) => {
+      x.classList.add('elevation');
+    });
   }
 }

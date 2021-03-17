@@ -7,12 +7,16 @@ import {
   SidenavComponent,
 } from './components/sidenav/sidenav.component';
 import { CardComponent } from './components/card/card.component';
-import { FieldsetComponent } from './components/fieldset/fieldset.component';
+import {
+  FieldsetComponent,
+  InputDirective,
+} from './components/fieldset/fieldset.component';
 
 @NgModule({
   imports: [CommonModule],
   declarations: [
     RippleDirective,
+    InputDirective,
     NavbarComponent,
     SidenavComponent,
     SidenavTriggerDirective,
@@ -26,6 +30,7 @@ import { FieldsetComponent } from './components/fieldset/fieldset.component';
     SidenavTriggerDirective,
     CardComponent,
     FieldsetComponent,
+    InputDirective,
   ],
 })
 export class SharedModule {}

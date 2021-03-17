@@ -10,23 +10,75 @@
 <h2>Inputs</h2>
 <hr>
 <div class="row">
-  <div class="col s12">
-    <p-fieldset labelText="Sample Input!">
-      <input type="text" class="p-input" id="example-text">
+  <div class="col m4 s12">
+    <p-fieldset labelText="Filled Input" labelId="example-text">
+      <input type="text" class="p-input" id="example-text" pInput>
+    </p-fieldset>
+  </div>
+  <div class="col m4 s12">
+    <p-fieldset labelText="Classic Input" labelId="example-text-classic">
+      <input type="text" class="p-input classic" id="example-text-classic" pInput>
+    </p-fieldset>
+  </div>
+  <div class="col m4 s12">
+    <p-fieldset labelText="Outlined Input" labelId="example-text-outlined">
+      <input type="text" class="p-input outlined" id="example-text-outlined" pInput>
     </p-fieldset>
   </div>
 </div>
 <br>
 <h2>Card</h2>
 <hr>
-<app-card>
-  <ng-container card-header>
-    <h3>Card Header</h3>
-  </ng-container>
-  <ng-container card-content>
-    <h4>Simple Card Content!</h4>
-  </ng-container>
-</app-card>
+<div class="row">
+  <div class="col m4 s12">
+    <app-card hasFooter="true">
+      <ng-container card-header>
+        <h3>Card Header</h3>
+      </ng-container>
+      <ng-container card-content>
+        <h4>Simple Card Content!</h4>
+      </ng-container>
+      <ng-container card-footer>
+        <div class="row">
+          <div class="col s8">
+            <div class="text-start">
+              <button class="btn floating flat" pRipple pRippleCentered="true">
+                <i class="material-icons">more_vert</i>
+              </button>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="text-end">
+              <button class="btn floating flat" pRipple pRippleCentered="true">
+                <i class="material-icons">share</i>
+              </button>
+              <button class="btn floating flat" pRipple pRippleCentered="true">
+                <i class="material-icons">thumb_up_alt</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </app-card>
+  </div>
+  <div class="col m4 s12">
+    <app-card>
+      <ng-container card-header>
+        <h3>Card Header</h3>
+      </ng-container>
+      <ng-container card-content>
+        <h4>Simple Card Content!</h4>
+      </ng-container>
+    </app-card>
+  </div>
+  <div class="col m4 s12">
+    <app-card [hasHeader]="false">
+      <ng-container card-content>
+        <h4>Simple Card Content!</h4>
+      </ng-container>
+    </app-card>
+  </div>
+</div>
 <br>
 <h2>Ripple</h2>
 <hr>
