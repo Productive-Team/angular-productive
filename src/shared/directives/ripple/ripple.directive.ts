@@ -13,7 +13,7 @@ export class RippleDirective implements OnInit {
   @Input() pRippleColor: string;
   @Input() pRippleCentered = false;
   @Input() pRippleUnbounded = false;
-  @Input() pRippleDuration = 450;
+  @Input() pRippleDuration = 500;
   @Input() pRippleRadius = 0;
 
   isPointerDown?: boolean;
@@ -46,7 +46,7 @@ export class RippleDirective implements OnInit {
     const ripple = document.createElement('div');
     const elBoundRect = rippleContainerElement.getBoundingClientRect();
     ripple.classList.add('p-ripple');
-    rippleContainerElement.appendChild(ripple);
+    rippleContainerElement.insertAdjacentElement('beforeend', ripple);
 
     const rippleRadius =
       this.pRippleRadius > 0
@@ -69,7 +69,11 @@ export class RippleDirective implements OnInit {
     if (this.pRippleColor) {
       ripple.style.backgroundColor = this.pRippleColor;
     }
-    ripple.style.transitionDuration = `${this.pRippleDuration}ms`;
+    if (this.pRippleDuration > 0) {
+      ripple.style.transitionDuration = `${this.pRippleDuration}ms`;
+    } else {
+      ripple.style.transitionDuration = `500ms`;
+    }
 
     this.persistStyleChanges(ripple);
 
