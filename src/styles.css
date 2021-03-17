@@ -546,6 +546,7 @@ a.btn-large {
   cursor: text;
   transition: 0.2s ease-out;
   -webkit-user-drag: none;
+  line-height: 25px;
 }
 .p-input.classic {
   background-color: transparent;
@@ -569,7 +570,7 @@ a.btn-large {
   display: none;
 }
 .p-input.outlined + .p-input-label {
-  bottom: 12px;
+  bottom: 10px;
   left: 10px;
 }
 .p-input-bar {
@@ -588,17 +589,17 @@ a.btn-large {
 }
 .p-input + .p-input-label.active {
   transform: scale(0.8);
-  bottom: 27px;
-  left: -2px;
+  bottom: 25px;
+  left: 0;
 }
 .p-input.classic + .p-input-label.active {
   transform: scale(0.8);
-  bottom: 27px;
+  bottom: 25px;
   left: -10px;
 }
 .p-input.outlined + .p-input-label.active {
   transform: scale(0.8);
-  bottom: 33px;
+  bottom: 30px;
   left: -5px;
   background-color: white;
   padding: 0 5px;

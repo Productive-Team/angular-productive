@@ -16,13 +16,30 @@
     </p-fieldset>
   </div>
   <div class="col m4 s12">
-    <p-fieldset labelText="Classic Input" labelId="example-text-classic">
+    <p-fieldset labelText="Classic Input" labelId="example-text-classic" labelIconLeft="group">
       <input type="text" class="p-input classic" id="example-text-classic" pInput>
     </p-fieldset>
   </div>
   <div class="col m4 s12">
-    <p-fieldset labelText="Outlined Input" labelId="example-text-outlined">
+    <p-fieldset labelText="Outlined Input" labelId="example-text-outlined" labelIconRight="group">
       <input type="text" class="p-input outlined" id="example-text-outlined" pInput>
+    </p-fieldset>
+  </div>
+</div>
+<div class="row">
+  <div class="col m4 s12">
+    <p-fieldset labelText="Label Active" labelId="float-fill" [labelActive]="true">
+      <input type="text" class="p-input" id="float-fill" pInput>
+    </p-fieldset>
+  </div>
+  <div class="col m4 s12">
+    <p-fieldset labelText="Active Label" labelId="float-classic" [labelActive]="true">
+      <input type="text" class="p-input classic" id="float-classic" pInput>
+    </p-fieldset>
+  </div>
+  <div class="col m4 s12">
+    <p-fieldset labelText="Active Label" labelId="float-outlined" [labelActive]="true">
+      <input type="text" class="p-input outlined" id="float-outlined" pInput>
     </p-fieldset>
   </div>
 </div>
