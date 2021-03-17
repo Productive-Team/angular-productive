@@ -337,7 +337,6 @@ a.btn-large {
 .p-ripple-container {
   position: relative;
   overflow: hidden;
-  cursor: pointer;
 }
 .p-ripple-container.p-ripple-unbounded {
   overflow: visible;
@@ -346,7 +345,8 @@ a.btn-large {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  transition: transform cubic-bezier(0.0,0.0,0.2,1), opacity cubic-bezier(0.0,0.0,0.2,1);
+  transition: transform cubic-bezier(0, 0, 0.2, 1),
+    opacity cubic-bezier(0, 0, 0.2, 1);
   transform: scale(0);
   background-color: #00000013;
   will-change: transform;
@@ -556,15 +556,15 @@ a.btn-large {
   transition: 0.25s ease-out;
   width: 100%;
 }
-/* .p-input:focus ~ .p-input-label {
+.p-input:focus > .p-input-label {
   transform: scale(0.5);
   transform: translateY(-10%);
-} */
+}
 /* #endregion InputStyles */
 
-/* #region Elevation */ 
+/* #region Elevation */
 .elevation {
-    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
     0 1px 5px 0 rgb(0 0 0 / 20%);
 }
 /* #endregion Elevation */

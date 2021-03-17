@@ -9,4 +9,9 @@
   height: 250px;
   line-height: 250px;
   user-select: none;
+  cursor: pointer;
+}
+
+#testTrigger {
+  cursor: default;
 }
