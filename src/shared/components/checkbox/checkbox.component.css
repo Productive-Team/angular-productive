@@ -1,0 +1,250 @@
+/* container da checkbox (label embrulhando tudo) */
+.checkbox-layout {
+  font-size: 16px;
+  font-weight: 400;
+  user-select: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* esconde o input checkbox padrão do browser */
+.checkbox-layout input,
+.checkbox-layout-switch input {
+  opacity: 0;
+  bottom: -5px;
+  transform: scale(0);
+  position: absolute;
+}
+
+/* texto do span da checkbox */
+.checkbox-text {
+  -webkit-user-drag: none;
+  line-height: 24px;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* container do input da checkbox */
+.checkbox-toggle {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  line-height: 0;
+  margin: auto;
+  position: relative;
+  vertical-align: middle;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* borda do container da checkbox */
+.checkbox-frame {
+  border: 2px solid rgba(0, 0, 0, 0.54);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 2px;
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* container do efeito ripple */
+.checkbox-ripple,
+.switch-ripple {
+  position: absolute;
+  left: calc(50% - 20px);
+  top: calc(50% - 20px);
+  height: 40px;
+  width: 40px;
+  /* z-index: 1 !important; */
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* fundo da checkbox */
+.checkbox-background {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 2px;
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.18s ease 0s;
+}
+
+/* esconde a div de ripple quando esta desabilitado */
+.checkbox-layout input:checked:disabled ~ .checkbox-ripple,
+.checkbox-layout input:disabled ~ .checkbox-ripple,
+.checkbox-layout-switch
+  input:checked:disabled
+  ~ .switch-thumb-container
+  .switch-ripple,
+.checkbox-layout-switch
+  input:disabled
+  ~ .switch-thumb-container
+  .switch-ripple {
+  display: none;
+}
+
+/* marca svg */
+.checkbox-mark {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  fill: #fafafa;
+  transition: 0.1s linear;
+  stroke-width: 2.1333333333px;
+}
+
+/* icone da checkbox em indeterminado */
+.checkbox-mixed {
+  position: absolute;
+  top: 7.5px;
+  left: 3px;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 1.5px;
+  border-radius: 2px;
+  background-color: white;
+  transform: scaleX(1) rotate(120deg);
+  transition: 0.1s linear;
+  opacity: 0;
+}
+
+/* path do svg */
+.checkbox-mark .path {
+  stroke-dasharray: 70;
+  stroke-dashoffset: 100;
+  fill: none;
+}
+
+/* deixa o cinza da borda da checkbox mais claro quando esta desabilitada */
+.checkbox-layout input:disabled ~ .checkbox-frame {
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* quando a checkbox é marcada aumenta a opacidade do fundo da checkbox */
+.checkbox-layout input:checked ~ .checkbox-background {
+  opacity: 1;
+}
+
+/* deixa o fundo cinza quando a checkbox esta como marcada e desabilitada*/
+.checkbox-layout input:checked:disabled ~ .checkbox-background {
+  background-color: #b0b0b0 !important;
+}
+
+/* transição da checkmark na checkbox */
+.checkbox-layout input:checked ~ .checkbox-background .checkbox-mark .path {
+  transition: 0.3s linear;
+  stroke-dasharray: 70;
+  stroke-dashoffset: 0;
+}
+
+/* changes the background opacity if input is indeterminate */
+.checkbox-layout input:indeterminate ~ .checkbox-background {
+  opacity: 1;
+}
+
+/* shows the mixed icon in checkbox */
+.checkbox-layout input:indeterminate ~ .checkbox-background .checkbox-mixed {
+  opacity: 1;
+  transform: scaleX(1) rotate(0deg);
+}
+
+/* rotares the checkmark to transition to the mixed input and vice versa */
+.checkbox-layout input:indeterminate ~ .checkbox-background .checkbox-mark {
+  transform: scaleX(1) rotate(-120deg);
+  opacity: 0;
+}
+
+/* checkbox Switch */
+
+/* container switch */
+.checkbox-layout-switch {
+  display: flex;
+  height: 24px;
+  max-width: 1500px;
+  line-height: 24px;
+  white-space: nowrap;
+  outline: none;
+  position: relative;
+  user-select: none;
+  order: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* checkbox body */
+.checkbox-toggle-switch {
+  display: flex;
+  flex: 0;
+  flex-direction: row;
+  align-items: center;
+  height: inherit;
+  cursor: pointer;
+}
+
+/* switch container */
+.switch-container {
+  position: relative;
+  width: 36px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  margin: auto 8px;
+  background-color: rgba(0, 0, 0, 0.38);
+  transition: all 0.08s linear !important;
+  transition-property: background-color;
+  transition-delay: 50ms;
+}
+
+/* switch thumb container */
+.switch-thumb-container {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: -3px;
+  transition: all 0.3s linear;
+  transition-property: transform;
+}
+
+.switch-text-right {
+  position: absolute;
+  right: -16px;
+  top: 0;
+}
+
+/* switch thumb */
+.switch-thumb {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  white-space: nowrap;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  transition: 0.08s linear;
+}
+
+/* thumb transformation */
+.checkbox-layout-switch input:checked + .switch-thumb-container .switch-thumb {
+  transform: translate3d(16px, 0, 0);
+}
+
+span i.left {
+  margin-right: 5px !important;
+}
+
+span i.right {
+  margin-left: 5px !important;
+}

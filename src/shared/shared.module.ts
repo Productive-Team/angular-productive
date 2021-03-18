@@ -1,3 +1,4 @@
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RippleDirective } from './directives/ripple/ripple.directive';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,7 @@ import {
   FieldsetComponent,
   InputDirective,
 } from './components/fieldset/fieldset.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -22,6 +24,8 @@ import {
     SidenavTriggerDirective,
     CardComponent,
     FieldsetComponent,
+    ModalComponent,
+    CheckboxComponent,
   ],
   exports: [
     RippleDirective,
@@ -31,6 +35,7 @@ import {
     CardComponent,
     FieldsetComponent,
     InputDirective,
+    CheckboxComponent,
   ],
 })
 export class SharedModule {}
