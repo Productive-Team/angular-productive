@@ -1,6 +1,8 @@
 :root {
+  /* --primary: #7629aa; */
+  /* --secondary: #ff5b8f; */
   --primary: #7629aa;
-  --secondary: #ff5b8f;
+  --secondary: #38b68c;
 }
 
 @font-face {
@@ -523,7 +525,7 @@ a.btn-large {
 /* #region InputStyles */
 .fieldset {
   position: relative;
-  margin: 5px 0;
+  margin: 13px 0;
 }
 .p-input {
   box-sizing: border-box;
@@ -535,18 +537,36 @@ a.btn-large {
   font-size: 17px;
   outline: none;
   padding: 17px 8px 5px 8px;
+  font-family: Roboto;
   width: 100%;
+  resize: none;
 }
-.p-input-label {
+.p-input-label,
+.p-input-label-textarea {
   position: absolute;
   bottom: 8px;
   left: 5px;
   color: rgba(0, 0, 0, 0.5);
   user-select: none;
   cursor: text;
-  transition: 0.2s ease-out;
+  transition: 0.2s cubic-bezier(0, 0, 0.2, 1);
   -webkit-user-drag: none;
   line-height: 25px;
+}
+.p-input + .p-input-label-textarea.active {
+  transform: scale(0.8);
+  bottom: 70%;
+  left: 0;
+}
+.p-input.classic + .p-input-label-textarea.active {
+  left: -8px;
+}
+.p-input.outlined + .p-input-label-textarea.active {
+  bottom: 80%;
+  background-color: white;
+}
+.p-input.outlined + .p-input-label-textarea {
+  bottom: 30%;
 }
 .p-input.classic {
   background-color: transparent;
@@ -566,14 +586,16 @@ a.btn-large {
 .p-input.outlined:focus {
   border-color: var(--primary);
 }
-.p-input.outlined ~ .p-input-bar {
+.p-input.outlined ~ .p-input-bar,
+.p-input.outlined ~ .p-input-bar-textarea {
   display: none;
 }
 .p-input.outlined + .p-input-label {
   bottom: 10px;
   left: 10px;
 }
-.p-input-bar {
+.p-input-bar,
+.p-input-bar-textarea {
   position: relative;
   border-bottom: 2px solid var(--primary);
   width: 50%;
@@ -582,7 +604,11 @@ a.btn-large {
   left: 50%;
   opacity: 0;
 }
-.p-input:focus ~ .p-input-bar {
+.p-input-bar-textarea {
+  bottom: 6px;
+}
+.p-input:focus ~ .p-input-bar,
+.p-input:focus ~ .p-input-bar-textarea {
   opacity: 1;
   transition: width 0.2s ease-out;
   width: 100%;
@@ -599,15 +625,54 @@ a.btn-large {
 }
 .p-input.outlined + .p-input-label.active {
   transform: scale(0.8);
+  text-align: start;
   bottom: 30px;
-  left: -5px;
+  left: 0;
   background-color: white;
-  padding: 0 5px;
+  padding: 0 3px;
 }
 .p-input:focus + .p-input-label,
-.p-input.classic:focus + .p-input-label,
-.p-input.outlined:focus + .p-input-label {
+.p-input:focus + .p-input-label-textarea {
   color: var(--primary);
+}
+.fieldset button.input-trailing {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+}
+.p-input.trailing-btn-input {
+  padding-right: 50px;
+  text-overflow: ellipsis;
+}
+.helper-text {
+  position: absolute;
+  font-size: 13px;
+  transform: translateY(-10%);
+  line-height: 22px;
+  color: #0000009c;
+  animation: helperTextAnim 0.5s;
+}
+.helper-text i {
+  font-size: 20px;
+}
+.helper-text.error {
+  color: rgba(255, 0, 0, 0.623);
+}
+.helper-text.warn {
+  color: #f26d00ad;
+}
+.helper-text.success {
+  color: #24bd269c;
+}
+@keyframes helperTextAnim {
+  from {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-10%);
+  }
 }
 /* #endregion InputStyles */
 
