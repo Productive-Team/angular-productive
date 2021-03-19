@@ -67,7 +67,7 @@
 <hr>
 <div class="row">
   <div class="col m4 s12">
-    <app-card hasFooter="true">
+    <p-card hasFooter="true">
       <ng-container card-header>
         <h3>Card Header</h3>
       </ng-container>
@@ -95,38 +95,102 @@
           </div>
         </div>
       </ng-container>
-    </app-card>
+    </p-card>
   </div>
   <div class="col m4 s12">
-    <app-card>
+    <p-card>
       <ng-container card-header>
         <h3>Card Header</h3>
       </ng-container>
       <ng-container card-content>
         <h4>Simple Card Content!</h4>
       </ng-container>
-    </app-card>
+    </p-card>
   </div>
   <div class="col m4 s12">
-    <app-card [hasHeader]="false">
+    <p-card [hasHeader]="false">
       <ng-container card-content>
         <h4>Simple Card Content!</h4>
       </ng-container>
-    </app-card>
+    </p-card>
   </div>
 </div>
 <br>
 <h2>Ripple</h2>
 <hr>
-<div class="ripple-example elevation text-center content-center" pRipple pRippleTriggerId="id-teste"
-  pRippleCentered="true">
+<div class="text-center">
+  <div class="row">
+    <div class="col m3 s6">
+      <div class="fieldset">
+        <p-checkbox checkId="Check-center" checkboxText="Ripple Centered" (checkValue)="centerA($event)">
+        </p-checkbox>
+      </div>
+    </div>
+    <div class="col m3 s6">
+      <div class="fieldset">
+        <p-checkbox checkId="Check-unbound" checkboxText="Ripple Unbounded" (checkValue)="unboundA($event)">
+        </p-checkbox>
+      </div>
+    </div>
+    <div class="col m3 s6">
+      <p-fieldset labelText="Ripple Color" labelId="color_rip">
+        <input type="text" id="color_rip" pInput class="p-input" [(ngModel)]="color">
+      </p-fieldset>
+    </div>
+    <div class="col m3 s6">
+      <p-fieldset labelText="Ripple Radius" labelId="radius_rip">
+        <input type="number" id="radius_rip" pInput class="p-input" [(ngModel)]="radius">
+      </p-fieldset>
+    </div>
+  </div>
+</div>
+<div class="ripple-example elevation text-center" pRipple [pRippleCentered]="center" [pRippleColor]="color"
+  [pRippleRadius]="radius">
   Click Me!
 </div>
-<br>
-<div class="ripple-example elevation" id="id-teste"></div>
-<br>
 <h2>Checkboxes and Switches</h2>
 <hr>
-<div>
-  <app-checkbox checkId="Check"></app-checkbox>
+<div class="content-center">
+  <div class="row">
+    <div class="col m6 s12">
+      <p-card>
+        <ng-container card-header>
+          <h3>Checkboxes</h3>
+        </ng-container>
+        <ng-container card-content>
+          <div class="text-center">
+            <p-checkbox checkId="checkDisab" checkboxText="Disabled" (checkValue)="checkDis($event)"></p-checkbox>
+            <p-checkbox checkId="checkChk" checkboxText="Checked" (checkValue)="checkChk($event)"></p-checkbox>
+            <p-checkbox checkId="checkIndet" checkboxText="Indeterminate" (checkValue)="checkInt($event)"></p-checkbox>
+          </div>
+          <br>
+          <br>
+          <div class="text-center">
+            <p-checkbox checkId="Check2" checkboxText="Checkbox Label"></p-checkbox>
+          </div>
+        </ng-container>
+      </p-card>
+    </div>
+    <div class="col m6 s12">
+      <p-card>
+        <ng-container card-header>
+          <h3>Switch Toggle</h3>
+        </ng-container>
+        <ng-container card-content>
+          <div class="text-center">
+            <p-checkbox checkId="switchDisab" checkboxText="Disabled" (checkValue)="switchDis($event)">
+            </p-checkbox>
+            <p-checkbox checkId="switchCheck" checkboxText="Checked" (checkValue)="switchChk($event)">
+            </p-checkbox>
+          </div>
+          <br>
+          <br>
+          <div class="text-center">
+            <p-checkbox checkId="Check" [isSwitch]="true" switchTextLeft="Off" switchTextRight="On">
+            </p-checkbox>
+          </div>
+        </ng-container>
+      </p-card>
+    </div>
+  </div>
 </div>

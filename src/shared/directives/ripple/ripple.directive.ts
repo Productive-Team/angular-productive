@@ -4,12 +4,13 @@ import {
   ElementRef,
   OnInit,
   Input,
+  AfterViewInit,
 } from '@angular/core';
 
 @Directive({
   selector: '[app-ripple], [p-ripple], [pRipple]',
 })
-export class RippleDirective implements OnInit {
+export class RippleDirective implements OnInit, AfterViewInit {
   /**
    * Recieves a string value with either a hexadecimal or rgba value.
    * It's default value is #00000013, so there's no need to use it if you don't want to customize it;
@@ -89,7 +90,9 @@ export class RippleDirective implements OnInit {
   isPointerDown?: boolean;
   constructor(private el: ElementRef) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     // Checks if pRippleTriggerId is different from undefined
     // and sets container classes
     if (this.pRippleTriggerId) {
@@ -108,7 +111,7 @@ export class RippleDirective implements OnInit {
     }
   }
 
-  // Creates tipple on pointer down
+  // Creates ripple on pointer down
   @HostListener('pointerdown', ['$event']) onMouseClick(event) {
     this.isPointerDown = true;
     this.createRippleEffect(event.target, event.clientX, event.clientY);

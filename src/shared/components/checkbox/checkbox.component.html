@@ -1,12 +1,11 @@
 <label class="checkbox-layout" *ngIf="!isSwitch && this.checkRequiredFields(this.checkId)" pRipple
-  pRippleCentered="true" pRippleTriggerId="ripple2">
+  pRippleCentered="true" [pRippleColor]="checkVal ? '' : this.rippleColor" [pRippleTriggerId]="checkId + 'ripple'">
   <span class="checkbox-toggle" [style]="checkboxText ? 'margin-right: 8px;' : 'margin-right: 0px;'">
     <input type="checkbox" id="{{checkId}}" (change)="checkValueFunc($event.srcElement.checked)">
-    <!-- <span class="checkbox-ripple waves-effect waves-{{checkboxWaveColor}}" *ngIf="hasWaves"></span> -->
-    <span class="checkbox-ripple" id="ripple2" *ngIf="hasWaves"></span>
+    <span class="checkbox-ripple" [id]="checkId + 'ripple'" *ngIf="hasRipple"></span>
     <span class="checkbox-frame"></span>
     <span class="checkbox-background"
-      [style]="checkboxColor ? 'background-color:' + checkboxColor + ';' : 'background-color: #68c70a;'">
+      [style]="checkboxColor ? 'background-color:' + checkboxColor + ';' : 'background-color: var(--primary);'">
       <svg version="1.1" focusable="false" viewBox="0 0 24 24" xml:space="preserve" class="checkbox-mark">
         <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3 " class="path"></path>
       </svg>
@@ -18,26 +17,25 @@
   </span>
 </label>
 
-<label class="checkbox-layout-switch" *ngIf="isSwitch && this.checkRequiredFields(this.checkId)" #trigger>
-  <span class="checkbox-text left">
-    <i class="material-icons left" *ngIf="switchIconLeft">{{switchIconLeft}}</i>
-    {{switchTextLeft}}
-  </span>
+<label class="checkbox-layout-switch" *ngIf="isSwitch && this.checkRequiredFields(this.checkId)" pRipple
+  pRippleCentered="true" [pRippleTriggerId]="checkId + 'ripple'"
+  [pRippleColor]="checkVal ? undefined : this.rippleColor">
   <span class="checkbox-toggle-switch">
+    <span class="checkbox-text left">
+      <i class="material-icons left" *ngIf="switchIconLeft">{{switchIconLeft}}</i>
+      {{switchTextLeft}}
+    </span>
     <div class="switch-container" id="switch-cont">
-      <input type="checkbox" id="{{checkId}}"
-        (change)="backgroundColorSwitchThumb($event); backgroundColorSwitch($event); checkValueFunc($event.srcElement.checked)">
+      <input type="checkbox" id="{{checkId}}" (change)="checkValueFunc($event.srcElement.checked);">
       <div class="switch-thumb-container">
         <div class="switch-thumb" id="switch-thumb">
-          <!-- <div class="switch-ripple waves-effect waves-{{checkboxWaveColor}}" *ngIf="hasWaves"></div> -->
-          <!-- <div class="switch-ripple" mat-ripple [matRippleTrigger]="trigger" matRippleCentered="true"
-            [matRippleColor]="checkboxWaveColor" [matRippleDisabled]="isDisabled ? true : false" *ngIf="hasWaves"></div> -->
+          <div class="switch-ripple" [id]="checkId + 'ripple'" *ngIf="hasRipple"></div>
         </div>
       </div>
     </div>
-  </span>
-  <span class="checkbox-text right">
-    <i class="material-icons right" *ngIf="switchIconRight">{{switchIconRight}}</i>
-    {{switchTextRight}}
+    <span class="checkbox-text right">
+      <i class="material-icons right" *ngIf="switchIconRight">{{switchIconRight}}</i>
+      {{switchTextRight}}
+    </span>
   </span>
 </label>
