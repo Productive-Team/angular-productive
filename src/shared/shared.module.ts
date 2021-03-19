@@ -12,7 +12,10 @@ import {
   FieldsetComponent,
   InputDirective,
 } from './components/fieldset/fieldset.component';
-import { ModalComponent } from './modal/modal.component';
+import {
+  ModalComponent,
+  ModalTriggerDirective,
+} from './components/modal/modal.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -25,6 +28,7 @@ import { ModalComponent } from './modal/modal.component';
     CardComponent,
     FieldsetComponent,
     ModalComponent,
+    ModalTriggerDirective,
     CheckboxComponent,
   ],
   exports: [
@@ -36,6 +40,9 @@ import { ModalComponent } from './modal/modal.component';
     FieldsetComponent,
     InputDirective,
     CheckboxComponent,
+    ModalComponent,
+    ModalTriggerDirective,
   ],
+  providers: [ModalComponent],
 })
 export class SharedModule {}

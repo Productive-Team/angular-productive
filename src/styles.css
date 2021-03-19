@@ -539,6 +539,7 @@ a.btn-large {
   padding: 17px 8px 5px 8px;
   font-family: Roboto;
   width: 100%;
+  text-overflow: ellipsis;
   resize: none;
 }
 .p-input-label,
@@ -642,7 +643,6 @@ a.btn-large {
 }
 .p-input.trailing-btn-input {
   padding-right: 50px;
-  text-overflow: ellipsis;
 }
 .helper-text {
   position: absolute;
