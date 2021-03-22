@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../shared/services/snackbar.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,7 +11,7 @@ export class AllComponentsComponent implements OnInit {
   unbound = false;
   color: string;
   radius: number;
-  constructor() {}
+  constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}
 
@@ -65,5 +66,9 @@ export class AllComponentsComponent implements OnInit {
   switchChk(event): void {
     const swit = document.getElementById('Check') as HTMLInputElement;
     swit.checked = event;
+  }
+
+  openSnack(): void {
+    this.snackbar.openSnackbar();
   }
 }

@@ -199,15 +199,291 @@
 <h2>Modal Dialogs</h2>
 <hr>
 <div>
-  <button class="btn flat primary" pRipple pModalTrigger>Open Default Dialog</button>
-  <button class="btn flat primary" pRipple>Open Static Dialog</button>
-  <button class="btn flat primary" pRipple>Open Scrollable Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pModalId="testId">Open Default Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pModalId="staticId">Open Static Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pModalId="scrollableId">Open Scrollable Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pModalId="smallId">Open Small Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pModalId="largeId">Open Large Dialog</button>
 </div>
-<!-- <app-modal>
-</app-modal> -->
+<app-modal modalId="testId">
+  <ng-container modal-header>
+    <div class="row">
+      <div class="col s10">
+        <h2>Dialog!</h2>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container modal-content>
+    <div class="text-center">
+      <h3>Dialog Content!</h3>
+    </div>
+  </ng-container>
+  <ng-container modal-footer>
+    <div class="text-end">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="testId">
+        Accept
+      </button>
+    </div>
+  </ng-container>
+</app-modal>
+
+<app-modal modalId="staticId" [modalStatic]="true">
+  <ng-container modal-header>
+    <div class="row">
+      <div class="col s10">
+        <h2>Static Dialog!</h2>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container modal-content>
+    <div class="text-center">
+      <h3>Static Dialog Content!</h3>
+    </div>
+  </ng-container>
+  <ng-container modal-footer>
+    <div class="text-end">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="staticId">
+        Accept
+      </button>
+    </div>
+  </ng-container>
+</app-modal>
+
+<app-modal modalId="scrollableId">
+  <ng-container modal-header>
+    <div class="row">
+      <div class="col s10">
+        <h2>Scrollable Dialog!</h2>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container modal-content>
+    <div class="text-center">
+      <h3>Scrollable Dialog Content!</h3>
+    </div>
+    <br>
+    <div class="text-center">
+      <span>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed tincidunt risus, in fringilla erat.
+        Pellentesque quis dignissim sem, sed tempus justo. In semper arcu ante. Cras sit amet malesuada nisi. Donec
+        elementum
+        ipsum magna, eu efficitur sapien finibus in. Phasellus neque mi, viverra non augue a, pharetra sagittis neque.
+        Mauris
+        vel ante luctus, fringilla felis at, condimentum nisl. Pellentesque non augue ipsum. Sed dolor libero, placerat
+        sed
+        justo eu, volutpat pellentesque dui. Cras quam dui, pretium nec nulla vel, interdum posuere turpis. Praesent
+        pulvinar
+        nulla erat, sed posuere libero convallis at.
+
+        Nunc eget tellus vehicula, gravida risus nec, feugiat ligula. Integer non consectetur ipsum. Mauris vulputate,
+        erat in
+        mollis congue, purus ante imperdiet nisi, id tempor urna quam et quam. Nulla tristique molestie condimentum.
+        Etiam
+        tincidunt dapibus sollicitudin. Etiam a porttitor lectus, at ullamcorper nibh. Aliquam odio massa, lacinia quis
+        felis
+        ac, laoreet sollicitudin turpis. Fusce gravida sapien quis tortor commodo, ac convallis nisi facilisis.
+
+        Suspendisse sed mauris at elit pellentesque pulvinar quis vel orci. Pellentesque sed justo non purus egestas
+        mattis. Sed
+        pulvinar, turpis sed ullamcorper mollis, leo metus dapibus velit, ac dictum enim nibh eget erat. Aliquam rhoncus
+        augue
+        ipsum, id vestibulum sem dapibus ut. Curabitur vulputate ex tincidunt rutrum ullamcorper. Donec non bibendum
+        sem. Nulla
+        tincidunt leo sit amet urna ultrices, et auctor leo mollis. Duis vitae fringilla leo.
+
+        Duis aliquam tempus odio quis feugiat. Mauris nec fermentum mauris. Duis erat ipsum, pretium sed enim in,
+        suscipit
+        bibendum sem. Morbi iaculis placerat ornare. Sed id sollicitudin sapien, nec ornare ipsum. Praesent a enim
+        iaculis,
+        dapibus dolor id, vulputate urna. Vestibulum sed tellus faucibus, tincidunt neque non, rutrum leo. Suspendisse
+        metus
+        tortor, venenatis eu varius non, vestibulum eu leo. Quisque eu vestibulum nibh, quis tempus quam. Integer vitae
+        nibh
+        viverra, tristique lectus quis, accumsan est. Sed euismod augue vel fermentum hendrerit. Cras tristique nisi et
+        dignissim rhoncus. Sed aliquam nisi at ultricies efficitur. Morbi nec sollicitudin sem. Aliquam ultricies justo
+        sit amet
+        risus iaculis malesuada. Praesent tincidunt felis at libero vestibulum, a scelerisque felis sagittis.
+
+        Nam quis lorem ut justo dignissim ultrices eu sed lacus. Donec consequat laoreet auctor. Duis aliquet aliquam
+        eros
+        pellentesque dictum. Mauris quis porttitor urna, a pharetra augue. Nam suscipit quis dolor sed aliquet. In mi
+        ante,
+        hendrerit ut volutpat sed, efficitur vel ipsum. Maecenas ornare risus vel tempor porta. Nulla non tempus justo.
+
+        Quisque ultricies magna sed arcu euismod dapibus. Suspendisse libero ipsum, consectetur vitae urna sed, porta
+        iaculis
+        orci. Pellentesque et lobortis lectus. Donec scelerisque sapien non nulla bibendum, sit amet lobortis ipsum
+        finibus.
+        Morbi cursus auctor felis, et lacinia mi sodales id. Phasellus porta ut nisi non feugiat. Sed a varius ligula.
+        Fusce
+        volutpat purus mi, vitae tincidunt ligula vulputate a. Integer vel dui et purus faucibus convallis.
+
+        Nam felis quam, volutpat eu lacinia et, bibendum eu nibh. Sed risus urna, aliquam aliquam ligula vel, vestibulum
+        condimentum velit. Curabitur aliquet nisi velit, vel sagittis metus tempus eu. Ut hendrerit tristique dignissim.
+        Nam
+        eget posuere enim, id maximus est. Sed iaculis condimentum fringilla. Morbi varius posuere tempus. Ut tempus,
+        enim eget
+        congue placerat, est turpis fringilla massa, quis facilisis magna erat vel nulla. Etiam auctor, dui id
+        sollicitudin
+        auctor, ligula diam mollis elit, ultrices rutrum odio libero ut massa. Pellentesque accumsan turpis eget erat
+        bibendum,
+        bibendum tincidunt lorem pharetra. Phasellus ullamcorper dolor a felis facilisis porta. Praesent ut finibus
+        velit. Nam
+        nibh ligula, rhoncus vel ante in, posuere malesuada quam.
+
+        Vestibulum elementum id sapien sed ornare. Donec posuere mi vel est fermentum blandit. In pulvinar blandit
+        placerat.
+        Donec eget lacus turpis. Donec ut quam ultrices ipsum semper aliquam. Nulla non metus vel erat tristique
+        posuere.
+        Vestibulum auctor maximus scelerisque. Donec euismod malesuada metus et hendrerit. Integer ut mattis mauris.
+        Pellentesque sit amet felis auctor, tempus risus sit amet, porta ligula. Etiam felis enim, cursus vel convallis
+        quis,
+        interdum at magna.
+
+        Morbi pulvinar rhoncus mi at aliquet. Nullam fermentum ullamcorper orci vitae iaculis. Maecenas quis quam
+        volutpat,
+        mollis dolor a, pulvinar elit. Ut auctor, nisl sed placerat elementum, urna sapien egestas erat, posuere
+        lobortis urna
+        tellus a enim. Etiam eget tincidunt enim, eu vehicula massa. Nunc dapibus accumsan eros, eu consequat neque
+        condimentum
+        ut. Aliquam erat volutpat. Mauris scelerisque velit volutpat ex faucibus, nec tempus ante tincidunt. Sed ac nisl
+        elit.
+        Vestibulum porta justo leo, a hendrerit magna volutpat eget. Cras elit ligula, volutpat nec porta sed, tincidunt
+        sit
+        amet enim. Quisque vel commodo odio. Suspendisse eleifend lacus vulputate libero sodales accumsan. Cras
+        malesuada augue
+        vestibulum dui lacinia, vel tincidunt tellus efficitur. Sed vitae lacus id enim imperdiet placerat. Aliquam sed
+        leo sed
+        est sollicitudin convallis ac eu magna.
+
+        Aenean ac nisi a enim commodo tincidunt ac luctus dolor. Cras placerat mollis dolor, id mollis purus eleifend
+        sed.
+        Maecenas at lorem dictum, luctus mauris quis, egestas nulla. Nullam quis tristique turpis. Pellentesque ac
+        tincidunt
+        arcu. Mauris vehicula est vitae consectetur ullamcorper. Vestibulum vulputate id ipsum a efficitur. Mauris
+        condimentum,
+        felis accumsan pretium tristique, velit leo viverra purus, et pulvinar lacus dolor eu dolor. Aenean placerat,
+        dolor
+        vitae ornare fringilla, ante lectus vestibulum arcu, eu euismod diam sem sed nulla. Cras tortor nulla,
+        scelerisque vel
+        dui nec, volutpat commodo velit. Proin quis cursus purus. Fusce finibus tempus leo, bibendum condimentum ipsum
+        molestie
+        nec. Duis finibus sem et imperdiet accumsan. Cras fringilla ut diam non cursus. Quisque non sem sollicitudin,
+        aliquet
+        massa ac, egestas elit. Vivamus condimentum justo lobortis tempus aliquam.
+
+        Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc tincidunt lorem tellus, id tincidunt lorem
+        viverra
+        et. Cras laoreet metus magna, ac feugiat enim consequat eu. Aenean ligula urna, blandit eget libero nec, laoreet
+        mattis
+        tortor. Ut egestas felis vel magna lobortis tincidunt. Integer consectetur consectetur ultricies. Sed non
+        laoreet eros,
+        quis feugiat velit. Maecenas porta velit vitae nibh ornare viverra. Pellentesque pretium erat vitae nisl
+        ultrices, quis
+        tristique felis auctor. Quisque accumsan varius pulvinar. Mauris id molestie magna, nec elementum sapien. Donec
+        lobortis, lectus in egestas lobortis, sem ante interdum erat, id faucibus justo felis sagittis neque.
+
+        Praesent ultrices risus tempor est pulvinar, id accumsan ipsum laoreet. Duis sed consequat massa. Ut hendrerit
+        ante vel
+        ante suscipit, non aliquet quam venenatis. Pellentesque vitae sagittis turpis. Nulla nibh dolor, ullamcorper
+        quis elit
+        ac, vehicula vestibulum justo. Morbi at tortor orci. Quisque suscipit placerat malesuada. Nullam quis neque
+        ipsum. Fusce
+        vel pharetra dolor, vel vehicula lectus. Etiam molestie porta dapibus. Sed at scelerisque sapien. Vestibulum id
+        placerat
+        lorem, eget viverra sem. In et massa rhoncus, condimentum velit quis, maximus erat. Vivamus dignissim est et
+        justo
+        consectetur, viverra porta orci luctus.
+
+        Sed turpis augue, ullamcorper in fermentum non, efficitur vel massa. Aliquam venenatis libero vitae purus dictum
+        molestie nec quis magna. Curabitur eget lorem imperdiet, mattis diam a, mattis erat. Donec dolor leo, pharetra
+        nec porta
+        in, pharetra in dui. Etiam sit amet mollis dolor. Nulla leo eros, rutrum nec orci ac, tincidunt finibus velit.
+        Phasellus
+        eget nunc sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris
+        fringilla
+        in lectus sodales porttitor. Duis aliquam dictum feugiat. Cras at nunc a tellus pulvinar sagittis. Curabitur
+        facilisis
+        tincidunt posuere. Nam ante felis, ullamcorper ac metus in, condimentum tempor nibh. Nullam elementum viverra
+        pellentesque. Quisque fringilla odio vitae risus placerat dictum.
+
+        Duis nec volutpat felis, quis suscipit quam. Aliquam fermentum commodo bibendum. Phasellus a enim nec enim
+        rhoncus
+        rutrum non id erat. Suspendisse id lectus at diam ultricies posuere vitae quis sapien. Fusce eu volutpat ipsum,
+        fermentum ultricies nisi. Sed aliquet tellus eu ligula aliquet, ullamcorper auctor ante ullamcorper. Etiam nisi
+        risus,
+        mattis at blandit eu, eleifend ut magna.
+
+        Sed vitae eleifend lacus. Nam facilisis gravida turpis vitae aliquet. Sed in blandit odio, id laoreet purus.
+        Maecenas
+        vel nulla nec odio auctor sodales. Sed nisi sem, placerat in nulla a, viverra vehicula neque. Cras sed mattis
+        magna, vel
+        dictum justo. Mauris rhoncus elementum quam. Nulla quis tristique massa. Nam facilisis consequat nisi quis
+        tempus.
+        Mauris dignissim tellus sit amet sem blandit, quis bibendum ipsum pulvinar. Integer tempor lectus in diam
+        commodo
+        imperdiet. Integer nec laoreet ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at lacus
+        eget est
+        semper vehicula ac sed leo.
+      </span>
+    </div>
+  </ng-container>
+  <ng-container modal-footer>
+    <div class="text-end">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="scrollableId">
+        Accept
+      </button>
+    </div>
+  </ng-container>
+</app-modal>
+
+<app-modal modalId="smallId" [modalSize]="'small'">
+  <ng-container modal-header>
+    <div class="row">
+      <div class="col s10">
+        <h2>Small Dialog!</h2>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container modal-content>
+    <div class="text-center">
+      <h3>Small Dialog Content!</h3>
+    </div>
+  </ng-container>
+  <ng-container modal-footer>
+    <div class="text-end">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="smallId">
+        Accept
+      </button>
+    </div>
+  </ng-container>
+</app-modal>
+
+<app-modal modalId="largeId" [modalSize]="'large'">
+  <ng-container modal-header>
+    <div class="row">
+      <div class="col s10">
+        <h2>Large Dialog!</h2>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container modal-content>
+    <div class="text-center">
+      <h3>Large Dialog Content!</h3>
+    </div>
+  </ng-container>
+  <ng-container modal-footer>
+    <div class="text-end">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="largeId">
+        Accept
+      </button>
+    </div>
+  </ng-container>
+</app-modal>
+
 <br>
 <h2>Snackbars</h2>
 <hr>
 <div>
-  <button class="btn flat primary" pRipple>Launch Snackbar</button>
+  <button class="btn flat primary" pRipple (click)="openSnack()">Launch Snackbar</button>
 </div>

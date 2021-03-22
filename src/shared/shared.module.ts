@@ -13,6 +13,7 @@ import {
   InputDirective,
 } from './components/fieldset/fieldset.component';
 import {
+  ModalCloseDirective,
   ModalComponent,
   ModalTriggerDirective,
 } from './components/modal/modal.component';
@@ -27,9 +28,10 @@ import {
     SidenavTriggerDirective,
     CardComponent,
     FieldsetComponent,
+    CheckboxComponent,
     ModalComponent,
     ModalTriggerDirective,
-    CheckboxComponent,
+    ModalCloseDirective,
   ],
   exports: [
     RippleDirective,
@@ -42,6 +44,7 @@ import {
     CheckboxComponent,
     ModalComponent,
     ModalTriggerDirective,
+    ModalCloseDirective,
   ],
   providers: [ModalComponent],
 })

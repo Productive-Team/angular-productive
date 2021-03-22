@@ -1,8 +1,8 @@
 :root {
   /* --primary: #7629aa; */
   /* --secondary: #ff5b8f; */
-  --primary: #7629aa;
-  --secondary: #38b68c;
+  --primary: #3f51b5;
+  --secondary: #e91e63;
 }
 
 @font-face {
@@ -14,7 +14,7 @@ html,
 body {
   margin: 0;
   height: 100vh;
-  font-family: "Roboto";
+  font-family: "Roboto" !important;
   font-size: 16px;
   color: #262626;
   -webkit-font-smoothing: antialiased;
@@ -29,10 +29,16 @@ h5,
 h6,
 span,
 p,
-label {
+label,
+pre {
   margin: 0;
   font-weight: normal;
 }
+
+pre {
+  font-family: Roboto;
+}
+
 br {
   user-select: none;
 }
@@ -509,7 +515,8 @@ a.btn-large {
 /* #endregion SidebarStyles */
 
 /* #region BackdropStyle */
-.backdrop {
+.backdrop,
+.backdrop-modal {
   position: fixed;
   z-index: 998;
   background-color: #000;
@@ -682,3 +689,59 @@ a.btn-large {
     0 1px 5px 0 rgb(0 0 0 / 20%);
 }
 /* #endregion Elevation */
+
+/* #region Snackbars */
+.snackbar {
+  position: fixed;
+  padding: 15px;
+  border-radius: 5px;
+  height: 20px;
+  width: 344px;
+  color: white;
+  background-color: rgb(44, 44, 44);
+  z-index: 1004;
+  line-height: 20px;
+  display: none;
+  overflow: hidden;
+  transition: opacity 0.15s linear;
+}
+.snackbar.top {
+  top: 15px;
+}
+.snackbar.bottom {
+  bottom: 15px;
+}
+.snackbar.left {
+  animation: fadeInSnackbar 0.15s;
+  left: 15px;
+}
+.snackbar.right {
+  animation: fadeInSnackbar 0.15s;
+  right: 15px;
+}
+.snackbar.center {
+  animation: fadeInCenterSnackbar 0.15s;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@keyframes fadeInSnackbar {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes fadeInCenterSnackbar {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+/* #endregion Snackbars */

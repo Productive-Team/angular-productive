@@ -1,11 +1,11 @@
 <div class="modal" [id]="modalId">
-  <div class="modal-header">
+  <div class="modal-header" *ngIf="hasModalHeader">
     <ng-content select="[modal-header]"></ng-content>
   </div>
   <div class="modal-content">
     <ng-content select="[modal-content]"></ng-content>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer" *ngIf="hasModalFooter">
     <ng-content select="[modal-footer]"></ng-content>
   </div>
 </div>

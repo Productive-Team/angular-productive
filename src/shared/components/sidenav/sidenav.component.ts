@@ -64,6 +64,8 @@ export class SidenavComponent implements OnInit {
         if (backdrop !== null) {
           backdrop.style.opacity = '0';
           backdrop.addEventListener('transitionend', () => {
+            const body = document.querySelector('body');
+            body.style.overflowY = 'visible';
             backdrop.remove();
             isOpen = false;
           });

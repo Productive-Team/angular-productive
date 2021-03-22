@@ -237,37 +237,9 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
         checkInput.parentElement.classList.add('active');
         // calls the checkValueFunc to emit a value of true;
         this.checkValueFunc(true);
-
-        if (this.isSwitch) {
-          const switchThumb = document.getElementById('switch-thumb');
-          const SwitchBack = document.getElementById('switch-cont');
-
-          // if (this.switchColor !== undefined) {
-          //   switchThumb.style.setProperty(
-          //     '--switch-thumb',
-          //     this.switchColor.trim()
-          //   );
-          //   this.hexLowOpacity(this.switchColor.trim());
-          //   SwitchBack.style.backgroundColor = this.switchBackgroundColor;
-          // } else {
-          //   // Gets hex from --primary css variable;
-          //   const mainColorVar = getComputedStyle(
-          //     document.documentElement
-          //   ).getPropertyValue('--primary');
-          //   this.hexLowOpacity(mainColorVar.trim());
-          //   this.switchColor = mainColorVar.trim();
-          //   SwitchBack.style.backgroundColor = this.switchBackgroundColor;
-          // }
-        }
       } else {
         // if it's not checked, calls the event emit function, to emit the value of false
         this.checkValueFunc(false);
-        // in case it's a switch and doesn't have an [isChecked] attribute
-        // it checks if the actual input behind the switch has a checked attribute added dinamically
-        // do it can change the colors of the switch to be active
-        if (this.isSwitch) {
-          this.checkColor();
-        }
       }
 
       if (this.isIndeterminate) {
@@ -329,32 +301,32 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
 
   // sets the background color of the SwitchBackground
   backgroundColorSwitch(): any {
-     const SwitchBack = document.getElementById('switch-cont');
-     if (this.switchColor) {
-       if (
-         /#([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor) ||
-         /([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor)
-       ) {
-         SwitchBack.style.setProperty(
-           '--container-background',
-           this.switchColor + '99'
-         );
-       }
-     } else {
-       const mainColorVar = getComputedStyle(document.documentElement)
-         .getPropertyValue('--primary')
-         .trim();
-       this.switchColor = mainColorVar;
-       if (
-         /#([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor) ||
-         /([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor)
-       ) {
-         SwitchBack.style.setProperty(
-           '--container-background',
-           this.switchColor + '99'
-         );
-       }
-     }
+    const SwitchBack = document.getElementById('switch-cont');
+    if (this.switchColor) {
+      if (
+        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor) ||
+        /([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor)
+      ) {
+        SwitchBack.style.setProperty(
+          '--container-background',
+          this.switchColor + '99'
+        );
+      }
+    } else {
+      const mainColorVar = getComputedStyle(document.documentElement)
+        .getPropertyValue('--primary')
+        .trim();
+      this.switchColor = mainColorVar;
+      if (
+        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor) ||
+        /([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor)
+      ) {
+        SwitchBack.style.setProperty(
+          '--container-background',
+          this.switchColor + '99'
+        );
+      }
+    }
   }
 
   // Emits a value of true or false to parent component
@@ -376,32 +348,6 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
       return true;
     }
     throw new Error('The color switch value has to be a hex.');
-  }
-
-  // function to check if there is a dinamically added "checked" attribute added directly to the input
-  // so it can apply the proper colors to a Switch
-  checkColor(): void {
-    setTimeout(() => {
-      const checkbox = document.getElementById(
-        this.checkId
-      ) as HTMLInputElement;
-      if (checkbox.checked) {
-        const switchThumb = checkbox.nextSibling.firstChild as HTMLDivElement;
-        const switchCont = checkbox.parentElement;
-        if (this.switchColor !== undefined) {
-          switchThumb.style.backgroundColor = this.switchColor;
-          this.hexLowOpacity(this.switchColor.trim());
-          switchCont.style.backgroundColor = this.switchBackgroundColor;
-        } else {
-          switchThumb.style.backgroundColor = 'var(--primary)';
-          const mainColorVar = getComputedStyle(
-            document.documentElement
-          ).getPropertyValue('--primary');
-          this.hexLowOpacity(mainColorVar.trim());
-          switchCont.style.backgroundColor = this.switchBackgroundColor;
-        }
-      }
-    }, 0);
   }
 
   // checks if required input is not undefined or null
