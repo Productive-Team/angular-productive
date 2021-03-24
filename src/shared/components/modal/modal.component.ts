@@ -87,7 +87,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     body.style.overflow = 'hidden';
     background.style.zIndex = '999';
     background.style.opacity = '.5';
-    modal.style.zIndex = '1000';
+    modal.style.display = 'block';
     setTimeout(() => {
       modal.style.opacity = '1';
       modal.style.transform = 'translateY(-50%) translateX(-50%) scale(1)';
@@ -110,7 +110,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     modal.style.opacity = '0';
     body.style.overflow = 'visible';
     backdrop.addEventListener('transitionend', () => {
-      modal.style.zIndex = '-1';
+      modal.style.display = 'none';
       modal.style.transform = 'translateY(-50%) translateX(-50%) scale(0.9)';
       backdrop.removeEventListener('click', () => {});
       backdrop.remove();
