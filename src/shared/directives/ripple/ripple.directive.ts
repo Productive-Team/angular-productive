@@ -179,6 +179,9 @@ export class RippleDirective implements OnInit, AfterViewInit {
     this.persistStyleChanges(ripple);
 
     ripple.style.transform = 'scale(1)';
+    ripple.addEventListener('transitioncancel', () => {
+      this.fadeOutRipple(ripple);
+    });
     ripple.addEventListener('transitionend', () => {
       ripple.classList.add('ripple-transitioned');
     });
@@ -209,6 +212,9 @@ export class RippleDirective implements OnInit, AfterViewInit {
         ripNTransitioned.addEventListener('transitionend', () => {
           ripNTransitioned.remove();
         });
+      });
+      ripNTransitioned.addEventListener('transitioncancel', () => {
+        ripNTransitioned.remove();
       });
     }
     let rt = 0;

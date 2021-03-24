@@ -17,6 +17,10 @@ import {
   ModalComponent,
   ModalTriggerDirective,
 } from './components/modal/modal.component';
+import {
+  DropdownComponent,
+  DropdownTriggerDirective,
+} from './components/dropdown/dropdown.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -32,6 +36,8 @@ import {
     ModalComponent,
     ModalTriggerDirective,
     ModalCloseDirective,
+    DropdownComponent,
+    DropdownTriggerDirective,
   ],
   exports: [
     RippleDirective,
@@ -45,6 +51,8 @@ import {
     ModalComponent,
     ModalTriggerDirective,
     ModalCloseDirective,
+    DropdownComponent,
+    DropdownTriggerDirective,
   ],
   providers: [ModalComponent],
 })

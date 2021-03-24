@@ -822,3 +822,86 @@ textarea.p-input.classic {
   }
 }
 /* #endregion Snackbars */
+
+/* #region DropdownMenus */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  padding: 10px 0;
+  background-color: var(--appBackgroundColor);
+  border-radius: 5px;
+  box-sizing: content-box;
+  max-width: 100%;
+  animation: dropAnimation 0.15s cubic-bezier(0, 0, 0.2, 1);
+  transition: opacity 0.2s ease-out;
+  overflow: hidden;
+  z-index: 995;
+}
+
+.dropdown-menu.left-align {
+  transform-origin: 0 0;
+}
+.dropdown-menu.right-align {
+  transform-origin: 100% 0;
+}
+.dropdown-menu.bottom-right-align {
+  transform-origin: 100% 100%;
+}
+.dropdown-menu.bottom-left-align {
+  transform-origin: 0 200%;
+}
+
+.dropdown-menu li {
+  white-space: nowrap;
+  list-style: none;
+}
+
+.dropdown-menu li button,
+.dropdown-menu li a {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-align: start;
+  padding: 0 15px;
+  height: 46px;
+  cursor: pointer;
+  font-family: Roboto;
+  font-size: 16px;
+  transition: 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  user-select: none;
+  line-height: 46px;
+}
+
+.dropdown-menu li button i,
+.dropdown-menu li a i {
+  line-height: 46px;
+}
+
+.dropdown-menu li button:hover,
+.dropdown-menu li a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-menu li button:active,
+.dropdown-menu li a:active {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+@keyframes dropAnimation {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* #endregion DropdownMenus */
