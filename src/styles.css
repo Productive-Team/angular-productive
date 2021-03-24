@@ -15,7 +15,7 @@ html,
 body {
   margin: 0;
   height: 100vh;
-  font-family: "Roboto" !important;
+  font-family: Roboto !important;
   font-size: 16px;
   color: #262626;
   -webkit-font-smoothing: antialiased;
@@ -549,20 +549,27 @@ a.btn-large {
 }
 .p-input {
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.05);
+  background: #f1f1f1;
   border: 0;
   border-radius: 5px 5px 0 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  color: rgba(0, 0, 0, 0.75);
+  color: #262626;
   font-size: 17px;
   outline: none;
   padding: 17px 8px 5px 8px;
   font-family: Roboto;
   width: 100%;
   text-overflow: ellipsis;
-  resize: none;
+  resize: vertical;
 }
-.label-wrapper {
+textarea.p-input,
+textarea.p-input.classic {
+  border-top: 15px solid rgba(0, 0, 0, 0);
+  padding-top: 5px;
+}
+
+.label-wrapper,
+.label-wrapper-textarea {
   pointer-events: none;
   position: absolute;
   display: inline-block;
@@ -578,17 +585,20 @@ a.btn-large {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-.p-input-label,
-.p-input-label-textarea {
+.label-wrapper-textarea {
+  bottom: unset;
+  top: 10px;
+}
+.p-input.classic + .label-wrapper-textarea {
+  left: 0;
+}
+
+.p-input-label {
   color: rgba(0, 0, 0, 0.5);
   line-height: 25px;
   user-select: none;
   -webkit-user-drag: none;
   transition: 0.2s cubic-bezier(0, 0, 0.2, 1);
-}
-.p-input-label-textarea {
-  bottom: unset;
-  top: 10px;
 }
 .p-input.classic {
   background-color: transparent;
@@ -632,22 +642,35 @@ a.btn-large {
   left: 0;
 }
 
-.p-input:focus + .label-wrapper label {
+.p-input:focus + .label-wrapper label,
+.p-input:focus + .label-wrapper-textarea label {
   color: var(--primary);
 }
 .p-input + .label-wrapper.active,
 .p-input.classic + .label-wrapper.active {
-  transform: translateY(-18px);
+  transform: translateY(-20px);
   transform-origin: 0 0;
   font-size: 13px;
 }
 .p-input.outlined + .label-wrapper.active {
-  transform: translateY(-25px);
+  transform: translateY(-26px);
   background-color: var(--appBackgroundColor);
   transform-origin: 0 0;
+  font-size: 13px;
+}
+.label-wrapper.active i,
+.label-wrapper-textarea.active i {
   font-size: 20px;
 }
-.label-wrapper.active i {
+.p-input + .label-wrapper-textarea.active {
+  transform: translateY(-15px);
+  transform-origin: 0 0;
+  font-size: 13px;
+}
+.p-input.outlined + .label-wrapper-textarea.active {
+  transform: translateY(-20px);
+  background-color: var(--appBackgroundColor);
+  transform-origin: 0 0;
   font-size: 13px;
 }
 

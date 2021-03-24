@@ -58,7 +58,36 @@
   </div>
   <div class="col m4 s12">
     <p-fieldset labelText="Active Label" labelId="textarea-outlined" [isTextarea]="true">
-      <textarea class="p-input outlined" id="textarea-outlined" pInput></textarea>
+      <textarea class="p-input outlined" pInput id="textarea-outlined"></textarea>
+    </p-fieldset>
+  </div>
+</div>
+<div class="row">
+  <div class="col m4 s12">
+    <p-fieldset labelText="Select Browser Default" labelId="selectBD">
+      <select id="selectBD" class="p-input" pInput>
+        <option value=""></option>
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
+    </p-fieldset>
+  </div>
+  <div class="col m4 s12">
+    <p-fieldset labelText="Select Browser Default" labelId="selectBDC">
+      <select id="selectBDC" class="p-input classic" pInput>
+        <option value=""></option>
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
+    </p-fieldset>
+  </div>
+  <div class="col m4 s12">
+    <p-fieldset labelText="Select Browser Default" labelId="selectBDO">
+      <select id="selectBDO" class="p-input outlined" pInput>
+        <option value=""></option>
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
     </p-fieldset>
   </div>
 </div>
@@ -526,6 +555,12 @@
   </div>
 </div>
 <div>
-  <button class="btn flat primary" pRipple (click)="openSnack()">Launch Snackbar</button>
+  <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" (click)="openSnack()">Launch
+    Snackbar</button>
 </div>
 <br>
+<h2>Dropdown Menu</h2>
+<hr>
+<div>
+  <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)">Open Menu</button>
+</div>
