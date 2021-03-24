@@ -1,11 +1,13 @@
 <div class="fieldset">
   <div>
     <ng-content></ng-content>
-    <label for="{{labelId}}" [class]="isTextarea ? 'p-input-label-textarea' : 'p-input-label'">
-      <i class="material-icons left" *ngIf="labelIconLeft">{{labelIconLeft}}</i>
-      {{labelText}}
-      <i class="material-icons right" *ngIf="labelIconRight">{{labelIconRight}}</i>
-    </label>
+    <span class="label-wrapper">
+      <label for="{{labelId}}" [class]="isTextarea ? 'p-input-label-textarea' : 'p-input-label'">
+        <i class="material-icons left" *ngIf="labelIconLeft">{{labelIconLeft}}</i>
+        {{labelText}}
+        <i class="material-icons right" *ngIf="labelIconRight">{{labelIconRight}}</i>
+      </label>
+    </span>
     <div [class]="isTextarea ? 'p-input-bar-textarea' : 'p-input-bar'"></div>
     <button class="btn-small floating flat input-trailing" pRipple pRippleCentered="true" *ngIf="trailingButton"
       (click)="execFunction()">

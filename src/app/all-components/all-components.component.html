@@ -484,6 +484,48 @@
 <br>
 <h2>Snackbars</h2>
 <hr>
+<div class="row">
+  <div class="col m2 s12">
+    <p-fieldset labelText="Snackbar Text" labelId="snackText" labelActive="true">
+      <input type="text" pInput class="p-input" id="snackText" [(ngModel)]="snackTxt">
+    </p-fieldset>
+  </div>
+  <div class="col m2 s12">
+    <p-fieldset labelText="Snackbar Duration" labelId="snackDur">
+      <input type="number" pInput class="p-input" id="snackDur" [(ngModel)]="snackDur">
+    </p-fieldset>
+  </div>
+  <div class="col m2 s12">
+    <p-fieldset labelText="Snackbar Vertical Position" labelId="snackPosY">
+      <select id="snackPosY" pInput class="p-input" [(ngModel)]="snackPosY">
+        <option value="" [selected]="true"></option>
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+      </select>
+    </p-fieldset>
+  </div>
+  <div class="col m2 s12">
+    <p-fieldset labelText="Snackbar Horizontal Position" labelId="snackPosX">
+      <select id="snackPosX" pInput class="p-input" [(ngModel)]="snackPosX">
+        <option value="" [selected]="true"></option>
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+      </select>
+    </p-fieldset>
+  </div>
+  <div class="col m2 s12">
+    <div class="fieldset">
+      <p-checkbox checkId="snackBtn" checkboxText="Snackbar Button" (checkValue)="snackBtnChg($event)"></p-checkbox>
+    </div>
+  </div>
+  <div class="col m2 s12" *ngIf="snackBtn">
+    <p-fieldset labelText="Snackbar Button Text" labelId="snackBtnText" labelActive="true">
+      <input type="text" pInput class="p-input" id="snackBtnText" [(ngModel)]="snackBtnTxt">
+    </p-fieldset>
+  </div>
+</div>
 <div>
   <button class="btn flat primary" pRipple (click)="openSnack()">Launch Snackbar</button>
 </div>
+<br>

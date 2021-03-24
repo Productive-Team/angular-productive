@@ -11,6 +11,13 @@ export class AllComponentsComponent implements OnInit {
   unbound = false;
   color: string;
   radius: number;
+
+  snackTxt: string;
+  snackDur: number;
+  snackPosY: string;
+  snackPosX: string;
+  snackBtn = false;
+  snackBtnTxt: string;
   constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}
@@ -68,7 +75,24 @@ export class AllComponentsComponent implements OnInit {
     swit.checked = event;
   }
 
+  snackBtnChg(event): void {
+    this.snackBtn = event;
+  }
+
   openSnack(): void {
-    this.snackbar.openSnackbar();
+    if (!this.snackTxt) {
+      this.snackTxt = 'Snackbar Text';
+    }
+    if (this.snackBtn && !this.snackBtnTxt) {
+      this.snackBtnTxt = 'Close';
+    }
+    this.snackbar.openSnackbar(
+      this.snackPosY,
+      this.snackPosX,
+      this.snackTxt,
+      this.snackDur,
+      this.snackBtn,
+      this.snackBtnTxt
+    );
   }
 }

@@ -4,8 +4,10 @@ import {
   Component,
   ContentChild,
   Directive,
+  ElementRef,
   HostListener,
   Input,
+  OnChanges,
   OnInit,
 } from '@angular/core';
 import { FormControlName, NgModel } from '@angular/forms';
@@ -16,6 +18,13 @@ const labelActive = [];
   selector: '[app-input], [p-input], [pInput]',
 })
 export class InputDirective {
+  constructor(private el: ElementRef) {
+    const inpt = el.nativeElement;
+    const a = inpt as HTMLInputElement;
+    a.addEventListener('input', () => {
+      console.log('object');
+    });
+  }
   @HostListener('focus', ['$event']) onFocus(event) {
     const input = event.target as HTMLInputElement;
     const label = input.nextSibling as HTMLElement;
@@ -23,7 +32,6 @@ export class InputDirective {
   }
   @HostListener('focusout', ['$event']) onFocusOut(event) {
     const input = event.target as HTMLInputElement;
-    console.log(input.value);
     const activeInp = labelActive.find((x) => x === input);
     const label = input.nextSibling as HTMLElement;
     if (

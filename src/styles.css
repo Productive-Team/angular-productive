@@ -1,8 +1,9 @@
 :root {
-  /* --primary: #7629aa; */
-  /* --secondary: #ff5b8f; */
   --primary: #3f51b5;
   --secondary: #e91e63;
+  --primaryLowOpacity: #3f51b51e;
+  --secondaryLowOpacity: #e91e631e;
+  --appBackgroundColor: white;
 }
 
 @font-face {
@@ -19,6 +20,7 @@ body {
   color: #262626;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
+  background-color: var(--appBackgroundColor);
 }
 
 h1,
@@ -263,6 +265,7 @@ i {
   cursor: pointer;
   transition: 0.1s ease-in;
   user-select: none;
+  font-family: Roboto;
   -webkit-tap-highlight-color: transparent;
 }
 .btn:active,
@@ -330,7 +333,7 @@ a.disabled {
 .btn.floating.flat:hover,
 .btn-small.floating.flat:hover,
 .btn-large.floating.flat:hover {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 a.btn,
 a.btn-small,
@@ -338,6 +341,16 @@ a.btn-large {
   vertical-align: top;
   text-decoration: none;
   -webkit-user-drag: none;
+}
+.btn.flat.primary:hover,
+.btn-small.flat.primary:hover,
+.btn-large.flat.primary:hover {
+  background-color: var(--primaryLowOpacity);
+}
+.btn.flat.secondary:hover,
+.btn-small.flat.secondary:hover,
+.btn-large.flat.secondary:hover {
+  background-color: var(--secondaryLowOpacity);
 }
 /*#endregion Buttons */
 
@@ -549,58 +562,48 @@ a.btn-large {
   text-overflow: ellipsis;
   resize: none;
 }
+.label-wrapper {
+  pointer-events: none;
+  position: absolute;
+  display: inline-block;
+  box-sizing: border-box;
+  max-width: 98%;
+  height: 24px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  left: 5px;
+  bottom: 5px;
+  transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
 .p-input-label,
 .p-input-label-textarea {
-  position: absolute;
-  bottom: 8px;
-  left: 5px;
   color: rgba(0, 0, 0, 0.5);
-  user-select: none;
-  cursor: text;
-  transition: 0.2s cubic-bezier(0, 0, 0.2, 1);
-  -webkit-user-drag: none;
   line-height: 25px;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
-.p-input + .p-input-label-textarea.active {
-  transform: scale(0.8);
-  bottom: 70%;
-  left: 0;
-}
-.p-input.classic + .p-input-label-textarea.active {
-  left: -8px;
-}
-.p-input.outlined + .p-input-label-textarea.active {
-  bottom: 80%;
-  background-color: white;
-}
-.p-input.outlined + .p-input-label-textarea {
-  bottom: 30%;
+.p-input-label-textarea {
+  bottom: unset;
+  top: 10px;
 }
 .p-input.classic {
   background-color: transparent;
   border-radius: 0;
   padding-left: 0;
 }
-.p-input.classic + .p-input-label {
-  left: 0;
-}
 .p-input.outlined {
   background-color: transparent;
-  padding: 10px 10px 10px 10px;
+  padding: 15px 10px 5px 10px;
   border: 2px solid rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   transition: 0.1s linear;
 }
 .p-input.outlined:focus {
   border-color: var(--primary);
-}
-.p-input.outlined ~ .p-input-bar,
-.p-input.outlined ~ .p-input-bar-textarea {
-  display: none;
-}
-.p-input.outlined + .p-input-label {
-  bottom: 10px;
-  left: 10px;
 }
 .p-input-bar,
 .p-input-bar-textarea {
@@ -621,28 +624,33 @@ a.btn-large {
   transition: width 0.2s ease-out;
   width: 100%;
 }
-.p-input + .p-input-label.active {
-  transform: scale(0.8);
-  bottom: 25px;
+.p-input.outlined ~ .p-input-bar,
+.p-input.outlined ~ .p-input-bar-textarea {
+  display: none;
+}
+.p-input.classic + .label-wrapper {
   left: 0;
 }
-.p-input.classic + .p-input-label.active {
-  transform: scale(0.8);
-  bottom: 25px;
-  left: -10px;
-}
-.p-input.outlined + .p-input-label.active {
-  transform: scale(0.8);
-  text-align: start;
-  bottom: 30px;
-  left: 0;
-  background-color: white;
-  padding: 0 3px;
-}
-.p-input:focus + .p-input-label,
-.p-input:focus + .p-input-label-textarea {
+
+.p-input:focus + .label-wrapper label {
   color: var(--primary);
 }
+.p-input + .label-wrapper.active,
+.p-input.classic + .label-wrapper.active {
+  transform: translateY(-18px);
+  transform-origin: 0 0;
+  font-size: 13px;
+}
+.p-input.outlined + .label-wrapper.active {
+  transform: translateY(-25px);
+  background-color: var(--appBackgroundColor);
+  transform-origin: 0 0;
+  font-size: 20px;
+}
+.label-wrapper.active i {
+  font-size: 13px;
+}
+
 .fieldset button.input-trailing {
   position: absolute;
   right: 0;
@@ -703,7 +711,7 @@ a.btn-large {
   line-height: 20px;
   display: none;
   overflow: hidden;
-  transition: opacity 0.15s linear;
+  transition: opacity 0.1s linear;
 }
 .snackbar.top {
   top: 15px;
@@ -724,6 +732,36 @@ a.btn-large {
   left: 50%;
   transform: translateX(-50%);
 }
+@media only screen and (max-width: 500px) {
+  .snackbar {
+    margin: 0;
+    width: 100%;
+    height: 50px;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+  .snackbar.left {
+    left: 0;
+  }
+  .snackbar.right {
+    right: 0;
+  }
+  .snackbar.center {
+    left: 0;
+    transform: translateX(0);
+  }
+  .snackbar.top {
+    animation: mobileTopSnackbar 0.25s;
+    top: 0px;
+  }
+  .snackbar.bottom {
+    animation: mobileBottomSnackbar 0.25s;
+    bottom: 0px;
+  }
+}
+.snackbar-button {
+  bottom: 8px;
+}
 @keyframes fadeInSnackbar {
   from {
     opacity: 0;
@@ -742,6 +780,22 @@ a.btn-large {
   to {
     opacity: 1;
     transform: translateX(-50%) scale(1);
+  }
+}
+@keyframes mobileBottomSnackbar {
+  from {
+    bottom: -150px;
+  }
+  to {
+    bottom: 0;
+  }
+}
+@keyframes mobileTopSnackbar {
+  from {
+    top: -150px;
+  }
+  to {
+    top: 0;
   }
 }
 /* #endregion Snackbars */
