@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   @Input() size: string;
   @Input() backgroundColor: string;
-  @Input() elevated = false;
+  @Input() elevated = true;
   @Input() fixed = false;
   @Input() hasSidenav = false;
 
@@ -24,9 +24,6 @@ export class NavbarComponent implements OnInit {
     }
     if (this.hasSidenav) {
       this.navHasSide();
-    }
-    if (this.fixed) {
-      this.navFixed();
     }
   }
 
@@ -43,12 +40,12 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  navFixed(): void {
-    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
-    navbarElement.classList.add('fixed');
-    const outWrap = document.getElementById('wrap-1');
-    outWrap.style.height = navbarElement.offsetHeight.toString() + 'px';
-  }
+  // navFixed(): void {
+  //   const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+  //   navbarElement.classList.add('fixed');
+  //   const outWrap = document.getElementById('wrap-1');
+  //   outWrap.style.height = navbarElement.offsetHeight.toString() + 'px';
+  // }
 
   navElevation(): void {
     const navbarElement = document.querySelector('.navbar') as HTMLDivElement;

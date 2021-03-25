@@ -1,4 +1,4 @@
-<p-sidenav [hidden]="false" [elevated]="true">
+<p-sidenav [hidden]="true" [elevated]="true">
   <ng-container side-content>
     <li>
       <div class="img-container">
@@ -29,37 +29,39 @@
     </li>
   </ng-container>
 </p-sidenav>
-<app-navbar backgroundColor="bg-primary" [hasSidenav]="true">
-  <ng-container navbarContent>
-    <ul class="left">
-      <li>
-        <button class="btn floating flat" pRipple pRippleCentered="true" pRippleColor="#ffffff26" p-sidenav-trigger>
-          <i class="material-icons">menu</i>
-        </button>
-      </li>
-    </ul>
-    <ul class="center">
-      <li>
-        <h3>Angular Productive</h3>
-      </li>
-    </ul>
-    <ul class="right">
-      <li>
-        <button class="btn flat bg-secondary" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
-          Components
-        </button>
-      </li>
-      <li>
-        <a class="btn flat" pRipple pRippleColor="#ffffff26"
-          href="https://github.com/Productive-Team/angular-productive" target="_blank">
-          <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
-            style="top: 12px; position: relative;" class="left">
-          Github
-        </a>
-      </li>
-    </ul>
-  </ng-container>
-</app-navbar>
-<div class="container-sidenav">
-  <router-outlet></router-outlet>
+<div class="content-wrapper">
+  <app-navbar backgroundColor="bg-primary" [hasSidenav]="false">
+    <ng-container navbarContent>
+      <ul class="left">
+        <li>
+          <button class="btn floating flat" pRipple pRippleCentered="true" pRippleColor="#ffffff26" p-sidenav-trigger>
+            <i class="material-icons">menu</i>
+          </button>
+        </li>
+      </ul>
+      <ul class="center">
+        <li>
+          <h3>Angular Productive</h3>
+        </li>
+      </ul>
+      <ul class="right">
+        <li>
+          <button class="btn flat bg-secondary" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
+            Components
+          </button>
+        </li>
+        <li>
+          <a class="btn flat" pRipple pRippleColor="#ffffff26"
+            href="https://github.com/Productive-Team/angular-productive" target="_blank">
+            <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
+              style="top: 12px; position: relative;" class="left">
+            Github
+          </a>
+        </li>
+      </ul>
+    </ng-container>
+  </app-navbar>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 </div>

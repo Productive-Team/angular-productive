@@ -20,6 +20,7 @@ body {
   color: #262626;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
+  /* overflow: hidden; */
   background-color: var(--appBackgroundColor);
 }
 
@@ -49,25 +50,32 @@ i {
 }
 
 /* #region GridStyles */
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  max-height: 100%;
+}
 .container {
-  padding: 15px 5px;
-  margin: 0 5%;
+  padding: 15px 30px;
+  max-height: 100%;
+  overflow: auto;
 }
 .container-sidenav {
-  padding: 15px;
-  margin-left: 250px;
+  padding: 15px 15px 15px 260px;
+  max-height: 100%;
+  overflow: auto;
 }
 @media screen and (max-width: 1000px) {
   .container-sidenav {
-    padding: 15px 5px;
-    margin: 0 5%;
+    padding: 15px 25px;
   }
 }
 @media screen and (max-width: 600px) {
   .container,
   .container-sidenav {
-    padding: 10px 2.5px;
-    margin: 0 2%;
+    padding: 10px 15px;
   }
 }
 
@@ -267,6 +275,10 @@ i {
   user-select: none;
   font-family: Roboto;
   -webkit-tap-highlight-color: transparent;
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .btn:active,
 .btn-small:active,
@@ -537,7 +549,7 @@ a.btn-large {
   height: 100vh;
   top: 0;
   opacity: 0;
-  transition: 0.15s linear;
+  transition: opacity 0.15s linear;
   -webkit-tap-highlight-color: transparent;
 }
 /* #endregion BackdropStyle*/
@@ -824,18 +836,29 @@ textarea.p-input.classic {
 /* #endregion Snackbars */
 
 /* #region DropdownMenus */
+.dropdown-wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
 .dropdown-menu {
   display: none;
-  position: absolute;
+  position: static;
   padding: 10px 0;
   background-color: var(--appBackgroundColor);
   border-radius: 5px;
   box-sizing: content-box;
   max-width: 100%;
+  max-height: 100vh;
+  overflow: auto;
   animation: dropAnimation 0.15s cubic-bezier(0, 0, 0.2, 1);
   transition: opacity 0.2s ease-out;
   overflow: hidden;
-  z-index: 995;
+  z-index: 1001;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .dropdown-menu.left-align {
@@ -877,6 +900,14 @@ textarea.p-input.classic {
   text-overflow: ellipsis;
   user-select: none;
   line-height: 46px;
+  color: #262626;
+  text-decoration: none;
+}
+
+.dropdown-menu li button:disabled,
+.dropdown-menu li a:disabled {
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .dropdown-menu li button i,
@@ -897,7 +928,7 @@ textarea.p-input.classic {
 @keyframes dropAnimation {
   from {
     opacity: 0;
-    transform: scale(0);
+    transform: scale(0.8);
   }
   to {
     opacity: 1;

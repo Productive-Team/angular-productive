@@ -1,3 +1,5 @@
-<ul class="dropdown-menu elevation" [id]="pDropdownId">
-  <ng-content></ng-content>
-</ul>
+<div class="dropdown-wrapper" [id]="pDropdownId + '-wrapper'">
+  <ul class="dropdown-menu elevation" [id]="pDropdownId">
+    <ng-content></ng-content>
+  </ul>
+</div>
