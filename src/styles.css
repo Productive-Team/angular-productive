@@ -838,26 +838,26 @@ textarea.p-input.classic {
 /* #region DropdownMenus */
 .dropdown-wrapper {
   position: absolute;
-  display: flex;
+  display: none;
   flex-direction: column;
   z-index: 1000;
 }
 
 .dropdown-menu {
-  display: none;
+  display: inline-block;
   position: static;
   padding: 10px 0;
   background-color: var(--appBackgroundColor);
   border-radius: 5px;
   box-sizing: content-box;
   max-width: 100%;
-  max-height: 100vh;
+  max-height: 50%;
   overflow: auto;
   animation: dropAnimation 0.15s cubic-bezier(0, 0, 0.2, 1);
-  transition: opacity 0.2s ease-out;
-  overflow: hidden;
   z-index: 1001;
   margin: 0;
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
   -webkit-tap-highlight-color: transparent;
 }
 

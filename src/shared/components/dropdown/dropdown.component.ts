@@ -25,7 +25,6 @@ export class DropdownTriggerDirective {
       const dropWrap = document.getElementById(
         `${this.pDropdownTriggerId}-wrapper`
       );
-      menu.style.display = 'inline-block';
       menu.style.opacity = '1';
       const back = document.createElement('div');
       back.classList.add('backdrop');
@@ -39,27 +38,28 @@ export class DropdownTriggerDirective {
           this.close(back, menu, dropWrap);
         }
       });
-    }, 5);
+    }, 0);
   }
 
   private close(backdrop, menu, dropWrap): any {
     menu.style.opacity = '0';
-    dropWrap.style.display = 'none';
-    dropWrap.style.left = null;
-    dropWrap.style.top = null;
-    dropWrap.style.bottom = null;
-    dropWrap.style.right = null;
-    dropWrap.style.alignItems = null;
-    dropWrap.style.justifyContent = null;
-    dropWrap.style.height = null;
-    dropWrap.style.width = null;
-    menu.addEventListener('transitionend', this.remv(backdrop, menu));
-    menu.removeEventListener('transitionend', this.remv(backdrop, menu));
+    menu.addEventListener('transitionend', this.remov(backdrop, dropWrap));
+    menu.removeEventListener('transitionend', this.remov(backdrop, dropWrap));
   }
 
-  remv(backdrop, menu): void {
-    menu.style.display = 'none';
-    backdrop.remove();
+  remov(backdrop, dropWrap): any {
+    setTimeout(() => {
+      dropWrap.style.display = 'none';
+      dropWrap.style.left = null;
+      dropWrap.style.top = null;
+      dropWrap.style.bottom = null;
+      dropWrap.style.right = null;
+      dropWrap.style.alignItems = null;
+      dropWrap.style.justifyContent = null;
+      dropWrap.style.height = null;
+      dropWrap.style.width = null;
+      backdrop.remove();
+    }, 50);
   }
 
   private dropAlign(dropMenu, ev) {
@@ -67,8 +67,6 @@ export class DropdownTriggerDirective {
     const innWdth = window.innerWidth / 2;
     const posY = ev.clientY;
     const innHgt = window.innerHeight / 2;
-    console.log('hgt:' + innHgt);
-    console.log('postY:' + posY);
     if (innWdth > posX && innHgt > posY) {
       dropMenu.classList.remove(
         'right-align',
