@@ -958,6 +958,7 @@ textarea.p-input.classic {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  user-select: none;
   z-index: 900;
 }
 .pBadge.top {

@@ -30,7 +30,7 @@ export class ModalCloseDirective {
 }
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal, p-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
 })

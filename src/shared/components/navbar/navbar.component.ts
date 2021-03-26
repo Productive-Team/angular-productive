@@ -1,8 +1,7 @@
-import { ClassField } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-navbar, p-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })

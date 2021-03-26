@@ -9,8 +9,7 @@ import {
 
 let isOpen = false;
 @Directive({
-  // tslint:disable-next-line: directive-selector
-  selector: '[p-sidenav-trigger]',
+  selector: '[appSidenavTrigget], [p-sidenav-trigger], [pSidenavTrigger]',
 })
 export class SidenavTriggerDirective {
   constructor(private el: ElementRef) {
@@ -47,8 +46,7 @@ export class SidenavTriggerDirective {
 }
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'p-sidenav',
+  selector: 'app-sidenav, p-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
 })

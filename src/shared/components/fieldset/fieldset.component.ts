@@ -43,8 +43,7 @@ export class InputDirective {
 }
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'p-fieldset',
+  selector: 'app-fieldset, p-fieldset',
   templateUrl: './fieldset.component.html',
   styleUrls: ['./fieldset.component.css'],
 })

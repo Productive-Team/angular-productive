@@ -1,3 +1,4 @@
+import { TooltipsDirective } from './directives/tooltips/tooltips.directive';
 import { BadgesDirective } from './directives/badges/badges.directive';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -40,6 +41,7 @@ import {
     DropdownComponent,
     DropdownTriggerDirective,
     BadgesDirective,
+    TooltipsDirective,
   ],
   exports: [
     RippleDirective,
@@ -56,6 +58,7 @@ import {
     DropdownComponent,
     DropdownTriggerDirective,
     BadgesDirective,
+    TooltipsDirective,
   ],
   providers: [ModalComponent],
 })

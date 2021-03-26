@@ -233,6 +233,7 @@
   <button class="btn flat primary" pRipple pModalTrigger pModalId="scrollableId">Open Scrollable Dialog</button>
   <button class="btn flat primary" pRipple pModalTrigger pModalId="smallId">Open Small Dialog</button>
   <button class="btn flat primary" pRipple pModalTrigger pModalId="largeId">Open Large Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pModalId="bottomSheet">Open Bottom Sheet</button>
 </div>
 <app-modal modalId="testId">
   <ng-container modal-header>
@@ -562,7 +563,7 @@
 <h2>Dropdown Menu</h2>
 <hr>
 <div>
-  <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
+  <button class="btn flat primary right" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
     pDropdownTriggerId="DropId">Open Menu</button>
   <p-dropdown pDropdownId="DropId">
     <li>
@@ -603,34 +604,45 @@
 <h2>Badges</h2>
 <hr>
 <br>
-<button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99">Top Right
-  Badge</button>
-<button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
-  pBadgeVerticalPosition="bottom">Bottom Right Badge</button>
+<div>
+  <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99">Top Right
+    Badge</button>
+  <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
+    pBadgeVerticalPosition="bottom">Bottom Right Badge</button>
+  <br>
+  <br>
+  <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
+    pBadgeHorizontalPosition="left" pBadgeVerticalPosition="bottom">Bottom Left Badge</button>
+  <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
+    pBadgeHorizontalPosition="left">Top Left Badge</button>
+  <br>
+  <br>
+  <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
+    pBadgeText="2 new">
+    Rectangular Badge
+  </button>
+  <br>
+  <br>
+  <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
+    pBadgeText="2 new" pBadgeColor="secondary">
+    Colored Badge
+  </button>
+  <button class="btn bg-secondary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="10"
+    pBadgeColor="primary">
+    Colored Badge
+  </button>
+  <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
+    pBadgeText="2 new" pBadgeColor="rgb(255,0,0)">
+    Custom Colored Badge
+  </button>
+</div>
 <br>
-<br>
-<button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
-  pBadgeHorizontalPosition="left" pBadgeVerticalPosition="bottom">Bottom Left Badge</button>
-<button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
-  pBadgeHorizontalPosition="left">Top Left Badge</button>
-<br>
-<br>
-<button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
-  pBadgeText="2 new">
-  Rectangular Badge
+<h2>Tooltips</h2>
+<hr>
+<button class="btn flat floating" pRipple pRippleCentered="true" pTooltip>
+  <i class="material-icons">print</i>
 </button>
 <br>
 <br>
-<button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
-  pBadgeText="2 new" pBadgeColor="secondary">
-  Colored Badge
-</button>
-<button class="btn bg-secondary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="10"
-  pBadgeColor="primary">
-  Colored Badge
-</button>
-<button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
-  pBadgeText="2 new" pBadgeColor="rgb(255,0,0)">
-  Custom Colored Badge
-</button>
-<br>
+<h2>Collapsible</h2>
+<hr>
