@@ -1,3 +1,4 @@
+import { BadgesDirective } from './directives/badges/badges.directive';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RippleDirective } from './directives/ripple/ripple.directive';
@@ -38,6 +39,7 @@ import {
     ModalCloseDirective,
     DropdownComponent,
     DropdownTriggerDirective,
+    BadgesDirective,
   ],
   exports: [
     RippleDirective,
@@ -53,6 +55,7 @@ import {
     ModalCloseDirective,
     DropdownComponent,
     DropdownTriggerDirective,
+    BadgesDirective,
   ],
   providers: [ModalComponent],
 })

@@ -265,7 +265,7 @@ i {
   position: relative;
   margin: 0 5px;
   background-color: #e4e4e4;
-  color: #2e2e2e;
+  color: #262626;
   border: 0;
   outline: none;
   font-size: 16px;
@@ -936,3 +936,47 @@ textarea.p-input.classic {
   }
 }
 /* #endregion DropdownMenus */
+
+/* #region Badges */
+.pBadgeContainer {
+  display: inline-block;
+  position: relative;
+  margin: 0 10px;
+}
+.pBadge {
+  display: inline-block;
+  padding: 0 5px;
+  background-color: #e4e4e4;
+  color: #262626;
+  border-radius: 5px;
+  height: 25px;
+  max-width: 100px;
+  align-items: center;
+  line-height: 25px;
+  pointer-events: none;
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  z-index: 900;
+}
+.pBadge.top {
+  top: -10px;
+}
+.pBadge.right {
+  right: -10px;
+}
+.pBadge.left {
+  left: -10px;
+}
+.pBadge.bottom {
+  bottom: -10px;
+}
+.pBadge.circle {
+  border-radius: 50%;
+  text-align: center;
+  width: 20px;
+  height: 30px;
+  line-height: 30px;
+}
+/* #endregion Badges */
