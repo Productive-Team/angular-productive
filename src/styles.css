@@ -20,7 +20,7 @@ body {
   color: #262626;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
-  /* overflow: hidden; */
+  overflow: hidden;
   background-color: var(--appBackgroundColor);
 }
 

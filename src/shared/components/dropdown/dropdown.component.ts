@@ -1,14 +1,14 @@
-import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 import {
   AfterViewInit,
   Component,
   Directive,
+  ElementRef,
   HostListener,
   Input,
   OnInit,
 } from '@angular/core';
 
-let isOpen = false;
+let closeOnBtnClick = true;
 
 @Directive({
   selector: '[app-dropdown-trigger], [p-dropdown-trigger], [pDropdownTrigger]',
@@ -29,25 +29,48 @@ export class DropdownTriggerDirective {
       const back = document.createElement('div');
       back.classList.add('backdrop');
       body.insertAdjacentElement('beforeend', back);
+      if (closeOnBtnClick) {
+        const links = menu.getElementsByTagName('a');
+        const buttons = menu.getElementsByTagName('button');
+        let a = 0;
+        for (; a < links.length; a++) {
+          links[a].classList.add('pDropdownButton');
+        }
+        let b = 0;
+        for (; b < buttons.length; b++) {
+          buttons[b].classList.add('pDropdownButton');
+        }
+      }
       document.addEventListener('click', (ev) => {
         const tr = ev.target as HTMLDivElement;
-        if (
-          tr.classList.contains('backdrop') ||
-          tr.classList.contains('dropdown-wrapper')
-        ) {
-          this.close(back, menu, dropWrap);
+        console.log(tr);
+        if (closeOnBtnClick) {
+          if (
+            tr.classList.contains('backdrop') ||
+            tr.classList.contains('dropdown-wrapper') ||
+            tr.classList.contains('pDropdownButton')
+          ) {
+            this.close(back, menu, dropWrap);
+          }
+        } else {
+          if (
+            tr.classList.contains('backdrop') ||
+            tr.classList.contains('dropdown-wrapper')
+          ) {
+            this.close(back, menu, dropWrap);
+          }
         }
       });
     }, 0);
   }
 
-  private close(backdrop, menu, dropWrap): any {
+  close(backdrop, menu, dropWrap): any {
     menu.style.opacity = '0';
     menu.addEventListener('transitionend', this.remov(backdrop, dropWrap));
     menu.removeEventListener('transitionend', this.remov(backdrop, dropWrap));
   }
 
-  remov(backdrop, dropWrap): any {
+  private remov(backdrop, dropWrap): any {
     setTimeout(() => {
       dropWrap.style.display = 'none';
       dropWrap.style.left = null;
@@ -64,9 +87,9 @@ export class DropdownTriggerDirective {
 
   private dropAlign(dropMenu, ev) {
     const posX = ev.clientX;
-    const innWdth = window.innerWidth / 2;
+    const innWdth = window.innerWidth / 1.5;
     const posY = ev.clientY;
-    const innHgt = window.innerHeight / 2;
+    const innHgt = window.innerHeight / 1.5;
     if (innWdth > posX && innHgt > posY) {
       dropMenu.classList.remove(
         'right-align',
@@ -151,43 +174,14 @@ export class DropdownTriggerDirective {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css'],
 })
-export class DropdownComponent implements OnInit, AfterViewInit {
+export class DropdownComponent implements OnInit {
   @Input() pDropdownId: string;
   @Input() pDropdownWidth: number;
   @Input() pDropdownAlign: string;
+  @Input() pDropdownCloseOnClick = true;
   constructor() {}
 
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    // this.setDropdownAlign();
+  ngOnInit(): void {
+    closeOnBtnClick = this.pDropdownCloseOnClick;
   }
-
-  // setDropdownAlign(): void {
-  //   const dropMenu = document.getElementById(this.pDropdownId);
-  //   switch (this.pDropdownAlign) {
-  //     case 'left':
-  //       dropMenu.classList.add('left-align');
-  //       break;
-  //     case 'right':
-  //       dropMenu.classList.add('right-align');
-  //       break;
-  //     default:
-  //       const posX = window.innerWidth / 2;
-  //       const menX = dropMenu.offsetLeft;
-  //       const posY = window.innerHeight / 2;
-  //       const menY = dropMenu.offsetTop;
-  //       if (menX > posX && menY > posY) {
-  //         dropMenu.classList.add('bottom-right-align');
-  //       } else if (menX > posX && menY < posY) {
-  //         dropMenu.classList.add('right-align');
-  //       } else if (menX < posX && menY > posY) {
-  //         dropMenu.classList.add('bottom-left-align');
-  //       } else if (menX < posX && menY < posY) {
-  //         dropMenu.classList.add('left-align');
-  //       }
-  //       console.log(posX);
-  //       console.log(menX);
-  //   }
-  // }
 }
