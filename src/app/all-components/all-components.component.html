@@ -233,9 +233,9 @@
   <button class="btn flat primary" pRipple pModalTrigger pModalId="scrollableId">Open Scrollable Dialog</button>
   <button class="btn flat primary" pRipple pModalTrigger pModalId="smallId">Open Small Dialog</button>
   <button class="btn flat primary" pRipple pModalTrigger pModalId="largeId">Open Large Dialog</button>
-  <button class="btn flat primary" pRipple pModalTrigger pModalId="bottomSheet">Open Bottom Sheet</button>
+  <button class="btn flat primary" pRipple pModalTrigger pModalId="bottomSheetId">Open Bottom Sheet</button>
 </div>
-<app-modal modalId="testId">
+<app-modal pModalId="testId">
   <ng-container modal-header>
     <div class="row">
       <div class="col s10">
@@ -250,14 +250,14 @@
   </ng-container>
   <ng-container modal-footer>
     <div class="text-end">
-      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="testId">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="testId">
         Accept
       </button>
     </div>
   </ng-container>
 </app-modal>
 
-<app-modal modalId="staticId" [modalStatic]="true">
+<app-modal pModalId="staticId" [pModalStatic]="true">
   <ng-container modal-header>
     <div class="row">
       <div class="col s10">
@@ -272,14 +272,14 @@
   </ng-container>
   <ng-container modal-footer>
     <div class="text-end">
-      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="staticId">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="staticId">
         Accept
       </button>
     </div>
   </ng-container>
 </app-modal>
 
-<app-modal modalId="scrollableId">
+<app-modal pModalId="scrollableId">
   <ng-container modal-header>
     <div class="row">
       <div class="col s10">
@@ -460,14 +460,14 @@
   </ng-container>
   <ng-container modal-footer>
     <div class="text-end">
-      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="scrollableId">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="scrollableId">
         Accept
       </button>
     </div>
   </ng-container>
 </app-modal>
 
-<app-modal modalId="smallId" [modalSize]="'small'">
+<app-modal pModalId="smallId" [pModalSize]="'small'">
   <ng-container modal-header>
     <div class="row">
       <div class="col s10">
@@ -482,14 +482,14 @@
   </ng-container>
   <ng-container modal-footer>
     <div class="text-end">
-      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="smallId">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="smallId">
         Accept
       </button>
     </div>
   </ng-container>
 </app-modal>
 
-<app-modal modalId="largeId" [modalSize]="'large'">
+<app-modal pModalId="largeId" [pModalSize]="'large'">
   <ng-container modal-header>
     <div class="row">
       <div class="col s10">
@@ -504,7 +504,29 @@
   </ng-container>
   <ng-container modal-footer>
     <div class="text-end">
-      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalclose pModalId="largeId">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="largeId">
+        Accept
+      </button>
+    </div>
+  </ng-container>
+</app-modal>
+
+<app-modal pModalId="bottomSheetId" [pBottomSheet]="true">
+  <ng-container modal-header>
+    <div class="row">
+      <div class="col s10">
+        <h2>Bottom Sheet!</h2>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container modal-content>
+    <div class="text-center">
+      <h3>Bottom Sheet Content!</h3>
+    </div>
+  </ng-container>
+  <ng-container modal-footer>
+    <div class="text-end">
+      <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="bottomSheetId">
         Accept
       </button>
     </div>
@@ -639,10 +661,50 @@
 <br>
 <h2>Tooltips</h2>
 <hr>
-<button class="btn flat floating" pRipple pRippleCentered="true" pTooltip>
+<button class="btn flat floating" pRipple pRippleCentered="true" pTooltip pTooltipText="Print">
   <i class="material-icons">print</i>
 </button>
+<button class="btn flat floating primary" pRipple pRippleColor="var(--primaryLowOpacity)" pRippleCentered="true"
+  pTooltip pTooltipText="Bold">
+  <i class="material-icons">format_bold</i>
+</button>
 <br>
+<br>
+<div class="row">
+  <div class="col m3 s12">
+    <p-fieldset labelText="Tooltip Text" labelId="tooltipText" [labelActive]="true">
+      <input type="text" class="p-input" pInput id="tooltipText" [(ngModel)]="tooltipTxt">
+    </p-fieldset>
+  </div>
+  <div class="col m3 s12">
+    <p-fieldset labelText="Tooltip Position" labelId="tooltipPos">
+      <select id="tooltipPos" class="p-input" pInput (change)="changeTooltipPost()">
+        <option value=""></option>
+        <option value="bottom">Bottom</option>
+        <option value="top">Top</option>
+        <option value="right">Right</option>
+        <option value="left">Left</option>
+      </select>
+    </p-fieldset>
+  </div>
+  <div class="col m3 s12">
+    <div class="fieldset">
+      <p-checkbox checkId="isClick" checkboxText="Show on Click" (checkValue)="tooltipClick($event)"></p-checkbox>
+    </div>
+  </div>
+  <div class="col m3 s12" *ngIf="tooltipOnClick">
+    <p-fieldset labelText="Tooltip Duration" labelId="tooltipDur">
+      <input type="number" class="p-input" pInput id="tooltipDur" [(ngModel)]="tooltipClickDuration">
+    </p-fieldset>
+  </div>
+</div>
+<div class="text-center">
+  <button class="btn bg-primary" pRipple pRippleColor="#ffffff26" pTooltip pTooltipText="{{tooltipTxt}}"
+    pTooltipPosition="{{tooltipPos}}" [pTooltipClickOpen]="tooltipOnClick"
+    [pTooltipClickDuration]="tooltipClickDuration">
+    Tooltip
+  </button>
+</div>
 <br>
 <h2>Collapsible</h2>
 <hr>

@@ -35,6 +35,12 @@
   overflow: auto;
 }
 
+.modal.bottom-sheet {
+  top: 100%;
+  transform: translateY(100%) translateX(-50%) scale(1);
+  border-radius: 5px 5px 0 0;
+}
+
 @media only screen and (max-width: 1000px) {
   .modal {
     max-width: 80%;

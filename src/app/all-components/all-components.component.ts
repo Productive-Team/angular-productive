@@ -1,3 +1,4 @@
+import { ModalComponent } from './../../shared/components/modal/modal.component';
 import { SnackbarService } from './../../shared/services/snackbar.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -18,6 +19,11 @@ export class AllComponentsComponent implements OnInit {
   snackPosX: string;
   snackBtn = false;
   snackBtnTxt: string;
+
+  tooltipPos = 'bottom';
+  tooltipTxt = 'Tooltip';
+  tooltipOnClick = false;
+  tooltipClickDuration: number;
   constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}
@@ -94,5 +100,17 @@ export class AllComponentsComponent implements OnInit {
       this.snackBtn,
       this.snackBtnTxt
     );
+  }
+
+  changeTooltipPost(): void {
+    const sel = document.getElementById('tooltipPos') as HTMLInputElement;
+    if (sel.value) {
+      this.tooltipPos = sel.value;
+    } else {
+      this.tooltipPos = 'bottom';
+    }
+  }
+  tooltipClick(event): void {
+    this.tooltipOnClick = event;
   }
 }

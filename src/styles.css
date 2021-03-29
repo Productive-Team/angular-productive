@@ -981,3 +981,72 @@ textarea.p-input.classic {
   line-height: 30px;
 }
 /* #endregion Badges */
+
+/* #region Tooltip */
+.p-tooltip-container {
+  position: relative;
+  display: inline-block;
+  margin: 5px 10px;
+}
+.pTooltip {
+  position: absolute;
+  user-select: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 3px;
+  max-width: 150%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 24px;
+  padding: 0 5px;
+  line-height: 24px;
+  font-size: 14px;
+  backface-visibility: hidden;
+  transition: opacity 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+.pTooltip.bottom-align {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -25px;
+  animation: tooltipFadeTopBottom 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+.pTooltip.top-align {
+  left: 50%;
+  transform: translateX(-50%);
+  top: -25px;
+  animation: tooltipFadeTopBottom 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+.pTooltip.right-align {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: tooltipFadeRightLeft 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+.pTooltip.left-align {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: tooltipFadeRightLeft 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+@keyframes tooltipFadeTopBottom {
+  from {
+    transform: translateX(-50%) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes tooltipFadeRightLeft {
+  from {
+    transform: translateY(-50%) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+}
+/*#endregion Tooltip */
