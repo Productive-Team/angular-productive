@@ -724,6 +724,26 @@ textarea.p-input.classic {
     transform: translateY(-10%);
   }
 }
+.p-select {
+  position: absolute;
+  width: 100%;
+  background-color: var(--appBackgroundColor);
+  border-radius: 5px;
+  z-index: 900;
+}
+.p-select .p-select-item {
+  height: 46px;
+  padding: 0 5px;
+  font-size: 16px;
+  line-height: 46px;
+  font-family: Roboto;
+  color: #262626;
+  cursor: pointer;
+  user-select: none;
+}
+.p-select .p-select-item:hover {
+  background-color: #00000013;
+}
 /* #endregion InputStyles */
 
 /* #region Elevation */
@@ -851,7 +871,7 @@ textarea.p-input.classic {
   border-radius: 5px;
   box-sizing: content-box;
   max-width: 100%;
-  max-height: 50%;
+  max-height: 30%;
   overflow: auto;
   animation: dropAnimation 0.15s cubic-bezier(0, 0, 0.2, 1);
   z-index: 1001;
@@ -908,6 +928,10 @@ textarea.p-input.classic {
 .dropdown-menu li a:disabled {
   opacity: 0.3;
   pointer-events: none;
+}
+
+.dropdown-menu li button.divider {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-menu li button i,
@@ -1008,13 +1032,13 @@ textarea.p-input.classic {
 .pTooltip.bottom-align {
   left: 50%;
   transform: translateX(-50%);
-  bottom: -25px;
+  top: 115%;
   animation: tooltipFadeTopBottom 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
 .pTooltip.top-align {
   left: 50%;
   transform: translateX(-50%);
-  top: -25px;
+  bottom: 115%;
   animation: tooltipFadeTopBottom 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
 .pTooltip.right-align {

@@ -585,7 +585,7 @@
 <h2>Dropdown Menu</h2>
 <hr>
 <div>
-  <button class="btn flat primary right" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
+  <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
     pDropdownTriggerId="DropId">Open Menu</button>
   <p-dropdown pDropdownId="DropId">
     <li>
@@ -609,15 +609,98 @@
   </button>
   <p-dropdown pDropdownId="DropId2">
     <li>
-      <button pRipple>
-        <i class="material-icons left">drag_indicator</i>
-        Menu Button 3
+      <button class="divider" pRipple>
+        <i class="material-icons left">call</i>
+        Menu Button with Divider
       </button>
     </li>
     <li>
       <button pRipple disabled>
-        <i class="material-icons left">add</i>
+        <i class="material-icons left">info</i>
+        Disabled Menu Button
+      </button>
+    </li>
+  </p-dropdown>
+</div>
+<div>
+  <button class="btn primary flat" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
+    pDropdownTriggerId="DropId3">
+    Scrolling Menu
+  </button>
+  <p-dropdown pDropdownId="DropId3">
+    <li>
+      <button pRipple>
+        Menu Button 1
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 2
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 3
+      </button>
+    </li>
+    <li>
+      <button pRipple>
         Menu Button 4
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 5
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 6
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 7
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 8
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 9
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 10
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 11
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 12
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 13
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 14
+      </button>
+    </li>
+    <li>
+      <button pRipple>
+        Menu Button 15
       </button>
     </li>
   </p-dropdown>
@@ -704,6 +787,20 @@
     [pTooltipClickDuration]="tooltipClickDuration">
     Tooltip
   </button>
+</div>
+<br>
+<h2>Custom Select</h2>
+<hr>
+<div class="row">
+  <div class="col m3 s12">
+    <p-select labelText="Custom Select" labelId="selectCust">
+      <select id="selectCust" class="p-input" pSelect>
+        <option value=""></option>
+        <option value="opt1">Option 1</option>
+        <option value="opt2" disabled>Disabled Option</option>
+      </select>
+    </p-select>
+  </div>
 </div>
 <br>
 <h2>Collapsible</h2>

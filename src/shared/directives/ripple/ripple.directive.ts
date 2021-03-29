@@ -130,7 +130,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
   // Recieves a HTMLElement beign the element at which to create the effect
   // Recieves a X coordinate, beign the clientX
   // Recieves a Y coordinate, beign the clientY
-  createRippleEffect(element: HTMLElement, x: number, y: number): void {
+  private createRippleEffect(element: HTMLElement, x: number, y: number): void {
     let rippleContainerElement;
     if (this.pRippleTriggerId) {
       rippleContainerElement = document.getElementById(
@@ -189,7 +189,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
 
   // Removes ripple after all animations are done
   // Recieves a Html Element
-  fadeOutRipple(element: HTMLElement): void {
+  private fadeOutRipple(element: HTMLElement): void {
     let rippleContainerElement;
     if (this.pRippleTriggerId) {
       rippleContainerElement = document.getElementById(
@@ -228,12 +228,12 @@ export class RippleDirective implements OnInit, AfterViewInit {
   }
 
   // Persist style changes so scale can animate properly
-  persistStyleChanges(element: HTMLElement): void {
+  private persistStyleChanges(element: HTMLElement): void {
     window.getComputedStyle(element).getPropertyValue('opacity');
   }
 
   // Calcs the distance to the furthest corner of the element
-  calcDistanceToFurthestCorner(x: number, y: number, rect: ClientRect) {
+  private calcDistanceToFurthestCorner(x: number, y: number, rect: ClientRect) {
     const distX = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
     const distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);

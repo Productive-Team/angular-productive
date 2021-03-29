@@ -23,6 +23,10 @@ import {
   DropdownComponent,
   DropdownTriggerDirective,
 } from './components/dropdown/dropdown.component';
+import {
+  SelectComponent,
+  SelectDirective,
+} from './components/select/select.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -42,6 +46,8 @@ import {
     DropdownTriggerDirective,
     BadgesDirective,
     TooltipsDirective,
+    SelectDirective,
+    SelectComponent,
   ],
   exports: [
     RippleDirective,
@@ -59,6 +65,8 @@ import {
     DropdownTriggerDirective,
     BadgesDirective,
     TooltipsDirective,
+    SelectDirective,
+    SelectComponent,
   ],
   providers: [ModalComponent],
 })
