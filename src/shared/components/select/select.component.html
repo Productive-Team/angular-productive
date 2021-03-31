@@ -1,7 +1,7 @@
 <div class="fieldset">
   <div>
-    <input type="text" class="p-input classic select" pSelect id="{{pSelectId}}" readonly>
-    <span class="label-wrapper" [id]="pSelectId + '-label'">
+    <input type="text" class="p-input select" pSelect id="{{pSelectId}}" readonly>
+    <span class="label-wrapper select" [id]="pSelectId + '-label'">
       <label for="{{pSelectId}}" class="p-input-label">
         <i class="material-icons left" *ngIf="labelIconLeft">{{labelIconLeft}}</i>
         {{pSelectLabelText}}
@@ -9,20 +9,21 @@
       </label>
     </span>
     <div class="p-input-bar"></div>
+    <i class="material-icons select-arrow">keyboard_arrow_down</i>
   </div>
 </div>
 <div class="select-wrapper" [id]="pSelectId + '-wrapper'">
   <div class="p-select elevation" [id]="pSelectId + '-container'">
-    <div class="p-select-header" *ngIf="pSelectSearch">
-      <input type="text" placeholder="Search">
+    <div class="p-select-header search" *ngIf="pSelectSearch">
+      <input type="text" placeholder="Search" [(ngModel)]="filterValue" (keyup)="filterInArray(filterValue)">
     </div>
     <div class="p-select-header" *ngIf="pSelectAll">
       <p-checkbox checkId="selAll" [checkboxText]="allAreSelected ? 'Deselect All' : 'Select All'"
         (checkValue)="selectAll($event)"></p-checkbox>
     </div>
-    <div class="p-select-item" pRipple *ngFor="let opt of pSelectItems" [id]="'option-' + opt.id"
-      (click)="pSingleSelect ? '' : selectOne(opt)">
-      <p-checkbox [checkId]="'check-' + opt.id" [hasRipple]="false" *ngIf="!pSingleSelect" (click)="false"
+    <div [class]="pSingleSelect ? 'p-select-item' : 'p-select-item-multiple'" pRipple *ngFor="let opt of filteredItems"
+      [id]="'option-' + opt.id" (click)="pSingleSelect ? setInputValue(opt) : selectOne(opt)">
+      <p-checkbox [checkId]="'check-' + opt.id" [hasRipple]="false" *ngIf="!pSingleSelect"
         style="pointer-events: none;"></p-checkbox>
       {{opt.option}}
     </div>

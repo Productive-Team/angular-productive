@@ -733,12 +733,15 @@ textarea.p-input.classic {
 }
 .p-input.select {
   cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
 }
 .p-select {
   position: static;
   display: inline-block;
   box-sizing: content-box;
   max-width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
   background-color: var(--appBackgroundColor);
   border-radius: 5px;
   z-index: 1001;
@@ -754,10 +757,17 @@ textarea.p-input.classic {
 }
 
 .p-select .p-select-header {
-  padding: 5px 10px;
+  padding: 5px;
   height: 46px;
   line-height: 46px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.p-select .p-select-header.search {
+  padding: 5px 10px;
+  text-overflow: unset;
 }
 .p-select .p-select-header input {
   background-color: none;
@@ -769,22 +779,38 @@ textarea.p-input.classic {
   font-family: Roboto;
   text-overflow: ellipsis;
 }
-.p-select .p-select-item {
+.p-select .p-select-item,
+.p-select .p-select-item-multiple {
   height: 46px;
-  padding: 0 10px;
+  padding: 0 5px;
   font-size: 16px;
   line-height: 46px;
   font-family: Roboto;
   color: #262626;
   cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.p-select .p-select-item.disabled {
+.p-select .p-select-item.disabled,
+.p-select .p-select-item-multiple.disabled {
   pointer-events: none;
   opacity: 0.5;
 }
-.p-select .p-select-item:hover {
+.p-select .p-select-item:hover,
+.p-select .p-select-item-multiple:hover {
   background-color: #8f8f8f13;
+}
+.label-wrapper.select {
+  max-width: 85%;
+}
+.select-arrow {
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(50%);
+  color: rgba(0, 0, 0, 0.5);
 }
 @keyframes showMenuAnim {
   from {

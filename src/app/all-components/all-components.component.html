@@ -798,19 +798,26 @@
 <hr>
 <div class="row">
   <div class="col m3 s12">
-    <p-select pSelectLabelText="Custom Normal Select" pSelectId="selectCust" [pSelectItems]="testSelArr">
+    <p-select pSelectLabelText="Custom Normal Select" pSelectId="selectCust" [pSelectItems]="testSelArr"
+      (pSingleSelectedItem)="seleSing($event)">
     </p-select>
+    <span>Selected Option: <b>{{singSel}}</b></span>
   </div>
   <div class="col m3 s12">
     <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelArr"
       [pSingleSelect]="false">
     </p-select>
   </div>
-  <div class="col m3 s12">
+  <!--  <div class="col m3 s12">
     <p-select pSelectLabelText="Custom Multi Select W/ Select All" pSelectId="selectCust3"
-      [pSelectItems]="testSelAllArr" [pSingleSelect]="false" [pSelectAll]="true">
+      [pSelectItems]="testSelAllArr" [pSingleSelect]="false" [pSelectAll]="true" [pSelectInputType]="'classic'">
     </p-select>
   </div>
+  <div class="col m3 s12">
+    <p-select pSelectLabelText="Custom Multi Select W/ Search" pSelectId="selectCust4" [pSelectItems]="testSelAllArr"
+      [pSingleSelect]="false" [pSelectAll]="true" [pSelectSearch]="true">
+    </p-select>
+  </div> -->
 </div>
 <br>
 <h2>Collapsible</h2>

@@ -3,11 +3,14 @@ import {
   Component,
   Directive,
   ElementRef,
+  EventEmitter,
   HostListener,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 
+const labelActive = [];
 @Directive({
   selector: '[app-select], [p-select], [pSelect]',
 })
@@ -17,7 +20,35 @@ export class SelectDirective implements OnInit {
     // this.createCustomSelect();
   }
 
+  @HostListener('focus', ['$event']) onFocus(event) {
+    const input = event.target as HTMLInputElement;
+    const label = document.getElementById(
+      input.id + '-label'
+    ) as HTMLDivElement;
+    label.classList.add('active');
+  }
+  @HostListener('focusout', ['$event']) onFocusOut(event) {
+    setTimeout(() => {
+      const input = event.target as HTMLInputElement;
+      const activeInp = labelActive.find((x) => x === input);
+      const label = document.getElementById(
+        input.id + '-label'
+      ) as HTMLDivElement;
+      if (
+        (input.value === '' && activeInp === undefined) ||
+        (input.value === undefined && activeInp === undefined) ||
+        (input.value === null && activeInp === undefined)
+      ) {
+        label.classList.remove('active');
+      }
+    }, 150);
+  }
+
   @HostListener('click', ['$event']) openMenu(event): void {
+    this.openDropMenu(event);
+  }
+
+  openDropMenu(event): void {
     this.comp.isOpen = true;
     const body = document.querySelector('body');
     const sel = document.getElementById(this.comp.pSelectId + '-wrapper');
@@ -30,28 +61,43 @@ export class SelectDirective implements OnInit {
     backdrop.style.backgroundColor = 'transparent';
     body.insertAdjacentElement('beforeend', backdrop);
     setTimeout(() => {
-      this.comp.pSelectItems.forEach((x) => {
-        if (x.isDisabled) {
-          const option = document.querySelectorAll('#option-' + x.id);
-          let o = 0;
-          for (; o < option.length; o++) {
-            option[o].classList.add('disabled');
-          }
-        }
-      });
-    }, 0);
+      this.addDisabledClassToOption();
+    }, 10);
     setTimeout(() => {
-      document.addEventListener('click', (ev) => {
-        const tgt = ev.target as HTMLDivElement;
-        if (tgt.classList.contains('backdrop')) {
-          this.comp.isOpen = false;
-          dropEl.style.opacity = '0';
-          setTimeout(() => {
-            sel.style.display = 'none';
-            backdrop.remove();
-          }, 150);
+      this.addListenerToCloseMenu(dropEl, sel, backdrop);
+    }, 150);
+  }
+
+  addDisabledClassToOption(): void {
+    this.comp.pSelectItems.forEach((x) => {
+      if (x.isDisabled) {
+        const option = document.querySelectorAll('#option-' + x.id);
+        let o = 0;
+        for (; o < option.length; o++) {
+          option[o].classList.add('disabled');
         }
-      });
+      }
+    });
+  }
+
+  addListenerToCloseMenu(
+    dropEl: HTMLElement,
+    sel: HTMLElement,
+    backdrop: HTMLElement
+  ): void {
+    document.addEventListener('click', (ev) => {
+      const tgt = ev.target as HTMLDivElement;
+      if (
+        tgt.classList.contains('backdrop') ||
+        tgt.classList.contains('p-select-item')
+      ) {
+        this.comp.isOpen = false;
+        dropEl.style.opacity = '0';
+        setTimeout(() => {
+          sel.style.display = 'none';
+          backdrop.remove();
+        }, 250);
+      }
     });
   }
 
@@ -99,16 +145,40 @@ export class SelectComponent implements OnInit, AfterViewInit {
   @Input() pSelectAll = false;
   @Input() pSingleSelect = true;
   @Input() pSelectSearch = false;
+  @Input() pSelectInputType: string;
+
+  @Output() pSingleSelectedItem = new EventEmitter<SelectModel>();
+  @Output() pMultipleSelectedItem = new EventEmitter<SelectModel[]>();
 
   isOpen = false;
   allAreSelected = false;
+  filteredItems: SelectModel[];
+  filterValue: string;
   private selectedItems = [];
+  private selArr = [];
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.filteredItems = this.pSelectItems;
+  }
 
-  ngAfterViewInit(): void {}
+  setInputType(): void {
+    const input = document.getElementById(this.pSelectId);
+    switch (this.pSelectInputType) {
+      case 'outlined':
+        input.classList.add('outlined');
+        break;
+      case 'classic':
+        input.classList.add('classic');
+        break;
+      default:
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.setInputType();
+  }
 
   selectAll(event): void {
     this.allAreSelected = event;
@@ -123,6 +193,54 @@ export class SelectComponent implements OnInit, AfterViewInit {
         }
       }, 0);
     });
+  }
+
+  filterInArray(value: string): void {
+    // TODO: proper in-array filteting
+    if (value.length > 0) {
+      this.filteredItems = this.filteredItems.filter((x) =>
+        x.option.includes(value)
+      );
+    } else {
+      this.filteredItems = this.pSelectItems;
+    }
+  }
+
+  setInputValue(item: SelectModel): void {
+    const input = document.querySelector(
+      '#' + this.pSelectId
+    ) as HTMLInputElement;
+    input.value = item.option;
+    this.pSingleSelectedItem.emit(item);
+  }
+
+  setMultipleSelectedValues(item: SelectModel): void {
+    const input = document.querySelector(
+      '#' + this.pSelectId
+    ) as HTMLInputElement;
+    const itm = this.selArr.find((x) => x.id === item.id);
+    if (!itm) {
+      // TODO: Adjust select text
+      this.selArr.push({ id: item.id, option: item.option });
+      if (this.selArr.length > 1) {
+        const str = input.value.length - 1;
+        const stridx = input.value.charAt(str);
+        const idx = input.value.indexOf(stridx);
+        console.log(idx);
+      } else {
+        input.value = input.value.concat(item.option);
+      }
+    } else {
+      const index = this.selArr.indexOf(itm);
+      // input.value = input.value.replace(item.option, '');
+      if (index === 0) {
+        this.selArr.splice(0, 1);
+      } else {
+        this.selArr.splice(index, index);
+      }
+    }
+    console.log();
+    // console.log(this.selArr);
   }
 
   selectOne(option: SelectModel): void {
@@ -140,7 +258,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
     } else {
       this.selectedItems.push(option);
     }
-    console.log(this.selectedItems);
+    this.setMultipleSelectedValues(option);
   }
 }
 

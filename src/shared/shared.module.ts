@@ -27,9 +27,10 @@ import {
   SelectComponent,
   SelectDirective,
 } from './components/select/select.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   declarations: [
     RippleDirective,
     InputDirective,
