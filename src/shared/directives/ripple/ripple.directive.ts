@@ -86,6 +86,10 @@ export class RippleDirective implements OnInit, AfterViewInit {
    *   If you think the effect is too quick with the ripple not beign centered, then make the duration higher, that can fix it;
    */
   @Input() pRippleTriggerId: string;
+  /**
+   * Disables ripple in component
+   */
+  @Input() pRippleDisabled = false;
 
   isPointerDown?: boolean;
   constructor(private el: ElementRef) {}
@@ -95,18 +99,20 @@ export class RippleDirective implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // Checks if pRippleTriggerId is different from undefined
     // and sets container classes
-    if (this.pRippleTriggerId) {
-      const element = document.getElementById(
-        this.pRippleTriggerId
-      ) as HTMLDivElement;
-      element.classList.add('p-ripple-container');
-      if (this.pRippleUnbounded) {
-        element.classList.add('p-ripple-unbounded');
-      }
-    } else {
-      this.el.nativeElement.classList.add('p-ripple-container');
-      if (this.pRippleUnbounded) {
-        this.el.nativeElement.classList.add('p-ripple-unbounded');
+    if (!this.pRippleDisabled) {
+      if (this.pRippleTriggerId) {
+        const element = document.getElementById(
+          this.pRippleTriggerId
+        ) as HTMLDivElement;
+        element.classList.add('p-ripple-container');
+        if (this.pRippleUnbounded) {
+          element.classList.add('p-ripple-unbounded');
+        }
+      } else {
+        this.el.nativeElement.classList.add('p-ripple-container');
+        if (this.pRippleUnbounded) {
+          this.el.nativeElement.classList.add('p-ripple-unbounded');
+        }
       }
     }
   }
@@ -114,17 +120,23 @@ export class RippleDirective implements OnInit, AfterViewInit {
   // Creates ripple on pointer down
   @HostListener('pointerdown', ['$event']) onMouseClick(event) {
     this.isPointerDown = true;
-    this.createRippleEffect(event.target, event.clientX, event.clientY);
+    if (!this.pRippleDisabled) {
+      this.createRippleEffect(event.target, event.clientX, event.clientY);
+    }
   }
   // Removes ripple on pointer up after animation end
   @HostListener('pointerup', ['$event']) onMouseUp(event) {
     this.isPointerDown = false;
-    this.fadeOutRipple(event.target);
+    if (!this.pRippleDisabled) {
+      this.fadeOutRipple(event.target);
+    }
   }
   // Removes ripple when pointer goes out of the element
   @HostListener('mouseout', ['$event']) onMouseOut(event) {
     this.isPointerDown = false;
-    this.fadeOutRipple(event.target);
+    if (!this.pRippleDisabled) {
+      this.fadeOutRipple(event.target);
+    }
   }
 
   // Recieves a HTMLElement beign the element at which to create the effect

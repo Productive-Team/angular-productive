@@ -724,16 +724,54 @@ textarea.p-input.classic {
     transform: translateY(-10%);
   }
 }
-.p-select {
+
+.select-wrapper {
   position: absolute;
-  width: 100%;
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+}
+.p-input.select {
+  cursor: pointer !important;
+}
+.p-select {
+  position: static;
+  display: inline-block;
+  box-sizing: content-box;
+  max-width: 100%;
   background-color: var(--appBackgroundColor);
   border-radius: 5px;
-  z-index: 900;
+  z-index: 1001;
+  animation: showMenuAnim 0.15s cubic-bezier(0, 0, 0.2, 1);
+  transition: opacity 0.15s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-select.bottom {
+  border-radius: 5px 5px 0 0;
+}
+.p-select.top {
+  border-radius: 0 0 5px 5px;
+}
+
+.p-select .p-select-header {
+  padding: 5px 10px;
+  height: 46px;
+  line-height: 46px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.p-select .p-select-header input {
+  background-color: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 46px;
+  font-size: 16px;
+  font-family: Roboto;
+  text-overflow: ellipsis;
 }
 .p-select .p-select-item {
   height: 46px;
-  padding: 0 5px;
+  padding: 0 10px;
   font-size: 16px;
   line-height: 46px;
   font-family: Roboto;
@@ -741,8 +779,22 @@ textarea.p-input.classic {
   cursor: pointer;
   user-select: none;
 }
+.p-select .p-select-item.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
 .p-select .p-select-item:hover {
-  background-color: #00000013;
+  background-color: #8f8f8f13;
+}
+@keyframes showMenuAnim {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 /* #endregion InputStyles */
 

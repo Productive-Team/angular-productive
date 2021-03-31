@@ -149,16 +149,21 @@
 <hr>
 <div class="text-center">
   <div class="row">
-    <div class="col m3 s6">
+    <div class="col m2 s4">
       <div class="fieldset">
         <p-checkbox checkId="Check-center" checkboxText="Ripple Centered" (checkValue)="centerA($event)">
         </p-checkbox>
       </div>
     </div>
-    <div class="col m3 s6">
+    <div class="col m2 s4">
       <div class="fieldset">
         <p-checkbox checkId="Check-unbound" checkboxText="Ripple Unbounded" (checkValue)="unboundA($event)">
         </p-checkbox>
+      </div>
+    </div>
+    <div class="col m2 s4">
+      <div class="fieldset">
+        <p-checkbox checkId="rip-dis" checkboxText="Ripple Disabled" (checkValue)="disableA($event)"></p-checkbox>
       </div>
     </div>
     <div class="col m3 s6">
@@ -174,7 +179,7 @@
   </div>
 </div>
 <div class="ripple-example elevation text-center" pRipple [pRippleCentered]="center" [pRippleColor]="color"
-  [pRippleRadius]="radius">
+  [pRippleRadius]="radius" [pRippleDisabled]="disabled">
   Click Me!
 </div>
 <h2>Checkboxes and Switches</h2>
@@ -793,15 +798,36 @@
 <hr>
 <div class="row">
   <div class="col m3 s12">
-    <p-select labelText="Custom Select" labelId="selectCust">
-      <select id="selectCust" class="p-input" pSelect>
-        <option value=""></option>
-        <option value="opt1">Option 1</option>
-        <option value="opt2" disabled>Disabled Option</option>
-      </select>
+    <p-select pSelectLabelText="Custom Normal Select" pSelectId="selectCust" [pSelectItems]="testSelArr">
+    </p-select>
+  </div>
+  <div class="col m3 s12">
+    <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelArr"
+      [pSingleSelect]="false">
+    </p-select>
+  </div>
+  <div class="col m3 s12">
+    <p-select pSelectLabelText="Custom Multi Select W/ Select All" pSelectId="selectCust3"
+      [pSelectItems]="testSelAllArr" [pSingleSelect]="false" [pSelectAll]="true">
     </p-select>
   </div>
 </div>
 <br>
 <h2>Collapsible</h2>
 <hr>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

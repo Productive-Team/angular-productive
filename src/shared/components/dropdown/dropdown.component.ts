@@ -43,7 +43,6 @@ export class DropdownTriggerDirective {
       }
       document.addEventListener('click', (ev) => {
         const tr = ev.target as HTMLDivElement;
-        console.log(tr);
         if (closeOnBtnClick) {
           if (
             tr.classList.contains('backdrop') ||

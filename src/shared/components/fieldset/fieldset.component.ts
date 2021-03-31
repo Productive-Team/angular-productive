@@ -5,14 +5,11 @@ import {
   ContentChild,
   Directive,
   ElementRef,
-  HostBinding,
   HostListener,
   Input,
-  OnChanges,
   OnInit,
 } from '@angular/core';
 import { FormControlName, NgModel } from '@angular/forms';
-import { RippleDirective } from 'src/shared/directives/ripple/ripple.directive';
 
 const labelActive = [];
 

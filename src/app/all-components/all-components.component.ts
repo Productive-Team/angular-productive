@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class AllComponentsComponent implements OnInit {
   center = false;
   unbound = false;
+  disabled = false;
   color: string;
   radius: number;
 
@@ -24,6 +25,17 @@ export class AllComponentsComponent implements OnInit {
   tooltipTxt = 'Tooltip';
   tooltipOnClick = false;
   tooltipClickDuration: number;
+
+  testSelArr = [
+    { id: 1, option: 'Option 1' },
+    { id: 2, option: 'Option 2' },
+    { id: 3, option: 'Disabled Option', isDisabled: true },
+  ];
+  testSelAllArr = [
+    { id: 4, option: 'Option 3' },
+    { id: 5, option: 'Option 4' },
+    { id: 6, option: 'Disabled Option', isDisabled: true },
+  ];
   constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}
@@ -39,6 +51,9 @@ export class AllComponentsComponent implements OnInit {
     } else {
       rip.classList.remove('p-ripple-unbounded');
     }
+  }
+  disableA(event) {
+    this.disabled = event;
   }
 
   checkDis(event): void {

@@ -1,5 +1,6 @@
 <label class="checkbox-layout" *ngIf="!isSwitch && this.checkRequiredFields(this.checkId)" pRipple
-  pRippleCentered="true" [pRippleColor]="checkVal ? '' : this.rippleColor" [pRippleTriggerId]="checkId + 'ripple'">
+  pRippleCentered="true" [pRippleColor]="checkVal ? '' : this.rippleColor" [pRippleTriggerId]="checkId + 'ripple'"
+  [pRippleDisabled]="!hasRipple">
   <span class="checkbox-toggle" [style]="checkboxText ? 'margin-right: 8px;' : 'margin-right: 0px;'">
     <input type="checkbox" id="{{checkId}}" (change)="checkValueFunc($event.srcElement.checked)">
     <span class="checkbox-ripple" [id]="checkId + 'ripple'" *ngIf="hasRipple"></span>

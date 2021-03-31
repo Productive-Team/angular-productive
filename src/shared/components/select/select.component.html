@@ -1,20 +1,30 @@
 <div class="fieldset">
   <div>
-    <!-- <select id="{{labelId}}" class="p-input">
-      <option value=""></option>
-    </select> -->
-    <ng-content></ng-content>
-    <span class="label-wrapper" [id]="labelId + '-label'">
-      <label for="{{labelId}}" class="p-input-label">
+    <input type="text" class="p-input classic select" pSelect id="{{pSelectId}}" readonly>
+    <span class="label-wrapper" [id]="pSelectId + '-label'">
+      <label for="{{pSelectId}}" class="p-input-label">
         <i class="material-icons left" *ngIf="labelIconLeft">{{labelIconLeft}}</i>
-        {{labelText}}
+        {{pSelectLabelText}}
         <i class="material-icons right" *ngIf="labelIconRight">{{labelIconRight}}</i>
       </label>
     </span>
     <div class="p-input-bar"></div>
   </div>
-  <span class="helper-text {{helperState}}" *ngIf="hasHelperText">
-    <i class="material-icons left helper-icon">info</i>
-    {{helperText}}
-  </span>
+</div>
+<div class="select-wrapper" [id]="pSelectId + '-wrapper'">
+  <div class="p-select elevation" [id]="pSelectId + '-container'">
+    <div class="p-select-header" *ngIf="pSelectSearch">
+      <input type="text" placeholder="Search">
+    </div>
+    <div class="p-select-header" *ngIf="pSelectAll">
+      <p-checkbox checkId="selAll" [checkboxText]="allAreSelected ? 'Deselect All' : 'Select All'"
+        (checkValue)="selectAll($event)"></p-checkbox>
+    </div>
+    <div class="p-select-item" pRipple *ngFor="let opt of pSelectItems" [id]="'option-' + opt.id"
+      (click)="pSingleSelect ? '' : selectOne(opt)">
+      <p-checkbox [checkId]="'check-' + opt.id" [hasRipple]="false" *ngIf="!pSingleSelect" (click)="false"
+        style="pointer-events: none;"></p-checkbox>
+      {{opt.option}}
+    </div>
+  </div>
 </div>
