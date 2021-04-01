@@ -1,3 +1,4 @@
+import { SelectModel } from './../../shared/components/select/select.component';
 import { ModalComponent } from './../../shared/components/modal/modal.component';
 import { SnackbarService } from './../../shared/services/snackbar.service';
 import { Component, OnInit } from '@angular/core';
@@ -37,10 +38,10 @@ export class AllComponentsComponent implements OnInit {
     { id: 6, option: 'Option 2 Multi' },
     { id: 7, option: 'Option 3 Multi' },
     { id: 8, option: 'Option 4 Multi Disabled', isDisabled: true },
-    { id: 9, option: 'Option 5 Multi' },
   ];
 
   singSel = '';
+  selectItms: SelectModel[];
   constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}
@@ -136,5 +137,9 @@ export class AllComponentsComponent implements OnInit {
 
   seleSing(event): void {
     this.singSel = event.option;
+  }
+
+  recieveItems(event): void {
+    this.selectItms = event;
   }
 }

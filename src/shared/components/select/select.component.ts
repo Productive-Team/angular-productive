@@ -250,6 +250,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
       }
       input.value = this.selTxtArr.join(', ');
     }
+    this.pMultipleSelectedItem.emit(this.selArr);
   }
 }
 
