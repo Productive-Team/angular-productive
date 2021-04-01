@@ -3,7 +3,7 @@ import { BadgesDirective } from './directives/badges/badges.directive';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RippleDirective } from './directives/ripple/ripple.directive';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   SidenavTriggerDirective,
@@ -69,6 +69,8 @@ import { FormsModule } from '@angular/forms';
     SelectDirective,
     SelectComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   providers: [ModalComponent],
 })
 export class SharedModule {}

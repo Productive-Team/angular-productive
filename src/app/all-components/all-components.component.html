@@ -810,10 +810,15 @@
     <span>Selected Option: <b>{{singSel}}</b></span>
   </div>
   <div class="col m3 s12">
-    <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelAllArr"
+    <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelMultiArr"
       [pSingleSelect]="false" (pMultipleSelectedItem)="recieveItems($event)">
     </p-select>
     <span>Selected Options: <b *ngFor="let items of selectItms">{{items.option}}, </b></span>
+  </div>
+  <div class="col m3 s12">
+    <p-select pSelectLabelText="Multi Select w/ Select All" pSelectId="selectCust3" [pSelectItems]="testSelAllOptArr"
+      [pSingleSelect]="false" [pSelectAll]="true" (pMultipleSelectedItem)="recieveAllItem($event)">
+    </p-select>
   </div>
   <!--  <div class="col m3 s12">
     <p-select pSelectLabelText="Custom Multi Select W/ Select All" pSelectId="selectCust3"

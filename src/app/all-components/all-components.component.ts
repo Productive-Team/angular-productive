@@ -33,11 +33,17 @@ export class AllComponentsComponent implements OnInit {
     { id: 3, option: 'Option 3' },
     { id: 4, option: 'Disabled Option', isDisabled: true },
   ];
-  testSelAllArr = [
+  testSelMultiArr = [
     { id: 5, option: 'Option 1 Multi' },
     { id: 6, option: 'Option 2 Multi' },
     { id: 7, option: 'Option 3 Multi' },
     { id: 8, option: 'Option 4 Multi Disabled', isDisabled: true },
+  ];
+  testSelAllOptArr = [
+    { id: 9, option: 'Option 1 Multi' },
+    { id: 10, option: 'Option 2 Multi' },
+    { id: 11, option: 'Option 3 Multi' },
+    // { id: 12, option: 'Option 4 Multi Disabled', isDisabled: true },
   ];
 
   singSel = '';
@@ -141,5 +147,9 @@ export class AllComponentsComponent implements OnInit {
 
   recieveItems(event): void {
     this.selectItms = event;
+  }
+
+  recieveAllItem(event): void {
+    console.log(event);
   }
 }

@@ -193,6 +193,41 @@ export class SelectComponent implements OnInit, AfterViewInit {
         }
       }, 0);
     });
+    this.setAllItemsAfterSelectAll(this.pSelectItems);
+  }
+
+  setAllItemsAfterSelectAll(item: SelectModel[]): void {
+    const input = document.querySelector(
+      '#' + this.pSelectId
+    ) as HTMLInputElement;
+    item.forEach((x) => {
+      const dupItm = this.selArr.find((y) => y === x);
+      const dupTxt = this.selTxtArr.find((z) => z === x.option);
+      console.log(dupItm);
+      if (x.isChecked && !dupItm) {
+        this.selArr.push(x);
+        this.selTxtArr.push(x.option);
+        input.value = this.selTxtArr.join(', ');
+      } else if (!x.isChecked) {
+        this.selArr = [];
+        this.selTxtArr = [];
+        input.value = this.selTxtArr.join('');
+        // const indexDup = this.selArr.indexOf(dupItm);
+        // const indexTxt = this.selTxtArr.indexOf(dupTxt);
+        // if (indexDup === 0) {
+        //   this.selArr.splice(0, 1);
+        // } else {
+        //   this.selArr.splice(indexDup, indexDup);
+        // }
+        // if (indexTxt === 0) {
+        //   this.selTxtArr.splice(0, 1);
+        // } else {
+        //   this.selTxtArr.splice(indexTxt, indexTxt);
+        // }
+        // input.value = this.selTxtArr.join(', ');
+      }
+    });
+    this.pMultipleSelectedItem.emit(this.selArr);
   }
 
   filterInArray(value: string): void {
@@ -223,19 +258,39 @@ export class SelectComponent implements OnInit, AfterViewInit {
       check.checked = !check.checked;
     }
     this.setMultipleSelectedValues(option);
+    if (this.pSelectAll) {
+      const selAllCheckbox = document.getElementById(
+        'selAll'
+      ) as HTMLInputElement;
+      const allOpt = this.pSelectItems.length;
+      const selOpt = this.selArr.length;
+      if (selOpt === 0) {
+        selAllCheckbox.checked = false;
+        selAllCheckbox.indeterminate = false;
+        this.allAreSelected = false;
+      } else if (allOpt === selOpt) {
+        selAllCheckbox.checked = true;
+        selAllCheckbox.indeterminate = false;
+        this.allAreSelected = true;
+      } else if (selOpt < allOpt) {
+        selAllCheckbox.checked = false;
+        selAllCheckbox.indeterminate = true;
+        this.allAreSelected = false;
+      }
+    }
   }
 
   setMultipleSelectedValues(item: SelectModel): void {
     const input = document.querySelector(
       '#' + this.pSelectId
     ) as HTMLInputElement;
-    if (item.isChecked) {
+    const dupItm = this.selArr.find((x) => x === item);
+    const dupTxt = this.selTxtArr.find((x) => x === item.option);
+    if (item.isChecked && !dupItm) {
       this.selArr.push(item);
       this.selTxtArr.push(item.option);
       input.value = this.selTxtArr.join(', ');
     } else {
-      const dupItm = this.selArr.find((x) => x === item);
-      const dupTxt = this.selTxtArr.find((x) => x === item.option);
       const indexDup = this.selArr.indexOf(dupItm);
       const indexTxt = this.selTxtArr.indexOf(dupTxt);
       if (indexDup === 0) {
