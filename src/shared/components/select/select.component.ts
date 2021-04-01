@@ -14,11 +14,8 @@ const labelActive = [];
 @Directive({
   selector: '[app-select], [p-select], [pSelect]',
 })
-export class SelectDirective implements OnInit {
+export class SelectDirective {
   constructor(private el: ElementRef, private comp: SelectComponent) {}
-  ngOnInit(): void {
-    // this.createCustomSelect();
-  }
 
   @HostListener('focus', ['$event']) onFocus(event) {
     const input = event.target as HTMLInputElement;
@@ -28,16 +25,22 @@ export class SelectDirective implements OnInit {
     label.classList.add('active');
   }
   @HostListener('focusout', ['$event']) onFocusOut(event) {
+    const input = event.target as HTMLInputElement;
+    this.removeActiveFromLabel(input);
+  }
+
+  removeActiveFromLabel(input) {
     setTimeout(() => {
-      const input = event.target as HTMLInputElement;
       const activeInp = labelActive.find((x) => x === input);
       const label = document.getElementById(
         input.id + '-label'
       ) as HTMLDivElement;
       if (
-        (input.value === '' && activeInp === undefined) ||
-        (input.value === undefined && activeInp === undefined) ||
-        (input.value === null && activeInp === undefined)
+        (input.value === '' && activeInp === undefined && !this.comp.isOpen) ||
+        (input.value === undefined &&
+          activeInp === undefined &&
+          !this.comp.isOpen) ||
+        (input.value === null && activeInp === undefined && !this.comp.isOpen)
       ) {
         label.classList.remove('active');
       }
@@ -93,6 +96,10 @@ export class SelectDirective implements OnInit {
       ) {
         this.comp.isOpen = false;
         dropEl.style.opacity = '0';
+        const input = document.getElementById(
+          this.comp.pSelectId
+        ) as HTMLInputElement;
+        this.removeActiveFromLabel(input);
         setTimeout(() => {
           sel.style.display = 'none';
           backdrop.remove();
@@ -138,14 +145,15 @@ export class SelectComponent implements OnInit, AfterViewInit {
   @Input() pSelectId: string;
   @Input() labelIconRight: string;
   @Input() labelIconLeft: string;
-  @Input() hasHelperText = false;
-  @Input() helperState: string;
-  @Input() helperText: string;
   @Input() pSelectItems: SelectModel[];
   @Input() pSelectAll = false;
   @Input() pSingleSelect = true;
   @Input() pSelectSearch = false;
   @Input() pSelectInputType: string;
+  @Input() pSelectAllText = 'Select All';
+  @Input() pDeselectAllText = 'Deselect All';
+  @Input() pSelectSearchPlaceholder = 'Search';
+  @Input() pSelectSearchNotFoundMessage = 'Not Found';
 
   @Output() pSingleSelectedItem = new EventEmitter<SelectModel>();
   @Output() pMultipleSelectedItem = new EventEmitter<SelectModel[]>();
@@ -202,8 +210,7 @@ export class SelectComponent implements OnInit, AfterViewInit {
     ) as HTMLInputElement;
     item.forEach((x) => {
       const dupItm = this.selArr.find((y) => y === x);
-      const dupTxt = this.selTxtArr.find((z) => z === x.option);
-      console.log(dupItm);
+      // const dupTxt = this.selTxtArr.find((z) => z === x.option);
       if (x.isChecked && !dupItm) {
         this.selArr.push(x);
         this.selTxtArr.push(x.option);
@@ -231,20 +238,33 @@ export class SelectComponent implements OnInit, AfterViewInit {
   }
 
   filterInArray(value: string): void {
-    // TODO: proper in-array filteting
-    if (value.length > 0) {
-      this.filteredItems = this.filteredItems.filter((x) =>
-        x.option.includes(value)
+    let val = '';
+    if (value !== undefined) {
+      val = value.toUpperCase();
+    }
+    if (val.length > 0) {
+      this.filteredItems = this.pSelectItems.filter((x) =>
+        x.option.toUpperCase().includes(val)
       );
     } else {
       this.filteredItems = this.pSelectItems;
     }
+    if (!this.pSingleSelect) {
+      setTimeout(() => {
+        this.selArr.forEach((x) => {
+          const checkbox = document.querySelectorAll('#check-' + x.id);
+          let cb = 0;
+          for (; cb < checkbox.length; cb++) {
+            const check = checkbox[cb] as HTMLInputElement;
+            check.checked = true;
+          }
+        });
+      }, 0);
+    }
   }
 
   setInputValue(item: SelectModel): void {
-    const input = document.querySelector(
-      '#' + this.pSelectId
-    ) as HTMLInputElement;
+    const input = document.getElementById(this.pSelectId) as HTMLInputElement;
     input.value = item.option;
     this.pSingleSelectedItem.emit(item);
   }

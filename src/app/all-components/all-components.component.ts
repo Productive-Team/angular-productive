@@ -33,6 +33,12 @@ export class AllComponentsComponent implements OnInit {
     { id: 3, option: 'Option 3' },
     { id: 4, option: 'Disabled Option', isDisabled: true },
   ];
+  testSelSercArr = [
+    { id: 12, option: 'Option 1' },
+    { id: 13, option: 'Option 2' },
+    { id: 14, option: 'Option 3' },
+    { id: 15, option: 'Option 4' },
+  ];
   testSelMultiArr = [
     { id: 5, option: 'Option 1 Multi' },
     { id: 6, option: 'Option 2 Multi' },
@@ -45,9 +51,18 @@ export class AllComponentsComponent implements OnInit {
     { id: 11, option: 'Option 3 Multi' },
     // { id: 12, option: 'Option 4 Multi Disabled', isDisabled: true },
   ];
+  testMultiSelSearch = [
+    { id: 16, option: 'Option 1' },
+    { id: 17, option: 'Option 2' },
+    { id: 18, option: 'Option 3' },
+    { id: 19, option: 'Option 4' },
+  ];
 
   singSel = '';
+  singSelSrch = '';
   selectItms: SelectModel[];
+  selectAllItms = [];
+  selectAllItmsSrc = [];
   constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}
@@ -144,12 +159,19 @@ export class AllComponentsComponent implements OnInit {
   seleSing(event): void {
     this.singSel = event.option;
   }
+  seleSingSrch(event): void {
+    this.singSelSrch = event.option;
+  }
 
   recieveItems(event): void {
     this.selectItms = event;
   }
 
   recieveAllItem(event): void {
-    console.log(event);
+    this.selectAllItms = event;
+  }
+
+  receiveAllSearchMultiItems(event): void {
+    this.selectAllItmsSrc = event;
   }
 }

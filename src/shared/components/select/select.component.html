@@ -15,10 +15,11 @@
 <div class="select-wrapper" [id]="pSelectId + '-wrapper'">
   <div class="p-select elevation" [id]="pSelectId + '-container'">
     <div class="p-select-header search" *ngIf="pSelectSearch">
-      <input type="text" placeholder="Search" [(ngModel)]="filterValue" (keyup)="filterInArray(filterValue)">
+      <input type="text" placeholder="{{pSelectSearchPlaceholder}}" [(ngModel)]="filterValue"
+        (keyup)="filterInArray(filterValue)">
     </div>
     <div class="p-select-header" *ngIf="pSelectAll">
-      <p-checkbox checkId="selAll" [checkboxText]="allAreSelected ? 'Deselect All' : 'Select All'"
+      <p-checkbox checkId="selAll" [checkboxText]="allAreSelected ? pDeselectAllText : pSelectAllText"
         (checkValue)="selectAll($event)"></p-checkbox>
     </div>
     <div [class]="pSingleSelect ? 'p-select-item' : 'p-select-item-multiple'" pRipple *ngFor="let opt of filteredItems"
@@ -26,6 +27,9 @@
       <p-checkbox [checkId]="'check-' + opt.id" [hasRipple]="false" *ngIf="!pSingleSelect"
         style="pointer-events: none;"></p-checkbox>
       {{opt.option}}
+    </div>
+    <div class="p-select-item text-center" style="pointer-events: none;" *ngIf="filteredItems?.length === 0">
+      {{pSelectSearchNotFoundMessage}}
     </div>
   </div>
 </div>

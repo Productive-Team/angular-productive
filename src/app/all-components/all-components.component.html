@@ -802,6 +802,7 @@
 <br>
 <h2>Custom Select</h2>
 <hr>
+<h3>Normal Selects</h3>
 <div class="row">
   <div class="col m3 s12">
     <p-select pSelectLabelText="Custom Normal Select" pSelectId="selectCust" [pSelectItems]="testSelArr"
@@ -809,6 +810,17 @@
     </p-select>
     <span>Selected Option: <b>{{singSel}}</b></span>
   </div>
+  <div class="col m3 12">
+    <p-select pSelectLabelText="Custom Select w/ Search" pSelectId="selectCustomSearch" [pSelectItems]="testSelSercArr"
+      [pSelectSearch]="true" (pSingleSelectedItem)="seleSingSrch($event)">
+    </p-select>
+    <span>Selected Option: <b>{{singSelSrch}}</b></span>
+  </div>
+</div>
+<br>
+<br>
+<h3>Multiple Selects</h3>
+<div class="row">
   <div class="col m3 s12">
     <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelMultiArr"
       [pSingleSelect]="false" (pMultipleSelectedItem)="recieveItems($event)">
@@ -819,17 +831,15 @@
     <p-select pSelectLabelText="Multi Select w/ Select All" pSelectId="selectCust3" [pSelectItems]="testSelAllOptArr"
       [pSingleSelect]="false" [pSelectAll]="true" (pMultipleSelectedItem)="recieveAllItem($event)">
     </p-select>
-  </div>
-  <!--  <div class="col m3 s12">
-    <p-select pSelectLabelText="Custom Multi Select W/ Select All" pSelectId="selectCust3"
-      [pSelectItems]="testSelAllArr" [pSingleSelect]="false" [pSelectAll]="true" [pSelectInputType]="'classic'">
-    </p-select>
+    <span>Selected Options: <b *ngFor="let items of selectAllItms">{{items.option}}, </b></span>
   </div>
   <div class="col m3 s12">
-    <p-select pSelectLabelText="Custom Multi Select W/ Search" pSelectId="selectCust4" [pSelectItems]="testSelAllArr"
-      [pSingleSelect]="false" [pSelectAll]="true" [pSelectSearch]="true">
+    <p-select pSelectLabelText="Custom Multi Select W/ Search" pSelectId="selectMultiCustSearch"
+      [pSelectItems]="testMultiSelSearch" [pSingleSelect]="false" [pSelectSearch]="true"
+      (pMultipleSelectedItem)="receiveAllSearchMultiItems($event)">
     </p-select>
-  </div> -->
+    <span>Selected Options: <b *ngFor="let items of selectAllItmsSrc">{{items.option}}, </b></span>
+  </div>
 </div>
 <br>
 <h2>Collapsible</h2>
