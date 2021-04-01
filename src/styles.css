@@ -952,7 +952,7 @@ textarea.p-input.classic {
   max-height: 30%;
   overflow: auto;
   animation: dropAnimation 0.15s cubic-bezier(0, 0, 0.2, 1);
-  z-index: 1001;
+  z-index: 1005;
   margin: 0;
   opacity: 0;
   transition: opacity 0.15s ease-out;

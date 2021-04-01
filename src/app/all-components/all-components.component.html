@@ -233,12 +233,18 @@
 <h2>Modal Dialogs</h2>
 <hr>
 <div>
-  <button class="btn flat primary" pRipple pModalTrigger pModalId="testId">Open Default Dialog</button>
-  <button class="btn flat primary" pRipple pModalTrigger pModalId="staticId">Open Static Dialog</button>
-  <button class="btn flat primary" pRipple pModalTrigger pModalId="scrollableId">Open Scrollable Dialog</button>
-  <button class="btn flat primary" pRipple pModalTrigger pModalId="smallId">Open Small Dialog</button>
-  <button class="btn flat primary" pRipple pModalTrigger pModalId="largeId">Open Large Dialog</button>
-  <button class="btn flat primary" pRipple pModalTrigger pModalId="bottomSheetId">Open Bottom Sheet</button>
+  <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)" pModalId="testId">Open
+    Default Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+    pModalId="staticId">Open Static Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+    pModalId="scrollableId">Open Scrollable Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)" pModalId="smallId">Open
+    Small Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)" pModalId="largeId">Open
+    Large Dialog</button>
+  <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+    pModalId="bottomSheetId">Open Bottom Sheet</button>
 </div>
 <app-modal pModalId="testId">
   <ng-container modal-header>
@@ -804,7 +810,7 @@
     <span>Selected Option: <b>{{singSel}}</b></span>
   </div>
   <div class="col m3 s12">
-    <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelArr"
+    <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelAllArr"
       [pSingleSelect]="false">
     </p-select>
   </div>

@@ -30,16 +30,14 @@ export class AllComponentsComponent implements OnInit {
     { id: 1, option: 'Option 1' },
     { id: 2, option: 'Option 2' },
     { id: 3, option: 'Option 3' },
-    { id: 4, option: 'Option 4' },
-    { id: 5, option: 'Option 5' },
-    { id: 6, option: 'Option 6' },
-    { id: 7, option: 'Option 7' },
-    { id: 8, option: 'Option 8' },
-    { id: 9, option: 'Disabled Option', isDisabled: true },
+    { id: 4, option: 'Disabled Option', isDisabled: true },
   ];
   testSelAllArr = [
-    { id: 4, option: 'Option 3' },
-    { id: 5, option: 'Option 4' },
+    { id: 5, option: 'Option 1 Multi' },
+    { id: 6, option: 'Option 2 Multi' },
+    { id: 7, option: 'Option 3 Multi' },
+    { id: 8, option: 'Option 4 Multi Disabled', isDisabled: true },
+    { id: 9, option: 'Option 5 Multi' },
   ];
 
   singSel = '';

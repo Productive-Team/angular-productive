@@ -154,8 +154,8 @@ export class SelectComponent implements OnInit, AfterViewInit {
   allAreSelected = false;
   filteredItems: SelectModel[];
   filterValue: string;
-  private selectedItems = [];
   private selArr = [];
+  private selTxtArr = [];
 
   constructor() {}
 
@@ -214,35 +214,6 @@ export class SelectComponent implements OnInit, AfterViewInit {
     this.pSingleSelectedItem.emit(item);
   }
 
-  setMultipleSelectedValues(item: SelectModel): void {
-    const input = document.querySelector(
-      '#' + this.pSelectId
-    ) as HTMLInputElement;
-    const itm = this.selArr.find((x) => x.id === item.id);
-    if (!itm) {
-      // TODO: Adjust select text
-      this.selArr.push({ id: item.id, option: item.option });
-      if (this.selArr.length > 1) {
-        const str = input.value.length - 1;
-        const stridx = input.value.charAt(str);
-        const idx = input.value.indexOf(stridx);
-        console.log(idx);
-      } else {
-        input.value = input.value.concat(item.option);
-      }
-    } else {
-      const index = this.selArr.indexOf(itm);
-      // input.value = input.value.replace(item.option, '');
-      if (index === 0) {
-        this.selArr.splice(0, 1);
-      } else {
-        this.selArr.splice(index, index);
-      }
-    }
-    console.log();
-    // console.log(this.selArr);
-  }
-
   selectOne(option: SelectModel): void {
     option.isChecked = !option.isChecked;
     const checkbox = document.querySelectorAll('#check-' + option.id);
@@ -251,14 +222,34 @@ export class SelectComponent implements OnInit, AfterViewInit {
       const check = checkbox[cb] as HTMLInputElement;
       check.checked = !check.checked;
     }
-    const selectedItem = this.selectedItems.find((x) => x === option);
-    if (selectedItem) {
-      const index = this.selectedItems.indexOf(option);
-      this.selectedItems.splice(index, index);
-    } else {
-      this.selectedItems.push(option);
-    }
     this.setMultipleSelectedValues(option);
+  }
+
+  setMultipleSelectedValues(item: SelectModel): void {
+    const input = document.querySelector(
+      '#' + this.pSelectId
+    ) as HTMLInputElement;
+    if (item.isChecked) {
+      this.selArr.push(item);
+      this.selTxtArr.push(item.option);
+      input.value = this.selTxtArr.join(', ');
+    } else {
+      const dupItm = this.selArr.find((x) => x === item);
+      const dupTxt = this.selTxtArr.find((x) => x === item.option);
+      const indexDup = this.selArr.indexOf(dupItm);
+      const indexTxt = this.selTxtArr.indexOf(dupTxt);
+      if (indexDup === 0) {
+        this.selArr.splice(0, 1);
+      } else {
+        this.selArr.splice(indexDup, indexDup);
+      }
+      if (indexTxt === 0) {
+        this.selTxtArr.splice(0, 1);
+      } else {
+        this.selTxtArr.splice(indexTxt, indexTxt);
+      }
+      input.value = this.selTxtArr.join(', ');
+    }
   }
 }
 

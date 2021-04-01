@@ -28,6 +28,7 @@ export class DropdownTriggerDirective {
       menu.style.opacity = '1';
       const back = document.createElement('div');
       back.classList.add('backdrop');
+      back.style.zIndex = '999';
       body.insertAdjacentElement('beforeend', back);
       if (closeOnBtnClick) {
         const links = menu.getElementsByTagName('a');
