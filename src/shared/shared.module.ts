@@ -1,3 +1,4 @@
+import { RadioBtnComponent } from './components/radio-btn/radio-btn.component';
 import { TooltipsDirective } from './directives/tooltips/tooltips.directive';
 import { BadgesDirective } from './directives/badges/badges.directive';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
@@ -49,6 +50,7 @@ import { FormsModule } from '@angular/forms';
     TooltipsDirective,
     SelectDirective,
     SelectComponent,
+    RadioBtnComponent,
   ],
   exports: [
     RippleDirective,
@@ -68,6 +70,7 @@ import { FormsModule } from '@angular/forms';
     TooltipsDirective,
     SelectDirective,
     SelectComponent,
+    RadioBtnComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

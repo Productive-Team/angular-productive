@@ -1,0 +1,16 @@
+<label class="radio-wrapper" id="wrapper-{{pRadioId}}" pRipple [pRippleCentered]="true"
+  [pRippleTriggerId]="'radio-ripple-' + pRadioId" [pRippleColor]="pRadioRippleColor">
+  <span class="radio-text left" *ngIf="pRadioTextAlignment === 'left' || pRadioTextAlignment === 'before'">
+    {{pRadioText}}
+  </span>
+  <span class="radio-container">
+    <input type="radio" name="{{pRadioCollectionName}}" value="{{pRadioValue}}" id="{{pRadioId}}"
+      (change)="returnRadValue($event.srcElement.value)">
+    <span class="radio-outer-circle"></span>
+    <span class="radio-inner-circle"></span>
+    <span class="radio-ripple-container" id="radio-ripple-{{pRadioId}}"></span>
+  </span>
+  <span class="radio-text right" *ngIf="pRadioTextAlignment === 'right' || pRadioTextAlignment === 'after'">
+    {{pRadioText}}
+  </span>
+</label>
