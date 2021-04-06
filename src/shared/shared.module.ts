@@ -1,3 +1,4 @@
+import { SectionComponent } from './components/section/section.component';
 import { RadioBtnComponent } from './components/radio-btn/radio-btn.component';
 import { TooltipsDirective } from './directives/tooltips/tooltips.directive';
 import { BadgesDirective } from './directives/badges/badges.directive';
@@ -51,6 +52,7 @@ import { FormsModule } from '@angular/forms';
     SelectDirective,
     SelectComponent,
     RadioBtnComponent,
+    SectionComponent,
   ],
   exports: [
     RippleDirective,
@@ -71,6 +73,7 @@ import { FormsModule } from '@angular/forms';
     SelectDirective,
     SelectComponent,
     RadioBtnComponent,
+    SectionComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

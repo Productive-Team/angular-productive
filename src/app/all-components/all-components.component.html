@@ -860,6 +860,55 @@
 <span>Selected Option: <b>{{selectedRadioVal}}</b></span>
 <br>
 <br>
+<p-radio-button pRadioText="True" pRadioCollectionName="booleanValue" pRadioId="true" [pRadioValue]="true"
+  (returnRadioValue)="receiveRadioBoolVal($event)">
+</p-radio-button>
+<br>
+<p-radio-button pRadioText="False" pRadioCollectionName="booleanValue" pRadioId="false" [pRadioValue]="false"
+  (returnRadioValue)="receiveRadioBoolVal($event)">
+</p-radio-button>
+<br>
+<span>Selected Option: <b>{{radioBoolVal}}</b></span>
+<br>
+<br>
+<br>
+<h2>Section</h2>
+<hr>
+<p-section pSectionHeader="Section Header" pSectionHeaderIcon="subject">
+  <ng-container section-buttons>
+    <button class="flat btn-small floating secondary" pRipple pRippleCentered="true"
+      pRippleColor="var(--secondaryLowOpacity)">
+      <i class="material-icons">code</i>
+    </button>
+    <button class="btn-small flat floating primary" pRipple pRippleCentered="true"
+      pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger pDropdownTriggerId="section-dropdown">
+      <i class="material-icons">more_horiz</i>
+    </button>
+    <a class="flat btn-small floating" pRipple pRippleCentered="true" href="https://google.com/" target="_blank">
+      <i class="material-icons">call_made</i>
+    </a>
+  </ng-container>
+  <ng-container section-content>
+    <div class="text-center">
+      <span>Section Content</span>
+    </div>
+  </ng-container>
+</p-section>
+<p-dropdown pDropdownId="section-dropdown">
+  <li>
+    <button pRipple>
+      <i class="material-icons left">share</i>
+      Share
+    </button>
+  </li>
+  <li>
+    <button pRipple>
+      <i class="material-icons left">file_download</i>
+      Download
+    </button>
+  </li>
+</p-dropdown>
+<br>
 <h2>Collapsible</h2>
 <hr>
 <br>

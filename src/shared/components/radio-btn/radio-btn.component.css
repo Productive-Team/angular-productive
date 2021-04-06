@@ -1,14 +1,14 @@
 /* Radio Wrapper, wraps both input and text */
 .radio-wrapper {
   --radio-selected-color: var(--primary);
-  display: inline-flex;
+  display: inline-block;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
   vertical-align: middle;
   font-size: 15px;
   margin-bottom: 8px;
-  width: 100%;
+  max-width: 100%;
 }
 
 /* Hides browser default input */
@@ -22,6 +22,7 @@
   display: inline-block;
   line-height: inherit;
   padding: 0 8px;
+  margin: 2px 3px !important;
 }
 
 /* Container for the radio circle */

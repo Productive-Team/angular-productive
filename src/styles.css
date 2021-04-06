@@ -49,6 +49,14 @@ i {
   pointer-events: none;
 }
 
+hr {
+  height: 1px;
+  border: 0;
+  background-color: #a3a3a3;
+  color: #a3a3a3;
+  margin: 5px 0;
+}
+
 /* #region GridStyles */
 
 .content-wrapper {
@@ -319,18 +327,21 @@ a.disabled {
   height: 36px;
   padding: 0;
   border-radius: 50%;
+  text-align: center;
 }
 .btn.floating {
   width: 46px;
   height: 46px;
   padding: 0;
   border-radius: 50%;
+  text-align: center;
 }
 .btn-large.floating {
   width: 56px;
   height: 56px;
   padding: 0;
   border-radius: 50%;
+  text-align: center;
 }
 .btn.flat,
 .btn-small.flat,
@@ -811,6 +822,7 @@ textarea.p-input.classic {
   bottom: 50%;
   transform: translateY(50%);
   color: rgba(0, 0, 0, 0.5);
+  user-select: none;
 }
 @keyframes showMenuAnim {
   from {

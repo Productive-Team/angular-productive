@@ -65,6 +65,7 @@ export class AllComponentsComponent implements OnInit {
   selectAllItmsSrc = [];
 
   selectedRadioVal = '';
+  radioBoolVal: boolean;
   constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}
@@ -179,5 +180,8 @@ export class AllComponentsComponent implements OnInit {
 
   receiveRadioVal(event): void {
     this.selectedRadioVal = event;
+  }
+  receiveRadioBoolVal(event): void {
+    this.radioBoolVal = event;
   }
 }
