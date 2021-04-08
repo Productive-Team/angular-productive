@@ -51,7 +51,7 @@ export class SidenavTriggerDirective {
   styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent implements OnInit {
-  @Input() elevated = false;
+  @Input() elevated = true;
   @Input() hidden = false;
   @Input() backgroundColor: string;
 
@@ -115,7 +115,9 @@ export class SidenavComponent implements OnInit {
     const sideTrig = document.querySelector(
       '.sidenav-trigger'
     ) as HTMLButtonElement;
-    sideTrig.style.display = 'none';
+    if (sideTrig !== null) {
+      sideTrig.style.display = 'none';
+    }
   }
 
   showButton(): void {

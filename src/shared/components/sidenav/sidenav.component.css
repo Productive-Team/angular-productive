@@ -1,11 +1,11 @@
 .sidenav {
   background-color: #fff;
   width: 250px;
-  position: fixed;
-  left: 0;
+  height: 100vh;
+  position: absolute;
   top: 0;
   bottom: 0;
-  z-index: 999;
+  z-index: 996;
   transition: 0.2s ease-out;
   overflow-x: hidden;
   overflow-y: auto;
@@ -13,7 +13,6 @@
 
 .sidenav-wrap {
   position: relative;
-  margin-right: 250px;
 }
 
 @media screen and (max-width: 1000px) {

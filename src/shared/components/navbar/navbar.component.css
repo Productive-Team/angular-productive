@@ -5,7 +5,7 @@
   padding: 0 0.5rem;
   outline: none;
   border: none;
-  z-index: 900;
+  z-index: 998;
 }
 .navbar .wrapper {
   position: relative;

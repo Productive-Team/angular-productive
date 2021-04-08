@@ -1,6 +1,6 @@
-import { SelectModel } from './../../shared/components/select/select.component';
-import { ModalComponent } from './../../shared/components/modal/modal.component';
-import { SnackbarService } from './../../shared/services/snackbar.service';
+import { SelectModel } from '../../../../../shared/components/select/select.component';
+import { ModalComponent } from '../../../../../shared/components/modal/modal.component';
+import { SnackbarService } from '../../../../../shared/services/snackbar.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

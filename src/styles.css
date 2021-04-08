@@ -65,19 +65,29 @@ hr {
   flex-direction: column;
   max-height: 100%;
 }
+.sidenav-container {
+  position: relative;
+  display: block;
+  flex: 1;
+  box-sizing: border-box;
+  height: 100vh;
+}
 .container {
   padding: 15px 30px;
   max-height: 100%;
   overflow: auto;
 }
 .container-sidenav {
-  padding: 15px 15px 15px 260px;
-  max-height: 100%;
+  display: block;
+  margin-left: 250px;
+  padding: 15px 30px;
+  height: 100%;
   overflow: auto;
+  z-index: 1;
 }
 @media screen and (max-width: 1000px) {
   .container-sidenav {
-    padding: 15px 25px;
+    margin: 0;
   }
 }
 @media screen and (max-width: 600px) {
@@ -481,9 +491,9 @@ a.btn-large {
   top: 5px;
 }
 
-.navbar a.btn,
-.navbar a.btn-small,
-.navbar a.btn-large {
+.navbar .btn,
+.navbar .btn-small,
+.navbar .btn-large {
   vertical-align: middle;
   text-decoration: none;
   -webkit-user-drag: none;
