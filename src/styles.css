@@ -972,16 +972,16 @@ textarea.p-input.classic {
 }
 
 .dropdown-menu.left-align {
-  transform-origin: 0 0;
+  transform-origin: left top;
 }
 .dropdown-menu.right-align {
-  transform-origin: 100% 0;
+  transform-origin: right top;
 }
 .dropdown-menu.bottom-right-align {
-  transform-origin: 100% 100%;
+  transform-origin: right bottom;
 }
 .dropdown-menu.bottom-left-align {
-  transform-origin: 0 200%;
+  transform-origin: left bottom;
 }
 
 .dropdown-menu li {

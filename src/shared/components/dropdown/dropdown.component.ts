@@ -138,28 +138,28 @@ export class DropdownTriggerDirective {
     const menu1 = menu as HTMLUListElement;
     if (menu1.classList.contains('left-align')) {
       element.style.left = offsetLeft + 'px';
-      element.style.top = offsetTop + boundRect.height + 'px';
+      element.style.top = offsetTop + 'px';
       element.style.alignItems = 'flex-start';
       element.style.justifyContent = 'flex-start';
       element.style.height = height + 'px';
       element.style.width = width + 'px';
     } else if (menu1.classList.contains('bottom-left-align')) {
       element.style.left = offsetLeft + 'px';
-      element.style.bottom = height + 'px';
+      element.style.bottom = height - boundRect.height + 'px';
       element.style.alignItems = 'flex-start';
       element.style.justifyContent = 'flex-end';
       element.style.height = offsetTop + 'px';
       element.style.width = width + 'px';
     } else if (menu1.classList.contains('right-align')) {
       element.style.right = width - boundRect.width + 'px';
-      element.style.top = offsetTop + boundRect.height + 'px';
+      element.style.top = offsetTop + 'px';
       element.style.alignItems = 'flex-end';
       element.style.justifyContent = 'flex-start';
       element.style.height = height + 'px';
       element.style.width = offsetLeft + 'px';
     } else if (menu1.classList.contains('bottom-right-align')) {
       element.style.right = width - boundRect.width + 'px';
-      element.style.bottom = height + 'px';
+      element.style.bottom = height - boundRect.height + 'px';
       element.style.alignItems = 'flex-end';
       element.style.justifyContent = 'flex-end';
       element.style.height = offsetLeft + 'px';
