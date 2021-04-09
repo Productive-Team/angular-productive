@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   Directive,
   ElementRef,
@@ -20,11 +21,13 @@ export class SidenavTriggerDirective {
   }
 
   @HostListener('click', ['$event']) openSidenav() {
-    const sidenavElement = document.querySelector('.sidenav') as HTMLDivElement;
+    const sidenavElement = document.querySelector(
+      '.sidenav-wrap'
+    ) as HTMLDivElement;
     const body = document.querySelector('body');
     if (!isOpen) {
-      body.style.overflowY = 'hidden';
       sidenavElement.style.transform = 'translateX(0)';
+      sidenavElement.style.width = '250px';
       const backdrop = document.createElement('div');
       backdrop.classList.add('backdrop');
       body.insertAdjacentElement('beforeend', backdrop);
@@ -38,7 +41,7 @@ export class SidenavTriggerDirective {
           backdrop.remove();
         });
         sidenavElement.style.transform = 'translateX(-150%)';
-        body.style.overflowY = 'visible';
+        sidenavElement.style.width = '0';
         isOpen = false;
       });
     }
@@ -50,60 +53,77 @@ export class SidenavTriggerDirective {
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, AfterViewInit {
   @Input() elevated = true;
   @Input() hidden = false;
   @Input() backgroundColor: string;
 
   @HostListener('window:resize', ['$event']) onResize(event) {
-    if (!this.hidden) {
-      if (event.srcElement.innerWidth > 1000) {
-        const backdrop = document.querySelector('.backdrop') as HTMLDivElement;
-        if (backdrop !== null) {
-          backdrop.style.opacity = '0';
-          backdrop.addEventListener('transitionend', () => {
-            const body = document.querySelector('body');
-            body.style.overflowY = 'visible';
-            backdrop.remove();
-            isOpen = false;
-          });
-        }
-        this.hideButton();
-        this.showNav();
-      } else {
-        this.showButton();
-        this.hideNav();
-      }
-    }
+    // if (!this.hidden) {
+    //   if (event.srcElement.innerWidth > 1000) {
+    //     const backdrop = document.querySelector('.backdrop') as HTMLDivElement;
+    //     if (backdrop !== null) {
+    //       backdrop.style.opacity = '0';
+    //       backdrop.addEventListener('transitionend', () => {
+    //         const body = document.querySelector('body');
+    //         body.style.overflowY = 'visible';
+    //         backdrop.remove();
+    //         isOpen = false;
+    //       });
+    //     }
+    //     this.hideButton();
+    //     this.showNav();
+    //   } else {
+    //     this.showButton();
+    //     this.hideNav();
+    //   }
+    // }
+    this.setHeight();
   }
 
   constructor() {}
 
   ngOnInit(): void {
-    if (this.hidden) {
-      this.showButton();
-      this.hideNav();
-    } else {
-      if (window.innerWidth > 1000) {
-        this.hideButton();
-      } else {
-        this.showButton();
-      }
-    }
+    // if (this.hidden) {
+    //   this.showButton();
+    //   this.hideNav();
+    // } else {
+    //   if (window.innerWidth > 1000) {
+    //     this.hideButton();
+    //   } else {
+    //     this.showButton();
+    //   }
+    // }
+  }
+
+  ngAfterViewInit(): void {
     if (this.elevated) {
       this.elevateSidenav();
     }
     this.backgroundColorApply();
+    this.setHeight();
   }
 
-  elevateSidenav(): void {
+  private setHeight(): void {
+    const height = window.innerHeight;
+    const nav = document.querySelector('nav') as HTMLDivElement;
+    const boundRectNav = nav.getBoundingClientRect();
+    const finalHeight = Math.abs(height - boundRectNav.height) + 'px';
+    const sideWrap = document.querySelector('.sidenav-wrap') as HTMLDivElement;
+    sideWrap.style.height = finalHeight;
+  }
+
+  private elevateSidenav(): void {
     const sidenavElement = document.querySelector('.sidenav');
     sidenavElement.classList.add('elevation');
   }
 
   hideNav(): void {
-    const sidenavElement = document.querySelector('.sidenav') as HTMLDivElement;
+    const sidenavElement = document.querySelector(
+      '.sidenav-wrap'
+    ) as HTMLDivElement;
     sidenavElement.style.transform = 'translateX(-150%)';
+    sidenavElement.style.width = '0';
   }
 
   showNav(): void {

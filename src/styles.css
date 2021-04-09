@@ -4,6 +4,7 @@
   --primaryLowOpacity: #3f51b51e;
   --secondaryLowOpacity: #e91e631e;
   --appBackgroundColor: white;
+  --defaultBezier: cubic-bezier(0, 0, 0.2, 1);
 }
 
 @font-face {
@@ -20,7 +21,6 @@ body {
   color: #262626;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
-  overflow: hidden;
   background-color: var(--appBackgroundColor);
 }
 
@@ -65,25 +65,19 @@ hr {
   flex-direction: column;
   max-height: 100%;
 }
-.sidenav-container {
-  position: relative;
+.content-contain {
   display: block;
-  flex: 1;
   box-sizing: border-box;
   height: 100vh;
+  overflow-y: auto;
+}
+.sidenav-container {
+  display: flex;
 }
 .container {
+  box-sizing: border-box;
+  width: 100%;
   padding: 15px 30px;
-  max-height: 100%;
-  overflow: auto;
-}
-.container-sidenav {
-  display: block;
-  margin-left: 250px;
-  padding: 15px 30px;
-  height: 100%;
-  overflow: auto;
-  z-index: 1;
 }
 @media screen and (max-width: 1000px) {
   .container-sidenav {
@@ -498,15 +492,6 @@ a.btn-large {
   text-decoration: none;
   -webkit-user-drag: none;
 }
-@media screen and (max-width: 800px) {
-  .navbar ul.right,
-  .navbar ul.left {
-    display: none;
-  }
-  .navbar ul.sidenav-trigger-parent {
-    display: block;
-  }
-}
 /* #endregion NavbarStyles */
 
 /* #region SidebarStyles */
@@ -564,7 +549,7 @@ a.btn-large {
 .backdrop,
 .backdrop-modal {
   position: fixed;
-  z-index: 998;
+  z-index: 995;
   background-color: #000;
   width: 100%;
   height: 100vh;

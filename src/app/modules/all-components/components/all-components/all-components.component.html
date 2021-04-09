@@ -7,8 +7,9 @@
 <br>
 <app-grid></app-grid>
 <br> -->
-<!-- <div class="sidenav-container"> -->
-<!-- <p-sidenav>
+
+<div class="sidenav-container">
+  <p-sidenav>
     <ng-container side-content>
       <li>
         <a pRipple>Containers</a>
@@ -61,981 +62,1049 @@
       <li>
         <a pRipple>Collapsible</a>
       </li>
+      <li>
+        <a pRipple>Collapsible</a>
+      </li>
+      <li>
+        <a pRipple>Collapsible</a>
+      </li>
+      <li>
+        <a pRipple>Collapsible</a>
+      </li>
+      <li>
+        <a pRipple>Collapsible</a>
+      </li>
+      <li>
+        <a pRipple>Collapsible</a>
+      </li>
     </ng-container>
-  </p-sidenav> -->
-<div class="container">
-  <div class="row">
-    <div class="col m4 s12">
-      <p-card [hasHeader]="false">
-        <ng-container card-content>
-          <div class="text-center">
-            <h2>Containers</h2>
-            <br>
-            <h4>Designed to contain all the content of the page</h4>
-          </div>
-        </ng-container>
-      </p-card>
+  </p-sidenav>
+  <div style="box-sizing: border-box; width: 100%;">
+    <div class="bg-primary"
+      style="height: 50px; line-height: 50px; padding: 0 15px; box-sizing:border-box; width: 100%;">
+      <button class="left btn flat floating" pRipple pRippleCentered="true" pRippleColor="#ffffff26"
+        style="color: white; top: 2px;" pSidenavTrigger>
+        <i class="material-icons">menu</i>
+      </button>
+      <h2>Components</h2>
     </div>
-    <div class="col m4 s12">
-      <p-card [hasHeader]="false">
-        <ng-container card-content>
-          <div class="text-center">
-            <h2>Buttons</h2>
-            <br>
-            <h4>Custom styled buttons used for performing actions or navigation</h4>
-          </div>
-        </ng-container>
-      </p-card>
-    </div>
-  </div>
-  <h2>Inputs</h2>
-  <hr>
-  <div class="row">
-    <div class="col m4 s12">
-      <p-fieldset labelText="Filled Input" labelId="example-text">
-        <input type="text" class="p-input" id="example-text" pInput>
-      </p-fieldset>
-    </div>
-    <div class="col m4 s12">
-      <p-fieldset labelText="Classic Input" labelId="example-text-classic" labelIconLeft="group" [hasHelperText]="true"
-        helperText="Example Text">
-        <input type="text" class="p-input classic" id="example-text-classic" pInput>
-      </p-fieldset>
-    </div>
-    <div class="col m4 s12">
-      <p-fieldset labelText="Outlined Input" labelId="example-text-outlined" labelIconRight="group">
-        <input type="text" class="p-input outlined" id="example-text-outlined" pInput>
-      </p-fieldset>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col m4 s12">
-      <p-fieldset labelText="Label Active" labelId="float-fill" [labelActive]="true">
-        <input type="text" class="p-input" id="float-fill" pInput>
-      </p-fieldset>
-    </div>
-    <div class="col m4 s12">
-      <p-fieldset labelText="Active Label" labelId="float-classic" [labelActive]="true" [trailingButton]="true"
-        trailingButtonIcon="visibility">
-        <input type="text" class="p-input classic" id="float-classic" pInput>
-      </p-fieldset>
-    </div>
-    <div class="col m4 s12">
-      <p-fieldset labelText="Active Label" labelId="float-outlined" [labelActive]="true">
-        <input type="text" class="p-input outlined" id="float-outlined" pInput>
-      </p-fieldset>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col m4 s12">
-      <p-fieldset labelText="Active Label" labelId="textarea-filled" [isTextarea]="true">
-        <textarea class="p-input" id="textarea-filled" pInput></textarea>
-      </p-fieldset>
-    </div>
-    <div class="col m4 s12">
-      <p-fieldset labelText="Active Label" labelId="textarea-classic" [isTextarea]="true">
-        <textarea class="p-input classic" id="textarea-classic" pInput></textarea>
-      </p-fieldset>
-    </div>
-    <div class="col m4 s12">
-      <p-fieldset labelText="Active Label" labelId="textarea-outlined" [isTextarea]="true">
-        <textarea class="p-input outlined" pInput id="textarea-outlined"></textarea>
-      </p-fieldset>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col m4 s12">
-      <p-fieldset labelText="Select Browser Default" labelId="selectBD">
-        <select id="selectBD" class="p-input" pInput>
-          <option value=""></option>
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
-      </p-fieldset>
-    </div>
-    <div class="col m4 s12">
-      <p-fieldset labelText="Select Browser Default" labelId="selectBDC">
-        <select id="selectBDC" class="p-input classic" pInput>
-          <option value=""></option>
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
-      </p-fieldset>
-    </div>
-    <div class="col m4 s12">
-      <p-fieldset labelText="Select Browser Default" labelId="selectBDO">
-        <select id="selectBDO" class="p-input outlined" pInput>
-          <option value=""></option>
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
-      </p-fieldset>
-    </div>
-  </div>
-  <br>
-  <h2>Card</h2>
-  <hr>
-  <div class="row">
-    <div class="col m4 s12">
-      <p-card hasFooter="true">
-        <ng-container card-header>
-          <h3>Card Header</h3>
-        </ng-container>
-        <ng-container card-content>
-          <h4>Simple Card Content!</h4>
-        </ng-container>
-        <ng-container card-footer>
-          <div class="row">
-            <div class="col s8">
-              <div class="text-start">
-                <button class="btn floating flat" pRipple pRippleCentered="true">
-                  <i class="material-icons">more_vert</i>
-                </button>
+    <div class="container">
+      <div class="row">
+        <div class="col l3 m4 s12">
+          <p-card [hasHeader]="false" [elevated]="false">
+            <ng-container card-content>
+              <div class="text-center">
+                <h2>Containers</h2>
+                <br>
+                <h4>Designed to contain all the content of the page.</h4>
               </div>
-            </div>
-            <div class="col s4">
-              <div class="text-end">
-                <button class="btn floating flat" pRipple pRippleCentered="true">
-                  <i class="material-icons">share</i>
-                </button>
-                <button class="btn floating flat" pRipple pRippleCentered="true">
-                  <i class="material-icons">thumb_up_alt</i>
-                </button>
+            </ng-container>
+          </p-card>
+        </div>
+        <div class="col l3 m4 s12">
+          <p-card [hasHeader]="false" [elevated]="false">
+            <ng-container card-content>
+              <div class="text-center">
+                <h2>Grid</h2>
+                <br>
+                <h4>Grid styles made for responsive design.</h4>
               </div>
-            </div>
-          </div>
-        </ng-container>
-      </p-card>
-    </div>
-    <div class="col m4 s12">
-      <p-card>
-        <ng-container card-header>
-          <h3>Card Header</h3>
-        </ng-container>
-        <ng-container card-content>
-          <h4>Simple Card Content!</h4>
-        </ng-container>
-      </p-card>
-    </div>
-    <div class="col m4 s12">
-      <p-card [hasHeader]="false">
-        <ng-container card-content>
-          <h4>Simple Card Content!</h4>
-        </ng-container>
-      </p-card>
-    </div>
-  </div>
-  <br>
-  <h2>Ripple</h2>
-  <hr>
-  <div class="text-center">
-    <div class="row">
-      <div class="col m2 s4">
-        <div class="fieldset">
-          <p-checkbox checkId="Check-center" checkboxText="Ripple Centered" (checkValue)="centerA($event)">
-          </p-checkbox>
+            </ng-container>
+          </p-card>
+        </div>
+        <div class="col l3 m4 s12">
+          <p-card [hasHeader]="false" [elevated]="false">
+            <ng-container card-content>
+              <div class="text-center">
+                <h2>Buttons</h2>
+                <br>
+                <h4>Custom styled buttons used for performing actions.</h4>
+              </div>
+            </ng-container>
+          </p-card>
+        </div>
+        <div class="col l3 m4 s12">
+          <p-card [hasHeader]="false" [elevated]="false">
+            <ng-container card-content>
+              <div class="text-center">
+                <h2>Text Inputs</h2>
+                <br>
+                <h4>Custom styled text inputs used in forms to get data.</h4>
+              </div>
+            </ng-container>
+          </p-card>
         </div>
       </div>
-      <div class="col m2 s4">
-        <div class="fieldset">
-          <p-checkbox checkId="Check-unbound" checkboxText="Ripple Unbounded" (checkValue)="unboundA($event)">
-          </p-checkbox>
-        </div>
-      </div>
-      <div class="col m2 s4">
-        <div class="fieldset">
-          <p-checkbox checkId="rip-dis" checkboxText="Ripple Disabled" (checkValue)="disableA($event)"></p-checkbox>
-        </div>
-      </div>
-      <div class="col m3 s6">
-        <p-fieldset labelText="Ripple Color" labelId="color_rip">
-          <input type="text" id="color_rip" pInput class="p-input" [(ngModel)]="color">
-        </p-fieldset>
-      </div>
-      <div class="col m3 s6">
-        <p-fieldset labelText="Ripple Radius" labelId="radius_rip">
-          <input type="number" id="radius_rip" pInput class="p-input" [(ngModel)]="radius">
-        </p-fieldset>
-      </div>
-    </div>
-  </div>
-  <div class="ripple-example elevation text-center" pRipple [pRippleCentered]="center" [pRippleColor]="color"
-    [pRippleRadius]="radius" [pRippleDisabled]="disabled">
-    Click Me!
-  </div>
-  <h2>Checkboxes and Switches</h2>
-  <hr>
-  <div class="content-center">
-    <div class="row">
-      <div class="col m6 s12">
-        <p-card>
-          <ng-container card-header>
-            <h3>Checkboxes</h3>
-          </ng-container>
-          <ng-container card-content>
-            <div class="text-center">
-              <p-checkbox checkId="checkDisab" checkboxText="Disabled" (checkValue)="checkDis($event)"></p-checkbox>
-              <p-checkbox checkId="checkChk" checkboxText="Checked" (checkValue)="checkChk($event)"></p-checkbox>
-              <p-checkbox checkId="checkIndet" checkboxText="Indeterminate" (checkValue)="checkInt($event)">
-              </p-checkbox>
-            </div>
-            <br>
-            <br>
-            <div class="text-center">
-              <p-checkbox checkId="Check2" checkboxText="Checkbox Label"></p-checkbox>
-            </div>
-          </ng-container>
-        </p-card>
-      </div>
-      <div class="col m6 s12">
-        <p-card>
-          <ng-container card-header>
-            <h3>Switch Toggle</h3>
-          </ng-container>
-          <ng-container card-content>
-            <div class="text-center">
-              <p-checkbox checkId="switchDisab" checkboxText="Disabled" (checkValue)="switchDis($event)">
-              </p-checkbox>
-              <p-checkbox checkId="switchCheck" checkboxText="Checked" (checkValue)="switchChk($event)">
-              </p-checkbox>
-            </div>
-            <br>
-            <br>
-            <div class="text-center">
-              <p-checkbox checkId="Check" [isSwitch]="true" switchTextLeft="Off" switchTextRight="On">
-              </p-checkbox>
-            </div>
-          </ng-container>
-        </p-card>
-      </div>
-    </div>
-  </div>
-  <br>
-  <br>
-  <h2>Modal Dialogs</h2>
-  <hr>
-  <div>
-    <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
-      pModalId="testId">Open
-      Default Dialog</button>
-    <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
-      pModalId="staticId">Open Static Dialog</button>
-    <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
-      pModalId="scrollableId">Open Scrollable Dialog</button>
-    <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
-      pModalId="smallId">Open
-      Small Dialog</button>
-    <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
-      pModalId="largeId">Open
-      Large Dialog</button>
-    <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
-      pModalId="bottomSheetId">Open Bottom Sheet</button>
-  </div>
-  <app-modal pModalId="testId">
-    <ng-container modal-header>
+      <h2>Inputs</h2>
+      <hr>
       <div class="row">
-        <div class="col s10">
-          <h2>Dialog!</h2>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Filled Input" labelId="example-text">
+            <input type="text" class="p-input" id="example-text" pInput>
+          </p-fieldset>
+        </div>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Classic Input" labelId="example-text-classic" labelIconLeft="group"
+            [hasHelperText]="true" helperText="Example Text">
+            <input type="text" class="p-input classic" id="example-text-classic" pInput>
+          </p-fieldset>
+        </div>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Outlined Input" labelId="example-text-outlined" labelIconRight="group">
+            <input type="text" class="p-input outlined" id="example-text-outlined" pInput>
+          </p-fieldset>
         </div>
       </div>
-    </ng-container>
-    <ng-container modal-content>
-      <div class="text-center">
-        <h3>Dialog Content!</h3>
-      </div>
-    </ng-container>
-    <ng-container modal-footer>
-      <div class="text-end">
-        <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="testId">
-          Accept
-        </button>
-      </div>
-    </ng-container>
-  </app-modal>
-
-  <app-modal pModalId="staticId" [pModalStatic]="true">
-    <ng-container modal-header>
       <div class="row">
-        <div class="col s10">
-          <h2>Static Dialog!</h2>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Label Active" labelId="float-fill" [labelActive]="true">
+            <input type="text" class="p-input" id="float-fill" pInput>
+          </p-fieldset>
+        </div>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Active Label" labelId="float-classic" [labelActive]="true" [trailingButton]="true"
+            trailingButtonIcon="visibility">
+            <input type="text" class="p-input classic" id="float-classic" pInput>
+          </p-fieldset>
+        </div>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Active Label" labelId="float-outlined" [labelActive]="true">
+            <input type="text" class="p-input outlined" id="float-outlined" pInput>
+          </p-fieldset>
         </div>
       </div>
-    </ng-container>
-    <ng-container modal-content>
-      <div class="text-center">
-        <h3>Static Dialog Content!</h3>
-      </div>
-    </ng-container>
-    <ng-container modal-footer>
-      <div class="text-end">
-        <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="staticId">
-          Accept
-        </button>
-      </div>
-    </ng-container>
-  </app-modal>
-
-  <app-modal pModalId="scrollableId">
-    <ng-container modal-header>
       <div class="row">
-        <div class="col s10">
-          <h2>Scrollable Dialog!</h2>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Active Label" labelId="textarea-filled" [isTextarea]="true">
+            <textarea class="p-input" id="textarea-filled" pInput></textarea>
+          </p-fieldset>
+        </div>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Active Label" labelId="textarea-classic" [isTextarea]="true">
+            <textarea class="p-input classic" id="textarea-classic" pInput></textarea>
+          </p-fieldset>
+        </div>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Active Label" labelId="textarea-outlined" [isTextarea]="true">
+            <textarea class="p-input outlined" pInput id="textarea-outlined"></textarea>
+          </p-fieldset>
         </div>
       </div>
-    </ng-container>
-    <ng-container modal-content>
-      <div class="text-center">
-        <h3>Scrollable Dialog Content!</h3>
+      <div class="row">
+        <div class="col m4 s12">
+          <p-fieldset labelText="Select Browser Default" labelId="selectBD">
+            <select id="selectBD" class="p-input" pInput>
+              <option value=""></option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </p-fieldset>
+        </div>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Select Browser Default" labelId="selectBDC">
+            <select id="selectBDC" class="p-input classic" pInput>
+              <option value=""></option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </p-fieldset>
+        </div>
+        <div class="col m4 s12">
+          <p-fieldset labelText="Select Browser Default" labelId="selectBDO">
+            <select id="selectBDO" class="p-input outlined" pInput>
+              <option value=""></option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </p-fieldset>
+        </div>
       </div>
       <br>
-      <div class="text-center">
-        <span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed tincidunt risus, in fringilla
-          erat.
-          Pellentesque quis dignissim sem, sed tempus justo. In semper arcu ante. Cras sit amet malesuada nisi. Donec
-          elementum
-          ipsum magna, eu efficitur sapien finibus in. Phasellus neque mi, viverra non augue a, pharetra sagittis
-          neque.
-          Mauris
-          vel ante luctus, fringilla felis at, condimentum nisl. Pellentesque non augue ipsum. Sed dolor libero,
-          placerat
-          sed
-          justo eu, volutpat pellentesque dui. Cras quam dui, pretium nec nulla vel, interdum posuere turpis. Praesent
-          pulvinar
-          nulla erat, sed posuere libero convallis at.
-
-          Nunc eget tellus vehicula, gravida risus nec, feugiat ligula. Integer non consectetur ipsum. Mauris
-          vulputate,
-          erat in
-          mollis congue, purus ante imperdiet nisi, id tempor urna quam et quam. Nulla tristique molestie condimentum.
-          Etiam
-          tincidunt dapibus sollicitudin. Etiam a porttitor lectus, at ullamcorper nibh. Aliquam odio massa, lacinia
-          quis
-          felis
-          ac, laoreet sollicitudin turpis. Fusce gravida sapien quis tortor commodo, ac convallis nisi facilisis.
-
-          Suspendisse sed mauris at elit pellentesque pulvinar quis vel orci. Pellentesque sed justo non purus egestas
-          mattis. Sed
-          pulvinar, turpis sed ullamcorper mollis, leo metus dapibus velit, ac dictum enim nibh eget erat. Aliquam
-          rhoncus
-          augue
-          ipsum, id vestibulum sem dapibus ut. Curabitur vulputate ex tincidunt rutrum ullamcorper. Donec non bibendum
-          sem. Nulla
-          tincidunt leo sit amet urna ultrices, et auctor leo mollis. Duis vitae fringilla leo.
-
-          Duis aliquam tempus odio quis feugiat. Mauris nec fermentum mauris. Duis erat ipsum, pretium sed enim in,
-          suscipit
-          bibendum sem. Morbi iaculis placerat ornare. Sed id sollicitudin sapien, nec ornare ipsum. Praesent a enim
-          iaculis,
-          dapibus dolor id, vulputate urna. Vestibulum sed tellus faucibus, tincidunt neque non, rutrum leo.
-          Suspendisse
-          metus
-          tortor, venenatis eu varius non, vestibulum eu leo. Quisque eu vestibulum nibh, quis tempus quam. Integer
-          vitae
-          nibh
-          viverra, tristique lectus quis, accumsan est. Sed euismod augue vel fermentum hendrerit. Cras tristique nisi
-          et
-          dignissim rhoncus. Sed aliquam nisi at ultricies efficitur. Morbi nec sollicitudin sem. Aliquam ultricies
-          justo
-          sit amet
-          risus iaculis malesuada. Praesent tincidunt felis at libero vestibulum, a scelerisque felis sagittis.
-
-          Nam quis lorem ut justo dignissim ultrices eu sed lacus. Donec consequat laoreet auctor. Duis aliquet
-          aliquam
-          eros
-          pellentesque dictum. Mauris quis porttitor urna, a pharetra augue. Nam suscipit quis dolor sed aliquet. In
-          mi
-          ante,
-          hendrerit ut volutpat sed, efficitur vel ipsum. Maecenas ornare risus vel tempor porta. Nulla non tempus
-          justo.
-
-          Quisque ultricies magna sed arcu euismod dapibus. Suspendisse libero ipsum, consectetur vitae urna sed,
-          porta
-          iaculis
-          orci. Pellentesque et lobortis lectus. Donec scelerisque sapien non nulla bibendum, sit amet lobortis ipsum
-          finibus.
-          Morbi cursus auctor felis, et lacinia mi sodales id. Phasellus porta ut nisi non feugiat. Sed a varius
-          ligula.
-          Fusce
-          volutpat purus mi, vitae tincidunt ligula vulputate a. Integer vel dui et purus faucibus convallis.
-
-          Nam felis quam, volutpat eu lacinia et, bibendum eu nibh. Sed risus urna, aliquam aliquam ligula vel,
-          vestibulum
-          condimentum velit. Curabitur aliquet nisi velit, vel sagittis metus tempus eu. Ut hendrerit tristique
-          dignissim.
-          Nam
-          eget posuere enim, id maximus est. Sed iaculis condimentum fringilla. Morbi varius posuere tempus. Ut
-          tempus,
-          enim eget
-          congue placerat, est turpis fringilla massa, quis facilisis magna erat vel nulla. Etiam auctor, dui id
-          sollicitudin
-          auctor, ligula diam mollis elit, ultrices rutrum odio libero ut massa. Pellentesque accumsan turpis eget
-          erat
-          bibendum,
-          bibendum tincidunt lorem pharetra. Phasellus ullamcorper dolor a felis facilisis porta. Praesent ut finibus
-          velit. Nam
-          nibh ligula, rhoncus vel ante in, posuere malesuada quam.
-
-          Vestibulum elementum id sapien sed ornare. Donec posuere mi vel est fermentum blandit. In pulvinar blandit
-          placerat.
-          Donec eget lacus turpis. Donec ut quam ultrices ipsum semper aliquam. Nulla non metus vel erat tristique
-          posuere.
-          Vestibulum auctor maximus scelerisque. Donec euismod malesuada metus et hendrerit. Integer ut mattis mauris.
-          Pellentesque sit amet felis auctor, tempus risus sit amet, porta ligula. Etiam felis enim, cursus vel
-          convallis
-          quis,
-          interdum at magna.
-
-          Morbi pulvinar rhoncus mi at aliquet. Nullam fermentum ullamcorper orci vitae iaculis. Maecenas quis quam
-          volutpat,
-          mollis dolor a, pulvinar elit. Ut auctor, nisl sed placerat elementum, urna sapien egestas erat, posuere
-          lobortis urna
-          tellus a enim. Etiam eget tincidunt enim, eu vehicula massa. Nunc dapibus accumsan eros, eu consequat neque
-          condimentum
-          ut. Aliquam erat volutpat. Mauris scelerisque velit volutpat ex faucibus, nec tempus ante tincidunt. Sed ac
-          nisl
-          elit.
-          Vestibulum porta justo leo, a hendrerit magna volutpat eget. Cras elit ligula, volutpat nec porta sed,
-          tincidunt
-          sit
-          amet enim. Quisque vel commodo odio. Suspendisse eleifend lacus vulputate libero sodales accumsan. Cras
-          malesuada augue
-          vestibulum dui lacinia, vel tincidunt tellus efficitur. Sed vitae lacus id enim imperdiet placerat. Aliquam
-          sed
-          leo sed
-          est sollicitudin convallis ac eu magna.
-
-          Aenean ac nisi a enim commodo tincidunt ac luctus dolor. Cras placerat mollis dolor, id mollis purus
-          eleifend
-          sed.
-          Maecenas at lorem dictum, luctus mauris quis, egestas nulla. Nullam quis tristique turpis. Pellentesque ac
-          tincidunt
-          arcu. Mauris vehicula est vitae consectetur ullamcorper. Vestibulum vulputate id ipsum a efficitur. Mauris
-          condimentum,
-          felis accumsan pretium tristique, velit leo viverra purus, et pulvinar lacus dolor eu dolor. Aenean
-          placerat,
-          dolor
-          vitae ornare fringilla, ante lectus vestibulum arcu, eu euismod diam sem sed nulla. Cras tortor nulla,
-          scelerisque vel
-          dui nec, volutpat commodo velit. Proin quis cursus purus. Fusce finibus tempus leo, bibendum condimentum
-          ipsum
-          molestie
-          nec. Duis finibus sem et imperdiet accumsan. Cras fringilla ut diam non cursus. Quisque non sem
-          sollicitudin,
-          aliquet
-          massa ac, egestas elit. Vivamus condimentum justo lobortis tempus aliquam.
-
-          Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc tincidunt lorem tellus, id tincidunt
-          lorem
-          viverra
-          et. Cras laoreet metus magna, ac feugiat enim consequat eu. Aenean ligula urna, blandit eget libero nec,
-          laoreet
-          mattis
-          tortor. Ut egestas felis vel magna lobortis tincidunt. Integer consectetur consectetur ultricies. Sed non
-          laoreet eros,
-          quis feugiat velit. Maecenas porta velit vitae nibh ornare viverra. Pellentesque pretium erat vitae nisl
-          ultrices, quis
-          tristique felis auctor. Quisque accumsan varius pulvinar. Mauris id molestie magna, nec elementum sapien.
-          Donec
-          lobortis, lectus in egestas lobortis, sem ante interdum erat, id faucibus justo felis sagittis neque.
-
-          Praesent ultrices risus tempor est pulvinar, id accumsan ipsum laoreet. Duis sed consequat massa. Ut
-          hendrerit
-          ante vel
-          ante suscipit, non aliquet quam venenatis. Pellentesque vitae sagittis turpis. Nulla nibh dolor, ullamcorper
-          quis elit
-          ac, vehicula vestibulum justo. Morbi at tortor orci. Quisque suscipit placerat malesuada. Nullam quis neque
-          ipsum. Fusce
-          vel pharetra dolor, vel vehicula lectus. Etiam molestie porta dapibus. Sed at scelerisque sapien. Vestibulum
-          id
-          placerat
-          lorem, eget viverra sem. In et massa rhoncus, condimentum velit quis, maximus erat. Vivamus dignissim est et
-          justo
-          consectetur, viverra porta orci luctus.
-
-          Sed turpis augue, ullamcorper in fermentum non, efficitur vel massa. Aliquam venenatis libero vitae purus
-          dictum
-          molestie nec quis magna. Curabitur eget lorem imperdiet, mattis diam a, mattis erat. Donec dolor leo,
-          pharetra
-          nec porta
-          in, pharetra in dui. Etiam sit amet mollis dolor. Nulla leo eros, rutrum nec orci ac, tincidunt finibus
-          velit.
-          Phasellus
-          eget nunc sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris
-          fringilla
-          in lectus sodales porttitor. Duis aliquam dictum feugiat. Cras at nunc a tellus pulvinar sagittis. Curabitur
-          facilisis
-          tincidunt posuere. Nam ante felis, ullamcorper ac metus in, condimentum tempor nibh. Nullam elementum
-          viverra
-          pellentesque. Quisque fringilla odio vitae risus placerat dictum.
-
-          Duis nec volutpat felis, quis suscipit quam. Aliquam fermentum commodo bibendum. Phasellus a enim nec enim
-          rhoncus
-          rutrum non id erat. Suspendisse id lectus at diam ultricies posuere vitae quis sapien. Fusce eu volutpat
-          ipsum,
-          fermentum ultricies nisi. Sed aliquet tellus eu ligula aliquet, ullamcorper auctor ante ullamcorper. Etiam
-          nisi
-          risus,
-          mattis at blandit eu, eleifend ut magna.
-
-          Sed vitae eleifend lacus. Nam facilisis gravida turpis vitae aliquet. Sed in blandit odio, id laoreet purus.
-          Maecenas
-          vel nulla nec odio auctor sodales. Sed nisi sem, placerat in nulla a, viverra vehicula neque. Cras sed
-          mattis
-          magna, vel
-          dictum justo. Mauris rhoncus elementum quam. Nulla quis tristique massa. Nam facilisis consequat nisi quis
-          tempus.
-          Mauris dignissim tellus sit amet sem blandit, quis bibendum ipsum pulvinar. Integer tempor lectus in diam
-          commodo
-          imperdiet. Integer nec laoreet ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at
-          lacus
-          eget est
-          semper vehicula ac sed leo.
-        </span>
-      </div>
-    </ng-container>
-    <ng-container modal-footer>
-      <div class="text-end">
-        <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="scrollableId">
-          Accept
-        </button>
-      </div>
-    </ng-container>
-  </app-modal>
-
-  <app-modal pModalId="smallId" [pModalSize]="'small'">
-    <ng-container modal-header>
+      <h2>Card</h2>
+      <hr>
       <div class="row">
-        <div class="col s10">
-          <h2>Small Dialog!</h2>
+        <div class="col m4 s12">
+          <p-card hasFooter="true">
+            <ng-container card-header>
+              <h3>Card Header</h3>
+            </ng-container>
+            <ng-container card-content>
+              <h4>Simple Card Content!</h4>
+            </ng-container>
+            <ng-container card-footer>
+              <div class="row">
+                <div class="col s8">
+                  <div class="text-start">
+                    <button class="btn floating flat" pRipple pRippleCentered="true">
+                      <i class="material-icons">more_vert</i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="text-end">
+                    <button class="btn floating flat" pRipple pRippleCentered="true">
+                      <i class="material-icons">share</i>
+                    </button>
+                    <button class="btn floating flat" pRipple pRippleCentered="true">
+                      <i class="material-icons">thumb_up_alt</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </p-card>
+        </div>
+        <div class="col m4 s12">
+          <p-card>
+            <ng-container card-header>
+              <h3>Card Header</h3>
+            </ng-container>
+            <ng-container card-content>
+              <h4>Simple Card Content!</h4>
+            </ng-container>
+          </p-card>
+        </div>
+        <div class="col m4 s12">
+          <p-card [hasHeader]="false">
+            <ng-container card-content>
+              <h4>Simple Card Content!</h4>
+            </ng-container>
+          </p-card>
         </div>
       </div>
-    </ng-container>
-    <ng-container modal-content>
+      <br>
+      <h2>Ripple</h2>
+      <hr>
       <div class="text-center">
-        <h3>Small Dialog Content!</h3>
-      </div>
-    </ng-container>
-    <ng-container modal-footer>
-      <div class="text-end">
-        <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="smallId">
-          Accept
-        </button>
-      </div>
-    </ng-container>
-  </app-modal>
-
-  <app-modal pModalId="largeId" [pModalSize]="'large'">
-    <ng-container modal-header>
-      <div class="row">
-        <div class="col s10">
-          <h2>Large Dialog!</h2>
+        <div class="row">
+          <div class="col m2 s4">
+            <div class="fieldset">
+              <p-checkbox checkId="Check-center" checkboxText="Ripple Centered" (checkValue)="centerA($event)">
+              </p-checkbox>
+            </div>
+          </div>
+          <div class="col m2 s4">
+            <div class="fieldset">
+              <p-checkbox checkId="Check-unbound" checkboxText="Ripple Unbounded" (checkValue)="unboundA($event)">
+              </p-checkbox>
+            </div>
+          </div>
+          <div class="col m2 s4">
+            <div class="fieldset">
+              <p-checkbox checkId="rip-dis" checkboxText="Ripple Disabled" (checkValue)="disableA($event)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col m3 s6">
+            <p-fieldset labelText="Ripple Color" labelId="color_rip">
+              <input type="text" id="color_rip" pInput class="p-input" [(ngModel)]="color">
+            </p-fieldset>
+          </div>
+          <div class="col m3 s6">
+            <p-fieldset labelText="Ripple Radius" labelId="radius_rip">
+              <input type="number" id="radius_rip" pInput class="p-input" [(ngModel)]="radius">
+            </p-fieldset>
+          </div>
         </div>
       </div>
-    </ng-container>
-    <ng-container modal-content>
-      <div class="text-center">
-        <h3>Large Dialog Content!</h3>
+      <div class="ripple-example elevation text-center" pRipple [pRippleCentered]="center" [pRippleColor]="color"
+        [pRippleRadius]="radius" [pRippleDisabled]="disabled">
+        Click Me!
       </div>
-    </ng-container>
-    <ng-container modal-footer>
-      <div class="text-end">
-        <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="largeId">
-          Accept
-        </button>
-      </div>
-    </ng-container>
-  </app-modal>
-
-  <app-modal pModalId="bottomSheetId" [pBottomSheet]="true">
-    <ng-container modal-header>
-      <div class="row">
-        <div class="col s10">
-          <h2>Bottom Sheet!</h2>
+      <h2>Checkboxes and Switches</h2>
+      <hr>
+      <div class="content-center">
+        <div class="row">
+          <div class="col m6 s12">
+            <p-card>
+              <ng-container card-header>
+                <h3>Checkboxes</h3>
+              </ng-container>
+              <ng-container card-content>
+                <div class="text-center">
+                  <p-checkbox checkId="checkDisab" checkboxText="Disabled" (checkValue)="checkDis($event)"></p-checkbox>
+                  <p-checkbox checkId="checkChk" checkboxText="Checked" (checkValue)="checkChk($event)"></p-checkbox>
+                  <p-checkbox checkId="checkIndet" checkboxText="Indeterminate" (checkValue)="checkInt($event)">
+                  </p-checkbox>
+                </div>
+                <br>
+                <br>
+                <div class="text-center">
+                  <p-checkbox checkId="Check2" checkboxText="Checkbox Label"></p-checkbox>
+                </div>
+              </ng-container>
+            </p-card>
+          </div>
+          <div class="col m6 s12">
+            <p-card>
+              <ng-container card-header>
+                <h3>Switch Toggle</h3>
+              </ng-container>
+              <ng-container card-content>
+                <div class="text-center">
+                  <p-checkbox checkId="switchDisab" checkboxText="Disabled" (checkValue)="switchDis($event)">
+                  </p-checkbox>
+                  <p-checkbox checkId="switchCheck" checkboxText="Checked" (checkValue)="switchChk($event)">
+                  </p-checkbox>
+                </div>
+                <br>
+                <br>
+                <div class="text-center">
+                  <p-checkbox checkId="Check" [isSwitch]="true" switchTextLeft="Off" switchTextRight="On">
+                  </p-checkbox>
+                </div>
+              </ng-container>
+            </p-card>
+          </div>
         </div>
       </div>
-    </ng-container>
-    <ng-container modal-content>
-      <div class="text-center">
-        <h3>Bottom Sheet Content!</h3>
+      <br>
+      <br>
+      <h2>Modal Dialogs</h2>
+      <hr>
+      <div>
+        <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+          pModalId="testId">Open
+          Default Dialog</button>
+        <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+          pModalId="staticId">Open Static Dialog</button>
+        <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+          pModalId="scrollableId">Open Scrollable Dialog</button>
+        <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+          pModalId="smallId">Open
+          Small Dialog</button>
+        <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+          pModalId="largeId">Open
+          Large Dialog</button>
+        <button class="btn flat primary" pRipple pModalTrigger pRippleColor="var(--primaryLowOpacity)"
+          pModalId="bottomSheetId">Open Bottom Sheet</button>
       </div>
-    </ng-container>
-    <ng-container modal-footer>
-      <div class="text-end">
-        <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="bottomSheetId">
-          Accept
-        </button>
-      </div>
-    </ng-container>
-  </app-modal>
+      <app-modal pModalId="testId">
+        <ng-container modal-header>
+          <div class="row">
+            <div class="col s10">
+              <h2>Dialog!</h2>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container modal-content>
+          <div class="text-center">
+            <h3>Dialog Content!</h3>
+          </div>
+        </ng-container>
+        <ng-container modal-footer>
+          <div class="text-end">
+            <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="testId">
+              Accept
+            </button>
+          </div>
+        </ng-container>
+      </app-modal>
 
-  <br>
-  <h2>Snackbars</h2>
-  <hr>
-  <div class="row">
-    <div class="col m2 s12">
-      <p-fieldset labelText="Snackbar Text" labelId="snackText" labelActive="true">
-        <input type="text" pInput class="p-input" id="snackText" [(ngModel)]="snackTxt">
-      </p-fieldset>
-    </div>
-    <div class="col m2 s12">
-      <p-fieldset labelText="Snackbar Duration" labelId="snackDur">
-        <input type="number" pInput class="p-input" id="snackDur" [(ngModel)]="snackDur">
-      </p-fieldset>
-    </div>
-    <div class="col m2 s12">
-      <p-fieldset labelText="Snackbar Vertical Position" labelId="snackPosY">
-        <select id="snackPosY" pInput class="p-input" [(ngModel)]="snackPosY">
-          <option value="" [selected]="true"></option>
-          <option value="top">Top</option>
-          <option value="bottom">Bottom</option>
-        </select>
-      </p-fieldset>
-    </div>
-    <div class="col m2 s12">
-      <p-fieldset labelText="Snackbar Horizontal Position" labelId="snackPosX">
-        <select id="snackPosX" pInput class="p-input" [(ngModel)]="snackPosX">
-          <option value="" [selected]="true"></option>
-          <option value="left">Left</option>
-          <option value="center">Center</option>
-          <option value="right">Right</option>
-        </select>
-      </p-fieldset>
-    </div>
-    <div class="col m2 s12">
-      <div class="fieldset">
-        <p-checkbox checkId="snackBtn" checkboxText="Snackbar Button" (checkValue)="snackBtnChg($event)"></p-checkbox>
+      <app-modal pModalId="staticId" [pModalStatic]="true">
+        <ng-container modal-header>
+          <div class="row">
+            <div class="col s10">
+              <h2>Static Dialog!</h2>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container modal-content>
+          <div class="text-center">
+            <h3>Static Dialog Content!</h3>
+          </div>
+        </ng-container>
+        <ng-container modal-footer>
+          <div class="text-end">
+            <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="staticId">
+              Accept
+            </button>
+          </div>
+        </ng-container>
+      </app-modal>
+
+      <app-modal pModalId="scrollableId">
+        <ng-container modal-header>
+          <div class="row">
+            <div class="col s10">
+              <h2>Scrollable Dialog!</h2>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container modal-content>
+          <div class="text-center">
+            <h3>Scrollable Dialog Content!</h3>
+          </div>
+          <br>
+          <div class="text-center">
+            <span>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed tincidunt risus, in fringilla
+              erat.
+              Pellentesque quis dignissim sem, sed tempus justo. In semper arcu ante. Cras sit amet malesuada nisi.
+              Donec
+              elementum
+              ipsum magna, eu efficitur sapien finibus in. Phasellus neque mi, viverra non augue a, pharetra sagittis
+              neque.
+              Mauris
+              vel ante luctus, fringilla felis at, condimentum nisl. Pellentesque non augue ipsum. Sed dolor libero,
+              placerat
+              sed
+              justo eu, volutpat pellentesque dui. Cras quam dui, pretium nec nulla vel, interdum posuere turpis.
+              Praesent
+              pulvinar
+              nulla erat, sed posuere libero convallis at.
+
+              Nunc eget tellus vehicula, gravida risus nec, feugiat ligula. Integer non consectetur ipsum. Mauris
+              vulputate,
+              erat in
+              mollis congue, purus ante imperdiet nisi, id tempor urna quam et quam. Nulla tristique molestie
+              condimentum.
+              Etiam
+              tincidunt dapibus sollicitudin. Etiam a porttitor lectus, at ullamcorper nibh. Aliquam odio massa, lacinia
+              quis
+              felis
+              ac, laoreet sollicitudin turpis. Fusce gravida sapien quis tortor commodo, ac convallis nisi facilisis.
+
+              Suspendisse sed mauris at elit pellentesque pulvinar quis vel orci. Pellentesque sed justo non purus
+              egestas
+              mattis. Sed
+              pulvinar, turpis sed ullamcorper mollis, leo metus dapibus velit, ac dictum enim nibh eget erat. Aliquam
+              rhoncus
+              augue
+              ipsum, id vestibulum sem dapibus ut. Curabitur vulputate ex tincidunt rutrum ullamcorper. Donec non
+              bibendum
+              sem. Nulla
+              tincidunt leo sit amet urna ultrices, et auctor leo mollis. Duis vitae fringilla leo.
+
+              Duis aliquam tempus odio quis feugiat. Mauris nec fermentum mauris. Duis erat ipsum, pretium sed enim in,
+              suscipit
+              bibendum sem. Morbi iaculis placerat ornare. Sed id sollicitudin sapien, nec ornare ipsum. Praesent a enim
+              iaculis,
+              dapibus dolor id, vulputate urna. Vestibulum sed tellus faucibus, tincidunt neque non, rutrum leo.
+              Suspendisse
+              metus
+              tortor, venenatis eu varius non, vestibulum eu leo. Quisque eu vestibulum nibh, quis tempus quam. Integer
+              vitae
+              nibh
+              viverra, tristique lectus quis, accumsan est. Sed euismod augue vel fermentum hendrerit. Cras tristique
+              nisi
+              et
+              dignissim rhoncus. Sed aliquam nisi at ultricies efficitur. Morbi nec sollicitudin sem. Aliquam ultricies
+              justo
+              sit amet
+              risus iaculis malesuada. Praesent tincidunt felis at libero vestibulum, a scelerisque felis sagittis.
+
+              Nam quis lorem ut justo dignissim ultrices eu sed lacus. Donec consequat laoreet auctor. Duis aliquet
+              aliquam
+              eros
+              pellentesque dictum. Mauris quis porttitor urna, a pharetra augue. Nam suscipit quis dolor sed aliquet. In
+              mi
+              ante,
+              hendrerit ut volutpat sed, efficitur vel ipsum. Maecenas ornare risus vel tempor porta. Nulla non tempus
+              justo.
+
+              Quisque ultricies magna sed arcu euismod dapibus. Suspendisse libero ipsum, consectetur vitae urna sed,
+              porta
+              iaculis
+              orci. Pellentesque et lobortis lectus. Donec scelerisque sapien non nulla bibendum, sit amet lobortis
+              ipsum
+              finibus.
+              Morbi cursus auctor felis, et lacinia mi sodales id. Phasellus porta ut nisi non feugiat. Sed a varius
+              ligula.
+              Fusce
+              volutpat purus mi, vitae tincidunt ligula vulputate a. Integer vel dui et purus faucibus convallis.
+
+              Nam felis quam, volutpat eu lacinia et, bibendum eu nibh. Sed risus urna, aliquam aliquam ligula vel,
+              vestibulum
+              condimentum velit. Curabitur aliquet nisi velit, vel sagittis metus tempus eu. Ut hendrerit tristique
+              dignissim.
+              Nam
+              eget posuere enim, id maximus est. Sed iaculis condimentum fringilla. Morbi varius posuere tempus. Ut
+              tempus,
+              enim eget
+              congue placerat, est turpis fringilla massa, quis facilisis magna erat vel nulla. Etiam auctor, dui id
+              sollicitudin
+              auctor, ligula diam mollis elit, ultrices rutrum odio libero ut massa. Pellentesque accumsan turpis eget
+              erat
+              bibendum,
+              bibendum tincidunt lorem pharetra. Phasellus ullamcorper dolor a felis facilisis porta. Praesent ut
+              finibus
+              velit. Nam
+              nibh ligula, rhoncus vel ante in, posuere malesuada quam.
+
+              Vestibulum elementum id sapien sed ornare. Donec posuere mi vel est fermentum blandit. In pulvinar blandit
+              placerat.
+              Donec eget lacus turpis. Donec ut quam ultrices ipsum semper aliquam. Nulla non metus vel erat tristique
+              posuere.
+              Vestibulum auctor maximus scelerisque. Donec euismod malesuada metus et hendrerit. Integer ut mattis
+              mauris.
+              Pellentesque sit amet felis auctor, tempus risus sit amet, porta ligula. Etiam felis enim, cursus vel
+              convallis
+              quis,
+              interdum at magna.
+
+              Morbi pulvinar rhoncus mi at aliquet. Nullam fermentum ullamcorper orci vitae iaculis. Maecenas quis quam
+              volutpat,
+              mollis dolor a, pulvinar elit. Ut auctor, nisl sed placerat elementum, urna sapien egestas erat, posuere
+              lobortis urna
+              tellus a enim. Etiam eget tincidunt enim, eu vehicula massa. Nunc dapibus accumsan eros, eu consequat
+              neque
+              condimentum
+              ut. Aliquam erat volutpat. Mauris scelerisque velit volutpat ex faucibus, nec tempus ante tincidunt. Sed
+              ac
+              nisl
+              elit.
+              Vestibulum porta justo leo, a hendrerit magna volutpat eget. Cras elit ligula, volutpat nec porta sed,
+              tincidunt
+              sit
+              amet enim. Quisque vel commodo odio. Suspendisse eleifend lacus vulputate libero sodales accumsan. Cras
+              malesuada augue
+              vestibulum dui lacinia, vel tincidunt tellus efficitur. Sed vitae lacus id enim imperdiet placerat.
+              Aliquam
+              sed
+              leo sed
+              est sollicitudin convallis ac eu magna.
+
+              Aenean ac nisi a enim commodo tincidunt ac luctus dolor. Cras placerat mollis dolor, id mollis purus
+              eleifend
+              sed.
+              Maecenas at lorem dictum, luctus mauris quis, egestas nulla. Nullam quis tristique turpis. Pellentesque ac
+              tincidunt
+              arcu. Mauris vehicula est vitae consectetur ullamcorper. Vestibulum vulputate id ipsum a efficitur. Mauris
+              condimentum,
+              felis accumsan pretium tristique, velit leo viverra purus, et pulvinar lacus dolor eu dolor. Aenean
+              placerat,
+              dolor
+              vitae ornare fringilla, ante lectus vestibulum arcu, eu euismod diam sem sed nulla. Cras tortor nulla,
+              scelerisque vel
+              dui nec, volutpat commodo velit. Proin quis cursus purus. Fusce finibus tempus leo, bibendum condimentum
+              ipsum
+              molestie
+              nec. Duis finibus sem et imperdiet accumsan. Cras fringilla ut diam non cursus. Quisque non sem
+              sollicitudin,
+              aliquet
+              massa ac, egestas elit. Vivamus condimentum justo lobortis tempus aliquam.
+
+              Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc tincidunt lorem tellus, id tincidunt
+              lorem
+              viverra
+              et. Cras laoreet metus magna, ac feugiat enim consequat eu. Aenean ligula urna, blandit eget libero nec,
+              laoreet
+              mattis
+              tortor. Ut egestas felis vel magna lobortis tincidunt. Integer consectetur consectetur ultricies. Sed non
+              laoreet eros,
+              quis feugiat velit. Maecenas porta velit vitae nibh ornare viverra. Pellentesque pretium erat vitae nisl
+              ultrices, quis
+              tristique felis auctor. Quisque accumsan varius pulvinar. Mauris id molestie magna, nec elementum sapien.
+              Donec
+              lobortis, lectus in egestas lobortis, sem ante interdum erat, id faucibus justo felis sagittis neque.
+
+              Praesent ultrices risus tempor est pulvinar, id accumsan ipsum laoreet. Duis sed consequat massa. Ut
+              hendrerit
+              ante vel
+              ante suscipit, non aliquet quam venenatis. Pellentesque vitae sagittis turpis. Nulla nibh dolor,
+              ullamcorper
+              quis elit
+              ac, vehicula vestibulum justo. Morbi at tortor orci. Quisque suscipit placerat malesuada. Nullam quis
+              neque
+              ipsum. Fusce
+              vel pharetra dolor, vel vehicula lectus. Etiam molestie porta dapibus. Sed at scelerisque sapien.
+              Vestibulum
+              id
+              placerat
+              lorem, eget viverra sem. In et massa rhoncus, condimentum velit quis, maximus erat. Vivamus dignissim est
+              et
+              justo
+              consectetur, viverra porta orci luctus.
+
+              Sed turpis augue, ullamcorper in fermentum non, efficitur vel massa. Aliquam venenatis libero vitae purus
+              dictum
+              molestie nec quis magna. Curabitur eget lorem imperdiet, mattis diam a, mattis erat. Donec dolor leo,
+              pharetra
+              nec porta
+              in, pharetra in dui. Etiam sit amet mollis dolor. Nulla leo eros, rutrum nec orci ac, tincidunt finibus
+              velit.
+              Phasellus
+              eget nunc sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+              Mauris
+              fringilla
+              in lectus sodales porttitor. Duis aliquam dictum feugiat. Cras at nunc a tellus pulvinar sagittis.
+              Curabitur
+              facilisis
+              tincidunt posuere. Nam ante felis, ullamcorper ac metus in, condimentum tempor nibh. Nullam elementum
+              viverra
+              pellentesque. Quisque fringilla odio vitae risus placerat dictum.
+
+              Duis nec volutpat felis, quis suscipit quam. Aliquam fermentum commodo bibendum. Phasellus a enim nec enim
+              rhoncus
+              rutrum non id erat. Suspendisse id lectus at diam ultricies posuere vitae quis sapien. Fusce eu volutpat
+              ipsum,
+              fermentum ultricies nisi. Sed aliquet tellus eu ligula aliquet, ullamcorper auctor ante ullamcorper. Etiam
+              nisi
+              risus,
+              mattis at blandit eu, eleifend ut magna.
+
+              Sed vitae eleifend lacus. Nam facilisis gravida turpis vitae aliquet. Sed in blandit odio, id laoreet
+              purus.
+              Maecenas
+              vel nulla nec odio auctor sodales. Sed nisi sem, placerat in nulla a, viverra vehicula neque. Cras sed
+              mattis
+              magna, vel
+              dictum justo. Mauris rhoncus elementum quam. Nulla quis tristique massa. Nam facilisis consequat nisi quis
+              tempus.
+              Mauris dignissim tellus sit amet sem blandit, quis bibendum ipsum pulvinar. Integer tempor lectus in diam
+              commodo
+              imperdiet. Integer nec laoreet ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at
+              lacus
+              eget est
+              semper vehicula ac sed leo.
+            </span>
+          </div>
+        </ng-container>
+        <ng-container modal-footer>
+          <div class="text-end">
+            <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="scrollableId">
+              Accept
+            </button>
+          </div>
+        </ng-container>
+      </app-modal>
+
+      <app-modal pModalId="smallId" [pModalSize]="'small'">
+        <ng-container modal-header>
+          <div class="row">
+            <div class="col s10">
+              <h2>Small Dialog!</h2>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container modal-content>
+          <div class="text-center">
+            <h3>Small Dialog Content!</h3>
+          </div>
+        </ng-container>
+        <ng-container modal-footer>
+          <div class="text-end">
+            <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="smallId">
+              Accept
+            </button>
+          </div>
+        </ng-container>
+      </app-modal>
+
+      <app-modal pModalId="largeId" [pModalSize]="'large'">
+        <ng-container modal-header>
+          <div class="row">
+            <div class="col s10">
+              <h2>Large Dialog!</h2>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container modal-content>
+          <div class="text-center">
+            <h3>Large Dialog Content!</h3>
+          </div>
+        </ng-container>
+        <ng-container modal-footer>
+          <div class="text-end">
+            <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="largeId">
+              Accept
+            </button>
+          </div>
+        </ng-container>
+      </app-modal>
+
+      <app-modal pModalId="bottomSheetId" [pBottomSheet]="true">
+        <ng-container modal-header>
+          <div class="row">
+            <div class="col s10">
+              <h2>Bottom Sheet!</h2>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container modal-content>
+          <div class="text-center">
+            <h3>Bottom Sheet Content!</h3>
+          </div>
+        </ng-container>
+        <ng-container modal-footer>
+          <div class="text-end">
+            <button class="flat btn" pRipple pRippleColor="rgba(0,150,0,0.15)" pModalClose pModalId="bottomSheetId">
+              Accept
+            </button>
+          </div>
+        </ng-container>
+      </app-modal>
+
+      <br>
+      <h2>Snackbars</h2>
+      <hr>
+      <div class="row">
+        <div class="col m2 s12">
+          <p-fieldset labelText="Snackbar Text" labelId="snackText" labelActive="true">
+            <input type="text" pInput class="p-input" id="snackText" [(ngModel)]="snackTxt">
+          </p-fieldset>
+        </div>
+        <div class="col m2 s12">
+          <p-fieldset labelText="Snackbar Duration" labelId="snackDur">
+            <input type="number" pInput class="p-input" id="snackDur" [(ngModel)]="snackDur">
+          </p-fieldset>
+        </div>
+        <div class="col m2 s12">
+          <p-fieldset labelText="Snackbar Vertical Position" labelId="snackPosY">
+            <select id="snackPosY" pInput class="p-input" [(ngModel)]="snackPosY">
+              <option value="" [selected]="true"></option>
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+            </select>
+          </p-fieldset>
+        </div>
+        <div class="col m2 s12">
+          <p-fieldset labelText="Snackbar Horizontal Position" labelId="snackPosX">
+            <select id="snackPosX" pInput class="p-input" [(ngModel)]="snackPosX">
+              <option value="" [selected]="true"></option>
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
+          </p-fieldset>
+        </div>
+        <div class="col m2 s12">
+          <div class="fieldset">
+            <p-checkbox checkId="snackBtn" checkboxText="Snackbar Button" (checkValue)="snackBtnChg($event)">
+            </p-checkbox>
+          </div>
+        </div>
+        <div class="col m2 s12" *ngIf="snackBtn">
+          <p-fieldset labelText="Snackbar Button Text" labelId="snackBtnText" labelActive="true">
+            <input type="text" pInput class="p-input" id="snackBtnText" [(ngModel)]="snackBtnTxt">
+          </p-fieldset>
+        </div>
       </div>
-    </div>
-    <div class="col m2 s12" *ngIf="snackBtn">
-      <p-fieldset labelText="Snackbar Button Text" labelId="snackBtnText" labelActive="true">
-        <input type="text" pInput class="p-input" id="snackBtnText" [(ngModel)]="snackBtnTxt">
-      </p-fieldset>
-    </div>
-  </div>
-  <div>
-    <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" (click)="openSnack()">Launch
-      Snackbar</button>
-  </div>
-  <br>
-  <h2>Dropdown Menu</h2>
-  <hr>
-  <div>
-    <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
-      pDropdownTriggerId="DropId">Open Menu</button>
-    <p-dropdown pDropdownId="DropId">
-      <li>
-        <button pRipple>
-          <i class="material-icons left">drag_indicator</i>
-          Menu Button 1
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          <i class="material-icons left">add</i>
-          Menu Button 2
-        </button>
-      </li>
-    </p-dropdown>
-  </div>
-  <div>
-    <button class="btn primary flat floating" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
-      pDropdownTriggerId="DropId2">
-      <i class="material-icons">more_vert</i>
-    </button>
-    <p-dropdown pDropdownId="DropId2">
-      <li>
-        <button class="divider" pRipple>
-          <i class="material-icons left">call</i>
-          Menu Button with Divider
-        </button>
-      </li>
-      <li>
-        <button pRipple disabled>
-          <i class="material-icons left">info</i>
-          Disabled Menu Button
-        </button>
-      </li>
-    </p-dropdown>
-  </div>
-  <div>
-    <button class="btn primary flat" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
-      pDropdownTriggerId="DropId3">
-      Scrolling Menu
-    </button>
-    <p-dropdown pDropdownId="DropId3">
-      <li>
-        <button pRipple>
-          Menu Button 1
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 2
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 3
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 4
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 5
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 6
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 7
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 8
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 9
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 10
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 11
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 12
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 13
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 14
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          Menu Button 15
-        </button>
-      </li>
-    </p-dropdown>
-  </div>
-  <br>
-  <h2>Badges</h2>
-  <hr>
-  <br>
-  <div>
-    <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99">Top Right
-      Badge</button>
-    <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
-      pBadgeVerticalPosition="bottom">Bottom Right Badge</button>
-    <br>
-    <br>
-    <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
-      pBadgeHorizontalPosition="left" pBadgeVerticalPosition="bottom">Bottom Left Badge</button>
-    <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
-      pBadgeHorizontalPosition="left">Top Left Badge</button>
-    <br>
-    <br>
-    <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
-      pBadgeText="2 new">
-      Rectangular Badge
-    </button>
-    <br>
-    <br>
-    <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
-      pBadgeText="2 new" pBadgeColor="secondary">
-      Colored Badge
-    </button>
-    <button class="btn bg-secondary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="10"
-      pBadgeColor="primary">
-      Colored Badge
-    </button>
-    <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
-      pBadgeText="2 new" pBadgeColor="rgb(255,0,0)">
-      Custom Colored Badge
-    </button>
-  </div>
-  <br>
-  <h2>Tooltips</h2>
-  <hr>
-  <button class="btn flat floating" pRipple pRippleCentered="true" pTooltip pTooltipText="Print">
-    <i class="material-icons">print</i>
-  </button>
-  <button class="btn flat floating primary" pRipple pRippleColor="var(--primaryLowOpacity)" pRippleCentered="true"
-    pTooltip pTooltipText="Bold">
-    <i class="material-icons">format_bold</i>
-  </button>
-  <br>
-  <br>
-  <div class="row">
-    <div class="col m3 s12">
-      <p-fieldset labelText="Tooltip Text" labelId="tooltipText" [labelActive]="true">
-        <input type="text" class="p-input" pInput id="tooltipText" [(ngModel)]="tooltipTxt">
-      </p-fieldset>
-    </div>
-    <div class="col m3 s12">
-      <p-fieldset labelText="Tooltip Position" labelId="tooltipPos">
-        <select id="tooltipPos" class="p-input" pInput (change)="changeTooltipPost()">
-          <option value=""></option>
-          <option value="bottom">Bottom</option>
-          <option value="top">Top</option>
-          <option value="right">Right</option>
-          <option value="left">Left</option>
-        </select>
-      </p-fieldset>
-    </div>
-    <div class="col m3 s12">
-      <div class="fieldset">
-        <p-checkbox checkId="isClick" checkboxText="Show on Click" (checkValue)="tooltipClick($event)"></p-checkbox>
+      <div>
+        <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" (click)="openSnack()">Launch
+          Snackbar</button>
       </div>
-    </div>
-    <div class="col m3 s12" *ngIf="tooltipOnClick">
-      <p-fieldset labelText="Tooltip Duration" labelId="tooltipDur">
-        <input type="number" class="p-input" pInput id="tooltipDur" [(ngModel)]="tooltipClickDuration">
-      </p-fieldset>
-    </div>
-  </div>
-  <div class="text-center">
-    <button class="btn bg-primary" pRipple pRippleColor="#ffffff26" pTooltip pTooltipText="{{tooltipTxt}}"
-      pTooltipPosition="{{tooltipPos}}" [pTooltipClickOpen]="tooltipOnClick"
-      [pTooltipClickDuration]="tooltipClickDuration">
-      Tooltip
-    </button>
-  </div>
-  <br>
-  <h2>Custom Select</h2>
-  <hr>
-  <h3>Normal Selects</h3>
-  <div class="row">
-    <div class="col m3 s12">
-      <p-select pSelectLabelText="Custom Normal Select" pSelectId="selectCust" [pSelectItems]="testSelArr"
-        (pSingleSelectedItem)="seleSing($event)">
-      </p-select>
-      <span>Selected Option: <b>{{singSel}}</b></span>
-    </div>
-    <div class="col m3 12">
-      <p-select pSelectLabelText="Custom Select w/ Search" pSelectId="selectCustomSearch"
-        [pSelectItems]="testSelSercArr" [pSelectSearch]="true" (pSingleSelectedItem)="seleSingSrch($event)">
-      </p-select>
-      <span>Selected Option: <b>{{singSelSrch}}</b></span>
-    </div>
-  </div>
-  <br>
-  <br>
-  <h3>Multiple Selects</h3>
-  <div class="row">
-    <div class="col m3 s12">
-      <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelMultiArr"
-        [pSingleSelect]="false" (pMultipleSelectedItem)="recieveItems($event)">
-      </p-select>
-      <span>Selected Options: <b *ngFor="let items of selectItms">{{items.option}}, </b></span>
-    </div>
-    <div class="col m3 s12">
-      <p-select pSelectLabelText="Multi Select w/ Select All" pSelectId="selectCust3" [pSelectItems]="testSelAllOptArr"
-        [pSingleSelect]="false" [pSelectAll]="true" (pMultipleSelectedItem)="recieveAllItem($event)">
-      </p-select>
-      <span>Selected Options: <b *ngFor="let items of selectAllItms">{{items.option}}, </b></span>
-    </div>
-    <div class="col m3 s12">
-      <p-select pSelectLabelText="Custom Multi Select W/ Search" pSelectId="selectMultiCustSearch"
-        [pSelectItems]="testMultiSelSearch" [pSingleSelect]="false" [pSelectSearch]="true"
-        (pMultipleSelectedItem)="receiveAllSearchMultiItems($event)">
-      </p-select>
-      <span>Selected Options: <b *ngFor="let items of selectAllItmsSrc">{{items.option}}, </b></span>
-    </div>
-  </div>
-  <br>
-  <h2>Radio Button</h2>
-  <hr>
-  <p-radio-button pRadioText="Winter" pRadioCollectionName="seasons" pRadioId="winter" pRadioValue="Winter"
-    (returnRadioValue)="receiveRadioVal($event)">
-  </p-radio-button>
-  <p-radio-button pRadioText="Summer" pRadioCollectionName="seasons" pRadioId="summer" pRadioValue="Summer"
-    (returnRadioValue)="receiveRadioVal($event)">
-  </p-radio-button>
-  <p-radio-button pRadioText="Fall" pRadioCollectionName="seasons" pRadioId="fall" pRadioValue="Fall"
-    (returnRadioValue)="receiveRadioVal($event)">
-  </p-radio-button>
-  <p-radio-button pRadioText="Spring" pRadioCollectionName="seasons" pRadioId="spring" pRadioValue="Spring"
-    (returnRadioValue)="receiveRadioVal($event)">
-  </p-radio-button>
-  <br>
-  <span>Selected Option: <b>{{selectedRadioVal}}</b></span>
-  <br>
-  <br>
-  <p-radio-button pRadioText="True" pRadioCollectionName="booleanValue" pRadioId="true" [pRadioValue]="true"
-    (returnRadioValue)="receiveRadioBoolVal($event)">
-  </p-radio-button>
-  <br>
-  <p-radio-button pRadioText="False" pRadioCollectionName="booleanValue" pRadioId="false" [pRadioValue]="false"
-    (returnRadioValue)="receiveRadioBoolVal($event)">
-  </p-radio-button>
-  <br>
-  <span>Selected Option: <b>{{radioBoolVal}}</b></span>
-  <br>
-  <br>
-  <br>
-  <h2>Section</h2>
-  <hr>
-  <p-section pSectionHeader="Section Header" pSectionHeaderIcon="subject">
-    <ng-container section-buttons>
-      <button class="flat btn-small floating secondary" pRipple pRippleCentered="true"
-        pRippleColor="var(--secondaryLowOpacity)">
-        <i class="material-icons">code</i>
+      <br>
+      <h2>Dropdown Menu</h2>
+      <hr>
+      <div>
+        <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
+          pDropdownTriggerId="DropId">Open Menu</button>
+        <p-dropdown pDropdownId="DropId">
+          <li>
+            <button pRipple>
+              <i class="material-icons left">drag_indicator</i>
+              Menu Button 1
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              <i class="material-icons left">add</i>
+              Menu Button 2
+            </button>
+          </li>
+        </p-dropdown>
+      </div>
+      <div>
+        <button class="btn primary flat floating" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
+          pDropdownTriggerId="DropId2">
+          <i class="material-icons">more_vert</i>
+        </button>
+        <p-dropdown pDropdownId="DropId2">
+          <li>
+            <button class="divider" pRipple>
+              <i class="material-icons left">call</i>
+              Menu Button with Divider
+            </button>
+          </li>
+          <li>
+            <button pRipple disabled>
+              <i class="material-icons left">info</i>
+              Disabled Menu Button
+            </button>
+          </li>
+        </p-dropdown>
+      </div>
+      <div>
+        <button class="btn primary flat" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
+          pDropdownTriggerId="DropId3">
+          Scrolling Menu
+        </button>
+        <p-dropdown pDropdownId="DropId3">
+          <li>
+            <button pRipple>
+              Menu Button 1
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 2
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 3
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 4
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 5
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 6
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 7
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 8
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 9
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 10
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 11
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 12
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 13
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 14
+            </button>
+          </li>
+          <li>
+            <button pRipple>
+              Menu Button 15
+            </button>
+          </li>
+        </p-dropdown>
+      </div>
+      <br>
+      <h2>Badges</h2>
+      <hr>
+      <br>
+      <div>
+        <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99">Top Right
+          Badge</button>
+        <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
+          pBadgeVerticalPosition="bottom">Bottom Right Badge</button>
+        <br>
+        <br>
+        <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
+          pBadgeHorizontalPosition="left" pBadgeVerticalPosition="bottom">Bottom Left Badge</button>
+        <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="99"
+          pBadgeHorizontalPosition="left">Top Left Badge</button>
+        <br>
+        <br>
+        <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
+          pBadgeText="2 new">
+          Rectangular Badge
+        </button>
+        <br>
+        <br>
+        <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
+          pBadgeText="2 new" pBadgeColor="secondary">
+          Colored Badge
+        </button>
+        <button class="btn bg-secondary elevation" pRipple pRippleColor="#ffffff26" pBadges pBadgeText="10"
+          pBadgeColor="primary">
+          Colored Badge
+        </button>
+        <button class="btn bg-primary elevation" pRipple pRippleColor="#ffffff26" pBadges [pBadgeCircle]="false"
+          pBadgeText="2 new" pBadgeColor="rgb(255,0,0)">
+          Custom Colored Badge
+        </button>
+      </div>
+      <br>
+      <h2>Tooltips</h2>
+      <hr>
+      <button class="btn flat floating" pRipple pRippleCentered="true" pTooltip pTooltipText="Print">
+        <i class="material-icons">print</i>
       </button>
-      <button class="btn-small flat floating primary" pRipple pRippleCentered="true"
-        pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger pDropdownTriggerId="section-dropdown">
-        <i class="material-icons">more_horiz</i>
+      <button class="btn flat floating primary" pRipple pRippleColor="var(--primaryLowOpacity)" pRippleCentered="true"
+        pTooltip pTooltipText="Bold">
+        <i class="material-icons">format_bold</i>
       </button>
-      <a class="flat btn-small floating" pRipple pRippleCentered="true" href="https://google.com/" target="_blank">
-        <i class="material-icons">call_made</i>
-      </a>
-    </ng-container>
-    <ng-container section-content>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col m3 s12">
+          <p-fieldset labelText="Tooltip Text" labelId="tooltipText" [labelActive]="true">
+            <input type="text" class="p-input" pInput id="tooltipText" [(ngModel)]="tooltipTxt">
+          </p-fieldset>
+        </div>
+        <div class="col m3 s12">
+          <p-fieldset labelText="Tooltip Position" labelId="tooltipPos">
+            <select id="tooltipPos" class="p-input" pInput (change)="changeTooltipPost()">
+              <option value=""></option>
+              <option value="bottom">Bottom</option>
+              <option value="top">Top</option>
+              <option value="right">Right</option>
+              <option value="left">Left</option>
+            </select>
+          </p-fieldset>
+        </div>
+        <div class="col m3 s12">
+          <div class="fieldset">
+            <p-checkbox checkId="isClick" checkboxText="Show on Click" (checkValue)="tooltipClick($event)"></p-checkbox>
+          </div>
+        </div>
+        <div class="col m3 s12" *ngIf="tooltipOnClick">
+          <p-fieldset labelText="Tooltip Duration" labelId="tooltipDur">
+            <input type="number" class="p-input" pInput id="tooltipDur" [(ngModel)]="tooltipClickDuration">
+          </p-fieldset>
+        </div>
+      </div>
       <div class="text-center">
-        <span>Section Content</span>
+        <button class="btn bg-primary" pRipple pRippleColor="#ffffff26" pTooltip pTooltipText="{{tooltipTxt}}"
+          pTooltipPosition="{{tooltipPos}}" [pTooltipClickOpen]="tooltipOnClick"
+          [pTooltipClickDuration]="tooltipClickDuration">
+          Tooltip
+        </button>
       </div>
-    </ng-container>
-  </p-section>
-  <p-dropdown pDropdownId="section-dropdown">
-    <li>
-      <button pRipple>
-        <i class="material-icons left">share</i>
-        Share
-      </button>
-    </li>
-    <li>
-      <button pRipple>
-        <i class="material-icons left">file_download</i>
-        Download
-      </button>
-    </li>
-  </p-dropdown>
-  <br>
-  <h2>Collapsible</h2>
-  <hr>
-  <br>
+      <br>
+      <h2>Custom Select</h2>
+      <hr>
+      <h3>Normal Selects</h3>
+      <div class="row">
+        <div class="col m3 s12">
+          <p-select pSelectLabelText="Custom Normal Select" pSelectId="selectCust" [pSelectItems]="testSelArr"
+            (pSingleSelectedItem)="seleSing($event)">
+          </p-select>
+          <span>Selected Option: <b>{{singSel}}</b></span>
+        </div>
+        <div class="col m3 12">
+          <p-select pSelectLabelText="Custom Select w/ Search" pSelectId="selectCustomSearch"
+            [pSelectItems]="testSelSercArr" [pSelectSearch]="true" (pSingleSelectedItem)="seleSingSrch($event)">
+          </p-select>
+          <span>Selected Option: <b>{{singSelSrch}}</b></span>
+        </div>
+      </div>
+      <br>
+      <br>
+      <h3>Multiple Selects</h3>
+      <div class="row">
+        <div class="col m3 s12">
+          <p-select pSelectLabelText="Custom Multi Select" pSelectId="selectCust2" [pSelectItems]="testSelMultiArr"
+            [pSingleSelect]="false" (pMultipleSelectedItem)="recieveItems($event)">
+          </p-select>
+          <span>Selected Options: <b *ngFor="let items of selectItms">{{items.option}}, </b></span>
+        </div>
+        <div class="col m3 s12">
+          <p-select pSelectLabelText="Multi Select w/ Select All" pSelectId="selectCust3"
+            [pSelectItems]="testSelAllOptArr" [pSingleSelect]="false" [pSelectAll]="true"
+            (pMultipleSelectedItem)="recieveAllItem($event)">
+          </p-select>
+          <span>Selected Options: <b *ngFor="let items of selectAllItms">{{items.option}}, </b></span>
+        </div>
+        <div class="col m3 s12">
+          <p-select pSelectLabelText="Custom Multi Select W/ Search" pSelectId="selectMultiCustSearch"
+            [pSelectItems]="testMultiSelSearch" [pSingleSelect]="false" [pSelectSearch]="true"
+            (pMultipleSelectedItem)="receiveAllSearchMultiItems($event)">
+          </p-select>
+          <span>Selected Options: <b *ngFor="let items of selectAllItmsSrc">{{items.option}}, </b></span>
+        </div>
+      </div>
+      <br>
+      <h2>Radio Button</h2>
+      <hr>
+      <p-radio-button pRadioText="Winter" pRadioCollectionName="seasons" pRadioId="winter" pRadioValue="Winter"
+        (returnRadioValue)="receiveRadioVal($event)">
+      </p-radio-button>
+      <p-radio-button pRadioText="Summer" pRadioCollectionName="seasons" pRadioId="summer" pRadioValue="Summer"
+        (returnRadioValue)="receiveRadioVal($event)">
+      </p-radio-button>
+      <p-radio-button pRadioText="Fall" pRadioCollectionName="seasons" pRadioId="fall" pRadioValue="Fall"
+        (returnRadioValue)="receiveRadioVal($event)">
+      </p-radio-button>
+      <p-radio-button pRadioText="Spring" pRadioCollectionName="seasons" pRadioId="spring" pRadioValue="Spring"
+        (returnRadioValue)="receiveRadioVal($event)">
+      </p-radio-button>
+      <br>
+      <span>Selected Option: <b>{{selectedRadioVal}}</b></span>
+      <br>
+      <br>
+      <p-radio-button pRadioText="True" pRadioCollectionName="booleanValue" pRadioId="true" [pRadioValue]="true"
+        (returnRadioValue)="receiveRadioBoolVal($event)">
+      </p-radio-button>
+      <br>
+      <p-radio-button pRadioText="False" pRadioCollectionName="booleanValue" pRadioId="false" [pRadioValue]="false"
+        (returnRadioValue)="receiveRadioBoolVal($event)">
+      </p-radio-button>
+      <br>
+      <span>Selected Option: <b>{{radioBoolVal}}</b></span>
+      <br>
+      <br>
+      <br>
+      <h2>Section</h2>
+      <hr>
+      <p-section pSectionHeader="Section Header" pSectionHeaderIcon="subject">
+        <ng-container section-buttons>
+          <button class="flat btn-small floating secondary" pRipple pRippleCentered="true"
+            pRippleColor="var(--secondaryLowOpacity)">
+            <i class="material-icons">code</i>
+          </button>
+          <button class="btn-small flat floating primary" pRipple pRippleCentered="true"
+            pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger pDropdownTriggerId="section-dropdown">
+            <i class="material-icons">more_horiz</i>
+          </button>
+          <a class="flat btn-small floating" pRipple pRippleCentered="true" href="https://google.com/" target="_blank">
+            <i class="material-icons">call_made</i>
+          </a>
+        </ng-container>
+        <ng-container section-content>
+          <div class="text-center">
+            <span>Section Content</span>
+          </div>
+        </ng-container>
+      </p-section>
+      <p-dropdown pDropdownId="section-dropdown">
+        <li>
+          <button pRipple>
+            <i class="material-icons left">share</i>
+            Share
+          </button>
+        </li>
+        <li>
+          <button pRipple>
+            <i class="material-icons left">file_download</i>
+            Download
+          </button>
+        </li>
+      </p-dropdown>
+      <br>
+      <h2>Collapsible</h2>
+      <hr>
+      <br>
+    </div>
+  </div>
 </div>
-<!-- </div> -->

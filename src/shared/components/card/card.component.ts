@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-card, p-card',
@@ -9,7 +9,7 @@ export class CardComponent implements OnInit {
   @Input() elevated = true;
   @Input() hasHeader = true;
   @Input() hasFooter = false;
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
     if (this.elevated) {
@@ -17,9 +17,7 @@ export class CardComponent implements OnInit {
     }
   }
   elevateCard(): void {
-    const card = document.querySelectorAll('.card');
-    card.forEach((x) => {
-      x.classList.add('elevation');
-    });
+    const card = this.el.nativeElement.firstChild;
+    card.classList.add('elevation');
   }
 }
