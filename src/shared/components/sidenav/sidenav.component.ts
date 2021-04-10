@@ -8,43 +8,46 @@ import {
   OnInit,
 } from '@angular/core';
 
-let isOpen = false;
+let isOpen = true;
+let hasBack = false;
 @Directive({
   selector: '[appSidenavTrigget], [p-sidenav-trigger], [pSidenavTrigger]',
 })
 export class SidenavTriggerDirective {
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef, private comp: SidenavComponent) {
     el.nativeElement.classList.add('sidenav-trigger');
-    el.nativeElement.parentElement.parentElement.classList.add(
-      'sidenav-trigger-parent'
-    );
   }
 
   @HostListener('click', ['$event']) openSidenav() {
-    const sidenavElement = document.querySelector(
-      '.sidenav-wrap'
-    ) as HTMLDivElement;
-    const body = document.querySelector('body');
     if (!isOpen) {
-      sidenavElement.style.transform = 'translateX(0)';
-      sidenavElement.style.width = '250px';
-      const backdrop = document.createElement('div');
-      backdrop.classList.add('backdrop');
-      body.insertAdjacentElement('beforeend', backdrop);
-      setTimeout(() => {
-        backdrop.style.opacity = '0.5';
-      }, 0);
-      isOpen = true;
-      backdrop.addEventListener('click', () => {
-        backdrop.style.opacity = '0';
-        backdrop.addEventListener('transitionend', () => {
-          backdrop.remove();
-        });
-        sidenavElement.style.transform = 'translateX(-150%)';
-        sidenavElement.style.width = '0';
-        isOpen = false;
-      });
+      this.comp.showNav();
+    } else {
+      this.comp.hideNav();
     }
+    // const sidenavElement = document.querySelector(
+    //   '.sidenav-wrap'
+    // ) as HTMLDivElement;
+    // const body = document.querySelector('body');
+    // if (!isOpen) {
+    //   sidenavElement.style.transform = 'translateX(0)';
+    //   sidenavElement.style.width = '250px';
+    //   const backdrop = document.createElement('div');
+    //   backdrop.classList.add('backdrop');
+    //   body.insertAdjacentElement('beforeend', backdrop);
+    //   setTimeout(() => {
+    //     backdrop.style.opacity = '0.5';
+    //   }, 0);
+    //   isOpen = true;
+    //   backdrop.addEventListener('click', () => {
+    //     backdrop.style.opacity = '0';
+    //     backdrop.addEventListener('transitionend', () => {
+    //       backdrop.remove();
+    //     });
+    //     sidenavElement.style.transform = 'translateX(-150%)';
+    //     sidenavElement.style.width = '0';
+    //     isOpen = false;
+    //   });
+    // }
   }
 }
 
@@ -56,28 +59,11 @@ export class SidenavTriggerDirective {
 export class SidenavComponent implements OnInit, AfterViewInit {
   @Input() elevated = true;
   @Input() hidden = false;
+  @Input() pushContentOnShow = true;
+  @Input() backdrop = false;
   @Input() backgroundColor: string;
 
   @HostListener('window:resize', ['$event']) onResize(event) {
-    // if (!this.hidden) {
-    //   if (event.srcElement.innerWidth > 1000) {
-    //     const backdrop = document.querySelector('.backdrop') as HTMLDivElement;
-    //     if (backdrop !== null) {
-    //       backdrop.style.opacity = '0';
-    //       backdrop.addEventListener('transitionend', () => {
-    //         const body = document.querySelector('body');
-    //         body.style.overflowY = 'visible';
-    //         backdrop.remove();
-    //         isOpen = false;
-    //       });
-    //     }
-    //     this.hideButton();
-    //     this.showNav();
-    //   } else {
-    //     this.showButton();
-    //     this.hideNav();
-    //   }
-    // }
     this.setHeight();
   }
 
@@ -94,9 +80,13 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     //     this.showButton();
     //   }
     // }
+    hasBack = this.backdrop;
   }
 
   ngAfterViewInit(): void {
+    if (this.hidden) {
+      this.hideNav();
+    }
     if (this.elevated) {
       this.elevateSidenav();
     }
@@ -119,32 +109,51 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   }
 
   hideNav(): void {
+    isOpen = false;
     const sidenavElement = document.querySelector(
       '.sidenav-wrap'
     ) as HTMLDivElement;
     sidenavElement.style.transform = 'translateX(-150%)';
     sidenavElement.style.width = '0';
-  }
-
-  showNav(): void {
-    const sidenavElement = document.querySelector('.sidenav') as HTMLDivElement;
-    sidenavElement.style.transform = 'translateX(0)';
-  }
-
-  hideButton(): void {
-    const sideTrig = document.querySelector(
-      '.sidenav-trigger'
-    ) as HTMLButtonElement;
-    if (sideTrig !== null) {
-      sideTrig.style.display = 'none';
+    if (hasBack) {
+      const backdrop = document.querySelector('.backdrop') as HTMLElement;
+      this.removeBackdrop(backdrop);
     }
   }
 
-  showButton(): void {
-    const sideTrig = document.querySelector(
-      '.sidenav-trigger'
-    ) as HTMLButtonElement;
-    sideTrig.style.display = 'block';
+  showNav(): void {
+    isOpen = true;
+    const sidenavElement = document.querySelector(
+      '.sidenav-wrap'
+    ) as HTMLDivElement;
+    sidenavElement.style.transform = 'translateX(0)';
+    sidenavElement.style.width = '250px';
+    if (hasBack) {
+      this.setBackdrop();
+    }
+  }
+
+  private setBackdrop(): void {
+    const body = document.querySelector('body');
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('backdrop');
+    body.insertAdjacentElement('beforeend', backdrop);
+    setTimeout(() => {
+      backdrop.style.opacity = '0.5';
+      backdrop.addEventListener('click', () => {
+        this.hideNav();
+        this.removeBackdrop(backdrop);
+      });
+    }, 10);
+  }
+
+  private removeBackdrop(backdrop: HTMLElement): void {
+    if (backdrop !== null) {
+      backdrop.style.opacity = '0';
+      backdrop.addEventListener('transitionend', () => {
+        backdrop.remove();
+      });
+    }
   }
 
   backgroundColorApply(): void {

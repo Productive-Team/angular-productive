@@ -221,6 +221,72 @@ hr {
 }
 /* #endregion GridStyles */
 
+/* #region DisplayHelpers */
+.dFlex {
+  display: flex;
+}
+.dBlock {
+  display: block;
+}
+.dInlineB {
+  display: inline-block;
+}
+.dInlineF {
+  display: inline-flex;
+}
+
+@media only screen and (min-width: 1000px) {
+  .display-on-medium-and-bellow {
+    display: none;
+  }
+  .display-on-medium-only {
+    display: none;
+  }
+  .display-on-small-only {
+    display: none;
+  }
+  .display-on-large-only {
+    display: block;
+  }
+  .display-on-medium-and-above {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .display-on-medium-and-bellow {
+    display: block;
+  }
+  .display-on-medium-and-above {
+    display: block;
+  }
+  .display-on-medium-only {
+    display: block;
+  }
+  .display-on-small-only {
+    display: none;
+  }
+  .display-on-large-only {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .display-on-medium-only {
+    display: none;
+  }
+  .display-on-medium-and-above {
+    display: none !important;
+  }
+  .display-on-small-only {
+    display: block;
+  }
+  .display-on-large-only {
+    display: none;
+  }
+}
+/* #endregion DisplayHelpers */
+
 /* #region AlignHelpers */
 
 .content-center {
@@ -1159,3 +1225,27 @@ textarea.p-input.classic {
   }
 }
 /*#endregion Tooltip */
+
+/* #region Card */
+.card {
+  background-color: white;
+  border-radius: 5px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 10px 0;
+}
+
+.card .content {
+  padding: 15px;
+}
+
+.card .header {
+  padding: 15px;
+  border-bottom: 0.8px solid rgba(0, 0, 0, 0.1);
+}
+
+.card .footer {
+  padding: 5px 10px;
+  border-top: 0.8px solid rgba(0, 0, 0, 0.1);
+}
+/* #endregion Card */

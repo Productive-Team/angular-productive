@@ -30,7 +30,7 @@
   </ng-container>
 </p-sidenav> -->
 <div class="content-wrapper">
-  <app-navbar backgroundColor="bg-primary" [hasSidenav]="false">
+  <app-navbar backgroundColor="bg-primary" [elevated]="this.hasShadow">
     <ng-container navbarContent>
       <!-- <ul class="left">
         <li>
@@ -39,18 +39,18 @@
           </button>
         </li>
       </ul> -->
-      <ul class="left">
+      <ul class="left ">
         <li>
           <button class="btn flat" pRipple pRippleColor="#ffffff26" [routerLink]="['/']">
             Angular Productive
           </button>
         </li>
-        <li>
+        <li class="display-on-medium-and-above">
           <button class="btn-small flat" pRipple pRippleColor="#ffffff26">
             Get Started
           </button>
         </li>
-        <li>
+        <li class="display-on-medium-and-above">
           <button class="btn-small bg-secondary" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
             Components
           </button>
@@ -64,6 +64,22 @@
               style="top: 12px; position: relative; pointer-events: none;" class="left">
             Github
           </a>
+        </li>
+      </ul>
+    </ng-container>
+  </app-navbar>
+  <app-navbar size="small" backgroundColor="bg-primary" class="display-on-small-only">
+    <ng-container navbarContent>
+      <ul class="center">
+        <li>
+          <button class="btn-small flat" pRipple pRippleColor="#ffffff26">
+            Get Started
+          </button>
+        </li>
+        <li>
+          <button class="btn-small bg-secondary" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
+            Components
+          </button>
         </li>
       </ul>
     </ng-container>

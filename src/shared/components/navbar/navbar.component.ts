@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-navbar, p-navbar',
@@ -10,19 +10,15 @@ export class NavbarComponent implements OnInit {
   @Input() backgroundColor: string;
   @Input() elevated = true;
   @Input() fixed = false;
-  @Input() hasSidenav = false;
 
   textColor: string;
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
     this.navbarSize();
     this.navbarBackground();
     if (this.elevated) {
       this.navElevation();
-    }
-    if (this.hasSidenav) {
-      this.navHasSide();
     }
   }
 
@@ -47,21 +43,14 @@ export class NavbarComponent implements OnInit {
   // }
 
   navElevation(): void {
-    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+    const navbarElement = this.el.nativeElement.firstChild
+      .firstChild as HTMLDivElement;
     navbarElement.classList.add('elevation');
   }
 
-  navHasSide(): void {
-    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
-    if (window.innerWidth > 1000) {
-      navbarElement.style.marginLeft = '250px';
-    } else {
-      navbarElement.style.marginLeft = '0';
-    }
-  }
-
   navbarBackground(): void {
-    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+    const navbarElement = this.el.nativeElement.firstChild
+      .firstChild as HTMLDivElement;
     const buttons = navbarElement.getElementsByTagName('button');
     const hrefTags = navbarElement.getElementsByTagName('a');
     switch (this.backgroundColor) {
@@ -99,7 +88,8 @@ export class NavbarComponent implements OnInit {
   }
 
   navbarSize(): void {
-    const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
+    const navbarElement = this.el.nativeElement.firstChild
+      .firstChild as HTMLDivElement;
     switch (this.size) {
       case 'small':
         navbarElement.style.height = '46px';
