@@ -14,7 +14,7 @@
   top: 0;
   width: 250px;
   transition: all 0.2s var(--defaultBezier);
-  will-change: transform;
+  will-change: transform, width;
   z-index: 996;
 }
 

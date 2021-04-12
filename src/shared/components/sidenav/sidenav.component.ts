@@ -10,44 +10,22 @@ import {
 
 let isOpen = true;
 let hasBack = false;
+let pushContent = true;
 @Directive({
   selector: '[appSidenavTrigget], [p-sidenav-trigger], [pSidenavTrigger]',
 })
 export class SidenavTriggerDirective {
+  @Input() pSidenavIdForTrigger: string;
   constructor(private el: ElementRef, private comp: SidenavComponent) {
     el.nativeElement.classList.add('sidenav-trigger');
   }
 
   @HostListener('click', ['$event']) openSidenav() {
     if (!isOpen) {
-      this.comp.showNav();
+      this.comp.showNav(this.pSidenavIdForTrigger);
     } else {
-      this.comp.hideNav();
+      this.comp.hideNav(this.pSidenavIdForTrigger);
     }
-    // const sidenavElement = document.querySelector(
-    //   '.sidenav-wrap'
-    // ) as HTMLDivElement;
-    // const body = document.querySelector('body');
-    // if (!isOpen) {
-    //   sidenavElement.style.transform = 'translateX(0)';
-    //   sidenavElement.style.width = '250px';
-    //   const backdrop = document.createElement('div');
-    //   backdrop.classList.add('backdrop');
-    //   body.insertAdjacentElement('beforeend', backdrop);
-    //   setTimeout(() => {
-    //     backdrop.style.opacity = '0.5';
-    //   }, 0);
-    //   isOpen = true;
-    //   backdrop.addEventListener('click', () => {
-    //     backdrop.style.opacity = '0';
-    //     backdrop.addEventListener('transitionend', () => {
-    //       backdrop.remove();
-    //     });
-    //     sidenavElement.style.transform = 'translateX(-150%)';
-    //     sidenavElement.style.width = '0';
-    //     isOpen = false;
-    //   });
-    // }
   }
 }
 
@@ -59,39 +37,59 @@ export class SidenavTriggerDirective {
 export class SidenavComponent implements OnInit, AfterViewInit {
   @Input() elevated = true;
   @Input() hidden = false;
-  @Input() pushContentOnShow = true;
+  @Input() pushContent = true;
   @Input() backdrop = false;
+  @Input() sidenavId: string;
   @Input() backgroundColor: string;
 
   @HostListener('window:resize', ['$event']) onResize(event) {
-    this.setHeight();
+    if (this.pushContent) {
+      this.setHeight();
+    }
+    if (window.innerWidth <= 600) {
+      pushContent = false;
+      hasBack = true;
+      this.setNavFixed();
+    } else if (window.innerWidth > 600) {
+      pushContent = this.pushContent;
+      hasBack = this.backdrop;
+      if (this.hidden) {
+        this.hideNav(this.sidenavId);
+      }
+      if (this.pushContent) {
+        const sidenav = this.el.nativeElement.firstChild as HTMLDivElement;
+        sidenav.style.position = 'sticky';
+        sidenav.style.zIndex = '996';
+      }
+    }
+    if (isOpen === true) {
+      this.hideNav(this.sidenavId);
+    }
   }
 
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
-  ngOnInit(): void {
-    // if (this.hidden) {
-    //   this.showButton();
-    //   this.hideNav();
-    // } else {
-    //   if (window.innerWidth > 1000) {
-    //     this.hideButton();
-    //   } else {
-    //     this.showButton();
-    //   }
-    // }
-    hasBack = this.backdrop;
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
+    if (!this.pushContent || window.innerWidth <= 600) {
+      this.hidden = true;
+      this.backdrop = true;
+      this.elevated = true;
+      this.pushContent = false;
+      this.setNavFixed();
+    } else {
+      this.setHeight();
+    }
     if (this.hidden) {
-      this.hideNav();
+      this.hideNav(this.sidenavId);
     }
     if (this.elevated) {
       this.elevateSidenav();
     }
     this.backgroundColorApply();
-    this.setHeight();
+    pushContent = this.pushContent;
+    hasBack = this.backdrop;
   }
 
   private setHeight(): void {
@@ -108,40 +106,58 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     sidenavElement.classList.add('elevation');
   }
 
-  hideNav(): void {
+  hideNav(id: string): void {
     isOpen = false;
-    const sidenavElement = document.querySelector(
-      '.sidenav-wrap'
-    ) as HTMLDivElement;
+    const sidenavElement = document.getElementById(id);
     sidenavElement.style.transform = 'translateX(-150%)';
     sidenavElement.style.width = '0';
     if (hasBack) {
       const backdrop = document.querySelector('.backdrop') as HTMLElement;
+      if (pushContent) {
+        const body = document.querySelector(
+          '.content-contain'
+        ) as HTMLDivElement;
+        body.style.overflow = 'auto';
+      }
       this.removeBackdrop(backdrop);
     }
   }
 
-  showNav(): void {
+  showNav(id: string): void {
     isOpen = true;
-    const sidenavElement = document.querySelector(
-      '.sidenav-wrap'
-    ) as HTMLDivElement;
+    const sidenavElement = document.getElementById(id);
     sidenavElement.style.transform = 'translateX(0)';
     sidenavElement.style.width = '250px';
     if (hasBack) {
-      this.setBackdrop();
+      if (pushContent) {
+        const body = document.querySelector(
+          '.content-contain'
+        ) as HTMLDivElement;
+        body.style.overflow = 'hidden';
+      }
+      this.setBackdrop(id);
     }
   }
 
-  private setBackdrop(): void {
+  private setNavFixed(): void {
+    const sidenav = this.el.nativeElement.firstChild as HTMLDivElement;
+    sidenav.style.position = 'fixed';
+    sidenav.style.height = '100vh';
+    sidenav.style.zIndex = '1000';
+  }
+
+  private setBackdrop(id: string): void {
     const body = document.querySelector('body');
     const backdrop = document.createElement('div');
     backdrop.classList.add('backdrop');
+    if (!pushContent) {
+      backdrop.style.zIndex = '999';
+    }
     body.insertAdjacentElement('beforeend', backdrop);
     setTimeout(() => {
       backdrop.style.opacity = '0.5';
       backdrop.addEventListener('click', () => {
-        this.hideNav();
+        this.hideNav(id);
         this.removeBackdrop(backdrop);
       });
     }, 10);
@@ -156,7 +172,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  backgroundColorApply(): void {
+  private backgroundColorApply(): void {
     const sidenavElement = document.querySelector('.sidenav') as HTMLDivElement;
     const buttons = sidenavElement.getElementsByTagName('button');
     const hrefTags = sidenavElement.getElementsByTagName('a');
@@ -194,7 +210,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getContrastYIQ(hexcolor): string {
+  private getContrastYIQ(hexcolor): string {
     hexcolor = hexcolor.replace('#', '');
     const r = parseInt(hexcolor.substr(0, 2), 16);
     const g = parseInt(hexcolor.substr(2, 2), 16);

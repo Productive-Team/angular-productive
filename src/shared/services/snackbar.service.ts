@@ -35,22 +35,46 @@ export class SnackbarService {
     buttonText?: string
   ): void {
     const snackbar = document.createElement('div');
-    const body = document.querySelector('body');
     snackbar.classList.add('snackbar', 'elevation');
     this.setSnackPosition(positionY, positionX, snackbar);
     this.snackbars.push({ snack: snackbar, isActive: true });
-    body.insertAdjacentElement('beforeend', snackbar);
+
+    const row = document.createElement('div');
+    const col1 = document.createElement('div');
+    const col2 = document.createElement('div');
+
     const text = document.createElement('span');
     text.insertAdjacentText('beforeend', SnackText);
+
+    const body = document.querySelector('body');
+    body.insertAdjacentElement('beforeend', snackbar);
+
+    // snackbar.insertAdjacentElement('beforeend', text);
+
     snackbar.style.display = 'block';
-    snackbar.insertAdjacentElement('beforeend', text);
     snackbar.id = this.snackbars.length + '-snack';
     if (this.snackbars?.length > 1) {
       this.removeExtraSnack();
     }
     if (hasButton) {
-      this.setSnackbarButton(snackbar, buttonText);
+      row.classList.add('row');
+      col1.classList.add('col', 's10');
+      col1.style.maxHeight = '220px';
+      col1.style.overflow = 'hidden';
+      col1.insertAdjacentElement('beforeend', text);
+      col2.classList.add('col', 's2');
+      row.insertAdjacentElement('beforeend', col1);
+      row.insertAdjacentElement('beforeend', col2);
+      this.setSnackbarButton(snackbar, buttonText, col2);
+    } else {
+      row.classList.add('row');
+      col1.classList.add('col', 's12');
+      col1.style.maxHeight = '220px';
+      col1.style.overflow = 'hidden';
+      col1.insertAdjacentElement('beforeend', text);
+      row.insertAdjacentElement('beforeend', col1);
     }
+    snackbar.insertAdjacentElement('beforeend', row);
     setTimeout(
       () => {
         this.removeSnackbar(snackbar);
@@ -59,7 +83,11 @@ export class SnackbarService {
     );
   }
 
-  private setSnackbarButton(snackbar: HTMLElement, btnText: string): any {
+  private setSnackbarButton(
+    snackbar: HTMLElement,
+    btnText: string,
+    col2: HTMLElement
+  ): any {
     const btn = document.createElement('button');
     btn.innerHTML = btnText;
     btn.classList.add(
@@ -72,7 +100,7 @@ export class SnackbarService {
     btn.addEventListener('click', () => {
       this.removeSnackbar(snackbar);
     });
-    snackbar.insertAdjacentElement('beforeend', btn);
+    col2.insertAdjacentElement('beforeend', btn);
   }
 
   private setSnackPosition(

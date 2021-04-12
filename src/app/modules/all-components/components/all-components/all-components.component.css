@@ -17,3 +17,7 @@
 #testTrigger {
   cursor: default;
 }
+
+.card {
+  height: 200px !important;
+}

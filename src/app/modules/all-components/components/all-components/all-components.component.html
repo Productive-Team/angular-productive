@@ -9,10 +9,10 @@
 <br> -->
 
 <div class="sidenav-container">
-  <p-sidenav [hidden]="true" [backdrop]="true">
+  <p-sidenav sidenavId="side-ex">
     <ng-container side-content>
       <li>
-        <a pRipple pSidenavTrigger>Containers</a>
+        <a pRipple pSidenavTrigger pSidenavIdForTrigger="side-ex">Containers</a>
       </li>
       <li>
         <a pRipple>Grid</a>
@@ -68,15 +68,15 @@
     <div class="bg-primary"
       style="height: 50px; line-height: 50px; padding: 0 15px; box-sizing:border-box; width: 100%;">
       <button class="left btn flat floating" pRipple pRippleCentered="true" pRippleColor="#ffffff26"
-        style="color: white; top: 2px;" pSidenavTrigger>
+        style="color: white; top: 2px;" pSidenavTrigger pSidenavIdForTrigger="side-ex">
         <i class="material-icons">menu</i>
       </button>
       <h2>Components</h2>
     </div>
     <div class="container">
       <div class="row">
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Containers</h2>
@@ -86,8 +86,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Grid</h2>
@@ -97,8 +97,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Buttons</h2>
@@ -108,8 +108,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Text Inputs</h2>
@@ -119,8 +119,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Cards</h2>
@@ -130,8 +130,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Ripple</h2>
@@ -141,8 +141,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Checkbox</h2>
@@ -152,8 +152,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Toggle Switch</h2>
@@ -163,8 +163,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Dialogs</h2>
@@ -174,8 +174,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Snackbars</h2>
@@ -185,8 +185,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Dropdown Menu</h2>
@@ -196,8 +196,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Badges</h2>
@@ -207,8 +207,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Tooltips</h2>
@@ -218,8 +218,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Select</h2>
@@ -229,8 +229,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Radio Button</h2>
@@ -240,8 +240,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Section</h2>
@@ -251,8 +251,8 @@
             </ng-container>
           </p-card>
         </div>
-        <div class="col l3 m4 s12">
-          <p-card [hasHeader]="false" [elevated]="false">
+        <div class="col l4 m6 s12">
+          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
             <ng-container card-content>
               <div class="text-center">
                 <h2>Collapsible</h2>

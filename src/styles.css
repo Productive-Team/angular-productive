@@ -557,6 +557,7 @@ a.btn-large {
   vertical-align: middle;
   text-decoration: none;
   -webkit-user-drag: none;
+  margin: 0 2px;
 }
 /* #endregion NavbarStyles */
 
@@ -690,14 +691,17 @@ textarea.p-input.classic {
   padding-left: 0;
 }
 .p-input.outlined {
+  box-sizing: border-box;
   background-color: transparent;
-  padding: 15px 10px 5px 10px;
-  border: 2px solid rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  padding-top: 12px;
+  box-shadow: inset 0px 0px 0px 1px #00000048;
   border-radius: 4px;
-  transition: 0.1s linear;
+  border: none;
+  transition: box-shadow 0.1s;
 }
 .p-input.outlined:focus {
-  border-color: var(--primary);
+  box-shadow: inset 0px 0px 0px 2px var(--primary);
 }
 .p-input-bar,
 .p-input-bar-textarea {
@@ -907,14 +911,16 @@ textarea.p-input.classic {
 /* #region Snackbars */
 .snackbar {
   position: fixed;
+  box-sizing: border-box;
   padding: 15px;
   border-radius: 5px;
-  height: 20px;
+  min-height: 20px;
   width: 344px;
   color: white;
   background-color: rgb(44, 44, 44);
   z-index: 1004;
   line-height: 20px;
+  max-height: 250px;
   display: none;
   overflow: hidden;
   transition: opacity 0.1s linear;
@@ -937,6 +943,18 @@ textarea.p-input.classic {
   animation: fadeInCenterSnackbar 0.15s;
   left: 50%;
   transform: translateX(-50%);
+}
+.snackbar button {
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 15px;
+  max-width: 56.17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.snackbar span {
+  word-break: break-all;
 }
 @media only screen and (max-width: 500px) {
   .snackbar {
@@ -1022,7 +1040,7 @@ textarea.p-input.classic {
   border-radius: 5px;
   box-sizing: content-box;
   max-width: 100%;
-  max-height: 30%;
+  max-height: 250px;
   overflow: auto;
   animation: dropAnimation 0.15s cubic-bezier(0, 0, 0.2, 1);
   z-index: 1005;

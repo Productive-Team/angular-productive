@@ -123,10 +123,20 @@ export class DropdownTriggerDirective {
   private setDropdownWrapperPosition(event, menu): void {
     const tgt = event.target as HTMLInputElement;
     const boundRect = tgt.getBoundingClientRect();
-    const clientX = window.innerWidth;
-    const clientY = window.innerHeight;
+    let clientX = window.innerWidth;
+    let clientY = window.innerHeight;
     const offsetLeft = boundRect.left;
     const offsetTop = boundRect.top;
+
+    const container = document.querySelector(
+      '.content-contain'
+    ) as HTMLDivElement;
+
+    if (container) {
+      const containerMeasures = container.getBoundingClientRect();
+      clientX = containerMeasures.width;
+      clientY = containerMeasures.height;
+    }
 
     const width = clientX - offsetLeft;
     const height = clientY - offsetTop;
@@ -138,28 +148,28 @@ export class DropdownTriggerDirective {
     const menu1 = menu as HTMLUListElement;
     if (menu1.classList.contains('left-align')) {
       element.style.left = offsetLeft + 'px';
-      element.style.top = offsetTop + 'px';
+      element.style.top = offsetTop + boundRect.height + 'px';
       element.style.alignItems = 'flex-start';
       element.style.justifyContent = 'flex-start';
       element.style.height = height + 'px';
       element.style.width = width + 'px';
     } else if (menu1.classList.contains('bottom-left-align')) {
       element.style.left = offsetLeft + 'px';
-      element.style.bottom = height - boundRect.height + 'px';
+      element.style.bottom = window.innerHeight - offsetTop + 'px';
       element.style.alignItems = 'flex-start';
       element.style.justifyContent = 'flex-end';
       element.style.height = offsetTop + 'px';
       element.style.width = width + 'px';
     } else if (menu1.classList.contains('right-align')) {
       element.style.right = width - boundRect.width + 'px';
-      element.style.top = offsetTop + 'px';
+      element.style.top = offsetTop + boundRect.height + 'px';
       element.style.alignItems = 'flex-end';
       element.style.justifyContent = 'flex-start';
       element.style.height = height + 'px';
       element.style.width = offsetLeft + 'px';
     } else if (menu1.classList.contains('bottom-right-align')) {
       element.style.right = width - boundRect.width + 'px';
-      element.style.bottom = height - boundRect.height + 'px';
+      element.style.bottom = window.innerHeight - offsetTop + 'px';
       element.style.alignItems = 'flex-end';
       element.style.justifyContent = 'flex-end';
       element.style.height = offsetLeft + 'px';

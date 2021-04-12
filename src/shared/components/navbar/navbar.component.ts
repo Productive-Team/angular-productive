@@ -35,13 +35,6 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  // navFixed(): void {
-  //   const navbarElement = document.querySelector('.navbar') as HTMLDivElement;
-  //   navbarElement.classList.add('fixed');
-  //   const outWrap = document.getElementById('wrap-1');
-  //   outWrap.style.height = navbarElement.offsetHeight.toString() + 'px';
-  // }
-
   navElevation(): void {
     const navbarElement = this.el.nativeElement.firstChild
       .firstChild as HTMLDivElement;

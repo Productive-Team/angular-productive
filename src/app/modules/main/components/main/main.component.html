@@ -1,89 +1,60 @@
-<!-- <p-sidenav [elevated]="true" [hidden]="true">
-  <ng-container side-content>
-    <li>
-      <div class="img-container">
-        <h2 class="white" style="position: absolute; bottom: 5px; left: 5px; z-index: 1;">Angular Productive</h2>
-        <img src="../assets/img/stock.png" class="dim" width="250px" height="100px">
-      </div>
-    </li>
-    <li>
-      <a pRipple>Never</a>
-    </li>
-    <li>
-      <a pRipple>Gonna</a>
-    </li>
-    <li>
-      <button pRipple>
-        <i class="material-icons left">looks_one</i>
-        Give
-      </button>
-    </li>
-    <li>
-      <a pRipple>You</a>
-    </li>
-    <li>
-      <a pRipple href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
-        Up!
-        <i class="material-icons right">call_made</i>
-      </a>
-    </li>
-  </ng-container>
-</p-sidenav> -->
 <div class="content-wrapper">
-  <app-navbar backgroundColor="bg-primary" [elevated]="this.hasShadow">
-    <ng-container navbarContent>
-      <!-- <ul class="left">
-        <li>
-          <button class="btn floating flat" pRipple pRippleCentered="true" pRippleColor="#ffffff26" p-sidenav-trigger>
-            <i class="material-icons">menu</i>
-          </button>
-        </li>
-      </ul> -->
-      <ul class="left ">
-        <li>
-          <button class="btn flat" pRipple pRippleColor="#ffffff26" [routerLink]="['/']">
-            Angular Productive
-          </button>
-        </li>
-        <li class="display-on-medium-and-above">
-          <button class="btn-small flat" pRipple pRippleColor="#ffffff26">
-            Get Started
-          </button>
-        </li>
-        <li class="display-on-medium-and-above">
-          <button class="btn-small bg-secondary" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
-            Components
-          </button>
-        </li>
-      </ul>
-      <ul class="right">
-        <li>
-          <a class="btn flat" pRipple pRippleColor="#ffffff26"
-            href="https://github.com/Productive-Team/angular-productive" target="_blank">
-            <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
-              style="top: 12px; position: relative; pointer-events: none;" class="left">
-            Github
-          </a>
-        </li>
-      </ul>
-    </ng-container>
-  </app-navbar>
-  <app-navbar size="small" backgroundColor="bg-primary" class="display-on-small-only">
-    <ng-container navbarContent>
-      <ul class="center">
-        <li>
-          <button class="btn-small flat" pRipple pRippleColor="#ffffff26">
-            Get Started
-          </button>
-        </li>
-        <li>
-          <button class="btn-small bg-secondary" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
-            Components
-          </button>
-        </li>
-      </ul>
-    </ng-container>
-  </app-navbar>
+  <div class="elevation" style="z-index: 998;">
+    <app-navbar backgroundColor="bg-primary" [elevated]="false">
+      <ng-container navbarContent>
+        <ul class="left ">
+          <li>
+            <button class="btn flat" pRipple pRippleColor="#ffffff26" [routerLink]="['/']">
+              Angular Productive
+            </button>
+          </li>
+          <li class="display-on-medium-and-above">
+            <button class="btn-small flat" pRipple pRippleColor="#ffffff26">
+              Get Started
+            </button>
+          </li>
+          <li class="display-on-medium-and-above">
+            <button class="btn-small bg-secondary" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
+              Components
+            </button>
+          </li>
+        </ul>
+        <ul class="right display-on-medium-and-above">
+          <li>
+            <a class="btn flat" pRipple pRippleColor="#ffffff26"
+              href="https://github.com/Productive-Team/angular-productive" target="_blank">
+              <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
+                style="top: 12px; position: relative; pointer-events: none;" class="left">
+              Github
+            </a>
+          </li>
+        </ul>
+      </ng-container>
+    </app-navbar>
+    <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="display-on-small-only">
+      <ng-container navbarContent>
+        <ul>
+          <li>
+            <button class="btn-small flat" pRipple pRippleColor="#ffffff26">
+              Get Started
+            </button>
+          </li>
+          <li>
+            <button class="btn-small bg-secondary" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
+              Components
+            </button>
+          </li>
+          <li>
+            <a class="btn-small flat" pRipple pRippleColor="#ffffff26">
+              <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
+                style="top: 7px; position: relative; pointer-events: none;" class="left">
+              Github
+            </a>
+          </li>
+        </ul>
+      </ng-container>
+    </app-navbar>
+  </div>
   <div class="content-contain">
     <router-outlet></router-outlet>
     <footer style="background-color: var(--primary); height: 250px; width: 100%;">
