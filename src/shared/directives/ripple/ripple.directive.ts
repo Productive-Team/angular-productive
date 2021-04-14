@@ -6,6 +6,7 @@ import {
   Input,
   AfterViewInit,
 } from '@angular/core';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 @Directive({
   selector: '[app-ripple], [p-ripple], [pRipple]',
@@ -118,21 +119,28 @@ export class RippleDirective implements OnInit, AfterViewInit {
   }
 
   // Creates ripple on pointer down
-  @HostListener('pointerdown', ['$event']) onMouseClick(event) {
+  @HostListener('pointerdown', ['$event'])
+  @HostListener('touchstart', ['$event'])
+  onMouseClick(event) {
     this.isPointerDown = true;
     if (!this.pRippleDisabled) {
       this.createRippleEffect(event.target, event.clientX, event.clientY);
     }
   }
   // Removes ripple on pointer up after animation end
-  @HostListener('pointerup', ['$event']) onMouseUp(event) {
+  @HostListener('pointerup', ['$event'])
+  @HostListener('touchend', ['$event'])
+  onMouseUp(event) {
     this.isPointerDown = false;
     if (!this.pRippleDisabled) {
       this.fadeOutRipple(event.target);
     }
   }
+
   // Removes ripple when pointer goes out of the element
-  @HostListener('mouseout', ['$event']) onMouseOut(event) {
+  @HostListener('mouseout', ['$event'])
+  @HostListener('touchmove', ['$event'])
+  onMouseOut(event) {
     this.isPointerDown = false;
     if (!this.pRippleDisabled) {
       this.fadeOutRipple(event.target);
@@ -161,7 +169,8 @@ export class RippleDirective implements OnInit, AfterViewInit {
     if (this.pRippleCentered) {
       x = elBoundRect.left - elBoundRect.width / 2;
       y = elBoundRect.top - elBoundRect.height / 2;
-      rippleRadius = elBoundRect.width / 1.4;
+      rippleRadius =
+        this.pRippleRadius > 0 ? this.pRippleRadius : elBoundRect.width / 1.4;
     } else {
       rippleRadius =
         this.pRippleRadius > 0
@@ -171,6 +180,20 @@ export class RippleDirective implements OnInit, AfterViewInit {
 
     const offsetX = Math.abs(elBoundRect.x - x);
     const offsetY = Math.abs(elBoundRect.y - y);
+
+    // if (this.pRippleTriggerId && !this.pRippleCentered) {
+    //   const boundrectCont = rippleContainerElement.getBoundingClientRect();
+    //   offsetX = Math.abs(boundrectCont.x - x);
+    //   offsetY = Math.abs(y - boundrectCont.y);
+    //   rippleRadius =
+    //     this.pRippleRadius > 0
+    //       ? this.pRippleRadius
+    //       : this.calcDistanceToFurthestCorner(
+    //           boundrectCont.x,
+    //           boundrectCont.y,
+    //           boundrectCont
+    //         );
+    // }
 
     ripple.style.left = `${offsetX - rippleRadius}px`;
     ripple.style.top = `${offsetY - rippleRadius}px`;

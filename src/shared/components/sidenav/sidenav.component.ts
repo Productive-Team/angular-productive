@@ -62,8 +62,16 @@ export class SidenavComponent implements OnInit, AfterViewInit {
         sidenav.style.zIndex = '996';
       }
     }
-    if (isOpen === true) {
+    if (isOpen === true && window.innerWidth <= 1000) {
       this.hideNav(this.sidenavId);
+      const backdrop = document.querySelector('.backdrop') as HTMLElement;
+      if (backdrop) {
+        this.removeBackdrop(backdrop);
+      }
+    } else {
+      if (!this.hidden && window.innerWidth > 1000) {
+        this.showNav(this.sidenavId);
+      }
     }
   }
 

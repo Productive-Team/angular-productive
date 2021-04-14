@@ -1,0 +1,61 @@
+<h2>Ripple Effect</h2>
+<hr>
+<br>
+<h4>The Ripple Effect is used to represent when the user has clicked something, sending a visual feedback to the user.
+</h4>
+<br>
+<h4>Here's an interactive example of the Ripple Effect:</h4>
+<br>
+<p-section>
+  <ng-container section-content>
+    <div class="row">
+      <div class="col m6 s12">
+        <div class="fieldset">
+          <p-checkbox checkId="Check-center" checkboxText="Ripple Centered" (checkValue)="centerA($event)">
+          </p-checkbox>
+          <p-checkbox checkId="Check-unbound" checkboxText="Ripple Unbounded" (checkValue)="unboundA($event)">
+          </p-checkbox>
+          <p-checkbox checkId="rip-dis" checkboxText="Ripple Disabled" (checkValue)="disableA($event)"></p-checkbox>
+        </div>
+      </div>
+      <div class="col m3 s6">
+        <p-fieldset labelText="Ripple Color" labelId="color-rip">
+          <input type="text" class="p-input" pInput [(ngModel)]="color" id="color-rip">
+        </p-fieldset>
+      </div>
+      <div class="col m3 s6">
+        <p-fieldset labelText="Ripple Radius" labelId="radius-rip">
+          <input type="number" class="p-input" pInput [(ngModel)]="radius" id="radius-rip">
+        </p-fieldset>
+      </div>
+    </div>
+    <div class="ripple-example elevation" pRipple [pRippleCentered]="center" [pRippleColor]="color"
+      [pRippleRadius]="radius" [pRippleDisabled]="disabled" id="rip-ex-1">Click Me!</div>
+  </ng-container>
+</p-section>
+<br>
+<h4>You can also set up an element to be a trigger of a ripple on another element.</h4>
+<br>
+<h4>Here's an example:</h4>
+<p-section>
+  <ng-container section-content>
+    <div class="row">
+      <div class="col m6 s12">
+        <div class="fieldset">
+          <p-checkbox checkId="check-center-2" checkboxText="Ripple Centered" (checkValue)="centerB($event)">
+          </p-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m6 s12">
+        <div class="ripple-example elevation" pRipple [pRippleCentered]="centerb" pRippleTriggerId="ripple-trigger">
+          Click Me!</div>
+      </div>
+      <div class="col m6 s12">
+      </div>
+    </div>
+    <br>
+    <div class="ripple-example elevation" id="ripple-trigger"></div>
+  </ng-container>
+</p-section>

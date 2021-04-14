@@ -1,6 +1,9 @@
 .grid-example {
   background-color: var(--primary);
   margin-bottom: 2px;
-  height: 50px;
+  min-height: 50px;
   width: 100%;
+  color: white;
+  text-align: center;
+  line-height: 50px;
 }

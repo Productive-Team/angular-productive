@@ -12,13 +12,13 @@
   <p-sidenav sidenavId="side-ex">
     <ng-container side-content>
       <li>
-        <a pRipple pSidenavTrigger pSidenavIdForTrigger="side-ex">Containers</a>
+        <a pRipple>Containers</a>
       </li>
       <li>
-        <a pRipple>Grid</a>
+        <a pRipple [routerLink]="['Grid']">Grid</a>
       </li>
       <li>
-        <a pRipple>Button</a>
+        <a pRipple [routerLink]="['Buttons']">Button</a>
       </li>
       <li>
         <a pRipple>Input Field</a>
@@ -65,205 +65,16 @@
     </ng-container>
   </p-sidenav>
   <div style="box-sizing: border-box; width: 100%;">
-    <div class="bg-primary"
+    <div class="bg-primary display-on-medium-and-bellow"
       style="height: 50px; line-height: 50px; padding: 0 15px; box-sizing:border-box; width: 100%;">
       <button class="left btn flat floating" pRipple pRippleCentered="true" pRippleColor="#ffffff26"
         style="color: white; top: 2px;" pSidenavTrigger pSidenavIdForTrigger="side-ex">
         <i class="material-icons">menu</i>
       </button>
-      <h2>Components</h2>
     </div>
     <div class="container">
-      <div class="row">
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Containers</h2>
-                <br>
-                <h4>Designed to contain all the content of the page.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Grid</h2>
-                <br>
-                <h4>Grid styles made for responsive design.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Buttons</h2>
-                <br>
-                <h4>Custom styled buttons used for performing actions.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Text Inputs</h2>
-                <br>
-                <h4>Custom styled text inputs used in forms to get data.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Cards</h2>
-                <br>
-                <h4>Styled containers made to contain specific content.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Ripple</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Checkbox</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Toggle Switch</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Dialogs</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Snackbars</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Dropdown Menu</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Badges</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Tooltips</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Select</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Radio Button</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Section</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-        <div class="col l4 m6 s12">
-          <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-            <ng-container card-content>
-              <div class="text-center">
-                <h2>Collapsible</h2>
-                <br>
-                <h4>Custom effect played when an object has been clicked.</h4>
-              </div>
-            </ng-container>
-          </p-card>
-        </div>
-      </div>
-      <h2>Inputs</h2>
+
+      <!-- <h2>Inputs</h2>
       <hr>
       <div class="row">
         <div class="col m4 s12">
@@ -1232,7 +1043,8 @@
       <br>
       <h2>Collapsible</h2>
       <hr>
-      <br>
+      <br> -->
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

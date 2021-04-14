@@ -209,15 +209,33 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
 
   switchBackgroundColor: string;
   rippleColor: string;
-  checkVal = false;
+  checkVal: boolean;
 
   constructor() {}
 
   ngOnInit(): void {
     setTimeout(() => {
-      if (this.isSwitch) {
-        this.backgroundColorSwitchThumb();
-        this.backgroundColorSwitch();
+      if (this.checkRequiredFields(this.checkId)) {
+        if (this.isSwitch) {
+          this.backgroundColorSwitchThumb();
+          this.backgroundColorSwitch();
+        }
+        const checkInput = document.getElementById(
+          this.checkId
+        ) as HTMLInputElement;
+        // Checks to see if property "isChecked" is true or false;
+        if (this.isChecked) {
+          // adds the checked attribute to the input if "isChecked" is true;
+          checkInput.checked = true;
+          if (this.isSwitch) {
+            checkInput.parentElement.classList.add('active');
+          }
+          // calls the checkValueFunc to emit a value of true;
+          this.checkValueFunc(true);
+        } else {
+          // if it's not checked, calls the event emit function, to emit the value of false
+          this.checkValueFunc(false);
+        }
       }
     }, 0);
   }
@@ -229,18 +247,6 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
       const checkInput = document.getElementById(
         this.checkId
       ) as HTMLInputElement;
-      // Checks to see if property "isChecked" is true or false;
-      if (this.isChecked) {
-        // adds the checked attribute to the input if "isChecked" is true;
-        checkInput.checked = true;
-
-        checkInput.parentElement.classList.add('active');
-        // calls the checkValueFunc to emit a value of true;
-        this.checkValueFunc(true);
-      } else {
-        // if it's not checked, calls the event emit function, to emit the value of false
-        this.checkValueFunc(false);
-      }
 
       if (this.isIndeterminate) {
         const checkbox = document.getElementById(
@@ -330,7 +336,7 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
   }
 
   // Emits a value of true or false to parent component
-  checkValueFunc(event): any {
+  checkValueFunc(event: boolean): any {
     const checkbox = document.getElementById(this.checkId) as HTMLInputElement;
     checkbox.indeterminate = false;
     this.checkVal = event;
@@ -363,12 +369,14 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
   }
 
   @HostListener('change', ['$event']) addActiveClassSwitch(event): void {
-    const SwitchBack = document.getElementById('switch-cont');
-    const switchInput = SwitchBack.firstChild as HTMLInputElement;
-    if (switchInput.checked) {
-      SwitchBack.classList.add('active');
-    } else {
-      SwitchBack.classList.remove('active');
+    if (this.isSwitch) {
+      const SwitchBack = document.getElementById('switch-cont');
+      const switchInput = SwitchBack.firstChild as HTMLInputElement;
+      if (switchInput.checked) {
+        SwitchBack.classList.add('active');
+      } else {
+        SwitchBack.classList.remove('active');
+      }
     }
   }
 }

@@ -9,6 +9,7 @@
   font-size: 15px;
   margin-bottom: 8px;
   max-width: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Hides browser default input */

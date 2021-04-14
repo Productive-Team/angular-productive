@@ -392,21 +392,21 @@ a.disabled {
 .btn-large.elevation:active {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
-.btn-small.floating {
+.btn-small.fab {
   width: 36px;
   height: 36px;
   padding: 0;
   border-radius: 50%;
   text-align: center;
 }
-.btn.floating {
+.btn.fab {
   width: 46px;
   height: 46px;
   padding: 0;
   border-radius: 50%;
   text-align: center;
 }
-.btn-large.floating {
+.btn-large.fab {
   width: 56px;
   height: 56px;
   padding: 0;
@@ -423,9 +423,9 @@ a.disabled {
   background-color: rgba(0, 0, 0, 0.05);
   box-shadow: none;
 }
-.btn.floating.flat:hover,
-.btn-small.floating.flat:hover,
-.btn-large.floating.flat:hover {
+.btn.fab.flat:hover,
+.btn-small.fab.flat:hover,
+.btn-large.fab.flat:hover {
   background-color: transparent !important;
 }
 a.btn,
@@ -536,18 +536,18 @@ a.btn-large {
 .navbar ul li {
   display: inline;
 }
-.navbar.medium .btn.floating,
-.navbar.medium .btn-small.floating {
+.navbar.medium .btn.fab,
+.navbar.medium .btn-small.fab {
   top: 5px;
 }
-.navbar.small .btn.floating,
-.navbar.small .btn-small.floating,
-.navbar.small .btn-large.floating {
+.navbar.small .btn.fab,
+.navbar.small .btn-small.fab,
+.navbar.small .btn-large.fab {
   top: 0px;
 }
-.navbar.large .btn.floating,
-.navbar.large .btn-small.floating,
-.navbar.large .btn-large.floating {
+.navbar.large .btn.fab,
+.navbar.large .btn-small.fab,
+.navbar.large .btn-large.fab {
   top: 5px;
 }
 
@@ -826,10 +826,10 @@ textarea.p-input.classic {
 }
 
 .p-select.bottom {
-  border-radius: 5px 5px 0 0;
+  border-radius: 5px;
 }
 .p-select.top {
-  border-radius: 0 0 5px 5px;
+  border-radius: 5px;
 }
 
 .p-select .p-select-header {

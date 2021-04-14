@@ -1,0 +1,216 @@
+<h2>Buttons</h2>
+<hr>
+<br>
+<h4 style="word-wrap: break-word;">Buttons are used to perform actions through the application. We have created a bunch
+  of different styles that can be easily tweaked to your linking, and are really easy to use.</h4>
+<p-section>
+  <ng-container section-content>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 36px;">
+          Small Buttons
+        </span>
+      </div>
+      <div class="col s9">
+        <button class="btn-small">Button</button>
+        <button class="btn-small bg-primary">Button</button>
+        <button class="btn-small bg-secondary">Button</button>
+        <button class="btn-small flat">Button</button>
+        <button class="btn-small flat primary">Button</button>
+        <button class="btn-small flat secondary">Button</button>
+        <a class="btn-small" href="https://google.com/" target="_blank">Link</a>
+        <button class="btn-small" disabled>Button</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 46px;">Regular Buttons</span>
+      </div>
+      <div class="col s9">
+        <button class="btn">Button</button>
+        <button class="btn bg-primary">Button</button>
+        <button class="btn bg-secondary">Button</button>
+        <button class="btn flat">Button</button>
+        <button class="btn flat primary">Button</button>
+        <button class="btn flat secondary">Button</button>
+        <a class="btn" href="https://google.com/" target="_blank">Link</a>
+        <button class="btn" disabled>Button</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 56px;">Large Buttons</span>
+      </div>
+      <div class="col s9">
+        <button class="btn-large">Button</button>
+        <button class="btn-large bg-primary">Button</button>
+        <button class="btn-large bg-secondary">Button</button>
+        <button class="btn-large flat">Button</button>
+        <button class="btn-large flat primary">Button</button>
+        <button class="btn-large flat secondary">Button</button>
+        <a class="btn-large" href="https://google.com.br" target="_blank">Button</a>
+        <button class="btn-large" disabled>Button</button>
+      </div>
+    </div>
+  </ng-container>
+</p-section>
+<h4>You can also combine the buttons with the ripple directive, to create a ripple effect when the button is clicked.
+  <br><br>See more about ripples <a [routerLink]="['/Components/Ripples']">here</a>
+</h4>
+<p-section>
+  <ng-container section-content>
+    <button class="btn bg-primary" pRipple pRippleColor="#ffffff26">Ripple Effect</button>
+    <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)">Ripple Effect</button>
+    <button class="btn" pRipple>Ripple Effect</button>
+  </ng-container>
+</p-section>
+<h4>Buttons also have the option to be elevated. When a button is elevated, it will cast a shadow. The density of the
+  shadow will change when hovered and clicked.</h4>
+<p-section>
+  <ng-container section-content>
+    <button class="btn elevation">Elevated Button</button>
+    <button class="btn bg-primary elevation">Elevated Button</button>
+    <button class="btn bg-secondary elevation" pRipple pRippleColor="#ffffff26">Elevated Button</button>
+  </ng-container>
+</p-section>
+<h4>FAB buttons are completely rounded buttons, which generally represent the main action of a page.</h4>
+<br>
+<h4>An FAB has a fixed width and height, so their actions are best representend by a single icon without any text.</h4>
+<p-section>
+  <ng-container section-content>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 36px;">Small FAB</span>
+      </div>
+      <div class="col s9">
+        <button class="btn-small fab">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn-small fab bg-primary">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn-small fab bg-secondary">
+          <i class="material-icons">add</i>
+        </button>
+        <a href="https://google.com" target="_blank" class="btn-small fab">
+          <i class="material-icons">link</i>
+        </a>
+        <button class="btn-small fab" disabled>
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 46px;">Regular FAB</span>
+      </div>
+      <div class="col s9">
+        <button class="btn fab">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn fab bg-primary">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn fab bg-secondary">
+          <i class="material-icons">add</i>
+        </button>
+        <a href="https://google.com" target="_blank" class="btn fab">
+          <i class="material-icons">link</i>
+        </a>
+        <button class="btn fab" disabled>
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 56px;">Large FAB</span>
+      </div>
+      <div class="col s9">
+        <button class="btn-large fab">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn-large fab bg-primary">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn-large fab bg-secondary">
+          <i class="material-icons">add</i>
+        </button>
+        <a href="https://google.com" target="_blank" class="btn-large fab">
+          <i class="material-icons">link</i>
+        </a>
+        <button class="btn-large fab" disabled>
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</p-section>
+<h4>FABs can also be combined with the Ripple effect and be elevated. They work the exact same as regular buttons above.
+</h4>
+<p-section>
+  <ng-container section-content>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 46px;">Ripple FAB</span>
+      </div>
+      <div class="col s9">
+        <button class="btn fab bg-primary" pRipple pRippleColor="#ffffff26">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn fab bg-secondary" pRipple pRippleColor="#ffffff26">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn fab" pRipple>
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 46px;">Elevated FAB</span>
+      </div>
+      <div class="col s9">
+        <button class="btn elevation fab bg-primary" pRipple pRippleColor="#ffffff26">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn elevation fab bg-secondary">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn elevation fab">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</p-section>
+<h4>FABs also have a flat variant, however it is recommended to use it together with a ripple, since hover and
+  active effects are removed.</h4>
+<p-section>
+  <ng-container section-content>
+    <div class="row">
+      <div class="col s3" style="border-right: 1px solid rgba(0,0,0,0.15);">
+        <span style="line-height: 46px;">Flat FAB</span>
+      </div>
+      <div class="col s9">
+        <button class="btn fab flat" pRipple pRippleCentered="true">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn fab flat primary" pRipple pRippleCentered="true" pRippleColor="var(--primaryLowOpacity)">
+          <i class="material-icons">add</i>
+        </button>
+        <button class="btn fab flat secondary" pRipple pRippleCentered="true" pRippleColor="var(--secondaryLowOpacity)">
+          <i class="material-icons">add</i>
+        </button>
+        <a href="https://google.com" target="_blank" class="btn fab flat" pRipple pRippleCentered="true">
+          <i class="material-icons">link</i>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+</p-section>

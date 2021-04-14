@@ -9,12 +9,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all-components.component.css'],
 })
 export class AllComponentsComponent implements OnInit {
-  center = false;
-  unbound = false;
-  disabled = false;
-  color: string;
-  radius: number;
-
   snackTxt: string;
   snackDur: number;
   snackPosY: string;
@@ -69,22 +63,6 @@ export class AllComponentsComponent implements OnInit {
   constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}
-
-  centerA(event) {
-    this.center = event;
-  }
-  unboundA(event) {
-    this.unbound = event;
-    const rip = document.querySelector('.ripple-example') as HTMLDivElement;
-    if (this.unbound) {
-      rip.classList.add('p-ripple-unbounded');
-    } else {
-      rip.classList.remove('p-ripple-unbounded');
-    }
-  }
-  disableA(event) {
-    this.disabled = event;
-  }
 
   checkDis(event): void {
     const check = document.getElementById('Check2') as HTMLInputElement;
