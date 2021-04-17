@@ -1,3 +1,4 @@
+import { DropdownExComponent } from './components/dropdown-ex/dropdown-ex.component';
 import { RippleExComponent } from './components/ripple-ex/ripple-ex.component';
 import { ComponentsCardsComponent } from './components/components-cards/components-cards.component';
 import { BtnComponent } from './components/btn/btn.component';
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'Ripple',
         component: RippleExComponent,
+      },
+      {
+        path: 'Dropdown',
+        component: DropdownExComponent,
       },
     ],
   },

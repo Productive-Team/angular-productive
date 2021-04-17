@@ -349,7 +349,7 @@ hr {
   font-size: 16px;
   border-radius: 4px;
   cursor: pointer;
-  transition: 0.1s ease-in;
+  transition: 0.2s;
   user-select: none;
   font-family: Roboto;
   -webkit-tap-highlight-color: transparent;
@@ -358,11 +358,11 @@ hr {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.btn:active,
+/* .btn:active,
 .btn-small:active,
 .btn-large:active {
   filter: brightness(110%);
-}
+} */
 .btn:disabled,
 .btn-small:disabled,
 .btn-large:disabled {

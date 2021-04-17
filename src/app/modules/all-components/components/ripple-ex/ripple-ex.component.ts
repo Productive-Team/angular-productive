@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ripple-ex.component.css'],
 })
 export class RippleExComponent implements OnInit {
-  centerb = false;
   center = false;
   unbound = false;
-  unboundb = false;
   disabled = false;
   color: string;
   radius: number;
@@ -20,9 +18,6 @@ export class RippleExComponent implements OnInit {
 
   centerA(event) {
     this.center = event;
-  }
-  centerB(event) {
-    this.centerb = event;
   }
   unboundA(event) {
     this.unbound = event;

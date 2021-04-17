@@ -116,15 +116,17 @@
     </p-card>
   </div>
   <div class="col l4 m6 s12">
-    <p-card [hasHeader]="false" [elevated]="false" [height]="150">
-      <ng-container card-content>
-        <div class="text-center">
-          <h2>Dropdown Menu</h2>
-          <br>
-          <h4>Custom effect played when an object has been clicked.</h4>
-        </div>
-      </ng-container>
-    </p-card>
+    <a [routerLink]="['Dropdown']">
+      <p-card [hasHeader]="false" [elevated]="false" [height]="150">
+        <ng-container card-content>
+          <div class="text-center" pRipple>
+            <h2>Dropdown Menu</h2>
+            <br>
+            <h4>Custom effect played when an object has been clicked.</h4>
+          </div>
+        </ng-container>
+      </p-card>
+    </a>
   </div>
   <div class="col l4 m6 s12">
     <p-card [hasHeader]="false" [elevated]="false" [height]="150">

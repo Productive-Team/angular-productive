@@ -83,12 +83,16 @@ export class RippleDirective implements OnInit, AfterViewInit {
    *  <div id="myCustomId"></div>
    *
    * -Note-
-   *   If the ripple is not centered, then the Y axis will be inverted and the effect will play out quicker, there's no fix at the moment;
-   *   If you think the effect is too quick with the ripple not beign centered, then make the duration higher, that can fix it;
+   *   The ripple will always be centered if you're using this type of trigger.
    */
   @Input() pRippleTriggerId: string;
   /**
-   * Disables ripple in component
+   * pRippleDisabled is a boolean value.
+   *
+   * If it's set to false it disabled the ability for ripples to be created.
+   *
+   * Ex:
+   * <div pRipple [pRippleDisabled]="true"></div>
    */
   @Input() pRippleDisabled = false;
 
@@ -166,7 +170,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
     rippleContainerElement.insertAdjacentElement('beforeend', ripple);
 
     let rippleRadius;
-    if (this.pRippleCentered) {
+    if (this.pRippleCentered || this.pRippleTriggerId) {
       x = elBoundRect.left - elBoundRect.width / 2;
       y = elBoundRect.top - elBoundRect.height / 2;
       rippleRadius =
@@ -180,20 +184,6 @@ export class RippleDirective implements OnInit, AfterViewInit {
 
     const offsetX = Math.abs(elBoundRect.x - x);
     const offsetY = Math.abs(elBoundRect.y - y);
-
-    // if (this.pRippleTriggerId && !this.pRippleCentered) {
-    //   const boundrectCont = rippleContainerElement.getBoundingClientRect();
-    //   offsetX = Math.abs(boundrectCont.x - x);
-    //   offsetY = Math.abs(y - boundrectCont.y);
-    //   rippleRadius =
-    //     this.pRippleRadius > 0
-    //       ? this.pRippleRadius
-    //       : this.calcDistanceToFurthestCorner(
-    //           boundrectCont.x,
-    //           boundrectCont.y,
-    //           boundrectCont
-    //         );
-    // }
 
     ripple.style.left = `${offsetX - rippleRadius}px`;
     ripple.style.top = `${offsetY - rippleRadius}px`;

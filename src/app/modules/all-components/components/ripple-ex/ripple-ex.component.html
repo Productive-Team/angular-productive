@@ -34,22 +34,17 @@
   </ng-container>
 </p-section>
 <br>
-<h4>You can also set up an element to be a trigger of a ripple on another element.</h4>
+<h4>You can also set up an element to be a trigger of a ripple on another element.<br><br> When doing so, the ripple
+  will
+  always be centered, however every other setting will work as intended.</h4>
+<br>
 <br>
 <h4>Here's an example:</h4>
 <p-section>
   <ng-container section-content>
     <div class="row">
       <div class="col m6 s12">
-        <div class="fieldset">
-          <p-checkbox checkId="check-center-2" checkboxText="Ripple Centered" (checkValue)="centerB($event)">
-          </p-checkbox>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col m6 s12">
-        <div class="ripple-example elevation" pRipple [pRippleCentered]="centerb" pRippleTriggerId="ripple-trigger">
+        <div class="ripple-example elevation" pRipple pRippleTriggerId="ripple-trigger">
           Click Me!</div>
       </div>
       <div class="col m6 s12">

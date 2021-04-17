@@ -1,3 +1,4 @@
+import { DropdownExComponent } from './components/dropdown-ex/dropdown-ex.component';
 import { RippleExComponent } from './components/ripple-ex/ripple-ex.component';
 import { ComponentsCardsComponent } from './components/components-cards/components-cards.component';
 import { BtnComponent } from './components/btn/btn.component';
@@ -17,6 +18,7 @@ import { GridComponent } from './components/grid/grid.component';
     ComponentsCardsComponent,
     GridComponent,
     RippleExComponent,
+    DropdownExComponent,
   ],
   imports: [
     CommonModule,
