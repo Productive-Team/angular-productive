@@ -5,6 +5,7 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 
@@ -15,6 +16,8 @@ let closeOnBtnClick = true;
 })
 export class DropdownTriggerDirective {
   @Input() pDropdownTriggerId: string;
+
+  constructor(private el: ElementRef) {}
 
   @HostListener('click', ['$event']) openMenu(event) {
     const menu = document.getElementById(this.pDropdownTriggerId);
@@ -119,6 +122,23 @@ export class DropdownTriggerDirective {
       );
       dropMenu.classList.add('bottom-right-align');
     }
+
+    // const brct = this.el.nativeElement.getBoundingClientRect();
+    // const b = dropMenu.getBoundingClientRect();
+    // const wtd = window.innerWidth;
+    // const hgt = window.innerHeight;
+    // const fnbt = hgt - brct.top;
+    // console.log(hgt);
+    // console.log(brct.top);
+    // console.log(fnbt);
+    // if (dropMenu.height >= fnbt) {
+    //   dropMenu.classList.remove(
+    //     'left-align',
+    //     'right-align',
+    //     'bottom-left-align'
+    //   );
+    //   dropMenu.classList.add('bottom-right-align');
+    // }
   }
   private setDropdownWrapperPosition(event, menu): void {
     const tgt = event.target as HTMLInputElement;
@@ -183,14 +203,21 @@ export class DropdownTriggerDirective {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css'],
 })
-export class DropdownComponent implements OnInit {
+export class DropdownComponent implements OnInit, OnDestroy {
   @Input() pDropdownId: string;
   @Input() pDropdownWidth: number;
   @Input() pDropdownAlign: string;
   @Input() pDropdownCloseOnClick = true;
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
     closeOnBtnClick = this.pDropdownCloseOnClick;
+    document
+      .querySelector('body')
+      .insertAdjacentElement('beforeend', this.el.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    document.querySelector('body').removeChild(this.el.nativeElement);
   }
 }

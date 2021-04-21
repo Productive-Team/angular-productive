@@ -1,45 +1,67 @@
 <h2>Dropdown Menu</h2>
 <hr>
 <br>
-<h4>The dropdown component</h4>
+<h4>A dropdown menu is a hidden menu that contains actions triggers, and is separated from the normal page flow.</h4>
+<br>
+<h4>The menu component will automatically be placed outisde of any container, since it needs to be outside of any parent
+  elements with the property position relative.</h4>
 <br>
 <p-section>
   <ng-container section-content>
     <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="drop-1">Menu</button>
-    <br>
-    <button class="btn flat fab " pRipple pRippleCentered="true" pDropdownTrigger pDropdownTriggerId="drop-2">
-      <i class="material-icons">more_vert</i>
-    </button>
+    <p-dropdown pDropdownId="drop-1">
+      <li>
+        <button pRipple>Option 1</button>
+      </li>
+      <li>
+        <button pRipple>Option 2</button>
+      </li>
+      <li>
+        <button pRipple>Option 3</button>
+      </li>
+    </p-dropdown>
   </ng-container>
 </p-section>
-<p-dropdown pDropdownId="drop-1">
-  <li>
-    <button pRipple>Option 1</button>
-  </li>
-  <li>
-    <button pRipple>Option 2</button>
-  </li>
-  <li>
-    <button pRipple>Option 3</button>
-  </li>
-</p-dropdown>
-<p-dropdown pDropdownId="drop-2">
-  <li>
-    <button pRipple>
-      <i class="material-icons left">done</i>
-      Option 1
+<h4>Menu buttons can also have icons, to better illustrate the action it will perform.</h4>
+<br>
+<h4>Additionally, the menu's width will adjust automatically depending of the content's size.</h4>
+<br>
+<p-section>
+  <ng-container section-content>
+    <button class="btn flat fab" style="vertical-align: middle;" pRipple pRippleCentered="true" pDropdownTrigger
+      pDropdownTriggerId="drop-2">
+      <i class="material-icons">more_vert</i>
     </button>
-  </li>
-  <li>
-    <button pRipple>
-      <i class="material-icons left">info</i>
-      Option 2
-    </button>
-  </li>
-  <li>
-    <button pRipple>
-      <i class="material-icons left">watch_later</i>
-      Option 3
-    </button>
-  </li>
-</p-dropdown>
+    <p-dropdown pDropdownId="drop-2">
+      <li>
+        <button pRipple>
+          <i class="material-icons left">done</i>
+          Option 1
+        </button>
+      </li>
+      <li>
+        <button pRipple>
+          <i class="material-icons left">info</i>
+          Option 2
+        </button>
+      </li>
+      <li>
+        <button pRipple>
+          <i class="material-icons left">watch_later</i>
+          Option 3
+        </button>
+      </li>
+    </p-dropdown>
+  </ng-container>
+</p-section>
+<br>
+<h4>Menus automatically adjust their positioning, however you can set a fixed position for the menu to trigger.</h4>
+<br>
+<p-section>
+  <ng-container section-content>
+    <button class="flat btn" pRipple>Top Left</button>
+    <button class="flat btn" pRipple>Top Right</button>
+    <button class="flat btn" pRipple>Bottom Left</button>
+    <button class="flat btn" pRipple>Bottom Right</button>
+  </ng-container>
+</p-section>
