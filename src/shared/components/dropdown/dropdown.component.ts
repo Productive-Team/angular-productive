@@ -16,8 +16,10 @@ let closeOnBtnClick = true;
 })
 export class DropdownTriggerDirective {
   @Input() pDropdownTriggerId: string;
+  @Input() pDropdownXPosition?: string;
+  @Input() pDropdownYPosition?: string;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private comp: DropdownComponent) {}
 
   @HostListener('click', ['$event']) openMenu(event) {
     const menu = document.getElementById(this.pDropdownTriggerId);
@@ -93,70 +95,81 @@ export class DropdownTriggerDirective {
     const innWdth = window.innerWidth / 1.5;
     const posY = ev.clientY;
     const innHgt = window.innerHeight / 1.5;
-    if (innWdth > posX && innHgt > posY) {
-      dropMenu.classList.remove(
-        'right-align',
-        'bottom-left-align',
-        'bottom-right-align'
-      );
-      dropMenu.classList.add('left-align');
-    } else if (innWdth < posX && innHgt > posY) {
-      dropMenu.classList.remove(
-        'left-align',
-        'bottom-left-align',
-        'bottom-right-align'
-      );
-      dropMenu.classList.add('right-align');
-    } else if (innWdth > posX && innHgt < posY) {
-      dropMenu.classList.remove(
-        'left-align',
-        'right-align',
-        'bottom-right-align'
-      );
-      dropMenu.classList.add('bottom-left-align');
-    } else if (innWdth < posX && innHgt < posY) {
-      dropMenu.classList.remove(
-        'left-align',
-        'right-align',
-        'bottom-left-align'
-      );
-      dropMenu.classList.add('bottom-right-align');
+    const newLocal = this.pDropdownXPosition + '|' + this.pDropdownYPosition;
+    console.log(newLocal);
+    switch (newLocal) {
+      case 'left|bottom':
+        dropMenu.classList.remove(
+          'right-align',
+          'bottom-left-align',
+          'bottom-right-align'
+        );
+        dropMenu.classList.add('left-align');
+        break;
+      case 'left|top':
+        dropMenu.classList.remove(
+          'left-align',
+          'right-align',
+          'bottom-right-align'
+        );
+        dropMenu.classList.add('bottom-left-align');
+        break;
+      case 'right|bottom':
+        dropMenu.classList.remove(
+          'left-align',
+          'bottom-left-align',
+          'bottom-right-align'
+        );
+        dropMenu.classList.add('right-align');
+        break;
+      case 'right|top':
+        dropMenu.classList.remove(
+          'left-align',
+          'right-align',
+          'bottom-left-align'
+        );
+        dropMenu.classList.add('bottom-right-align');
+        break;
+      default:
+        if (innWdth > posX && innHgt > posY) {
+          dropMenu.classList.remove(
+            'right-align',
+            'bottom-left-align',
+            'bottom-right-align'
+          );
+          dropMenu.classList.add('left-align');
+        } else if (innWdth < posX && innHgt > posY) {
+          dropMenu.classList.remove(
+            'left-align',
+            'bottom-left-align',
+            'bottom-right-align'
+          );
+          dropMenu.classList.add('right-align');
+        } else if (innWdth > posX && innHgt < posY) {
+          dropMenu.classList.remove(
+            'left-align',
+            'right-align',
+            'bottom-right-align'
+          );
+          dropMenu.classList.add('bottom-left-align');
+        } else if (innWdth < posX && innHgt < posY) {
+          dropMenu.classList.remove(
+            'left-align',
+            'right-align',
+            'bottom-left-align'
+          );
+          dropMenu.classList.add('bottom-right-align');
+        }
     }
-
-    // const brct = this.el.nativeElement.getBoundingClientRect();
-    // const b = dropMenu.getBoundingClientRect();
-    // const wtd = window.innerWidth;
-    // const hgt = window.innerHeight;
-    // const fnbt = hgt - brct.top;
-    // console.log(hgt);
-    // console.log(brct.top);
-    // console.log(fnbt);
-    // if (dropMenu.height >= fnbt) {
-    //   dropMenu.classList.remove(
-    //     'left-align',
-    //     'right-align',
-    //     'bottom-left-align'
-    //   );
-    //   dropMenu.classList.add('bottom-right-align');
-    // }
   }
   private setDropdownWrapperPosition(event, menu): void {
     const tgt = event.target as HTMLInputElement;
     const boundRect = tgt.getBoundingClientRect();
-    let clientX = window.innerWidth;
-    let clientY = window.innerHeight;
+    const clientX = window.innerWidth;
+    const clientY = window.innerHeight;
+
     const offsetLeft = boundRect.left;
     const offsetTop = boundRect.top;
-
-    const container = document.querySelector(
-      '.content-contain'
-    ) as HTMLDivElement;
-
-    if (container) {
-      const containerMeasures = container.getBoundingClientRect();
-      clientX = containerMeasures.width;
-      clientY = containerMeasures.height;
-    }
 
     const width = clientX - offsetLeft;
     const height = clientY - offsetTop;
@@ -171,11 +184,11 @@ export class DropdownTriggerDirective {
       element.style.top = offsetTop + boundRect.height + 'px';
       element.style.alignItems = 'flex-start';
       element.style.justifyContent = 'flex-start';
-      element.style.height = height + 'px';
+      element.style.height = height - boundRect.height + 'px';
       element.style.width = width + 'px';
     } else if (menu1.classList.contains('bottom-left-align')) {
       element.style.left = offsetLeft + 'px';
-      element.style.bottom = window.innerHeight - offsetTop + 'px';
+      element.style.bottom = height + 'px';
       element.style.alignItems = 'flex-start';
       element.style.justifyContent = 'flex-end';
       element.style.height = offsetTop + 'px';
@@ -185,15 +198,17 @@ export class DropdownTriggerDirective {
       element.style.top = offsetTop + boundRect.height + 'px';
       element.style.alignItems = 'flex-end';
       element.style.justifyContent = 'flex-start';
-      element.style.height = height + 'px';
-      element.style.width = offsetLeft + 'px';
+      element.style.height = height - boundRect.height + 'px';
+      element.style.width =
+        window.innerWidth - (width - boundRect.width) + 'px';
     } else if (menu1.classList.contains('bottom-right-align')) {
       element.style.right = width - boundRect.width + 'px';
-      element.style.bottom = window.innerHeight - offsetTop + 'px';
+      element.style.bottom = height + 'px';
       element.style.alignItems = 'flex-end';
       element.style.justifyContent = 'flex-end';
-      element.style.height = offsetLeft + 'px';
-      element.style.width = offsetLeft + 'px';
+      element.style.height = offsetTop + 'px';
+      element.style.width =
+        window.innerWidth - (width - boundRect.width) + 'px';
     }
   }
 }
@@ -208,6 +223,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
   @Input() pDropdownWidth: number;
   @Input() pDropdownAlign: string;
   @Input() pDropdownCloseOnClick = true;
+
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {

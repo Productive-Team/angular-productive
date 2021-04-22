@@ -59,9 +59,33 @@
 <br>
 <p-section>
   <ng-container section-content>
-    <button class="flat btn" pRipple>Top Left</button>
-    <button class="flat btn" pRipple>Top Right</button>
-    <button class="flat btn" pRipple>Bottom Left</button>
-    <button class="flat btn" pRipple>Bottom Right</button>
+    <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="topleft" pDropdownYPosition="top"
+      pDropdownXPosition="left">Top Left</button>
+    <p-dropdown pDropdownId="topleft">
+      <li>
+        <button pRipple>Top Left</button>
+      </li>
+    </p-dropdown>
+    <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="topright" pDropdownYPosition="top"
+      pDropdownXPosition="right">Top Right</button>
+    <p-dropdown pDropdownId="topright">
+      <li>
+        <button pRipple>Top Right</button>
+      </li>
+    </p-dropdown>
+    <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="bottomleft" pDropdownYPosition="bottom"
+      pDropdownXPosition="left">Bottom Left</button>
+    <p-dropdown pDropdownId="bottomleft">
+      <li>
+        <button pRipple>Bottom Left</button>
+      </li>
+    </p-dropdown>
+    <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="bottomright" pDropdownYPosition="bottom"
+      pDropdownXPosition="right">Bottom Right</button>
+    <p-dropdown pDropdownId="bottomright">
+      <li>
+        <button pRipple>Bottom Right</button>
+      </li>
+    </p-dropdown>
   </ng-container>
 </p-section>

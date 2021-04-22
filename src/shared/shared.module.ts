@@ -77,6 +77,6 @@ import { FormsModule } from '@angular/forms';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
-  providers: [ModalComponent, SidenavComponent],
+  providers: [ModalComponent, SidenavComponent, DropdownComponent],
 })
 export class SharedModule {}
