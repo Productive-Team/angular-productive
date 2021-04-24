@@ -60,6 +60,33 @@ hr {
   margin: 5px 0;
 }
 
+/* #region Typography */
+h1 {
+  font-size: 54px;
+  font-weight: 600;
+}
+h2 {
+  font-size: 44px;
+  font-weight: 500;
+}
+h3 {
+  font-size: 34px;
+  font-weight: 400;
+}
+h4 {
+  font-size: 24px;
+  font-weight: 400;
+}
+h5 {
+  font-size: 16px;
+  font-weight: 300;
+}
+h6 {
+  font-size: 10px;
+  font-weight: 200;
+}
+/* #endregion Typography */
+
 /* #region GridStyles */
 
 .content-wrapper {
@@ -246,7 +273,7 @@ hr {
     display: none;
   }
   .display-on-small-only {
-    display: none;
+    display: none !important;
   }
   .display-on-large-only {
     display: block;
@@ -267,7 +294,7 @@ hr {
     display: block;
   }
   .display-on-small-only {
-    display: none;
+    display: none !important;
   }
   .display-on-large-only {
     display: none;
@@ -282,7 +309,7 @@ hr {
     display: none !important;
   }
   .display-on-small-only {
-    display: block;
+    display: block !important;
   }
   .display-on-large-only {
     display: none;

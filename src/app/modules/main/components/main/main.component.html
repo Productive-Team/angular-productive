@@ -27,16 +27,18 @@
                 style="top: 12px; position: relative; pointer-events: none;" class="left">
               Github
             </a>
-            <a class="btn-small bg-secondary fab display-on-small-only" pRipple pRippleColor="#ffffff26"
-              href="https://github.com/Productive-Team/angular-productive" target="_blank">
+            <a class="btn-small flat fab display-on-small-only" pRipple pRippleColor="#ffffff26"
+              [pRippleCentered]="true" href="https://github.com/Productive-Team/angular-productive" target="_blank"
+              style="top: 50%; transform: translateY(-50%);">
               <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
-                class="left">
+                class="left"
+                style="position: relative; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); pointer-events: none;">
             </a>
           </li>
         </ul>
       </ng-container>
     </app-navbar>
-    <!-- <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="display-on-small-only">
+    <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="display-on-small-only">
       <ng-container navbarContent>
         <ul>
           <li>
@@ -51,7 +53,7 @@
           </li>
         </ul>
       </ng-container>
-    </app-navbar> -->
+    </app-navbar>
   </div>
   <div class="content-contain">
     <router-outlet></router-outlet>
