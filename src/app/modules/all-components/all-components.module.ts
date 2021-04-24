@@ -1,3 +1,4 @@
+import { ContainerExComponent } from './components/container-ex/container-ex.component';
 import { DropdownExComponent } from './components/dropdown-ex/dropdown-ex.component';
 import { RippleExComponent } from './components/ripple-ex/ripple-ex.component';
 import { ComponentsCardsComponent } from './components/components-cards/components-cards.component';
@@ -19,6 +20,7 @@ import { GridComponent } from './components/grid/grid.component';
     GridComponent,
     RippleExComponent,
     DropdownExComponent,
+    ContainerExComponent,
   ],
   imports: [
     CommonModule,

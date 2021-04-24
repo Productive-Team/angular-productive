@@ -22,7 +22,7 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    * Example:
    *   <app-checkbox checkId="yourIdHere"></app-checkbox>
    */
-  @Input() checkId: string;
+  @Input() pCheckboxId: string;
   /**
    * CheckboxText is the text that goes at the checkbox's side
    *
@@ -31,7 +31,7 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    * Example:
    *    <app-checkbox checkboxText="Check!"></app-checkbox>
    */
-  @Input() checkboxText: string;
+  @Input() pCheckboxLabel: string;
   /**
    * CheckboxColor is the hex of a custom color, used for the checkbox;
    *
@@ -41,19 +41,7 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    * Example:
    *    <app-checkbox checkboxColor="#3f51b5"></app-checkbox>
    */
-  @Input() checkboxColor: string;
-  /**
-   * CUT FEATURE, NOW IT SHOULD AUTOMATICALLY COLOR A WAVE BASED ON BACKGROUND COLOR
-   * CheckboxWaveColor is an rgba value set for the ripple effect;
-   *
-   * This property is optional, if it's not filled, it will automatically assume the default ripple color;
-   *
-   * This value is valid for both Checkboxes and Switches;
-   *
-   * Example:
-   *    <app-checkbox checkboxWaveColor="rgba(255, 0, 0, 0.65)"></app-checkbox>
-   */
-  // @Input() checkboxWaveColor: string;
+  @Input() pCheckboxColor: string;
   /**
    * isChecked when flagged as true, automatically adds the attribute "checked" to the input,
    * and changes it's value to be true from the start
@@ -63,7 +51,7 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    * Example:
    *    <app-checkbox [isChecked]="true"></app-checkbox>
    */
-  @Input() isChecked = false;
+  @Input() pCheckboxChecked = false;
   /**
    * isDisabled when flagged as true, automatically adds the attribute "disabled" to the input
    * preventing any type of interaction from the user side
@@ -77,7 +65,7 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    * Example:
    *    <app-checkbox [isDisabled]="true"></app-checkbox>
    */
-  @Input() isDisabled = false;
+  @Input() pCheckboxDisabled = false;
   /**
    * isIndeterminate is when a checkbox has a state of undefined, in use cases such as multiple items that can be selected
    * at once;
@@ -87,70 +75,7 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    * Example:
    *    <app-checkbox [isIndeterminate]="true"></app-checkbox>
    */
-  @Input() isIndeterminate = false;
-  /**
-   * isSwitch when flagged as true, automatically transforms the default checkbox to Material Design styled Switch;
-   *
-   * This property is optional, if it's not filled, it will automatically assume the value of false;
-   *
-   * Exemplo:
-   *    <app-checkbox [isSwitch]="true"></app-checkbox>
-   */
-  @Input() isSwitch = false;
-  /**
-   * SwitchTextLeft is the left aligned text of a Switch;
-   *
-   * It can be used alone, or together with SwitchIconLeft and with both SwitchTextRight and SwitchIconRight
-   *
-   * This property is optional, if it's not filled, it will not appear;
-   *
-   * Example:
-   *    <app-checkbox switchTextLeft="Off"></app-checkbox>
-   */
-  @Input() switchTextLeft: string;
-  /**
-   * SwitchTextRight is the right aligned text of a Switch;
-   *
-   * It can be used alone, or together with SwitchIconRight and with both SwitchTextLeft and SwitchIconLeft
-   *
-   * This property is optional, if it's not filled, it will not appear;
-   *
-   * Example:
-   *    <app-checkbox switchTextRight="On"></app-checkbox>
-   */
-  @Input() switchTextRight: string;
-  /**
-   * SwitchIconLeft is the left aligned icon of a Switch
-   *
-   * It can be used alone, or together with SwitchTextLeft and with both SwitchTextRight and SwitchIconRight
-   *
-   * This property is optional, if it's not filled, it will not appear;
-   *
-   * Example:
-   *    <app-checkbox switchIconLeft="mood_bad"></app-checkbox>
-   */
-  @Input() switchIconLeft: string;
-  /**
-   * SwitchIconRight is the right aligned icon of a Switch
-   *
-   * It can be used alone, or together with SwitchTextRight and with both SwitchTextLeft and SwitchIconLeft
-   *
-   * This property is optional, if it's not filled, it will not appear;
-   *
-   * Example:
-   *    <app-checkbox switchIconRight="mood"></app-checkbox>
-   */
-  @Input() switchIconRight: string;
-  /**
-   * SwitchColor is the custom color hex for a Switch
-   *
-   * This property is optional, if it's not filled, it will automatically assume the value of the css variable --main
-   * in ngx-productive.css;
-   *
-   * Example:
-   *    <app-checkbox switchColor="#3f51b5"></app-checkbox>
-   */
-  @Input() switchColor: string;
+  @Input() pCheckboxIndeterminate = false;
   /**
    * hasRipple is an option that indicates if a checkbox or a Switch has the RippleEffect with them;
    *
@@ -207,7 +132,6 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    * This is just a temporary fix;
    */
 
-  switchBackgroundColor: string;
   rippleColor: string;
   checkVal: boolean;
 
@@ -215,21 +139,14 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      if (this.checkRequiredFields(this.checkId)) {
-        if (this.isSwitch) {
-          this.backgroundColorSwitchThumb();
-          this.backgroundColorSwitch();
-        }
+      if (this.checkRequiredFields(this.pCheckboxId)) {
         const checkInput = document.getElementById(
-          this.checkId
+          this.pCheckboxId
         ) as HTMLInputElement;
         // Checks to see if property "isChecked" is true or false;
-        if (this.isChecked) {
+        if (this.pCheckboxChecked) {
           // adds the checked attribute to the input if "isChecked" is true;
           checkInput.checked = true;
-          if (this.isSwitch) {
-            checkInput.parentElement.classList.add('active');
-          }
           // calls the checkValueFunc to emit a value of true;
           this.checkValueFunc(true);
         } else {
@@ -243,31 +160,25 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
   // Needs to be in after view init
   ngAfterViewInit(): void {
     // Checks if required field (checkId) is valid;
-    if (this.checkRequiredFields(this.checkId)) {
+    if (this.checkRequiredFields(this.pCheckboxId)) {
       const checkInput = document.getElementById(
-        this.checkId
+        this.pCheckboxId
       ) as HTMLInputElement;
 
-      if (this.isIndeterminate) {
+      if (this.pCheckboxIndeterminate) {
         const checkbox = document.getElementById(
-          this.checkId
+          this.pCheckboxId
         ) as HTMLInputElement;
         checkbox.indeterminate = true;
       }
 
-      if (this.isDisabled) {
+      if (this.pCheckboxDisabled) {
         // sets the disabled attribute to the input
         checkInput.setAttribute('disabled', 'disabled');
 
-        if (!this.isSwitch) {
-          checkInput.parentElement.parentElement.classList.add(
-            'checkbox-layout-disabled'
-          );
-        } else {
-          checkInput.parentElement.parentElement.parentElement.classList.add(
-            'checkbox-layout-switch-disabled'
-          );
-        }
+        checkInput.parentElement.parentElement.classList.add(
+          'checkbox-layout-disabled'
+        );
       }
     }
     setTimeout(() => {
@@ -276,18 +187,12 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
   }
 
   setRippleColor(): void {
-    if (this.checkboxColor || this.switchColor) {
+    if (this.pCheckboxColor) {
       if (
-        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.checkboxColor) ||
-        /([A-Fa-f0-9]{3}){1,2}$/.test(this.checkboxColor) ||
-        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor) ||
-        /([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor)
+        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.pCheckboxColor) ||
+        /([A-Fa-f0-9]{3}){1,2}$/.test(this.pCheckboxColor)
       ) {
-        if (!this.isSwitch) {
-          this.rippleColor = this.checkboxColor + '26';
-        } else {
-          this.rippleColor = this.switchColor + '26';
-        }
+        this.rippleColor = this.pCheckboxColor + '26';
       }
     } else {
       const primary = getComputedStyle(document.body).getPropertyValue(
@@ -297,63 +202,14 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // sets the background color of the switch thumb
-  backgroundColorSwitchThumb(): any {
-    const switchThumb = document.getElementById('switch-thumb');
-    if (this.switchColor) {
-      switchThumb.style.setProperty('--switch-thumb', this.switchColor);
-    }
-  }
-
-  // sets the background color of the SwitchBackground
-  backgroundColorSwitch(): any {
-    const SwitchBack = document.getElementById('switch-cont');
-    if (this.switchColor) {
-      if (
-        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor) ||
-        /([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor)
-      ) {
-        SwitchBack.style.setProperty(
-          '--container-background',
-          this.switchColor + '99'
-        );
-      }
-    } else {
-      const mainColorVar = getComputedStyle(document.documentElement)
-        .getPropertyValue('--primary')
-        .trim();
-      this.switchColor = mainColorVar;
-      if (
-        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor) ||
-        /([A-Fa-f0-9]{3}){1,2}$/.test(this.switchColor)
-      ) {
-        SwitchBack.style.setProperty(
-          '--container-background',
-          this.switchColor + '99'
-        );
-      }
-    }
-  }
-
   // Emits a value of true or false to parent component
   checkValueFunc(event: boolean): any {
-    const checkbox = document.getElementById(this.checkId) as HTMLInputElement;
+    const checkbox = document.getElementById(
+      this.pCheckboxId
+    ) as HTMLInputElement;
     checkbox.indeterminate = false;
     this.checkVal = event;
     this.checkValue.emit(event);
-  }
-
-  // makes hexadecimal value from switchColor, low opacity
-  hexLowOpacity(hex): any {
-    if (
-      /#([A-Fa-f0-9]{3}){1,2}$/.test(hex) ||
-      /([A-Fa-f0-9]{3}){1,2}$/.test(hex)
-    ) {
-      hex = hex + 'A6';
-      this.switchBackgroundColor = hex;
-      return true;
-    }
-    throw new Error('The color switch value has to be a hex.');
   }
 
   // checks if required input is not undefined or null
@@ -365,18 +221,6 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
       );
     } else {
       return true;
-    }
-  }
-
-  @HostListener('change', ['$event']) addActiveClassSwitch(event): void {
-    if (this.isSwitch) {
-      const SwitchBack = document.getElementById('switch-cont');
-      const switchInput = SwitchBack.firstChild as HTMLInputElement;
-      if (switchInput.checked) {
-        SwitchBack.classList.add('active');
-      } else {
-        SwitchBack.classList.remove('active');
-      }
     }
   }
 }

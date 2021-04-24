@@ -19,19 +19,24 @@
             </button>
           </li>
         </ul>
-        <ul class="right display-on-medium-and-above">
+        <ul class="right">
           <li>
-            <a class="btn flat" pRipple pRippleColor="#ffffff26"
+            <a class="btn flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26"
               href="https://github.com/Productive-Team/angular-productive" target="_blank">
               <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
                 style="top: 12px; position: relative; pointer-events: none;" class="left">
               Github
             </a>
+            <a class="btn-small bg-secondary fab display-on-small-only" pRipple pRippleColor="#ffffff26"
+              href="https://github.com/Productive-Team/angular-productive" target="_blank">
+              <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
+                class="left">
+            </a>
           </li>
         </ul>
       </ng-container>
     </app-navbar>
-    <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="display-on-small-only">
+    <!-- <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="display-on-small-only">
       <ng-container navbarContent>
         <ul>
           <li>
@@ -44,16 +49,9 @@
               Components
             </button>
           </li>
-          <li>
-            <a class="btn-small flat" pRipple pRippleColor="#ffffff26">
-              <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
-                style="top: 7px; position: relative; pointer-events: none;" class="left">
-              Github
-            </a>
-          </li>
         </ul>
       </ng-container>
-    </app-navbar>
+    </app-navbar> -->
   </div>
   <div class="content-contain">
     <router-outlet></router-outlet>

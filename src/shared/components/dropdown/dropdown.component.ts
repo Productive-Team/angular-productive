@@ -9,8 +9,6 @@ import {
   OnInit,
 } from '@angular/core';
 
-let closeOnBtnClick = true;
-
 @Directive({
   selector: '[app-dropdown-trigger], [p-dropdown-trigger], [pDropdownTrigger]',
 })
@@ -18,10 +16,25 @@ export class DropdownTriggerDirective {
   @Input() pDropdownTriggerId: string;
   @Input() pDropdownXPosition?: string;
   @Input() pDropdownYPosition?: string;
+  @Input() pDropdownCloseOnClick = true;
+  @Input() pDropdownOpenHover = false;
 
-  constructor(private el: ElementRef, private comp: DropdownComponent) {}
+  constructor() {}
 
   @HostListener('click', ['$event']) openMenu(event) {
+    if (!this.pDropdownOpenHover) {
+      this.open(event);
+    }
+  }
+  @HostListener('mouseover', ['$event']) openMenuHover(event) {
+    if (this.pDropdownOpenHover) {
+      setTimeout(() => {
+        this.open(event);
+      }, 250);
+    }
+  }
+
+  open(event): void {
     const menu = document.getElementById(this.pDropdownTriggerId);
     const body = document.querySelector('body');
     this.dropAlign(menu, event);
@@ -35,7 +48,7 @@ export class DropdownTriggerDirective {
       back.classList.add('backdrop');
       back.style.zIndex = '999';
       body.insertAdjacentElement('beforeend', back);
-      if (closeOnBtnClick) {
+      if (this.pDropdownCloseOnClick) {
         const links = menu.getElementsByTagName('a');
         const buttons = menu.getElementsByTagName('button');
         let a = 0;
@@ -49,21 +62,12 @@ export class DropdownTriggerDirective {
       }
       document.addEventListener('click', (ev) => {
         const tr = ev.target as HTMLDivElement;
-        if (closeOnBtnClick) {
-          if (
-            tr.classList.contains('backdrop') ||
-            tr.classList.contains('dropdown-wrapper') ||
-            tr.classList.contains('pDropdownButton')
-          ) {
-            this.close(back, menu, dropWrap);
-          }
-        } else {
-          if (
-            tr.classList.contains('backdrop') ||
-            tr.classList.contains('dropdown-wrapper')
-          ) {
-            this.close(back, menu, dropWrap);
-          }
+        if (
+          tr.classList.contains('backdrop') ||
+          tr.classList.contains('dropdown-wrapper') ||
+          tr.classList.contains('pDropdownButton')
+        ) {
+          this.close(back, menu, dropWrap);
         }
       });
     }, 0);
@@ -73,6 +77,16 @@ export class DropdownTriggerDirective {
     menu.style.opacity = '0';
     menu.addEventListener('transitionend', this.remov(backdrop, dropWrap));
     menu.removeEventListener('transitionend', this.remov(backdrop, dropWrap));
+    const style = getComputedStyle(menu);
+    const transition = Number(style.transitionDuration.substr(2, 2) + '0');
+    setTimeout(() => {
+      const cntain = document.querySelector('.content-contain');
+      if (!cntain) {
+        const body = document.querySelector('body');
+        body.style.padding = '0';
+        body.style.overflow = 'visible';
+      }
+    }, transition);
   }
 
   private remov(backdrop, dropWrap): any {
@@ -96,7 +110,6 @@ export class DropdownTriggerDirective {
     const posY = ev.clientY;
     const innHgt = window.innerHeight / 1.5;
     const newLocal = this.pDropdownXPosition + '|' + this.pDropdownYPosition;
-    console.log(newLocal);
     switch (newLocal) {
       case 'left|bottom':
         dropMenu.classList.remove(
@@ -165,6 +178,8 @@ export class DropdownTriggerDirective {
   private setDropdownWrapperPosition(event, menu): void {
     const tgt = event.target as HTMLInputElement;
     const boundRect = tgt.getBoundingClientRect();
+    const body = document.querySelector('body') as HTMLBodyElement;
+
     const clientX = window.innerWidth;
     const clientY = window.innerHeight;
 
@@ -178,7 +193,16 @@ export class DropdownTriggerDirective {
       `${this.pDropdownTriggerId}-wrapper`
     );
     element.style.display = 'flex';
+
+    const cntain = document.querySelector('.content-contain');
     const menu1 = menu as HTMLUListElement;
+    if (!cntain) {
+      const bodyRect = body.getBoundingClientRect();
+      const size = clientX - bodyRect.width;
+      body.style.overflow = 'hidden';
+      body.style.paddingRight = size + 'px';
+      menu1.parentElement.style.position = 'fixed';
+    }
     if (menu1.classList.contains('left-align')) {
       element.style.left = offsetLeft + 'px';
       element.style.top = offsetTop + boundRect.height + 'px';
@@ -221,13 +245,10 @@ export class DropdownTriggerDirective {
 export class DropdownComponent implements OnInit, OnDestroy {
   @Input() pDropdownId: string;
   @Input() pDropdownWidth: number;
-  @Input() pDropdownAlign: string;
-  @Input() pDropdownCloseOnClick = true;
 
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
-    closeOnBtnClick = this.pDropdownCloseOnClick;
     document
       .querySelector('body')
       .insertAdjacentElement('beforeend', this.el.nativeElement);

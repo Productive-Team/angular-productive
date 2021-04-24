@@ -1,12 +1,12 @@
-<label class="checkbox-layout" *ngIf="!isSwitch && this.checkRequiredFields(this.checkId)" pRipple
-  pRippleCentered="true" [pRippleColor]="checkVal ? '' : this.rippleColor" [pRippleTriggerId]="checkId + 'ripple'"
+<label class="checkbox-layout" *ngIf="this.checkRequiredFields(this.pCheckboxId)" pRipple pRippleCentered="true"
+  [pRippleColor]="checkVal ? '' : this.rippleColor" [pRippleTriggerId]="pCheckboxId + 'ripple'"
   [pRippleDisabled]="!hasRipple">
-  <span class="checkbox-toggle" [style]="checkboxText ? 'margin-right: 8px;' : 'margin-right: 0px;'">
-    <input type="checkbox" id="{{checkId}}" (change)="checkValueFunc($event.srcElement.checked)">
-    <span class="checkbox-ripple" [id]="checkId + 'ripple'" *ngIf="hasRipple"></span>
+  <span class="checkbox-toggle" [style]="pCheckboxLabel ? 'margin-right: 8px;' : 'margin-right: 0px;'">
+    <input type="checkbox" id="{{pCheckboxId}}" (change)="checkValueFunc($event.srcElement.checked)">
+    <span class="checkbox-ripple" [id]="pCheckboxId + 'ripple'" *ngIf="hasRipple"></span>
     <span class="checkbox-frame"></span>
     <span class="checkbox-background"
-      [style]="checkboxColor ? 'background-color:' + checkboxColor + ';' : 'background-color: var(--primary);'">
+      [style]="pCheckboxColor ? 'background-color:' + pCheckboxColor + ';' : 'background-color: var(--primary);'">
       <svg version="1.1" focusable="false" viewBox="0 0 24 24" xml:space="preserve" class="checkbox-mark">
         <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3 " class="path"></path>
       </svg>
@@ -14,29 +14,6 @@
     </span>
   </span>
   <span class="checkbox-text">
-    {{checkboxText}}
-  </span>
-</label>
-
-<label class="checkbox-layout-switch" *ngIf="isSwitch && this.checkRequiredFields(this.checkId)" pRipple
-  pRippleCentered="true" [pRippleTriggerId]="checkId + 'ripple'"
-  [pRippleColor]="checkVal ? undefined : this.rippleColor">
-  <span class="checkbox-toggle-switch">
-    <span class="checkbox-text left">
-      <i class="material-icons left" *ngIf="switchIconLeft">{{switchIconLeft}}</i>
-      {{switchTextLeft}}
-    </span>
-    <div class="switch-container" id="switch-cont">
-      <input type="checkbox" id="{{checkId}}" (change)="checkValueFunc($event.srcElement.checked);">
-      <div class="switch-thumb-container">
-        <div class="switch-thumb" id="switch-thumb">
-          <div class="switch-ripple" [id]="checkId + 'ripple'" *ngIf="hasRipple"></div>
-        </div>
-      </div>
-    </div>
-    <span class="checkbox-text right">
-      <i class="material-icons right" *ngIf="switchIconRight">{{switchIconRight}}</i>
-      {{switchTextRight}}
-    </span>
+    {{pCheckboxLabel}}
   </span>
 </label>

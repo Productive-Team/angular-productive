@@ -89,3 +89,37 @@
     </p-dropdown>
   </ng-container>
 </p-section>
+<br>
+<h4>There's also an option to those that do not want the menu to close when a button inside it is clicked, and also an
+  option to open the menu by just hovering over the trigger element.</h4>
+<br>
+<p-section>
+  <ng-container section-content>
+    <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="noCloseClick"
+      [pDropdownCloseOnClick]="false">No Close On Click</button>
+    <p-dropdown pDropdownId="noCloseClick">
+      <li>
+        <button pRipple>Option 1</button>
+      </li>
+      <li>
+        <button pRipple>Option 2</button>
+      </li>
+      <li>
+        <button pRipple>Option 3</button>
+      </li>
+    </p-dropdown>
+    <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="openHover"
+      [pDropdownOpenHover]="true">Hover</button>
+    <p-dropdown pDropdownId="openHover">
+      <li>
+        <button pRipple>Option 1</button>
+      </li>
+      <li>
+        <button pRipple>Option 2</button>
+      </li>
+      <li>
+        <button pRipple>Option 3</button>
+      </li>
+    </p-dropdown>
+  </ng-container>
+</p-section>

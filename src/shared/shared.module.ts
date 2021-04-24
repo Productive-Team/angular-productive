@@ -1,3 +1,4 @@
+import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
 import { SectionComponent } from './components/section/section.component';
 import { RadioBtnComponent } from './components/radio-btn/radio-btn.component';
 import { TooltipsDirective } from './directives/tooltips/tooltips.directive';
@@ -53,6 +54,7 @@ import { FormsModule } from '@angular/forms';
     SelectComponent,
     RadioBtnComponent,
     SectionComponent,
+    SwitchToggleComponent,
   ],
   exports: [
     RippleDirective,
@@ -74,6 +76,7 @@ import { FormsModule } from '@angular/forms';
     SelectComponent,
     RadioBtnComponent,
     SectionComponent,
+    SwitchToggleComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

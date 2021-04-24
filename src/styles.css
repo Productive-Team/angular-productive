@@ -14,14 +14,17 @@
 
 html,
 body {
-  margin: 0;
-  height: 100vh;
+  margin: 0;  
   font-family: Roboto !important;
   font-size: 16px;
   color: #262626;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
   background-color: var(--appBackgroundColor);
+}
+
+body.vh-height {
+  height: 100vh !important;
 }
 
 h1,
@@ -536,21 +539,6 @@ a.btn-large {
 .navbar ul li {
   display: inline;
 }
-.navbar.medium .btn.fab,
-.navbar.medium .btn-small.fab {
-  top: 5px;
-}
-.navbar.small .btn.fab,
-.navbar.small .btn-small.fab,
-.navbar.small .btn-large.fab {
-  top: 0px;
-}
-.navbar.large .btn.fab,
-.navbar.large .btn-small.fab,
-.navbar.large .btn-large.fab {
-  top: 5px;
-}
-
 .navbar .btn,
 .navbar .btn-small,
 .navbar .btn-large {
@@ -1042,11 +1030,11 @@ textarea.p-input.classic {
   max-width: 100%;
   max-height: 250px;
   overflow: auto;
-  animation: dropAnimation 0.15s cubic-bezier(0, 0, 0.2, 1);
+  animation: dropAnimation 150ms cubic-bezier(0, 0, 0.2, 1);
   z-index: 1005;
   margin: 0;
   opacity: 0;
-  transition: opacity 0.15s ease-out;
+  transition: opacity 150ms ease-out;
   -webkit-tap-highlight-color: transparent;
 }
 

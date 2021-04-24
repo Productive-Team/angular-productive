@@ -11,11 +11,12 @@
     <div class="row">
       <div class="col m6 s12">
         <div class="fieldset">
-          <p-checkbox checkId="Check-center" checkboxText="Ripple Centered" (checkValue)="centerA($event)">
+          <p-checkbox pCheckboxId="Check-center" pCheckboxLabel="Ripple Centered" (checkValue)="centerA($event)">
           </p-checkbox>
-          <p-checkbox checkId="Check-unbound" checkboxText="Ripple Unbounded" (checkValue)="unboundA($event)">
+          <p-checkbox pCheckboxId="Check-unbound" pCheckboxLabel="Ripple Unbounded" (checkValue)="unboundA($event)">
           </p-checkbox>
-          <p-checkbox checkId="rip-dis" checkboxText="Ripple Disabled" (checkValue)="disableA($event)"></p-checkbox>
+          <p-checkbox pCheckboxId="rip-dis" pCheckboxLabel="Ripple Disabled" (checkValue)="disableA($event)">
+          </p-checkbox>
         </div>
       </div>
       <div class="col m3 s6">

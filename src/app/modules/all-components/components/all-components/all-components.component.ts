@@ -108,6 +108,10 @@ export class AllComponentsComponent implements OnInit {
     this.snackBtn = event;
   }
 
+  a(event): void {
+    console.log(event);
+  }
+
   openSnack(): void {
     if (!this.snackTxt) {
       this.snackTxt = 'Snackbar Text';
