@@ -1,3 +1,5 @@
+import { TabsComponent } from './components/tabs/tab/tabs.component';
+import { TabGroupComponent } from './components/tabs/tab-group/tab-group.component';
 import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
 import { SectionComponent } from './components/section/section.component';
 import { RadioBtnComponent } from './components/radio-btn/radio-btn.component';
@@ -55,6 +57,8 @@ import { FormsModule } from '@angular/forms';
     RadioBtnComponent,
     SectionComponent,
     SwitchToggleComponent,
+    TabGroupComponent,
+    TabsComponent,
   ],
   exports: [
     RippleDirective,
@@ -77,6 +81,8 @@ import { FormsModule } from '@angular/forms';
     RadioBtnComponent,
     SectionComponent,
     SwitchToggleComponent,
+    TabGroupComponent,
+    TabsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
