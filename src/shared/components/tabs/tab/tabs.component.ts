@@ -38,9 +38,12 @@ export class TabsComponent implements OnInit {
 
   private moveInkBar(): void {
     const ink = this.el.nativeElement.parentElement.lastChild as HTMLDivElement;
-    console.log(ink);
     const rect = document.querySelector('.tab.active').getBoundingClientRect();
+    const parent = document
+      .querySelector('.tab.active')
+      .parentElement.parentElement.getBoundingClientRect();
+    console.log(rect.left - parent.left);
     ink.style.width = rect.width + 'px';
-    ink.style.left = rect.left - 291 + 'px';
+    ink.style.left = rect.left - parent.left + 'px';
   }
 }
