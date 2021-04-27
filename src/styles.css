@@ -109,10 +109,13 @@ h6 {
   width: 100%;
   padding: 15px 30px;
 }
+.sidenav-container .container {
+  width: calc(100% - 250px);
+}
 @media screen and (max-width: 1000px) {
-  .container-sidenav {
-    margin: 0;
-  }
+  .sidenav-container .container {
+  width: calc(100%);
+}
 }
 @media screen and (max-width: 600px) {
   .container,
@@ -1282,3 +1285,42 @@ textarea.p-input.classic {
   border-top: 0.8px solid rgba(0, 0, 0, 0.1);
 }
 /* #endregion Card */
+
+/* #region Tabs */
+.tab-group-container {
+  display: flex;
+  flex-direction: column;
+}
+.tab-group-header {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+.tab-header-container {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  z-index: 1;
+}
+.tab-list {
+  flex-grow: 1;
+  position: relative;
+  transition: transform 300ms ease-in-out;
+}
+.all-tabs {
+  display: flex;
+}
+.tab-content {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+.tab-ink-bar {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  border-bottom: 2px solid var(--primary);
+  transition: 400ms ease-in-out;
+}
+/*#endregion Tabs */

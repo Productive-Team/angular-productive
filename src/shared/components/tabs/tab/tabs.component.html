@@ -1,6 +1,8 @@
-<div class="tab" pRipple>
+<div class="tab" pRipple (click)="addActive()">
   <span>
     {{pTabLabel}}
   </span>
 </div>
-<ng-content></ng-content>
+<div class="tab-body">
+  <ng-content></ng-content>
+</div>

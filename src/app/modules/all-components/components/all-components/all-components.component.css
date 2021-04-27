@@ -1,3 +1,10 @@
-#testTrigger {
-  cursor: default;
+.cont-extra {
+  box-sizing: border-box;
+  width: calc(100% - 250px);
+}
+
+@media only screen and (max-width: 1000px) {
+  .cont-extra {
+    width: 100%;
+  }
 }

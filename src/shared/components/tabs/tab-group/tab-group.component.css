@@ -1,9 +1,4 @@
-.tab-group {
-  display: inline-block;
-  white-space: nowrap;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 0 5px;
-  margin: 5px 0;
-  overflow: auto;
+.tab-btn-left {
+  position: relative;
+  left: 0;
 }

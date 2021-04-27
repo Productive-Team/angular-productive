@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tab-group, p-tab-group',
@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tab-group.component.css'],
 })
 export class TabGroupComponent implements OnInit {
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.el.nativeElement.classList.add('tab-group-container');
+  }
 }
