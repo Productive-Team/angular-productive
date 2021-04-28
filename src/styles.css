@@ -1316,6 +1316,9 @@ textarea.p-input.classic {
   position: relative;
   overflow: hidden;
 }
+.tab.active {
+  background-color: var(--primaryLowOpacity);
+}
 .tab-ink-bar {
   position: absolute;
   display: block;

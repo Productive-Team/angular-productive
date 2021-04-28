@@ -75,7 +75,19 @@
     <div class="container" style="width: 100%;">
       <p-tab-group>
         <p-tab pTabLabel="Label">Content</p-tab>
-        <p-tab pTabLabel="Labelasdadasdasdasd"></p-tab>
+        <p-tab pTabLabel="Labelasdadasdasdasd">
+          <div>
+            <h4>HELLO WORLD</h4>
+          </div>
+        </p-tab>
+        <p-tab pTabLabel="Label">
+          Another Content
+        </p-tab>
+        <p-tab pTabLabel="Label" [pTabActive]="true">
+          <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)">
+            Action
+          </button>
+        </p-tab>
         <p-tab pTabLabel="Label"></p-tab>
         <p-tab pTabLabel="Label"></p-tab>
         <p-tab pTabLabel="Label"></p-tab>
@@ -93,9 +105,9 @@
         <p-tab pTabLabel="Label"></p-tab>
         <p-tab pTabLabel="Label"></p-tab>
         <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
+        <p-tab pTabLabel="Label">
+          Content2
+        </p-tab>
         <p-tab pTabLabel="Label"></p-tab>
         <p-tab pTabLabel="Label"></p-tab>
         <p-tab pTabLabel="Label"></p-tab>
@@ -126,6 +138,9 @@
         <p-tab pTabLabel="Label"></p-tab>
         <p-tab pTabLabel="Label"></p-tab>
       </p-tab-group>
+      <!-- <p-tab-group>
+        <p-tab pTabLabel="AA">AAA</p-tab>
+      </p-tab-group> -->
       <!-- <h2>Inputs</h2>
       <hr>
       <div class="row">

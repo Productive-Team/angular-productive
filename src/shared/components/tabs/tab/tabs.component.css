@@ -24,3 +24,7 @@
 .tab.active span{
   color: var(--primary);
 }
+
+.tab-body {
+  display: none;
+}

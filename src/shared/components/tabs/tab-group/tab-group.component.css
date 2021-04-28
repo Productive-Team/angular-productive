@@ -2,3 +2,26 @@
   position: relative;
   left: 0;
 }
+
+.tab-group-header button{
+  display: flex;
+  width: 50px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.tab-group-header button i {
+  user-select: none;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.tab-group-header button.disabled {
+  opacity: .5;
+  pointer-events: none;
+}
