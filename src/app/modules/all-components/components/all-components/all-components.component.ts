@@ -60,6 +60,7 @@ export class AllComponentsComponent implements OnInit {
 
   selectedRadioVal = '';
   radioBoolVal: boolean;
+
   constructor(private snackbar: SnackbarService) {}
 
   ngOnInit() {}

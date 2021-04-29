@@ -65,64 +65,15 @@
     </ng-container>
   </p-sidenav>
   <div class="cont-extra">
-    <div class="bg-primary display-on-medium-and-bellow"
+    <div class="bg-primary"
       style="height: 50px; line-height: 50px; padding: 0 15px; box-sizing:border-box; width: 100%;">
-      <button class="left btn flat floating" pRipple pRippleCentered="true" pRippleColor="#ffffff26"
-        style="color: white; top: 2px;" pSidenavTrigger pSidenavIdForTrigger="side-ex">
+      <button class="left btn flat floating display-on-medium-and-bellow" pRipple pRippleCentered="true"
+        pRippleColor="#ffffff26" style="color: white; top: 2px;" pSidenavTrigger pSidenavIdForTrigger="side-ex">
         <i class="material-icons">menu</i>
       </button>
+      <h5>Components</h5>
     </div>
     <div class="container" style="width: 100%;">
-      <p-tab-group>
-        <p-tab pTabLabel="Label">Content</p-tab>
-        <p-tab pTabLabel="Overflowing Large Label This is too long to fit"
-          title="Overflowing Large Label This is too long to fit">
-          <div>
-            <h4>HELLO WORLD</h4>
-          </div>
-        </p-tab>
-        <p-tab pTabLabel="Label">
-          Another Content
-        </p-tab>
-        <p-tab pTabLabel="Label">
-          <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)">
-            Action
-          </button>
-        </p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label">Last</p-tab>
-      </p-tab-group>
-      <p-tab-group>
-        <p-tab pTabLabel="Content2">
-          Hello
-        </p-tab>
-        <p-tab pTabLabel="Content3">
-          Hello2
-        </p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label"></p-tab>
-        <p-tab pTabLabel="Label">Lat2</p-tab>
-      </p-tab-group>
-      <!-- <p-tab-group>
-        <p-tab pTabLabel="AA">AAA</p-tab>
-      </p-tab-group> -->
       <!-- <h2>Inputs</h2>
       <hr>
       <div class="row">
@@ -771,130 +722,6 @@
       <div>
         <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" (click)="openSnack()">Launch
           Snackbar</button>
-      </div>
-      <br>
-      <h2>Dropdown Menu</h2>
-      <hr>
-      <div>
-        <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
-          pDropdownTriggerId="DropId">Open Menu</button>
-        <p-dropdown pDropdownId="DropId">
-          <li>
-            <button pRipple>
-              <i class="material-icons left">drag_indicator</i>
-              Menu Button 1
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              <i class="material-icons left">add</i>
-              Menu Button 2
-            </button>
-          </li>
-        </p-dropdown>
-      </div>
-      <div>
-        <button class="btn primary flat floating" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
-          pDropdownTriggerId="DropId2">
-          <i class="material-icons">more_vert</i>
-        </button>
-        <p-dropdown pDropdownId="DropId2">
-          <li>
-            <button class="divider" pRipple>
-              <i class="material-icons left">call</i>
-              Menu Button with Divider
-            </button>
-          </li>
-          <li>
-            <button pRipple disabled>
-              <i class="material-icons left">info</i>
-              Disabled Menu Button
-            </button>
-          </li>
-        </p-dropdown>
-      </div>
-      <div>
-        <button class="btn primary flat" pRipple pRippleColor="var(--primaryLowOpacity)" pDropdownTrigger
-          pDropdownTriggerId="DropId3">
-          Scrolling Menu
-        </button>
-        <p-dropdown pDropdownId="DropId3">
-          <li>
-            <button pRipple>
-              Menu Button 1
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 2
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 3
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 4
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 5
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 6
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 7
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 8
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 9
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 10
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 11
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 12
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 13
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 14
-            </button>
-          </li>
-          <li>
-            <button pRipple>
-              Menu Button 15
-            </button>
-          </li>
-        </p-dropdown>
       </div>
       <br>
       <h2>Badges</h2>

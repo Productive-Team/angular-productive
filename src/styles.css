@@ -270,43 +270,43 @@ h6 {
 
 @media only screen and (min-width: 1000px) {
   .display-on-medium-and-bellow {
-    display: none;
+    display: none !important;
   }
   .display-on-medium-only {
-    display: none;
+    display: none !important;
   }
   .display-on-small-only {
     display: none !important;
   }
   .display-on-large-only {
-    display: block;
+    display: block !important;
   }
   .display-on-medium-and-above {
-    display: block;
+    display: inline-block !important;
   }
 }
 
 @media only screen and (max-width: 1000px) {
   .display-on-medium-and-bellow {
-    display: block;
+    display: block !important;
   }
   .display-on-medium-and-above {
-    display: block;
+    display: inline-block !important;
   }
   .display-on-medium-only {
-    display: block;
+    display: block !important;
   }
   .display-on-small-only {
     display: none !important;
   }
   .display-on-large-only {
-    display: none;
+    display: none !important;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .display-on-medium-only {
-    display: none;
+    display: none !important;
   }
   .display-on-medium-and-above {
     display: none !important;
@@ -315,7 +315,7 @@ h6 {
     display: block !important;
   }
   .display-on-large-only {
-    display: none;
+    display: none !important;
   }
 }
 /* #endregion DisplayHelpers */
@@ -390,12 +390,8 @@ h6 {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  box-sizing: border-box;
 }
-/* .btn:active,
-.btn-small:active,
-.btn-large:active {
-  filter: brightness(110%);
-} */
 .btn:disabled,
 .btn-small:disabled,
 .btn-large:disabled {
@@ -575,7 +571,7 @@ a.btn-large {
   vertical-align: middle;
   text-decoration: none;
   -webkit-user-drag: none;
-  margin: 0 2px;
+  margin: 0;
 }
 /* #endregion NavbarStyles */
 
@@ -1342,10 +1338,19 @@ textarea.p-input.classic {
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
+  color: #262626;
 }
-
-.tab.active span{
+.tab i {
+  color: #262626;
+}
+.tab.disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+.tab.active span,
+.tab.active i{
   color: var(--primary);
+  opacity: 1;
 }
 
 .tab-body {

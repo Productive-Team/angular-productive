@@ -3,6 +3,19 @@ a {
   color: #262626;
 }
 
-a:hover {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+.card-btn {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+  cursor: pointer;
+  margin: 10px 0;
+
+}
+
+.card-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }

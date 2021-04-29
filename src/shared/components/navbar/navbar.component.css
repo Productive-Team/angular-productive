@@ -2,10 +2,11 @@
   position: relative;
   background-color: rgb(240, 240, 240);
   color: black;
-  padding: 0 0.5rem;
+  padding: 0 10px;
   outline: none;
   border: none;
   z-index: 998;
+  box-sizing: border-box;
 }
 .navbar .wrapper {
   position: relative;
@@ -35,8 +36,3 @@
   }
 }
 
-@media screen and (max-width: 600px) {
-  .navbar {
-    padding: 0 0.05rem;
-  }
-}

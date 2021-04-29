@@ -15,6 +15,8 @@ const tabs = [];
 })
 export class TabsComponent implements OnInit {
   @Input() pTabLabel: string;
+  @Input() pTabIcon: string;
+  @Input() pTabDisabled: boolean;
 
   activeIndex: number;
 
@@ -22,6 +24,9 @@ export class TabsComponent implements OnInit {
 
   ngOnInit() {
     this.activeIndex = this.tabsService.tabIndex;
+    if (this.pTabDisabled) {
+      this.el.nativeElement.firstChild.classList.add('disabled');
+    }
     this.insertContentAndTabs();
     this.setDeafultActive();
   }
@@ -38,23 +43,33 @@ export class TabsComponent implements OnInit {
   }
 
   private setDeafultActive(): void {
+    // TODO: Fix disabled tab beign accessed automatically;
     const allTabs = (this.el.nativeElement
       .parentElement as HTMLDivElement).getElementsByClassName('tab');
     let activeEl;
+    let nb = 0;
     if (!this.activeIndex) {
-      activeEl = allTabs[0];
+      activeEl = allTabs[nb];
+      if (activeEl.classList.contains('disabled')) {
+        nb += 1;
+        activeEl = allTabs[nb];
+      }
       activeEl.classList.add('active');
     } else {
       activeEl = allTabs[this.activeIndex];
       if (activeEl) {
         activeEl.classList.add('active');
-        const a =
+        const container =
           activeEl.parentElement.parentElement.parentElement.parentElement;
-        if (activeEl.offsetLeft > a.offsetWidth) {
-          this.scrollIntoViewLeft(a, activeEl.firstChild);
+        if (activeEl.offsetLeft > container.offsetWidth) {
+          this.scrollIntoViewLeft(container, activeEl.firstChild);
         }
       } else {
-        activeEl = allTabs[0];
+        activeEl = allTabs[nb];
+        if (activeEl.classList.contains('disabled')) {
+          nb += 1;
+          activeEl = allTabs[nb];
+        }
         activeEl.classList.add('active');
       }
     }
