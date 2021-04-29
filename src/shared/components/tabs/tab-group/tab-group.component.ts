@@ -1,3 +1,4 @@
+import { TabsService } from './../../../services/tabs.service';
 import { TabsComponent } from './../tab/tabs.component';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
@@ -9,9 +10,10 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 export class TabGroupComponent implements OnInit {
   @Input() pTabSelectedIndex: number;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private tabsService: TabsService) {}
 
   ngOnInit() {
+    this.tabsService.setTabIndex(this.pTabSelectedIndex);
     this.el.nativeElement.classList.add('tab-group-container');
     this.setButtons();
   }
@@ -21,10 +23,9 @@ export class TabGroupComponent implements OnInit {
       .nextSibling as HTMLDivElement;
     const contTab = this.el.nativeElement.firstChild.firstChild.nextSibling
       .firstChild as HTMLDivElement;
-    const backBtn = document.getElementById('goBack');
-    const forwardBtn = document.getElementById('goForward');
-    console.log(cont);
-    console.log(contTab.offsetWidth);
+    const backBtn = this.el.nativeElement.firstChild
+      .firstChild as HTMLDivElement;
+    const forwardBtn = this.el.nativeElement.firstChild.lastChild;
     if (cont.offsetWidth < contTab.offsetWidth) {
       if (cont.scrollLeft === 0) {
         backBtn.classList.add('disabled');
@@ -46,8 +47,10 @@ export class TabGroupComponent implements OnInit {
     const el = this.el.nativeElement.firstChild.firstChild
       .nextSibling as HTMLDivElement;
     const button = event.target;
-    const buttonBack = document.getElementById('goBack');
-    const buttonForward = document.getElementById('goForward');
+    const buttonBack = this.el.nativeElement.firstChild
+      .firstChild as HTMLDivElement;
+    console.log(buttonBack);
+    const buttonForward = this.el.nativeElement.firstChild.lastChild;
     if (button.id === 'goForward') {
       el.scrollLeft += 200;
     } else if (button.id === 'goBack') {

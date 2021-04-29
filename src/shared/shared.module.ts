@@ -1,3 +1,4 @@
+import { TabsService } from './services/tabs.service';
 import { TabsComponent } from './components/tabs/tab/tabs.component';
 import { TabGroupComponent } from './components/tabs/tab-group/tab-group.component';
 import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
@@ -86,6 +87,6 @@ import { FormsModule } from '@angular/forms';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
-  providers: [ModalComponent, SidenavComponent, DropdownComponent],
+  providers: [ModalComponent, SidenavComponent, DropdownComponent, TabsService],
 })
 export class SharedModule {}

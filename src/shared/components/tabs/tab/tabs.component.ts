@@ -1,3 +1,4 @@
+import { TabsService } from './../../../services/tabs.service';
 import {
   Component,
   Input,
@@ -14,13 +15,13 @@ const tabs = [];
 })
 export class TabsComponent implements OnInit {
   @Input() pTabLabel: string;
-  // @Input() pTabActive: boolean;
 
   activeIndex: number;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private tabsService: TabsService) {}
 
   ngOnInit() {
+    this.activeIndex = this.tabsService.tabIndex;
     this.insertContentAndTabs();
     this.setDeafultActive();
   }
@@ -47,6 +48,11 @@ export class TabsComponent implements OnInit {
       activeEl = allTabs[this.activeIndex];
       if (activeEl) {
         activeEl.classList.add('active');
+        const a =
+          activeEl.parentElement.parentElement.parentElement.parentElement;
+        if (activeEl.offsetLeft > a.offsetWidth) {
+          this.scrollIntoViewLeft(a, activeEl.firstChild);
+        }
       } else {
         activeEl = allTabs[0];
         activeEl.classList.add('active');
@@ -91,11 +97,6 @@ export class TabsComponent implements OnInit {
     const containerIni = this.el.nativeElement.parentElement.parentElement
       .parentElement as HTMLDivElement;
     const tabRect = tab.getBoundingClientRect();
-    // console.log(tabRect.right + tabRect.width);
-    console.log(
-      tabRect.right + tabRect.left + tabRect.width - containerIni.offsetWidth
-    );
-    console.log(containerIni.offsetWidth);
     if (
       tabRect.left + tabRect.width - containerIni.offsetWidth > 0 &&
       window.innerWidth > 300
@@ -117,8 +118,13 @@ export class TabsComponent implements OnInit {
     ink.style.left = rect.left - parent.left + 'px';
   }
 
-  private scrollIntoViewLeft(containerEl: Element): void {
-    containerEl.scrollLeft += 150;
+  private scrollIntoViewLeft(containerEl: Element, tab?): void {
+    if (tab) {
+      const tabRect = tab.getBoundingClientRect();
+      containerEl.scrollLeft += tabRect.left;
+    } else {
+      containerEl.scrollLeft += 150;
+    }
     setTimeout(() => {
       this.setButtons(containerEl);
     }, 250);
@@ -151,7 +157,5 @@ export class TabsComponent implements OnInit {
     ) {
       goForward.classList.remove('disabled');
     }
-    console.log(containerElement.offsetWidth - containerElement.scrollWidth);
-    console.log(containerElement.scrollLeft);
   }
 }
