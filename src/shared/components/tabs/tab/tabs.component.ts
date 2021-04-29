@@ -14,99 +14,144 @@ const tabs = [];
 })
 export class TabsComponent implements OnInit {
   @Input() pTabLabel: string;
-  @Input() pTabActive: boolean;
+  // @Input() pTabActive: boolean;
 
-  tabIndex: number;
-
-  offsetLeft: number;
+  activeIndex: number;
 
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
+    this.insertContentAndTabs();
+    this.setDeafultActive();
+  }
+
+  private insertContentAndTabs(): void {
     const content = this.el.nativeElement.firstChild.nextSibling;
     const insertTabContent = this.el.nativeElement.parentElement.parentElement
       .parentElement.parentElement.nextSibling as HTMLDivElement;
     insertTabContent.insertAdjacentElement('beforeend', content);
-    const el = this.el.nativeElement.parentElement.childNodes;
     const tab = this.el.nativeElement.firstChild;
     tabs.push(tab);
-    let i;
-    if (this.pTabActive) {
-      i = tabs.indexOf(this.el.nativeElement.firstChild);
-      this.el.nativeElement.classList.add('tab-active');
-      el[i].firstChild.classList.add('active');
-    } else {
-      el[0].firstChild.classList.add('active');
-    }
     content.id = 'tab-body-' + tabs.length;
     tab.id = 'tab-header-' + tabs.length;
-    const tabac = document.querySelectorAll('.tab.active');
-    if (tabac.length > 1) {
-      tabac[0].classList.remove('active');
+  }
+
+  private setDeafultActive(): void {
+    const allTabs = (this.el.nativeElement
+      .parentElement as HTMLDivElement).getElementsByClassName('tab');
+    let activeEl;
+    if (!this.activeIndex) {
+      activeEl = allTabs[0];
+      activeEl.classList.add('active');
+    } else {
+      activeEl = allTabs[this.activeIndex];
+      if (activeEl) {
+        activeEl.classList.add('active');
+      } else {
+        activeEl = allTabs[0];
+        activeEl.classList.add('active');
+      }
     }
     setTimeout(() => {
-      let elid;
-      elid = this.el.nativeElement.parentElement.getElementsByClassName(
-        'tab-active'
-      );
-      elid = elid[0].firstChild.id.substr(11);
-      console.log(elid);
-      const contentel = document.getElementById('tab-body-' + elid);
-      contentel.style.display = 'block';
-      this.moveInkBar();
+      this.showContent(activeEl);
+      this.moveInkBar(activeEl);
     }, 0);
-
-    this.offsetLeft = 250;
   }
 
-  addActive(): void {
-    const tab = this.el.nativeElement.firstChild as HTMLDivElement;
-    const ac = document.querySelector('.tab.active');
-    if (ac) {
+  private hideContent(element: Element): void {
+    const elId = element.id.substr(11);
+    const elContent = document.getElementById('tab-body-' + elId);
+    if (elContent) {
+      elContent.style.display = 'none';
+    }
+  }
+
+  private showContent(element: Element): void {
+    if (element.classList.contains('active')) {
+      const elId = element.id.substr(11);
+      const elContent = document.getElementById('tab-body-' + elId);
+      if (elContent) {
+        elContent.style.display = 'block';
+      }
+    }
+  }
+
+  addActive(event): void {
+    const tab = event.target as HTMLDivElement;
+    const ac = (this.el.nativeElement
+      .parentElement as HTMLDivElement).querySelector('.tab.active');
+    if (ac && ac !== tab) {
       ac.classList.remove('active');
-      const acId = ac.id.substr(11);
-      const acContent = document.getElementById('tab-body-' + acId);
-      acContent.style.display = 'none';
+      this.hideContent(ac);
     }
     tab.classList.add('active');
-    const id2 = tab.id.substr(11);
-    const content = document.getElementById('tab-body-' + id2);
-    content.style.display = 'block';
-    this.moveInkBar();
-    this.scrollIntoView();
+    this.showContent(tab);
+    this.moveInkBar(tab);
+
+    const containerIni = this.el.nativeElement.parentElement.parentElement
+      .parentElement as HTMLDivElement;
+    const tabRect = tab.getBoundingClientRect();
+    // console.log(tabRect.right + tabRect.width);
+    console.log(
+      tabRect.right + tabRect.left + tabRect.width - containerIni.offsetWidth
+    );
+    console.log(containerIni.offsetWidth);
+    if (
+      tabRect.left + tabRect.width - containerIni.offsetWidth > 0 &&
+      window.innerWidth > 300
+    ) {
+      this.scrollIntoViewLeft(containerIni);
+    } else if (
+      tabRect.right + tabRect.left + tabRect.width - containerIni.offsetWidth &&
+      window.innerWidth > 300
+    ) {
+      this.scrollIntoViewRight(containerIni);
+    }
   }
 
-  private moveInkBar(): void {
+  private moveInkBar(activeElement: Element): void {
     const ink = this.el.nativeElement.parentElement.lastChild as HTMLDivElement;
-    const rect = document.querySelector('.tab.active').getBoundingClientRect();
-    const parent = document
-      .querySelector('.tab.active')
-      .parentElement.parentElement.getBoundingClientRect();
+    const rect = activeElement.getBoundingClientRect();
+    const parent = this.el.nativeElement.parentElement.getBoundingClientRect();
     ink.style.width = rect.width + 'px';
     ink.style.left = rect.left - parent.left + 'px';
   }
 
-  private scrollIntoView(): void {
-    const tab = document.querySelector('.tab.active') as HTMLDivElement;
-    const tab2 = tab.getBoundingClientRect();
-    const container = tab.parentElement.parentElement.parentElement.parentElement.getBoundingClientRect();
-    const container2 = tab.parentElement.parentElement.parentElement;
-    const container3 = tab.parentElement.parentElement;
-    const total = tab2.left - container.left + tab2.width;
-    if (total > container.width) {
-      if (container2.style.transform === 'translateX(0)') {
-        container2.style.transform = `translateX(-${this.offsetLeft}px)`;
-      } else {
-        this.offsetLeft = this.offsetLeft + tab2.width;
-        container2.style.transform = `translateX(-${this.offsetLeft}px)`;
-      }
-    } else if (total <= 150) {
-      const tot = tab2.width + 150;
-      if (tot < 0) {
-        container2.style.transform = `translateX(-${tot}px)`;
-      } else if (tot > 0) {
-        container2.style.transform = `translateX(-${0}px)`;
-      }
+  private scrollIntoViewLeft(containerEl: Element): void {
+    containerEl.scrollLeft += 150;
+    setTimeout(() => {
+      this.setButtons(containerEl);
+    }, 250);
+  }
+  private scrollIntoViewRight(containerEl: Element): void {
+    containerEl.scrollLeft -= 150;
+    setTimeout(() => {
+      this.setButtons(containerEl);
+    }, 250);
+  }
+
+  private setButtons(containerElement): void {
+    const goBack = this.el.nativeElement.parentElement.parentElement
+      .parentElement.parentElement.firstChild;
+    const goForward = this.el.nativeElement.parentElement.parentElement
+      .parentElement.parentElement.lastChild;
+    if (containerElement.scrollLeft > 0) {
+      goBack.classList.remove('disabled');
+    } else if (containerElement.scrollLeft === 0) {
+      goBack.classList.add('disabled');
     }
+    if (
+      containerElement.scrollLeft ===
+      containerElement.scrollWidth - containerElement.offsetWidth
+    ) {
+      goForward.classList.add('disabled');
+    } else if (
+      containerElement.scrollLeft <
+      containerElement.scrollWidth - containerElement.offsetWidth
+    ) {
+      goForward.classList.remove('disabled');
+    }
+    console.log(containerElement.offsetWidth - containerElement.scrollWidth);
+    console.log(containerElement.scrollLeft);
   }
 }

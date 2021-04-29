@@ -1296,12 +1296,14 @@ textarea.p-input.classic {
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .tab-header-container {
   display: flex;
   flex-grow: 1;
   overflow: hidden;
   z-index: 1;
+  scroll-behavior: smooth;
 }
 .tab-list {
   flex-grow: 1;
@@ -1316,8 +1318,38 @@ textarea.p-input.classic {
   position: relative;
   overflow: hidden;
 }
-.tab.active {
-  background-color: var(--primaryLowOpacity);
+
+.tab {
+  position: relative;
+  height: 46px;
+  box-sizing: border-box;
+  padding: 0 25px;
+  line-height: 46px;
+  user-select: none;
+  min-width: 150px;
+  max-width: 250px;
+  padding: 0 25px;
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.tab.active span{
+  color: var(--primary);
+}
+
+.tab-body {
+  display: none;
 }
 .tab-ink-bar {
   position: absolute;

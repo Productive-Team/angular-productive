@@ -9,8 +9,6 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 export class TabGroupComponent implements OnInit {
   @Input() pTabSelectedIndex: number;
 
-  scrollXPos = 150;
-  b: number;
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
@@ -19,20 +17,53 @@ export class TabGroupComponent implements OnInit {
   }
 
   setButtons(): void {
-    const cont = this.el.nativeElement.firstChild.firstChild.nextSibling
+    const cont = this.el.nativeElement.firstChild.firstChild
+      .nextSibling as HTMLDivElement;
+    const contTab = this.el.nativeElement.firstChild.firstChild.nextSibling
       .firstChild as HTMLDivElement;
-    const tranformStyle = cont.style.transform;
-    const trueStyle = Number(tranformStyle.replace(/[^\d.]/g, ''));
-    const buttonBack = document.getElementById('goBack');
-    if (trueStyle === 0) {
-      buttonBack.classList.add('disabled');
-    } else if (trueStyle < 0) {
-      buttonBack.classList.remove('disabled');
+    const backBtn = document.getElementById('goBack');
+    const forwardBtn = document.getElementById('goForward');
+    console.log(cont);
+    console.log(contTab.offsetWidth);
+    if (cont.offsetWidth < contTab.offsetWidth) {
+      if (cont.scrollLeft === 0) {
+        backBtn.classList.add('disabled');
+      } else if (cont.scrollLeft > 0) {
+        backBtn.classList.remove('disabled');
+      }
+      if (cont.scrollLeft === cont.scrollWidth - cont.offsetWidth) {
+        forwardBtn.classList.add('disabled');
+      } else {
+        forwardBtn.classList.remove('disabled');
+      }
+    } else {
+      backBtn.style.display = 'none';
+      forwardBtn.style.display = 'none';
     }
   }
 
-  scrollToRight(event): void {
-    const el = event.target.previousElementSibling.firstChild;
-    console.log(el);
+  scroll(event): void {
+    const el = this.el.nativeElement.firstChild.firstChild
+      .nextSibling as HTMLDivElement;
+    const button = event.target;
+    const buttonBack = document.getElementById('goBack');
+    const buttonForward = document.getElementById('goForward');
+    if (button.id === 'goForward') {
+      el.scrollLeft += 200;
+    } else if (button.id === 'goBack') {
+      el.scrollLeft -= 200;
+    }
+    setTimeout(() => {
+      if (el.scrollLeft === 0) {
+        buttonBack.classList.add('disabled');
+      } else if (el.scrollLeft > 0) {
+        buttonBack.classList.remove('disabled');
+      }
+      if (el.scrollLeft === el.scrollWidth - el.offsetWidth) {
+        buttonForward.classList.add('disabled');
+      } else {
+        buttonForward.classList.remove('disabled');
+      }
+    }, 300);
   }
 }
