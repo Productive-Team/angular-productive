@@ -5,6 +5,7 @@ import {
   OnInit,
   ElementRef,
   HostListener,
+  AfterViewInit,
 } from '@angular/core';
 
 const tabs = [];
@@ -13,7 +14,7 @@ const tabs = [];
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.css'],
 })
-export class TabsComponent implements OnInit {
+export class TabsComponent implements OnInit, AfterViewInit {
   @Input() pTabLabel: string;
   @Input() pTabIcon: string;
   @Input() pTabDisabled: boolean;
@@ -28,6 +29,9 @@ export class TabsComponent implements OnInit {
       this.el.nativeElement.firstChild.classList.add('disabled');
     }
     this.insertContentAndTabs();
+  }
+
+  ngAfterViewInit(): void {
     this.setDeafultActive();
   }
 
@@ -43,39 +47,42 @@ export class TabsComponent implements OnInit {
   }
 
   private setDeafultActive(): void {
-    // TODO: Fix disabled tab beign accessed automatically;
     const allTabs = (this.el.nativeElement
       .parentElement as HTMLDivElement).getElementsByClassName('tab');
-    let activeEl;
-    let nb = 0;
+    let el;
     if (!this.activeIndex) {
-      activeEl = allTabs[nb];
-      if (activeEl.classList.contains('disabled')) {
-        nb += 1;
-        activeEl = allTabs[nb];
+      let i = 0;
+      for (; i < allTabs.length; i++) {
+        el = allTabs[i];
+        if (!el.classList.contains('disabled')) {
+          el.classList.add('active');
+          break;
+        }
       }
-      activeEl.classList.add('active');
     } else {
-      activeEl = allTabs[this.activeIndex];
-      if (activeEl) {
-        activeEl.classList.add('active');
-        const container =
-          activeEl.parentElement.parentElement.parentElement.parentElement;
-        if (activeEl.offsetLeft > container.offsetWidth) {
-          this.scrollIntoViewLeft(container, activeEl.firstChild);
+      el = allTabs[this.activeIndex];
+      if (!el || el.classList.contains('disabled')) {
+        let i = 0;
+        for (; i < allTabs.length; i++) {
+          el = allTabs[i];
+          if (!el.classList.contains('disabled')) {
+            el.classList.add('active');
+            break;
+          }
         }
       } else {
-        activeEl = allTabs[nb];
-        if (activeEl.classList.contains('disabled')) {
-          nb += 1;
-          activeEl = allTabs[nb];
+        el.classList.add('active');
+        const container =
+          el.parentElement.parentElement.parentElement.parentElement;
+        const elDiv = el as HTMLDivElement;
+        if (elDiv.offsetLeft > container.offsetWidth) {
+          this.scrollIntoViewLeft(container, el.firstChild);
         }
-        activeEl.classList.add('active');
       }
     }
     setTimeout(() => {
-      this.showContent(activeEl);
-      this.moveInkBar(activeEl);
+      this.moveInkBar(el);
+      this.showContent(el);
     }, 0);
   }
 
@@ -127,10 +134,15 @@ export class TabsComponent implements OnInit {
 
   private moveInkBar(activeElement: Element): void {
     const ink = this.el.nativeElement.parentElement.lastChild as HTMLDivElement;
+    console.log(activeElement);
     const rect = activeElement.getBoundingClientRect();
     const parent = this.el.nativeElement.parentElement.getBoundingClientRect();
-    ink.style.width = rect.width + 'px';
-    ink.style.left = rect.left - parent.left + 'px';
+    if (!activeElement.classList.contains('disabled')) {
+      ink.style.width = rect.width + 'px';
+      ink.style.left = rect.left - parent.left + 'px';
+    } else {
+      ink.style.width = '0';
+    }
   }
 
   private scrollIntoViewLeft(containerEl: Element, tab?): void {

@@ -1286,6 +1286,8 @@ textarea.p-input.classic {
 .tab-group-container {
   display: flex;
   flex-direction: column;
+  -webkit-user-drag: none;
+  -moz-window-dragging: none;
 }
 .tab-group-header {
   display: flex;
