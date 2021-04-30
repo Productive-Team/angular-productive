@@ -134,7 +134,6 @@ export class TabsComponent implements OnInit, AfterViewInit {
 
   private moveInkBar(activeElement: Element): void {
     const ink = this.el.nativeElement.parentElement.lastChild as HTMLDivElement;
-    console.log(activeElement);
     const rect = activeElement.getBoundingClientRect();
     const parent = this.el.nativeElement.parentElement.getBoundingClientRect();
     if (!activeElement.classList.contains('disabled')) {

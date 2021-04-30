@@ -1312,7 +1312,7 @@ textarea.p-input.classic {
   display: flex;
 }
 .tab-content {
-  display: flex;
+  display: contents;
   position: relative;
   overflow: hidden;
 }
