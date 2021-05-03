@@ -1,0 +1,15 @@
+svg .p-spinner-path {
+  transition: .25s ease-in-out;
+}
+
+svg .p-spinner-path.animated {
+  animation: indetSpinner .5s loop;
+}
+
+@keyframes indetSpinner {
+  from {
+    stroke-dasharray: 25, 100;
+  } to {
+    stroke-dasharray: 75, 100;
+  }
+}

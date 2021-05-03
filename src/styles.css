@@ -1366,3 +1366,28 @@ textarea.p-input.classic {
   transition: 400ms ease-in-out;
 }
 /*#endregion Tabs */
+
+/* #region ProgressIndicators */
+.p-spinner {
+  display: flex;
+  width: 150px;
+  height: 150px;
+}
+.p-progress-bar {
+  position: relative;
+  height: 16px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  width: 100%;
+}
+.p-progress-bar .background-progress {
+  background-color: var(--primaryLowOpacity);
+  width: 100%;
+}
+/* #endregion ProgressIndicators */
+
+/* #region Slider */
+.p-input-range {
+  height: 10px;
+}
+/* #endregion Slider */

@@ -1,3 +1,5 @@
+import { SliderComponent } from './components/slider/slider.component';
+import { ProgressIndicatorsComponent } from './components/progress-indicators/progress-indicators.component';
 import { TabsService } from './services/tabs.service';
 import { TabsComponent } from './components/tabs/tab/tabs.component';
 import { TabGroupComponent } from './components/tabs/tab-group/tab-group.component';
@@ -60,6 +62,8 @@ import { FormsModule } from '@angular/forms';
     SwitchToggleComponent,
     TabGroupComponent,
     TabsComponent,
+    ProgressIndicatorsComponent,
+    SliderComponent,
   ],
   exports: [
     RippleDirective,
@@ -84,6 +88,8 @@ import { FormsModule } from '@angular/forms';
     SwitchToggleComponent,
     TabGroupComponent,
     TabsComponent,
+    ProgressIndicatorsComponent,
+    SliderComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
