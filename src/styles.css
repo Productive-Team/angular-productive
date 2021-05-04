@@ -1374,15 +1374,26 @@ textarea.p-input.classic {
   height: 150px;
 }
 .p-progress-bar {
+  display: inline-block;
   position: relative;
-  height: 16px;
-  padding: 0 5px;
+  height: 8px;
   box-sizing: border-box;
+  overflow: hidden;
   width: 100%;
 }
 .p-progress-bar .background-progress {
   background-color: var(--primaryLowOpacity);
   width: 100%;
+  height: 8px;
+  border-radius: 1px;
+}
+.p-progress-bar .actual-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 8px;
+  border-radius: 1px;
+  transition: .2s linear;
 }
 /* #endregion ProgressIndicators */
 

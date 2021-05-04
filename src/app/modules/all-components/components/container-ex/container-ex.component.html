@@ -1,4 +1,5 @@
 <h4>Container</h4>
 <hr>
-<input type="range" class="p-input-range" [(ngModel)]="numb" max="90">
-<p-progress-indicators [pProgressSize]="numb" [pProgressColor]="'rgba(255,150,154, 1)'"></p-progress-indicators>
+<input type="range" class="p-input-range" [(ngModel)]="numb" min="0">
+<p-progress-indicators [pProgressType]="'bar'" [pProgressSize]="numb">
+</p-progress-indicators>

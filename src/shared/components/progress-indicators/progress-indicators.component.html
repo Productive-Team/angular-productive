@@ -7,6 +7,6 @@
   </svg>
 </div>
 <div class="p-progress-bar" *ngIf="pProgressType === 'bar'">
-  <div class="actual-progress"></div>
+  <div class="actual-progress" [style]="'width:' + pProgressSize + '%; background-color:' + pProgressColor + ';'"></div>
   <div class="background-progress"></div>
 </div>

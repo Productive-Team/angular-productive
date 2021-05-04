@@ -3,13 +3,27 @@ svg .p-spinner-path {
 }
 
 svg .p-spinner-path.animated {
-  animation: indetSpinner .5s loop;
+  animation: indetSpinner 4s infinite linear;
+}
+
+.p-spinner.rotate {
+  animation: rotationParent 1s infinite linear;
 }
 
 @keyframes indetSpinner {
-  from {
-    stroke-dasharray: 25, 100;
-  } to {
-    stroke-dasharray: 75, 100;
+  0% {
+    stroke-dasharray: 80px 100px;
+  }
+  50% {
+    stroke-dasharray: 10px 100px;
+  }
+  100% {
+    stroke-dasharray: 80px 100px;
+  }
+}
+
+@keyframes rotationParent {
+  100% {
+    transform: rotate(360deg);
   }
 }
