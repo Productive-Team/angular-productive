@@ -2,7 +2,14 @@ import { SelectModel } from '../../../../../shared/components/select/select.comp
 import { ModalComponent } from '../../../../../shared/components/modal/modal.component';
 import { SnackbarService } from '../../../../../shared/services/snackbar.service';
 import { Component, OnInit } from '@angular/core';
+import {
+  ActivatedRoute,
+  ActivationEnd,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 
+const a = true;
 @Component({
   selector: 'app-all-components',
   templateUrl: './all-components.component.html',
@@ -61,7 +68,21 @@ export class AllComponentsComponent implements OnInit {
   selectedRadioVal = '';
   radioBoolVal: boolean;
 
-  constructor(private snackbar: SnackbarService) {}
+  sectionName: string;
+
+  constructor(private snackbar: SnackbarService, private router: Router) {
+    // tslint:disable-next-line: deprecation
+    this.router.events.subscribe((x) => {
+      if (x instanceof ActivationEnd) {
+        const route = this.router.url.split('/');
+        if (route[2] === undefined) {
+          this.sectionName = 'Components';
+        } else {
+          this.sectionName = route[2];
+        }
+      }
+    });
+  }
 
   ngOnInit() {}
 

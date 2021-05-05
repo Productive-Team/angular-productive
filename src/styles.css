@@ -1362,7 +1362,9 @@ textarea.p-input.classic {
   position: absolute;
   display: block;
   bottom: 0;
-  border-bottom: 2px solid var(--primary);
+  height: 2.6px;
+  background-color: var(--primary);
+  border-radius: 5px 5px 0 0;
   transition: 400ms ease-in-out;
 }
 /*#endregion Tabs */
@@ -1382,9 +1384,8 @@ textarea.p-input.classic {
   width: 100%;
 }
 .p-progress-bar .background-progress {
-  background-color: var(--primaryLowOpacity);
   width: 100%;
-  height: 8px;
+  height: 100%;
   border-radius: 1px;
 }
 .p-progress-bar .actual-progress {
@@ -1395,10 +1396,27 @@ textarea.p-input.classic {
   border-radius: 1px;
   transition: .2s linear;
 }
-/* #endregion ProgressIndicators */
-
-/* #region Slider */
-.p-input-range {
-  height: 10px;
+.p-progress-bar .actual-progress.animated {
+  animation: indetAnim 1.5s infinite linear;
 }
-/* #endregion Slider */
+@keyframes indetAnim {
+  0% {
+    left: -30%;
+    width: 25%;
+  } 25% {
+    left: 10%;
+    width: 35%;
+  } 
+  50% {
+    left: 50%;
+    width: 60%;
+  } 75% {
+    left: 80%;
+    width: 35%;
+  }
+  100% {
+    left: 100%;
+    width: 5%;
+  }
+}
+/* #endregion ProgressIndicators */

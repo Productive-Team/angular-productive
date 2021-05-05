@@ -3,10 +3,10 @@
     <path d="M18 2.0845
         a 15.9155 15.9155 0 0 1 0 31.831
         a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"
-      [style]="'stroke:' + pProgressColor +'; stroke-dasharray:' + pProgressSize + ', 100;' " class="p-spinner-path" />
+      [style]="'stroke:' + pProgressColor +'; stroke-dasharray:' + pProgress+ ', 100;' " class="p-spinner-path" />
   </svg>
 </div>
 <div class="p-progress-bar" *ngIf="pProgressType === 'bar'">
-  <div class="actual-progress" [style]="'width:' + pProgressSize + '%; background-color:' + pProgressColor + ';'"></div>
-  <div class="background-progress"></div>
+  <div class="actual-progress" [style]="'width:' + pProgress+ '%; background-color:' + pProgressColor + ';'"></div>
+  <div class="background-progress" [style]="'background-color:' + backgroundColor + ';'"></div>
 </div>

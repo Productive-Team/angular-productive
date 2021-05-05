@@ -11,4 +11,9 @@ export class ContainerExComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  rer(ev) {
+    this.numb = ev;
+    console.log(this.numb);
+  }
 }

@@ -1,1 +1,4 @@
-<input type="range">
+<div class="slider-container">
+  <input type="range" class="range-custom" id="{{pSliderId}}" min="{{pSliderMinValue}}" max="{{pSliderMaxValue}}"
+    [ngModel]="sliderValue" (ngModelChange)="emitVal($event)">
+</div>
