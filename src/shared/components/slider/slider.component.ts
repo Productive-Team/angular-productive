@@ -5,6 +5,7 @@ import {
   Output,
   EventEmitter,
   ElementRef,
+  HostListener,
 } from '@angular/core';
 
 @Component({
@@ -22,6 +23,8 @@ export class SliderComponent implements OnInit {
   @Output() pSliderValue = new EventEmitter<number>();
 
   sliderValue = 0;
+
+  dragging = false;
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
@@ -38,5 +41,17 @@ export class SliderComponent implements OnInit {
   private setSliderColor(color: string): void {
     const clr = this.el.nativeElement.firstChild.firstChild as HTMLDivElement;
     clr.style.setProperty('--color', color);
+  }
+
+  @HostListener('mousedown', ['$event']) isDragTrue(event) {
+    this.dragging = true;
+  }
+  @HostListener('mousemove', ['$event']) draggingSlider(event) {
+    if (this.dragging) {
+      const draggingPos = event.clientX;
+    }
+  }
+  @HostListener('mouseup', ['$event']) isDragFalse(event) {
+    this.dragging = false;
   }
 }
