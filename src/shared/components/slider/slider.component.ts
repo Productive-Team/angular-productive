@@ -22,7 +22,7 @@ export class SliderComponent implements OnInit {
 
   @Output() pSliderValue = new EventEmitter<number>();
 
-  sliderValue = 0;
+  sliderValue = 10;
 
   dragging = false;
   constructor(private el: ElementRef) {}
@@ -32,6 +32,16 @@ export class SliderComponent implements OnInit {
     if (this.pSliderColor) {
       this.setSliderColor(this.pSliderColor);
     }
+    document.addEventListener('mousemove', (event) => {
+      if (this.dragging) {
+        const draggingPos = event.clientX;
+        const po = this.el.nativeElement.firstChild.firstChild.firstChild
+          .firstChild;
+        const po2 = this.el.nativeElement.firstChild.firstChild.firstChild
+          .nextSibling.firstChild;
+        this.calcValue(draggingPos, po, po2);
+      }
+    });
   }
 
   emitVal(event): void {
@@ -46,12 +56,63 @@ export class SliderComponent implements OnInit {
   @HostListener('mousedown', ['$event']) isDragTrue(event) {
     this.dragging = true;
   }
-  @HostListener('mousemove', ['$event']) draggingSlider(event) {
-    if (this.dragging) {
-      const draggingPos = event.clientX;
-    }
-  }
-  @HostListener('mouseup', ['$event']) isDragFalse(event) {
+  // @HostListener('mousemove', ['$event']) draggingSlider(event) {
+  //   if (this.dragging) {
+  //     const draggingPos = event.clientX;
+  //     const po = this.el.nativeElement.firstChild.firstChild.firstChild
+  //       .firstChild;
+  //     this.calcValue(draggingPos, po);
+  //   }
+  // }
+  @HostListener('mouseup', ['$event'])
+  isDragFalse(event) {
     this.dragging = false;
+  }
+
+  calcValue(x: number, progress, thumb): void {
+    const positions = this.getSliderBoundRect();
+
+    const offset = positions.left;
+    const size = positions.width;
+    const pos = x;
+
+    let percentage = this.calcClamp((pos - offset) / size);
+
+    if (percentage === 0) {
+      percentage = this.pSliderMinValue;
+    } else if (this.sliderValue === 1) {
+      percentage = this.pSliderMaxValue;
+    } else {
+      const val =
+        this.pSliderMinValue +
+        percentage * (this.pSliderMaxValue - this.pSliderMinValue);
+
+      this.sliderValue = this.calcClamp(
+        val,
+        this.pSliderMinValue,
+        this.pSliderMaxValue
+      );
+    }
+    percentage = 1 - percentage;
+    const a = this.perctng(percentage);
+    progress.style.transform = `translateX(-${a}%)`;
+    console.log(a);
+    thumb.style.transform = `translateX(${a}%)`;
+  }
+
+  getSliderBoundRect(): DOMRect {
+    return this.el.nativeElement.firstChild.firstChild.getBoundingClientRect();
+  }
+
+  calcClamp(val: number, min = 0, max = 1) {
+    return Math.max(min, Math.min(val, max));
+  }
+
+  perctng(val) {
+    return (
+      (((val || 0) - this.pSliderMinValue) /
+        (this.pSliderMaxValue - this.pSliderMinValue)) *
+      20000
+    );
   }
 }
