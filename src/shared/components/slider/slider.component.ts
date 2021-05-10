@@ -37,9 +37,9 @@ export class SliderComponent implements OnInit {
         const draggingPos = event.clientX;
         const po = this.el.nativeElement.firstChild.firstChild.firstChild
           .firstChild;
-        const po2 = this.el.nativeElement.firstChild.firstChild.firstChild
-          .nextSibling.firstChild;
-        this.calcValue(draggingPos, po, po2);
+        // const po2 = this.el.nativeElement.firstChild.firstChild.firstChild
+        //   .nextSibling.firstChild;
+        this.calcValue(draggingPos, po);
       }
     });
   }
@@ -69,7 +69,7 @@ export class SliderComponent implements OnInit {
     this.dragging = false;
   }
 
-  calcValue(x: number, progress, thumb): void {
+  calcValue(x: number, progress): void {
     const positions = this.getSliderBoundRect();
 
     const offset = positions.left;
@@ -77,7 +77,7 @@ export class SliderComponent implements OnInit {
     const pos = x;
 
     let percentage = this.calcClamp((pos - offset) / size);
-
+    percentage = 1 - percentage;
     if (percentage === 0) {
       percentage = this.pSliderMinValue;
     } else if (this.sliderValue === 1) {
@@ -93,15 +93,21 @@ export class SliderComponent implements OnInit {
         this.pSliderMaxValue
       );
     }
-    percentage = 1 - percentage;
-    const a = this.perctng(percentage);
-    progress.style.transform = `translateX(-${a}%)`;
-    console.log(a);
-    thumb.style.transform = `translateX(${a}%)`;
+    let a = this.perctng(this.sliderValue);
+    a = a * 100 + 1;
+    const b = this.calcClamp(a, this.pSliderMinValue, this.pSliderMaxValue);
+    console.log(b);
+    progress.style.transform = `translateX(-${b}%)`;
+    progress.parentElement.nextSibling.style.transform = `translateX(-${b}%) translateY(-50%)`;
+    if (a >= 100) {
+      progress.parentElement.nextSibling.classList.add('none');
+    } else {
+      progress.parentElement.nextSibling.classList.remove('none');
+    }
   }
 
   getSliderBoundRect(): DOMRect {
-    return this.el.nativeElement.firstChild.firstChild.getBoundingClientRect();
+    return this.el.nativeElement.firstChild.getBoundingClientRect();
   }
 
   calcClamp(val: number, min = 0, max = 1) {
@@ -110,9 +116,8 @@ export class SliderComponent implements OnInit {
 
   perctng(val) {
     return (
-      (((val || 0) - this.pSliderMinValue) /
-        (this.pSliderMaxValue - this.pSliderMinValue)) *
-      20000
+      ((val || 0) - this.pSliderMinValue) /
+      (this.pSliderMaxValue - this.pSliderMinValue)
     );
   }
 }

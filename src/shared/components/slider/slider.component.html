@@ -1,15 +1,13 @@
 <div class="slider-container">
-  <div class="slider" role="slider" [attr.aria-valuenow]="0" [attr.aria-valuemax]="pSliderMaxValue"
+  <div class="slider" role="slider" [attr.aria-valuenow]="sliderValue" [attr.aria-valuemax]="pSliderMaxValue"
     [attr.aria-valuemin]="pSliderMinValue">
     <!-- <input type="range" class="range-custom" id="{{pSliderId}}" min="{{pSliderMinValue}}" max="{{pSliderMaxValue}}"
       [ngModel]="sliderValue" (ngModelChange)="emitVal($event)"> -->
     <div class="slider-background">
       <div class="slider-progress"></div>
     </div>
-    <div class="thumb-rail-container">
-      <div class="thumb-rail">
-        <div class="slider-thumb"></div>
-      </div>
+    <div class="thumb-container">
+      <div class="slider-thumb"></div>
     </div>
   </div>
 </div>
