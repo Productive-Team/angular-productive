@@ -22,8 +22,7 @@ export class SliderComponent implements OnInit {
 
   @Output() pSliderValue = new EventEmitter<number>();
 
-  sliderValue = 10;
-
+  sliderValue = 0;
   dragging = false;
   constructor(private el: ElementRef) {}
 
@@ -33,18 +32,20 @@ export class SliderComponent implements OnInit {
       this.setSliderColor(this.pSliderColor);
     }
     document.addEventListener('mousemove', (event) => {
-      if (this.dragging) {
-        const draggingPos = event.clientX;
-        const po =
-          this.el.nativeElement.firstChild.firstChild.firstChild.firstChild;
-        // const po2 = this.el.nativeElement.firstChild.firstChild.firstChild
-        //   .nextSibling.firstChild;
-        this.calcValue(draggingPos, po);
-      }
+      this.sliding(event);
     });
-    document.addEventListener('mouseup', () => {
+    document.addEventListener('mouseup', (event) => {
       this.dragging = false;
     });
+  }
+
+  sliding(event: any) {
+    if (this.dragging) {
+      const draggingPos = event.clientX;
+      const po =
+        this.el.nativeElement.firstChild.firstChild.firstChild.firstChild;
+      this.calcValue(draggingPos, po);
+    }
   }
 
   emitVal(event): void {
@@ -58,54 +59,42 @@ export class SliderComponent implements OnInit {
 
   @HostListener('mousedown', ['$event']) isDragTrue(event) {
     this.dragging = true;
+    this.sliding(event);
   }
-  // @HostListener('mousemove', ['$event']) draggingSlider(event) {
-  //   if (this.dragging) {
-  //     const draggingPos = event.clientX;
-  //     const po = this.el.nativeElement.firstChild.firstChild.firstChild
-  //       .firstChild;
-  //     this.calcValue(draggingPos, po);
-  //   }
-  // }
-  // @HostListener('mouseup', ['$event'])
-  // isDragFalse(event) {
-  //   this.dragging = false;
-  // }
 
   calcValue(x: number, progress): void {
     const positions = this.getSliderBoundRect();
-
     const offset = positions.left;
     const size = positions.width;
     const pos = x;
-    console.log(pos - offset / size);
 
     let percentage = this.calcClamp((pos - offset) / size);
-    console.log(percentage);
     if (percentage === 0) {
       percentage = this.pSliderMinValue;
-    } else if (this.sliderValue === 1) {
+    } else if (percentage === 1) {
       percentage = this.pSliderMaxValue;
     } else {
       const val =
         this.pSliderMinValue +
         percentage * (this.pSliderMaxValue - this.pSliderMinValue);
 
-      this.sliderValue = this.calcClamp(
-        val,
-        this.pSliderMinValue,
-        this.pSliderMaxValue
-      );
+      this.sliderValue = Math.round(val);
+      this.emitVal(this.sliderValue);
     }
     percentage = 1 - percentage;
-    const b = percentage * 100;
-    progress.style.transform = `translateX(-${b}%)`;
-    progress.parentElement.nextSibling.style.transform = `translateX(-${b}%) translateY(-50%)`;
-    // if (b >= 100) {
-    //   progress.parentElement.nextSibling.classList.add('none');
-    // } else {
-    //   progress.parentElement.nextSibling.classList.remove('none');
-    // }
+    const progressIndicator = percentage * 100;
+    progress.firstChild.style.transform = `translateX(-${progressIndicator}%)`;
+    progress.parentElement.parentElement.nextSibling.style.transform = `translateX(-${progressIndicator}%) translateY(-50%)`;
+
+    if (progressIndicator >= 100) {
+      progress.parentElement.parentElement.nextSibling.firstChild.classList.add(
+        'none'
+      );
+    } else {
+      progress.parentElement.parentElement.nextSibling.firstChild.classList.remove(
+        'none'
+      );
+    }
   }
 
   getSliderBoundRect(): DOMRect {
@@ -114,12 +103,5 @@ export class SliderComponent implements OnInit {
 
   calcClamp(val: number, min = 0, max = 1) {
     return Math.max(min, Math.min(val, max));
-  }
-
-  perctng(val) {
-    return (
-      ((val || 0) - this.pSliderMinValue) /
-      (this.pSliderMaxValue - this.pSliderMinValue)
-    );
   }
 }
