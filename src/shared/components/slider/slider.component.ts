@@ -35,12 +35,15 @@ export class SliderComponent implements OnInit {
     document.addEventListener('mousemove', (event) => {
       if (this.dragging) {
         const draggingPos = event.clientX;
-        const po = this.el.nativeElement.firstChild.firstChild.firstChild
-          .firstChild;
+        const po =
+          this.el.nativeElement.firstChild.firstChild.firstChild.firstChild;
         // const po2 = this.el.nativeElement.firstChild.firstChild.firstChild
         //   .nextSibling.firstChild;
         this.calcValue(draggingPos, po);
       }
+    });
+    document.addEventListener('mouseup', () => {
+      this.dragging = false;
     });
   }
 
@@ -64,10 +67,10 @@ export class SliderComponent implements OnInit {
   //     this.calcValue(draggingPos, po);
   //   }
   // }
-  @HostListener('mouseup', ['$event'])
-  isDragFalse(event) {
-    this.dragging = false;
-  }
+  // @HostListener('mouseup', ['$event'])
+  // isDragFalse(event) {
+  //   this.dragging = false;
+  // }
 
   calcValue(x: number, progress): void {
     const positions = this.getSliderBoundRect();
@@ -75,9 +78,10 @@ export class SliderComponent implements OnInit {
     const offset = positions.left;
     const size = positions.width;
     const pos = x;
+    console.log(pos - offset / size);
 
     let percentage = this.calcClamp((pos - offset) / size);
-    percentage = 1 - percentage;
+    console.log(percentage);
     if (percentage === 0) {
       percentage = this.pSliderMinValue;
     } else if (this.sliderValue === 1) {
@@ -93,17 +97,15 @@ export class SliderComponent implements OnInit {
         this.pSliderMaxValue
       );
     }
-    let a = this.perctng(this.sliderValue);
-    a = a * 100 + 1;
-    const b = this.calcClamp(a, this.pSliderMinValue, this.pSliderMaxValue);
-    console.log(b);
+    percentage = 1 - percentage;
+    const b = percentage * 100;
     progress.style.transform = `translateX(-${b}%)`;
     progress.parentElement.nextSibling.style.transform = `translateX(-${b}%) translateY(-50%)`;
-    if (a >= 100) {
-      progress.parentElement.nextSibling.classList.add('none');
-    } else {
-      progress.parentElement.nextSibling.classList.remove('none');
-    }
+    // if (b >= 100) {
+    //   progress.parentElement.nextSibling.classList.add('none');
+    // } else {
+    //   progress.parentElement.nextSibling.classList.remove('none');
+    // }
   }
 
   getSliderBoundRect(): DOMRect {

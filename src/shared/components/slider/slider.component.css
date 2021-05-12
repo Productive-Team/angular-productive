@@ -58,7 +58,7 @@
   height: 100%;
   background-color: var(--primary);
   border-radius: .5px;
-  transition: .02s ease-in-out;
+  /* transition: .02s ease-in-out; */
 }
 
 .slider .slider-thumb {
@@ -79,9 +79,21 @@
 .slider .slider-thumb:active {
   cursor: grabbing;
 }
+.slider .slider-thumb.none {
+  background-color: none;
+  border: 3px solid rgba(0, 0, 0, 0.33);
+}
+
+.slider .thumb-container .thumb-ripple {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
 
 .slider .thumb-container {
   position: relative;
   top: -50%;
-  transition: .02s ease-in-out;
+  /* transition: .02s ease-in-out; */
 }
