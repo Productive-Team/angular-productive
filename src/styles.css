@@ -1422,11 +1422,33 @@ textarea.p-input.classic {
 /* #endregion ProgressIndicators */
 
 /* #region Collapsible */
-.collapsible-container {
+.collapsible {
   position: relative;
+  display: inline-block;
 }
-.collapsible-container .collapsible-header button {
-  min-width: 20px;
+.collapsible .collapsible-header button {
+  min-width: 250px;
+  box-sizing: border-box;
   height: 46px;
+  font-size: 16px;
+  padding: 0 15px;
+  background-color: rgb(235, 235, 235);
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
+.collapsible .collapsible-content {
+  display: none;
+  position: relative;
+  top: -2px;
+  background-color: rgb(245, 245, 245);
+}
+.collapsible .collapsible-content ul {
+  list-style: none;
+  padding: 5px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
 /* #endregion Collapsible */
