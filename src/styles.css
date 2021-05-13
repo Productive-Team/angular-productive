@@ -1420,3 +1420,13 @@ textarea.p-input.classic {
   }
 }
 /* #endregion ProgressIndicators */
+
+/* #region Collapsible */
+.collapsible-container {
+  position: relative;
+}
+.collapsible-container .collapsible-header button {
+  min-width: 20px;
+  height: 46px;
+}
+/* #endregion Collapsible */

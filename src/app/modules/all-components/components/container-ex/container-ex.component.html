@@ -1,4 +1,10 @@
-<div style="width: 300px;">
-  <p-slider pSliderId="Slider-1" [pSliderMinValue]="0" [pSliderMaxValue]="20" (pSliderValue)="rer($event)"></p-slider>
-</div>
-<span>Value: {{numb}}</span>
+<p-collapsible-container>
+  <ng-container collapsible-header>
+    <button>Collapse</button>
+  </ng-container>
+  <p-collapsible>
+    <li>
+      <a>Sas</a>
+    </li>
+  </p-collapsible>
+</p-collapsible-container>

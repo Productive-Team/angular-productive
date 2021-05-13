@@ -1,3 +1,5 @@
+import { CollapsibleContainerComponent } from './components/collapsible/collapsible-container/collapsible-container.component';
+import { CollapsibleComponent } from './components/collapsible/collapsible-content/collapsible.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { ProgressIndicatorsComponent } from './components/progress-indicators/progress-indicators.component';
 import { TabsService } from './services/tabs.service';
@@ -64,6 +66,8 @@ import { FormsModule } from '@angular/forms';
     TabsComponent,
     ProgressIndicatorsComponent,
     SliderComponent,
+    CollapsibleComponent,
+    CollapsibleContainerComponent,
   ],
   exports: [
     RippleDirective,
@@ -90,6 +94,8 @@ import { FormsModule } from '@angular/forms';
     TabsComponent,
     ProgressIndicatorsComponent,
     SliderComponent,
+    CollapsibleComponent,
+    CollapsibleContainerComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
