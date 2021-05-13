@@ -1443,6 +1443,8 @@ textarea.p-input.classic {
   position: relative;
   top: -2px;
   background-color: rgb(245, 245, 245);
+  min-height: 0;
+  transition: height .2s;
 }
 .collapsible .collapsible-content ul {
   list-style: none;
