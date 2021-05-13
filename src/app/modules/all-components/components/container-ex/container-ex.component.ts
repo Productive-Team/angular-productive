@@ -14,6 +14,5 @@ export class ContainerExComponent implements OnInit {
 
   rer(ev) {
     this.numb = ev;
-    console.log(this.numb);
   }
 }

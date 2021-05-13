@@ -1,3 +1,4 @@
 <div style="width: 300px;">
-  <p-slider pSliderId="Slider-1" [pSliderMaxValue]="50" (pSliderValue)="rer($event)"></p-slider>
+  <p-slider pSliderId="Slider-1" [pSliderMinValue]="0" [pSliderMaxValue]="20" (pSliderValue)="rer($event)"></p-slider>
 </div>
+<span>Value: {{numb}}</span>

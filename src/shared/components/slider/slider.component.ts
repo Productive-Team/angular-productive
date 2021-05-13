@@ -31,20 +31,34 @@ export class SliderComponent implements OnInit {
     if (this.pSliderColor) {
       this.setSliderColor(this.pSliderColor);
     }
+  }
+
+  addEventListenerSlider() {
     document.addEventListener('mousemove', (event) => {
       this.sliding(event);
     });
     document.addEventListener('mouseup', (event) => {
       this.dragging = false;
+      this.removeEventListenerSlider();
+    });
+  }
+
+  removeEventListenerSlider() {
+    document.removeEventListener('mousemove', (event) => {
+      this.sliding(event);
+    });
+    document.removeEventListener('mouseup', (event) => {
+      this.dragging = false;
+      this.removeEventListenerSlider();
     });
   }
 
   sliding(event: any) {
     if (this.dragging) {
       const draggingPos = event.clientX;
-      const po =
+      const thumbContainer =
         this.el.nativeElement.firstChild.firstChild.firstChild.firstChild;
-      this.calcValue(draggingPos, po);
+      this.calcValue(draggingPos, thumbContainer);
     }
   }
 
@@ -59,6 +73,7 @@ export class SliderComponent implements OnInit {
 
   @HostListener('mousedown', ['$event']) isDragTrue(event) {
     this.dragging = true;
+    this.addEventListenerSlider();
     this.sliding(event);
   }
 
@@ -82,7 +97,8 @@ export class SliderComponent implements OnInit {
       this.emitVal(this.sliderValue);
     }
     percentage = 1 - percentage;
-    const progressIndicator = percentage * 100;
+    const progressIndicator = Math.round(percentage * 100);
+    console.log(progressIndicator);
     progress.firstChild.style.transform = `translateX(-${progressIndicator}%)`;
     progress.parentElement.parentElement.nextSibling.style.transform = `translateX(-${progressIndicator}%) translateY(-50%)`;
 
