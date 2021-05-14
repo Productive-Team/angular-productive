@@ -6,8 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./collapsible.component.css'],
 })
 export class CollapsibleComponent implements OnInit {
-  @Input() pCollapsibleId: string;
-
   constructor() {}
 
   ngOnInit() {}

@@ -1424,33 +1424,48 @@ textarea.p-input.classic {
 /* #region Collapsible */
 .collapsible {
   position: relative;
-  display: inline-block;
+  border-radius: 5px;
 }
-.collapsible .collapsible-header button {
-  min-width: 250px;
+.collapsible .collapsible-header {
+  width: 100%;
   box-sizing: border-box;
   height: 46px;
   font-size: 16px;
-  padding: 0 15px;
+  padding: 0 20px;
   background-color: rgb(235, 235, 235);
-  border-radius: 5px;
   border: none;
   outline: none;
   cursor: pointer;
+  line-height: 46px;
+  user-select: none;
 }
+.collapsible .collapsible-header i {
+  line-height: 46px;
+}
+
+.collapsible .collapsible-content a,
+.collapsible .collapsible-content button {
+  width: 100%;
+  margin: 0;
+}
+
 .collapsible .collapsible-content {
   display: none;
   position: relative;
-  top: -2px;
   background-color: rgb(245, 245, 245);
-  min-height: 0;
-  transition: height .2s;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .2s;
 }
 .collapsible .collapsible-content ul {
   list-style: none;
-  padding: 5px;
+  padding: 10px 30px;
   box-sizing: border-box;
   margin: 0;
+}
+
+.collapsible.active i {
+  transform: rotate(180deg);
 }
 
 /* #endregion Collapsible */
