@@ -1448,6 +1448,9 @@ textarea.p-input.classic {
   width: 100%;
   margin: 0;
 }
+.collapsible-content {
+  --scrollHeight: 0px;
+}
 
 .collapsible .collapsible-content {
   display: none;
@@ -1455,13 +1458,18 @@ textarea.p-input.classic {
   background-color: rgb(245, 245, 245);
   max-height: 0;
   overflow: hidden;
-  transition: max-height .2s;
+  transition: all 0.2s;
 }
 .collapsible .collapsible-content ul {
   list-style: none;
   padding: 10px 30px;
   box-sizing: border-box;
   margin: 0;
+}
+.collapsible.active .collapsible-content {
+  display: block;
+  max-height: var(--scrollHeight);
+  transition: max-height 0.2s;
 }
 
 .collapsible.active i {

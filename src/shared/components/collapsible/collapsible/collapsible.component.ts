@@ -19,27 +19,28 @@ export class CollapsibleTriggerDirective {
       .firstChild as HTMLDivElement;
     const trig = this.el.nativeElement.parentElement as HTMLDivElement;
     if (!this.isOpen) {
-      collapse.style.display = 'block';
-      collapse.style.maxHeight = collapse.scrollHeight + 'px';
       trig.classList.add('active');
+      collapse.style.setProperty(
+        '--scrollHeight',
+        collapse.scrollHeight + 'px'
+      );
       this.isOpen = true;
     } else {
-      collapse.style.maxHeight = 0 + 'px';
-      this.isOpen = false;
+      collapse.style.setProperty('--scrollHeight', 0 + 'px');
       setTimeout(() => {
-        collapse.style.display = 'none';
+        trig.classList.remove('active');
+        this.isOpen = false;
       }, 250);
-      trig.classList.remove('active');
     }
   }
 }
 
 @Component({
-  selector: 'app-collapsible-container, p-collapsible-container',
-  templateUrl: './collapsible-container.component.html',
-  styleUrls: ['./collapsible-container.component.css'],
+  selector: 'app-collapsible, p-collapsible',
+  templateUrl: './collapsible.component.html',
+  styleUrls: ['./collapsible.component.css'],
 })
-export class CollapsibleContainerComponent implements OnInit {
+export class CollapsibleComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}

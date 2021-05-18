@@ -1,8 +1,4 @@
-import {
-  CollapsibleContainerComponent,
-  CollapsibleTriggerDirective,
-} from './components/collapsible/collapsible-container/collapsible-container.component';
-import { CollapsibleComponent } from './components/collapsible/collapsible-content/collapsible.component';
+import { CollapsibleGroupComponent } from './components/collapsible/collapsible-group/collapsible-group.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { ProgressIndicatorsComponent } from './components/progress-indicators/progress-indicators.component';
 import { TabsService } from './services/tabs.service';
@@ -41,6 +37,11 @@ import {
   SelectDirective,
 } from './components/select/select.component';
 import { FormsModule } from '@angular/forms';
+import {
+  CollapsibleComponent,
+  CollapsibleTriggerDirective,
+} from './components/collapsible/collapsible/collapsible.component';
+import { CollapsibleContentComponent } from './components/collapsible/collapsible-content/collapsible-content.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule],
@@ -70,8 +71,9 @@ import { FormsModule } from '@angular/forms';
     ProgressIndicatorsComponent,
     SliderComponent,
     CollapsibleComponent,
-    CollapsibleContainerComponent,
+    CollapsibleContentComponent,
     CollapsibleTriggerDirective,
+    CollapsibleGroupComponent,
   ],
   exports: [
     RippleDirective,
@@ -99,8 +101,9 @@ import { FormsModule } from '@angular/forms';
     ProgressIndicatorsComponent,
     SliderComponent,
     CollapsibleComponent,
-    CollapsibleContainerComponent,
+    CollapsibleContentComponent,
     CollapsibleTriggerDirective,
+    CollapsibleGroupComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
