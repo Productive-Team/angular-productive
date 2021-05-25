@@ -11,11 +11,14 @@ export class CollapsibleGroupComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   onChanges(event): void {
-    const allContent = this.el.nativeElement.querySelectorAll(
-      '.collapsible.active'
-    );
-    console.log(allContent);
-    // console.log(this.active);
+    setTimeout(() => {
+      const allContent = this.el.nativeElement.querySelectorAll(
+        '.collapsible.active'
+      );
+      console.log(allContent);
+      if (allContent.length > 1) {
+      }
+    }, 250);
     // if (this.active.length > 1) {
     //   this.active[0].classList.remove('active');
     //   this.active.shift();
