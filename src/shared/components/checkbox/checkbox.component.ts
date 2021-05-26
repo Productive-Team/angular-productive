@@ -1,19 +1,19 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  AfterViewInit,
-  EventEmitter,
-  HostListener,
-} from '@angular/core';
+import { Component, Input, AfterViewInit, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox, p-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CheckboxComponent),
+      multi: true,
+    },
+  ],
 })
-export class CheckboxComponent implements OnInit, AfterViewInit {
+export class CheckboxComponent implements AfterViewInit {
   /**
    * CheckId is an Id given to a checkbox
    *
@@ -42,16 +42,6 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    *    <app-checkbox checkboxColor="#3f51b5"></app-checkbox>
    */
   @Input() pCheckboxColor: string;
-  /**
-   * isChecked when flagged as true, automatically adds the attribute "checked" to the input,
-   * and changes it's value to be true from the start
-   *
-   * This property is optional, if it's not filled, it will automatically assume the value of false;
-   *
-   * Example:
-   *    <app-checkbox [isChecked]="true"></app-checkbox>
-   */
-  @Input() pCheckboxChecked = false;
   /**
    * isDisabled when flagged as true, automatically adds the attribute "disabled" to the input
    * preventing any type of interaction from the user side
@@ -85,22 +75,6 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
    *    <app-checkbox [hasRipple]="false"></app-checkbox> <- RippleEffect will not appear
    */
   @Input() hasRipple = true;
-  /**
-   * CheckValue refers to the current value of the input, always returning true or false;
-   *
-   * Example:
-   *    parent.component.html:
-   *      <app-checkbox (checkValue)="receiveValue($event)"></app-checkbox>
-   *
-   *    parent.component.ts:
-   *      receiveValue(event): any {
-   *        console.log(event);
-   *      }
-   *
-   *    Result:
-   *      true or false
-   */
-  @Output() checkValue = new EventEmitter<boolean>();
   /**
    * In case you want to include a checkbox under a element with a click event, such as the example below:
    *
@@ -137,55 +111,19 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      if (this.checkRequiredFields(this.pCheckboxId)) {
-        const checkInput = document.getElementById(
-          this.pCheckboxId
-        ) as HTMLInputElement;
-        // Checks to see if property "isChecked" is true or false;
-        if (this.pCheckboxChecked) {
-          // adds the checked attribute to the input if "isChecked" is true;
-          checkInput.checked = true;
-          // calls the checkValueFunc to emit a value of true;
-          this.checkValueFunc(true);
-        } else {
-          // if it's not checked, calls the event emit function, to emit the value of false
-          this.checkValueFunc(false);
-        }
-      }
-    }, 0);
-  }
+  change = (_) => {};
+  blur = (_) => {};
 
-  // Needs to be in after view init
   ngAfterViewInit(): void {
     // Checks if required field (checkId) is valid;
     if (this.checkRequiredFields(this.pCheckboxId)) {
-      const checkInput = document.getElementById(
-        this.pCheckboxId
-      ) as HTMLInputElement;
-
-      if (this.pCheckboxIndeterminate) {
-        const checkbox = document.getElementById(
-          this.pCheckboxId
-        ) as HTMLInputElement;
-        checkbox.indeterminate = true;
-      }
-
-      if (this.pCheckboxDisabled) {
-        // sets the disabled attribute to the input
-        checkInput.setAttribute('disabled', 'disabled');
-
-        checkInput.parentElement.parentElement.classList.add(
-          'checkbox-layout-disabled'
-        );
-      }
+      setTimeout(() => {
+        this.setRippleColor();
+      }, 0);
     }
-    setTimeout(() => {
-      this.setRippleColor();
-    }, 0);
   }
 
+  // sets ripple color based on checkbox color
   setRippleColor(): void {
     if (this.pCheckboxColor) {
       if (
@@ -202,14 +140,35 @@ export class CheckboxComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Emits a value of true or false to parent component
-  checkValueFunc(event: boolean): any {
-    const checkbox = document.getElementById(
-      this.pCheckboxId
-    ) as HTMLInputElement;
-    checkbox.indeterminate = false;
-    this.checkVal = event;
-    this.checkValue.emit(event);
+  // writes the checkbox value
+  writeValue(obj: boolean): void {
+    this.checkVal = obj;
+  }
+
+  // register the changes
+  registerOnChange(fn: any): void {
+    this.change = fn;
+  }
+
+  // blurs the component
+  registerOnTouched(fn: any): void {
+    this.blur = fn;
+  }
+
+  // sets the checkbox to a disabled state
+  setDisabledState?(isDisabled: boolean): void {
+    this.pCheckboxDisabled = isDisabled;
+  }
+
+  // sets the checkbox to a indeterminate state
+  setIndeterminateState?(indeterminate: boolean): void {
+    this.pCheckboxIndeterminate = indeterminate;
+  }
+
+  // changes the value of the checkbox
+  onCheck($event) {
+    this.checkVal = $event && $event.target && $event.target.checked;
+    this.change(this.checkVal);
   }
 
   // checks if required input is not undefined or null

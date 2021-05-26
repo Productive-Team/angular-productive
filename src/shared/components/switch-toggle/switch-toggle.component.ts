@@ -1,21 +1,28 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
+  ElementRef,
+  forwardRef,
   HostListener,
   Input,
   OnInit,
-  Output,
 } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-switch-toggle, p-switch-toggle',
   templateUrl: './switch-toggle.component.html',
   styleUrls: ['./switch-toggle.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SwitchToggleComponent),
+      multi: true,
+    },
+  ],
 })
 export class SwitchToggleComponent implements OnInit, AfterViewInit {
   @Input() pSwitchId: string;
-  @Input() pSwitchActive = false;
   @Input() pSwitchDisabled = false;
   @Input() pSwitchLabelLeft: string;
   @Input() pSwitchLabelRight: string;
@@ -23,45 +30,25 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
   @Input() pSwitchIconRight: string;
   @Input() pSwitchColor: string;
   @Input() hasRipple = true;
-  @Output() switchValue = new EventEmitter<boolean>();
 
   rippleColor: string;
   switchBackgroundColor: string;
   switchVal: boolean;
-  constructor() {}
+  constructor(private el: ElementRef) {}
+
+  change = (_) => {};
+  blur = (_) => {};
 
   ngOnInit() {
     setTimeout(() => {
       if (this.checkRequiredFields(this.pSwitchId)) {
         this.backgroundColorSwitchThumb();
         this.backgroundColorSwitch();
-        const checkInput = document.getElementById(
-          this.pSwitchId
-        ) as HTMLInputElement;
-        if (this.pSwitchActive) {
-          checkInput.checked = true;
-          checkInput.parentElement.classList.add('active');
-          this.emitSwitchValue(true);
-        } else {
-          this.emitSwitchValue(false);
-        }
       }
     }, 0);
   }
 
   ngAfterViewInit(): void {
-    if (this.checkRequiredFields(this.pSwitchId)) {
-      const checkInput = document.getElementById(
-        this.pSwitchId
-      ) as HTMLInputElement;
-
-      if (this.pSwitchDisabled) {
-        checkInput.setAttribute('disabled', 'disabled');
-        checkInput.parentElement.parentElement.parentElement.classList.add(
-          'switch-layout-disabled'
-        );
-      }
-    }
     setTimeout(() => {
       this.setRippleColor();
     }, 0);
@@ -121,10 +108,30 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Emits a value of true or false to parent component
-  emitSwitchValue(event: boolean): any {
-    this.switchVal = event;
-    this.switchValue.emit(event);
+  // writes the checkbox value
+  writeValue(obj: boolean): void {
+    this.switchVal = obj;
+  }
+
+  // register the changes
+  registerOnChange(fn: any): void {
+    this.change = fn;
+  }
+
+  // blurs the component
+  registerOnTouched(fn: any): void {
+    this.blur = fn;
+  }
+
+  // sets the checkbox to a disabled state
+  setDisabledState?(isDisabled: boolean): void {
+    this.pSwitchDisabled = isDisabled;
+  }
+
+  // changes the value of the checkbox
+  onCheck($event) {
+    this.switchVal = $event && $event.target && $event.target.checked;
+    this.change(this.switchVal);
   }
 
   // checks if required input is not undefined or null
@@ -136,16 +143,6 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
       );
     } else {
       return true;
-    }
-  }
-
-  @HostListener('change', ['$event']) addActiveClassSwitch(event): void {
-    const SwitchBack = document.getElementById('switch-cont');
-    const switchInput = SwitchBack.firstChild as HTMLInputElement;
-    if (switchInput.checked) {
-      SwitchBack.classList.add('active');
-    } else {
-      SwitchBack.classList.remove('active');
     }
   }
 }

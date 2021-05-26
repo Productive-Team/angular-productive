@@ -18,8 +18,7 @@
   cursor: default;
 }
 
-/* esconde o input checkbox padrão do browser */
-.checkbox-layout input,
+/* hides default browser checkbox */
 .switch-layout input {
   opacity: 0;
   bottom: -5px;
@@ -27,7 +26,6 @@
   position: absolute;
 }
 
-.checkbox-ripple,
 .switch-ripple {
   position: absolute;
   left: calc(50% - 21px);

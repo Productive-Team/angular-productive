@@ -1,9 +1,11 @@
-<label class="checkbox-layout" *ngIf="this.checkRequiredFields(this.pCheckboxId)" pRipple pRippleCentered="true"
+<label [class]="pCheckboxDisabled ? 'checkbox-layout checkbox-layout-disabled' : 'checkbox-layout'"
+  *ngIf="this.checkRequiredFields(this.pCheckboxId)" pRipple pRippleCentered="true"
   [pRippleColor]="checkVal ? '' : this.rippleColor" [pRippleTriggerId]="pCheckboxId + 'ripple'"
   [pRippleDisabled]="!hasRipple">
   <span class="checkbox-toggle" [style]="pCheckboxLabel ? 'margin-right: 8px;' : 'margin-right: 0px;'">
-    <input type="checkbox" id="{{pCheckboxId}}" (change)="checkValueFunc($event.srcElement.checked)">
-    <span class="checkbox-ripple" [id]="pCheckboxId + 'ripple'" *ngIf="hasRipple"></span>
+    <input type="checkbox" id="{{pCheckboxId}}" [checked]="checkVal" (change)="onCheck($event)" (blur)="blur($event)"
+      [disabled]="pCheckboxDisabled" [indeterminate]="pCheckboxIndeterminate">
+    <span class=" checkbox-ripple" [id]="pCheckboxId + 'ripple'"></span>
     <span class="checkbox-frame"></span>
     <span class="checkbox-background"
       [style]="pCheckboxColor ? 'background-color:' + pCheckboxColor + ';' : 'background-color: var(--primary);'">

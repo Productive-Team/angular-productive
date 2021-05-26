@@ -1443,8 +1443,7 @@ textarea.p-input.classic {
   line-height: 46px;
 }
 
-.collapsible .collapsible-content a,
-.collapsible .collapsible-content button {
+.collapsible .collapsible-content a {
   width: 100%;
   margin: 0;
 }

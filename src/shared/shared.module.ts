@@ -6,7 +6,7 @@ import { TabsComponent } from './components/tabs/tab/tabs.component';
 import { TabGroupComponent } from './components/tabs/tab-group/tab-group.component';
 import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
 import { SectionComponent } from './components/section/section.component';
-import { RadioBtnComponent } from './components/radio-btn/radio-btn.component';
+import { RadioBtnComponent } from './components/radio-btn/radio-button/radio-btn.component';
 import { TooltipsDirective } from './directives/tooltips/tooltips.directive';
 import { BadgesDirective } from './directives/badges/badges.directive';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';

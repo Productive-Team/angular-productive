@@ -8,11 +8,11 @@
     <div class="row">
       <div class="col m6 s12">
         <div class="fieldset">
-          <p-checkbox pCheckboxId="Check-center" pCheckboxLabel="Ripple Centered" (checkValue)="centerA($event)">
+          <p-checkbox pCheckboxId="Check-center" pCheckboxLabel="Ripple Centered" [(ngModel)]="center">
           </p-checkbox>
-          <p-checkbox pCheckboxId="Check-unbound" pCheckboxLabel="Ripple Unbounded" (checkValue)="unboundA($event)">
+          <p-checkbox pCheckboxId="Check-unbound" pCheckboxLabel="Ripple Unbounded" [(ngModel)]="unbound">
           </p-checkbox>
-          <p-checkbox pCheckboxId="rip-dis" pCheckboxLabel="Ripple Disabled" (checkValue)="disableA($event)">
+          <p-checkbox pCheckboxId="rip-dis" pCheckboxLabel="Ripple Disabled" [(ngModel)]="disabled">
           </p-checkbox>
         </div>
       </div>
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="ripple-example elevation" pRipple [pRippleCentered]="center" [pRippleColor]="color"
-      [pRippleRadius]="radius" [pRippleDisabled]="disabled" id="rip-ex-1">Click Me!</div>
+      [pRippleUnbounded]="unbound" [pRippleRadius]="radius" [pRippleDisabled]="disabled" id="rip-ex-1">Click Me!</div>
   </ng-container>
 </p-section>
 <br>

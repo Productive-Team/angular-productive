@@ -11,20 +11,7 @@ export class CollapsibleGroupComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   onChanges(event): void {
-    setTimeout(() => {
-      const allContent = this.el.nativeElement.querySelectorAll(
-        '.collapsible.active'
-      );
-      console.log(allContent);
-      if (allContent.length > 1) {
-      }
-    }, 250);
-    // if (this.active.length > 1) {
-    //   this.active[0].classList.remove('active');
-    //   this.active.shift();
-    // } else {
-    //   this.active.push(allContent);
-    // }
+    // TODO: Implement a way to remove the active status of a previous collapsible
   }
   ngOnInit() {}
 }

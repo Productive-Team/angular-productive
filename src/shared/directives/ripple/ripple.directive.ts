@@ -5,8 +5,8 @@ import {
   OnInit,
   Input,
   AfterViewInit,
+  HostBinding,
 } from '@angular/core';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 @Directive({
   selector: '[app-ripple], [p-ripple], [pRipple]',
@@ -22,7 +22,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
    *  <div pRipple pRippleColor="rgba(255,0,0,0.15)"></div>
    *  <div pRipple pRippleColor="#ff000026"></div>
    */
-  @Input() pRippleColor: string;
+  @Input('pRippleColor') color: string;
   /**
    * Recieves a boolean value beign either true or false, however it's default state is always false
    * so there's no need to use it if you don't want this option;
@@ -33,7 +33,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
    * Example:
    *  <div pRipple [pRippleCentered]="true"></div>
    */
-  @Input() pRippleCentered = false;
+  @Input('pRippleCentered') centered: boolean;
   /**
    * Recieves a boolean value beign either true or false, however it's default state is always false
    * so there's no need to use it if you don't want this option;
@@ -44,7 +44,8 @@ export class RippleDirective implements OnInit, AfterViewInit {
    * Example:
    *  <div pRipple [pRippleUnbounded]="true"></div>
    */
-  @Input() pRippleUnbounded = false;
+  @Input('pRippleUnbounded') unbounded: boolean;
+
   /**
    * Recieves a number, and it's default is always 500 so there's no need to use it if you don't want this option;
    *
@@ -55,7 +56,8 @@ export class RippleDirective implements OnInit, AfterViewInit {
    *  <!-- Makes ripple transition duration be 1 second -->
    *  <div pRipple [pRippleDuration]="1000"></div>
    */
-  @Input() pRippleDuration = 500;
+  @Input('pRippleDuration')
+  duration = 500;
   /**
    * Recieves a number, and it's default is always 0 because it is calculated in the createRippleEffect function;
    *
@@ -64,7 +66,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
    * Example:
    *  <div pRipple [pRippleRadius]="50"></div>
    */
-  @Input() pRippleRadius = 0;
+  @Input('pRippleRadius') radius = 0;
   /**
    * Recieves a string, and it's default is undefined;
    *
@@ -94,7 +96,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
    * Ex:
    * <div pRipple [pRippleDisabled]="true"></div>
    */
-  @Input() pRippleDisabled = false;
+  @Input('pRippleDisabled') disabled = false;
 
   isPointerDown?: boolean;
   constructor(private el: ElementRef) {}
@@ -104,22 +106,23 @@ export class RippleDirective implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     // Checks if pRippleTriggerId is different from undefined
     // and sets container classes
-    if (!this.pRippleDisabled) {
+    if (!this.disabled) {
       if (this.pRippleTriggerId) {
         const element = document.getElementById(
           this.pRippleTriggerId
         ) as HTMLDivElement;
         element.classList.add('p-ripple-container');
-        if (this.pRippleUnbounded) {
+        if (this.unbounded) {
           element.classList.add('p-ripple-unbounded');
         }
       } else {
         this.el.nativeElement.classList.add('p-ripple-container');
-        if (this.pRippleUnbounded) {
-          this.el.nativeElement.classList.add('p-ripple-unbounded');
-        }
       }
     }
+  }
+
+  @HostBinding('class.p-ripple-unbounded') get unbound() {
+    return this.unbounded;
   }
 
   // Creates ripple on pointer down
@@ -127,7 +130,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
   @HostListener('touchstart', ['$event'])
   onMouseClick(event) {
     this.isPointerDown = true;
-    if (!this.pRippleDisabled) {
+    if (!this.disabled) {
       this.createRippleEffect(event.target, event.clientX, event.clientY);
     }
   }
@@ -136,7 +139,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
   @HostListener('touchend', ['$event'])
   onMouseUp(event) {
     this.isPointerDown = false;
-    if (!this.pRippleDisabled) {
+    if (!this.disabled) {
       this.fadeOutRipple(event.target);
     }
   }
@@ -146,7 +149,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
   @HostListener('touchmove', ['$event'])
   onMouseOut(event) {
     this.isPointerDown = false;
-    if (!this.pRippleDisabled) {
+    if (!this.disabled) {
       this.fadeOutRipple(event.target);
     }
   }
@@ -170,15 +173,14 @@ export class RippleDirective implements OnInit, AfterViewInit {
     rippleContainerElement.insertAdjacentElement('beforeend', ripple);
 
     let rippleRadius;
-    if (this.pRippleCentered || this.pRippleTriggerId) {
+    if (this.centered || this.pRippleTriggerId) {
       x = elBoundRect.left - elBoundRect.width / 2;
       y = elBoundRect.top - elBoundRect.height / 2;
-      rippleRadius =
-        this.pRippleRadius > 0 ? this.pRippleRadius : elBoundRect.width / 1.4;
+      rippleRadius = this.radius > 0 ? this.radius : elBoundRect.width / 1.4;
     } else {
       rippleRadius =
-        this.pRippleRadius > 0
-          ? this.pRippleRadius
+        this.radius > 0
+          ? this.radius
           : this.calcDistanceToFurthestCorner(x, y, elBoundRect);
     }
 
@@ -190,11 +192,11 @@ export class RippleDirective implements OnInit, AfterViewInit {
     ripple.style.height = `${rippleRadius * 2}px`;
     ripple.style.width = `${rippleRadius * 2}px`;
 
-    if (this.pRippleColor) {
-      ripple.style.backgroundColor = this.pRippleColor;
+    if (this.color) {
+      ripple.style.backgroundColor = this.color;
     }
-    if (this.pRippleDuration > 0) {
-      ripple.style.transitionDuration = `${this.pRippleDuration}ms`;
+    if (this.duration > 0) {
+      ripple.style.transitionDuration = `${this.duration}ms`;
     } else {
       ripple.style.transitionDuration = `500ms`;
     }
@@ -226,9 +228,8 @@ export class RippleDirective implements OnInit, AfterViewInit {
     const ripplesTransitioned = rippleContainerElement.getElementsByClassName(
       'ripple-transitioned'
     );
-    const ripplesNotTransitioned = rippleContainerElement.getElementsByClassName(
-      'p-ripple'
-    );
+    const ripplesNotTransitioned =
+      rippleContainerElement.getElementsByClassName('p-ripple');
     let rnt = 0;
     for (; rnt < ripplesNotTransitioned.length; rnt++) {
       const ripNTransitioned = ripplesNotTransitioned[rnt] as HTMLDivElement;
