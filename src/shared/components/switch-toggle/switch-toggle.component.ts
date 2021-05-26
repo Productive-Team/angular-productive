@@ -29,7 +29,7 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
   @Input() pSwitchIconLeft: string;
   @Input() pSwitchIconRight: string;
   @Input() pSwitchColor: string;
-  @Input() hasRipple = true;
+  @Input() pSwitchHasRipple = true;
 
   rippleColor: string;
   switchBackgroundColor: string;

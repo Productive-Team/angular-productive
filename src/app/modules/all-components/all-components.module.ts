@@ -1,3 +1,4 @@
+import { CheckboxExComponent } from './components/checkbox-ex/checkbox-ex.component';
 import { ContainerExComponent } from './components/container-ex/container-ex.component';
 import { DropdownExComponent } from './components/dropdown-ex/dropdown-ex.component';
 import { RippleExComponent } from './components/ripple-ex/ripple-ex.component';
@@ -21,6 +22,7 @@ import { GridComponent } from './components/grid/grid.component';
     RippleExComponent,
     DropdownExComponent,
     ContainerExComponent,
+    CheckboxExComponent,
   ],
   imports: [
     CommonModule,

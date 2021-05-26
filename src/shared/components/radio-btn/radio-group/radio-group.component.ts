@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-radio-group',
   templateUrl: './radio-group.component.html',
-  styleUrls: ['./radio-group.component.css']
+  styleUrls: ['./radio-group.component.css'],
 })
 export class RadioGroupComponent implements OnInit {
+  @Input() pRadioCollectionName: string;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

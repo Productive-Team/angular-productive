@@ -172,17 +172,14 @@ export class RippleDirective implements OnInit, AfterViewInit {
     ripple.classList.add('p-ripple');
     rippleContainerElement.insertAdjacentElement('beforeend', ripple);
 
-    let rippleRadius;
     if (this.centered || this.pRippleTriggerId) {
-      x = elBoundRect.left - elBoundRect.width / 2;
-      y = elBoundRect.top - elBoundRect.height / 2;
-      rippleRadius = this.radius > 0 ? this.radius : elBoundRect.width / 1.4;
-    } else {
-      rippleRadius =
-        this.radius > 0
-          ? this.radius
-          : this.calcDistanceToFurthestCorner(x, y, elBoundRect);
+      x = elBoundRect.left + elBoundRect.width / 2;
+      y = elBoundRect.top + elBoundRect.height / 2;
     }
+    const rippleRadius =
+      this.radius > 0
+        ? this.radius
+        : this.calcDistanceToFurthestCorner(x, y, elBoundRect);
 
     const offsetX = Math.abs(elBoundRect.x - x);
     const offsetY = Math.abs(elBoundRect.y - y);
