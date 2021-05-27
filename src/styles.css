@@ -1193,7 +1193,7 @@ textarea.p-input.classic {
 .p-tooltip-container {
   position: relative;
   display: inline-block;
-  margin: 5px 10px;
+  margin: 0 10px;
 }
 .pTooltip {
   position: absolute;
@@ -1201,7 +1201,7 @@ textarea.p-input.classic {
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   border-radius: 3px;
-  max-width: 150%;
+  max-width: 250%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -1476,3 +1476,63 @@ textarea.p-input.classic {
 }
 
 /* #endregion Collapsible */
+
+/* #region Datepicker */
+.picker-container {
+  position: relative;
+}
+.picker-container i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  user-select: none;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.336);
+}
+
+.picker {
+  display: flex;
+  max-width: 300px;
+  height: 270px;
+  border-radius: 5px;
+  flex-direction: column;
+}
+
+.picker .header {
+  padding: 5px 10px;
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
+  display: flex;
+}
+
+.picker .header span {
+  flex: 1;
+  line-height: 46px;
+  text-align: center;
+  user-select: none;
+}
+
+.picker .content {
+  padding: 5px 20px;
+  height: 100%;
+}
+
+.picker .content .day {
+  display: inline-block;
+  min-width: 36px;
+  height: 36px;
+  text-align: center;
+  line-height: 37px;
+  user-select: none;
+  cursor: pointer;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.picker .content .day.selected {
+  box-shadow: 0 0 0 1px inset var(--primary);
+  color: var(--primary);
+  background-color: var(--primaryLowOpacity);
+}
+/* #endregion Datepicker */

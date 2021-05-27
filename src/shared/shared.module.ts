@@ -1,3 +1,4 @@
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { CollapsibleGroupComponent } from './components/collapsible/collapsible-group/collapsible-group.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { ProgressIndicatorsComponent } from './components/progress-indicators/progress-indicators.component';
@@ -74,6 +75,7 @@ import { CollapsibleContentComponent } from './components/collapsible/collapsibl
     CollapsibleContentComponent,
     CollapsibleTriggerDirective,
     CollapsibleGroupComponent,
+    DatepickerComponent,
   ],
   exports: [
     RippleDirective,
@@ -104,6 +106,7 @@ import { CollapsibleContentComponent } from './components/collapsible/collapsibl
     CollapsibleContentComponent,
     CollapsibleTriggerDirective,
     CollapsibleGroupComponent,
+    DatepickerComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
