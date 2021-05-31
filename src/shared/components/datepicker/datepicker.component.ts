@@ -44,19 +44,22 @@ export class DatepickerComponent implements OnInit, AfterViewInit {
   setDays(): void {
     let i = 1;
     for (; i <= 31; i++) {
-      this.days.push(i);
+      const obj = { day: i, selected: false };
+      this.days.push(obj);
     }
   }
 
   selectDay(day): void {
     this.selectedDate = day;
-    const selec = document.querySelector('.day.selected');
-    if (selec) {
-      selec.classList.remove('selected');
-    }
-    const sas = document.getElementById('day-' + day);
-    sas.classList.add('selected');
-    this.emitDate(day, 5, 2021);
+    const selDay = this.days.find((x) => x.day === day);
+    selDay.selected = true;
+    // const selec = document.querySelector('.day.selected');
+    // if (selec) {
+    //   selec.classList.remove('selected');
+    // }
+    // const sas = document.getElementById('day-' + day);
+    // sas.classList.add('selected');
+    // this.emitDate(day, 5, 2021);
   }
 
   emitDate(day: number, month: number, year: number): Date {

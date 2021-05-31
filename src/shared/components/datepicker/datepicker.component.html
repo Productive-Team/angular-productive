@@ -39,7 +39,7 @@
     <div class="content">
       <div>
         <span class="day" pRipple pRippleCentered="true" pRippleColor="var(--primaryLowOpacity)"
-          *ngFor="let day of days" (click)="selectDay(day)" id="day-{{day}}">{{day}}</span>
+          *ngFor="let day of days" (click)="selectDay(day)" id="day-{{day}}">{{day.day}}</span>
       </div>
       <div *ngIf="showMonths">
         <span class="month" pRipple>Jan</span>
