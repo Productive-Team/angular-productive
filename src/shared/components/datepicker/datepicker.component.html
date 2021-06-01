@@ -11,11 +11,11 @@
       </button>
       <span *ngIf="showDays">
         <button class="btn-small flat" pRipple>
-          <!-- {{currentDate.month}} -->
+          {{currMonth}}
         </button>
         -
         <button class="btn-small flat" pRipple>
-          <!-- {{currentDate.year}} -->
+          {{currYear}}
         </button>
       </span>
       <span *ngIf="showYears">
@@ -32,14 +32,15 @@
           Year
         </button>
       </span>
-      <button class="btn fab flat" pRipple pRippleCentered="true">
+      <button class="btn fab flat" pRipple pRippleCentered="true" (click)="nextMonth()">
         <i class="material-icons">chevron_right</i>
       </button>
     </div>
     <div class="content">
       <div>
-        <span class="day" pRipple pRippleCentered="true" pRippleColor="var(--primaryLowOpacity)"
-          *ngFor="let day of days" (click)="selectDay(day)" id="day-{{day}}">{{day.day}}</span>
+        <span [class]="day.selected ? 'day selected' : 'day'" pRipple pRippleCentered="true"
+          pRippleColor="var(--primaryLowOpacity)" *ngFor="let day of days" (click)="selectDay(day)"
+          id="day-{{day}}">{{day.day}}</span>
       </div>
       <div *ngIf="showMonths">
         <span class="month" pRipple>Jan</span>

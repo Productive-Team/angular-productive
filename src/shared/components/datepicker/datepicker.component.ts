@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-datepicker, p-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.css'],
 })
-export class DatepickerComponent implements OnInit, AfterViewInit {
+export class DatepickerComponent implements OnInit {
   @Input() pDatepickerType: string;
 
   years = [];
@@ -26,6 +26,9 @@ export class DatepickerComponent implements OnInit, AfterViewInit {
 
   selectedDate;
 
+  currMonth;
+  currYear;
+
   showDays = true;
   showYears = false;
   showMonths = false;
@@ -34,37 +37,47 @@ export class DatepickerComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngOnInit() {
-    this.setDays();
-  }
-
-  ngAfterViewInit(): void {
     this.currentDate = this.getCurrentDate();
   }
 
-  setDays(): void {
+  setDays(year: number, month: number): void {
+    this.days = [];
+    const allDays = new Date(year, month, 0).getDate();
     let i = 1;
-    for (; i <= 31; i++) {
+    for (; i <= allDays; i++) {
       const obj = { day: i, selected: false };
       this.days.push(obj);
     }
   }
 
-  selectDay(day): void {
-    this.selectedDate = day;
-    const selDay = this.days.find((x) => x.day === day);
-    selDay.selected = true;
-    // const selec = document.querySelector('.day.selected');
-    // if (selec) {
-    //   selec.classList.remove('selected');
-    // }
-    // const sas = document.getElementById('day-' + day);
-    // sas.classList.add('selected');
-    // this.emitDate(day, 5, 2021);
+  nextMonth() {
+    this.currentDate.month++;
+    if (this.currentDate.month > 12) {
+      this.currentDate.month = 2;
+      this.currentDate.year++;
+      this.currYear = this.currentDate.year;
+      // this.currMonth = this.currentDate.month[this.currMonth];
+    }
+    let index;
+    index = this.currentDate.month - 2;
+    console.log(index);
+    this.currMonth = this.months[index];
+    this.setDays(this.currentDate.year, this.currentDate.month);
   }
 
-  emitDate(day: number, month: number, year: number): Date {
-    const dateObj = new Date(day, month, year);
-    console.log(dateObj);
+  selectDay(day): void {
+    const oth = this.days.find((x) => x.selected === true);
+    if (oth) {
+      oth.selected = false;
+    }
+    const selDay = this.days.find((x) => x.day === day.day);
+    selDay.selected = true;
+    this.selectedDate = selDay;
+    this.emitDate(2021, 5, this.selectedDate.day);
+  }
+
+  emitDate(year: number, month: number, day: number): Date {
+    const dateObj = new Date(year, month, day);
     return dateObj;
   }
 
@@ -75,7 +88,10 @@ export class DatepickerComponent implements OnInit, AfterViewInit {
       month: date.getMonth() + 1,
       year: date.getFullYear(),
     };
-    this.selectDay(obj.day);
+    this.setDays(obj.year, obj.month);
+    this.currMonth = this.months[obj.month - 2];
+    this.currYear = obj.year;
+    this.selectDay(obj);
     return obj;
   }
 }

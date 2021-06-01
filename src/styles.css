@@ -1495,7 +1495,7 @@ textarea.p-input.classic {
 .picker {
   display: flex;
   max-width: 300px;
-  height: 270px;
+  height: 275px;
   border-radius: 5px;
   flex-direction: column;
 }
