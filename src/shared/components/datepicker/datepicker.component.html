@@ -6,14 +6,13 @@
   </div>
   <div class="picker elevation">
     <div class="header">
-      <button class="btn fab flat" pRipple pRippleCentered="true">
+      <button class="btn fab flat" pRipple pRippleCentered="true" (click)="previousMonth()">
         <i class="material-icons">chevron_left</i>
       </button>
       <span *ngIf="showDays">
         <button class="btn-small flat" pRipple>
           {{currMonth}}
         </button>
-        -
         <button class="btn-small flat" pRipple>
           {{currYear}}
         </button>
@@ -22,7 +21,6 @@
         <button class="btn-small flat" pRipple>
           Year
         </button>
-        -
         <button class="btn-small flat" pRipple>
           Year
         </button>

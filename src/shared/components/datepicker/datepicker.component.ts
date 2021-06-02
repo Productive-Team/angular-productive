@@ -12,6 +12,7 @@ export class DatepickerComponent implements OnInit {
   months = [
     'January',
     'February',
+    'March',
     'April',
     'May',
     'June',
@@ -45,23 +46,38 @@ export class DatepickerComponent implements OnInit {
     const allDays = new Date(year, month, 0).getDate();
     let i = 1;
     for (; i <= allDays; i++) {
-      const obj = { day: i, selected: false };
+      const obj = {
+        day: i,
+        // tslint:disable-next-line: object-literal-shorthand
+        month: month,
+        // tslint:disable-next-line: object-literal-shorthand
+        year: year,
+        selected: false,
+      };
       this.days.push(obj);
     }
   }
 
   nextMonth() {
     this.currentDate.month++;
-    if (this.currentDate.month > 12) {
-      this.currentDate.month = 2;
+    if (this.currentDate.month - 1 > 11) {
+      this.currentDate.month = 1;
       this.currentDate.year++;
       this.currYear = this.currentDate.year;
-      // this.currMonth = this.currentDate.month[this.currMonth];
     }
-    let index;
-    index = this.currentDate.month - 2;
-    console.log(index);
+    const index = this.currentDate.month - 1;
     this.currMonth = this.months[index];
+    this.setDays(this.currentDate.year, this.currentDate.month);
+  }
+
+  previousMonth() {
+    this.currentDate.month -= 1;
+    if (this.currentDate.month - 1 < 0) {
+      this.currentDate.month = 12;
+      this.currentDate.year--;
+      this.currYear = this.currentDate.year;
+    }
+    this.currMonth = this.months[this.currentDate.month - 1];
     this.setDays(this.currentDate.year, this.currentDate.month);
   }
 
@@ -73,11 +89,13 @@ export class DatepickerComponent implements OnInit {
     const selDay = this.days.find((x) => x.day === day.day);
     selDay.selected = true;
     this.selectedDate = selDay;
-    this.emitDate(2021, 5, this.selectedDate.day);
+    console.log(day);
+    this.emitDate(day.year, day.month, day.day);
   }
 
   emitDate(year: number, month: number, day: number): Date {
-    const dateObj = new Date(year, month, day);
+    const dateObj = new Date(year, month - 1, day);
+    console.log(dateObj);
     return dateObj;
   }
 
@@ -89,7 +107,7 @@ export class DatepickerComponent implements OnInit {
       year: date.getFullYear(),
     };
     this.setDays(obj.year, obj.month);
-    this.currMonth = this.months[obj.month - 2];
+    this.currMonth = this.months[obj.month - 1];
     this.currYear = obj.year;
     this.selectDay(obj);
     return obj;
