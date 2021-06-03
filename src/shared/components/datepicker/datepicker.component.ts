@@ -1,4 +1,45 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Directive,
+  HostBinding,
+  HostListener,
+  ElementRef,
+} from '@angular/core';
+
+@Directive({
+  selector:
+    '[p-datepicker-trigger], [pDatepickerTrigger], [appDatepickerTriggerDirective]',
+  exportAs: 'pDatepickerTrigger',
+})
+export class DatepickerTriggerDirective {
+  @Input() pTriggerFor: any;
+  constructor() {}
+
+  @HostBinding('class.picker-trigger')
+  @HostBinding('attr.readonly')
+  setClss() {
+    return true;
+  }
+
+  @HostListener('click', ['$event'])
+  open(): void {
+    const element = this.pTriggerFor;
+    element.isOpen = true;
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('backdrop');
+    const body = document.querySelector('body');
+    body.insertAdjacentElement('beforeend', backdrop);
+    backdrop.addEventListener('click', () => {
+      this.closeDate();
+    });
+  }
+
+  closeDate() {
+    this.pTriggerFor.close();
+  }
+}
 
 @Component({
   selector: 'app-datepicker, p-datepicker',
@@ -7,6 +48,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DatepickerComponent implements OnInit {
   @Input() pDatepickerType: string;
+
+  isOpen = false;
 
   years = [];
   months = [
@@ -37,7 +80,7 @@ export class DatepickerComponent implements OnInit {
   currentDate;
 
   selectedYear;
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
   ngOnInit() {
     this.currentDate = this.getCurrentDate();
@@ -45,7 +88,6 @@ export class DatepickerComponent implements OnInit {
 
   setDays(year: number, month: number): void {
     this.days = [];
-    console.log(month);
     const allDays = new Date(year, month, 0).getDate();
     let i = 1;
     for (; i <= allDays; i++) {
@@ -110,6 +152,7 @@ export class DatepickerComponent implements OnInit {
     selDay.selected = true;
     this.selectedDate = selDay;
     this.emitDate(day.year, day.month, day.day);
+    this.isOpen = false;
   }
 
   emitDate(year: number, month: number, day: number): Date {
@@ -180,5 +223,11 @@ export class DatepickerComponent implements OnInit {
     this.showDays = true;
     this.showMonths = false;
     this.setDays(this.currYear, monthIdx);
+  }
+
+  close(): void {
+    this.isOpen = false;
+    const backdrop = document.querySelector('.backdrop');
+    backdrop.remove();
   }
 }

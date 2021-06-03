@@ -1,4 +1,4 @@
-<div class="picker elevation">
+<div class="picker elevation" *ngIf="isOpen">
   <div class="header">
     <span *ngIf="showDays">
       <button class="btn fab flat left" pRipple pRippleCentered="true" (click)="previousMonth()">
@@ -25,7 +25,7 @@
       </button>
     </span>
     <span *ngIf="showMonths">
-      <button class="btn-small flat t-600" pRipple>
+      <button class="btn-small flat t-600" pRipple (click)="showYears = true; showMonths = false">
         {{currYear}}
       </button>
     </span>

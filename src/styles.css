@@ -1524,6 +1524,19 @@ textarea.p-input.classic {
   height: 275px;
   border-radius: 5px;
   flex-direction: column;
+  overflow: hidden;
+  animation: open 0.1s ease-in-out;
+  z-index: 999;
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  } 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .picker .header {
@@ -1531,6 +1544,11 @@ textarea.p-input.classic {
   border-bottom: 1px solid rgb(0 0 0 / 10%);
   display: flex;
   /* flex-direction: column; */
+}
+
+.picker-trigger {
+  cursor: pointer;
+  user-select: none;
 }
 
 .picker .header span {
@@ -1587,5 +1605,9 @@ textarea.p-input.classic {
   box-shadow: 0 0 0 1px inset var(--primary);
   color: var(--primary);
   background-color: var(--primaryLowOpacity);
+}
+
+.picker.hidden {
+  display: none;
 }
 /* #endregion Datepicker */

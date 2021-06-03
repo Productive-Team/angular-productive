@@ -1,7 +1,7 @@
 <div style="width: 800px; padding: 0 15px; box-sizing: border-box;">
   <p-fieldset labelText="select date" labelId="date-1">
-    <input type="text" class="p-input" pInput id="date-1">
-    <p-datepicker></p-datepicker>
+    <input type="text" class="p-input" pInput id="date-1" pDatepickerTrigger [pTriggerFor]="picker">
+    <p-datepicker #picker></p-datepicker>
   </p-fieldset>
 </div>
 <!-- <div style="width: 800px; padding: 0 15px; box-sizing: border-box;">
