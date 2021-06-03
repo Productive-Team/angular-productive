@@ -15,6 +15,23 @@
           </p-checkbox>
         </ng-container>
       </p-section>
+      <p>Some Some</p>
+      <p-section>
+        <ng-container section-content>
+          <div>
+            <p-checkbox [pCheckboxChecked]="comp" pCheckboxLabel="Select All" [pCheckboxIndeterminate]="someComp()"
+              (change)="setAll($event.target.checked)">
+            </p-checkbox>
+            <div style="margin-left: 30px;">
+              <div *ngFor="let check of child">
+                <p-checkbox [(ngModel)]="check.selected" pCheckboxLabel="{{check.label}}"
+                  pCheckboxColor="{{check.color}}" (ngModelChange)="areComp()">
+                </p-checkbox>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </p-section>
     </p-tab>
     <p-tab pTabLabel="References">
       <code>

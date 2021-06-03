@@ -107,7 +107,7 @@ export class CheckboxComponent implements AfterViewInit {
    */
 
   rippleColor: string;
-  checkVal: boolean;
+  @Input('pCheckboxChecked') checked: boolean;
 
   constructor() {}
 
@@ -115,12 +115,9 @@ export class CheckboxComponent implements AfterViewInit {
   blur = (_) => {};
 
   ngAfterViewInit(): void {
-    // Checks if required field (checkId) is valid;
-    if (this.checkRequiredFields(this.pCheckboxId)) {
-      setTimeout(() => {
-        this.setRippleColor();
-      }, 0);
-    }
+    setTimeout(() => {
+      this.setRippleColor();
+    }, 0);
   }
 
   // sets ripple color based on checkbox color
@@ -142,7 +139,7 @@ export class CheckboxComponent implements AfterViewInit {
 
   // writes the checkbox value
   writeValue(obj: boolean): void {
-    this.checkVal = obj;
+    this.checked = obj;
   }
 
   // register the changes
@@ -167,19 +164,7 @@ export class CheckboxComponent implements AfterViewInit {
 
   // changes the value of the checkbox
   onCheck($event) {
-    this.checkVal = $event && $event.target && $event.target.checked;
-    this.change(this.checkVal);
-  }
-
-  // checks if required input is not undefined or null
-  // if it's either, it throws an error
-  checkRequiredFields(input): boolean {
-    if (input === null || input === undefined) {
-      throw new Error(
-        'Atributo "checkId" é obrigatório.  Exemplo:    <app-checkbox checkId="check1"></app-checkbox>'
-      );
-    } else {
-      return true;
-    }
+    this.checked = $event && $event.target && $event.target.checked;
+    this.change(this.checked);
   }
 }

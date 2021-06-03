@@ -114,16 +114,14 @@
 /* icone da checkbox em indeterminado */
 .checkbox-mixed {
   position: absolute;
-  top: 7.5px;
-  left: 3px;
-  right: 0;
-  bottom: 0;
-  width: 10px;
-  height: 1.5px;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - 6px);
+  height: 2px;
   border-radius: 2px;
   background-color: white;
-  transform: scaleX(1) rotate(120deg);
-  transition: 0.1s linear;
+  transform: scaleX(1) rotate(-10deg) translateX(-50%) translateY(-50%);
+  transition: opacity 0.1s linear;
   opacity: 0;
 }
 
@@ -169,8 +167,9 @@
 
 /* shows the mixed icon in checkbox */
 .checkbox-layout input:indeterminate ~ .checkbox-background .checkbox-mixed {
+  transition: all 0.1s linear;
   opacity: 1;
-  transform: scaleX(1) rotate(0deg);
+  transform: scaleX(1) rotate(0deg) translateX(-50%) translateY(-50%);
 }
 
 /* rotares the checkmark to transition to the mixed input and vice versa */

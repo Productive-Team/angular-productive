@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ContainerExComponent implements OnInit {
   numb = 0;
 
+  loading = false;
+
   constructor() {}
 
   ngOnInit() {}

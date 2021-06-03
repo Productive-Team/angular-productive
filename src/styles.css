@@ -6,16 +6,15 @@
   --appBackgroundColor: white;
   --defaultBezier: cubic-bezier(0, 0, 0.2, 1);
 }
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-@font-face {
-  font-family: "Roboto";
-  src: url("./assets/fonts/Roboto-Regular.ttf");
+* {
+  font-family: Roboto;
 }
 
 html,
 body {
   margin: 0;  
-  font-family: Roboto !important;
   font-size: 16px;
   color: #262626;
   -webkit-font-smoothing: antialiased;
@@ -38,11 +37,6 @@ p,
 label,
 pre {
   margin: 0;
-  font-weight: normal;
-}
-
-pre {
-  font-family: Roboto;
 }
 
 br {
@@ -62,28 +56,72 @@ hr {
 
 /* #region Typography */
 h1 {
-  font-size: 54px;
-  font-weight: 600;
+  font-size: 80px;
+  font-weight: 300;
+  letter-spacing: -1.5px;
 }
 h2 {
-  font-size: 44px;
-  font-weight: 500;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
 }
 h3 {
-  font-size: 34px;
-  font-weight: 400;
+  font-size: 50px;
+  font-weight: 500;
 }
 h4 {
-  font-size: 24px;
+  font-size: 40px;
   font-weight: 400;
+  letter-spacing: 0.25px;
 }
 h5 {
-  font-size: 16px;
-  font-weight: 300;
+  font-size: 28px;
+  font-weight: 400;
 }
 h6 {
-  font-size: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.15px;
+}
+
+span, label {
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0.15px;
+}
+
+p {
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+}
+
+.t-100 {
+  font-weight: 100;
+}
+.t-200 {
   font-weight: 200;
+}
+.t-300 {
+  font-weight: 300;
+}
+.t-400 {
+  font-weight: 400;
+}
+.t-500 {
+  font-weight: 500;
+}
+.t-600 {
+  font-weight: 600 !important;
+}
+.t-700 {
+  font-weight: 700;
+}
+.t-800 {
+  font-weight: 800;
+}
+.t-900 {
+  font-weight:900;
 }
 /* #endregion Typography */
 
@@ -371,7 +409,7 @@ h6 {
 .btn,
 .btn-small,
 .btn-large {
-  font-weight: 500;
+  font-weight: 400;
   display: inline-block;
   position: relative;
   margin: 0 5px;
@@ -384,7 +422,6 @@ h6 {
   cursor: pointer;
   transition: 0.2s;
   user-select: none;
-  font-family: Roboto;
   -webkit-tap-highlight-color: transparent;
   max-width: 100%;
   white-space: nowrap;
@@ -1478,21 +1515,10 @@ textarea.p-input.classic {
 /* #endregion Collapsible */
 
 /* #region Datepicker */
-.picker-container {
-  position: relative;
-}
-.picker-container i {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  user-select: none;
-  font-size: 20px;
-  color: rgba(0, 0, 0, 0.336);
-}
-
 .picker {
+  position: absolute;
+  top: 45px;
+  background-color: white;
   display: flex;
   max-width: 300px;
   height: 275px;
@@ -1504,6 +1530,7 @@ textarea.p-input.classic {
   padding: 5px 10px;
   border-bottom: 1px solid rgb(0 0 0 / 10%);
   display: flex;
+  /* flex-direction: column; */
 }
 
 .picker .header span {
@@ -1529,6 +1556,32 @@ textarea.p-input.classic {
   border-radius: 50%;
   box-sizing: border-box;
 }
+
+.picker .content .year {
+  display: inline-block;
+  min-width: 56px;
+  height: 36px;
+  user-select: none;
+  text-align: center;
+  line-height: 36px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.picker .content .month {
+  display: inline-block;
+  min-width: 56px;
+  height: 36px;
+  user-select: none;
+  text-align: center;
+  line-height: 36px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 999px;
+  font-size: 14px;
+} 
 
 .picker .content .day.selected {
   box-shadow: 0 0 0 1px inset var(--primary);

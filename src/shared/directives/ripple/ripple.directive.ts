@@ -87,7 +87,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
    * -Note-
    *   The ripple will always be centered if you're using this type of trigger.
    */
-  @Input() pRippleTriggerId: string;
+  @Input() pRippleTriggerFor: any;
   /**
    * pRippleDisabled is a boolean value.
    *
@@ -107,10 +107,8 @@ export class RippleDirective implements OnInit, AfterViewInit {
     // Checks if pRippleTriggerId is different from undefined
     // and sets container classes
     if (!this.disabled) {
-      if (this.pRippleTriggerId) {
-        const element = document.getElementById(
-          this.pRippleTriggerId
-        ) as HTMLDivElement;
+      if (this.pRippleTriggerFor) {
+        const element = this.pRippleTriggerFor;
         element.classList.add('p-ripple-container');
         if (this.unbounded) {
           element.classList.add('p-ripple-unbounded');
@@ -159,10 +157,8 @@ export class RippleDirective implements OnInit, AfterViewInit {
   // Recieves a Y coordinate, beign the clientY
   private createRippleEffect(element: HTMLElement, x: number, y: number): void {
     let rippleContainerElement;
-    if (this.pRippleTriggerId) {
-      rippleContainerElement = document.getElementById(
-        this.pRippleTriggerId
-      ) as HTMLDivElement;
+    if (this.pRippleTriggerFor) {
+      rippleContainerElement = this.pRippleTriggerFor;
     } else {
       rippleContainerElement = element;
     }
@@ -172,7 +168,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
     ripple.classList.add('p-ripple');
     rippleContainerElement.insertAdjacentElement('beforeend', ripple);
 
-    if (this.centered || this.pRippleTriggerId) {
+    if (this.centered || this.pRippleTriggerFor) {
       x = elBoundRect.left + elBoundRect.width / 2;
       y = elBoundRect.top + elBoundRect.height / 2;
     }
@@ -215,10 +211,8 @@ export class RippleDirective implements OnInit, AfterViewInit {
   // Recieves a Html Element
   private fadeOutRipple(element: HTMLElement): void {
     let rippleContainerElement;
-    if (this.pRippleTriggerId) {
-      rippleContainerElement = document.getElementById(
-        this.pRippleTriggerId
-      ) as HTMLDivElement;
+    if (this.pRippleTriggerFor) {
+      rippleContainerElement = this.pRippleTriggerFor;
     } else {
       rippleContainerElement = element;
     }

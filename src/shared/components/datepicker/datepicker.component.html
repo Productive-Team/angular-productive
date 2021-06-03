@@ -1,51 +1,55 @@
-<div class="fieldset">
-  <div class="picker-container">
-    <input class="p-input" type="text" placeholder="Pick a Date">
-    <div class="p-input-bar"></div>
-    <i class="material-icons">calendar_today</i>
-  </div>
-  <div class="picker elevation">
-    <div class="header">
-      <button class="btn fab flat" pRipple pRippleCentered="true" (click)="previousMonth()">
+<div class="picker elevation">
+  <div class="header">
+    <span *ngIf="showDays">
+      <button class="btn fab flat left" pRipple pRippleCentered="true" (click)="previousMonth()">
         <i class="material-icons">chevron_left</i>
       </button>
-      <span *ngIf="showDays">
-        <button class="btn-small flat" pRipple>
-          {{currMonth}}
-        </button>
-        <button class="btn-small flat" pRipple>
-          {{currYear}}
-        </button>
-      </span>
-      <span *ngIf="showYears">
-        <button class="btn-small flat" pRipple>
-          Year
-        </button>
-        <button class="btn-small flat" pRipple>
-          Year
-        </button>
-      </span>
-      <span *ngIf="showMonths">
-        <button class="btn-small flat" pRipple>
-          Year
-        </button>
-      </span>
-      <button class="btn fab flat" pRipple pRippleCentered="true" (click)="nextMonth()">
+      <button class="btn-small flat t-600" pRipple (click)="showDays = false; showYears = true; setYears(currYear)">
+        {{currMonth}}
+        {{currYear}}
+      </button>
+      <button class="btn fab flat right" pRipple pRippleCentered="true" (click)="nextMonth()">
         <i class="material-icons">chevron_right</i>
       </button>
+    </span>
+    <span *ngIf="showYears">
+      <button class="btn fab flat left" pRipple pRippleCentered="true" (click)="previousYears()">
+        <i class="material-icons">chevron_left</i>
+      </button>
+      <button class="btn-small flat t-600" pRipple (click)="showDays = true; showYears = false;">
+        {{years[0]}} -
+        {{years[19]}}
+      </button>
+      <button class="btn fab flat right" pRipple pRippleCentered="true" (click)="nextYears()">
+        <i class="material-icons">chevron_right</i>
+      </button>
+    </span>
+    <span *ngIf="showMonths">
+      <button class="btn-small flat t-600" pRipple>
+        {{currYear}}
+      </button>
+    </span>
+    <!-- <div>
+      <span>S</span>
+      <span>M</span>
+      <span>T</span>
+      <span>W</span>
+      <span>T</span>
+      <span>F</span>
+      <span>S</span>
+    </div> -->
+  </div>
+  <div class="content">
+    <div *ngIf="showDays">
+      <span [class]="day.selected ? 'day selected' : 'day'" pRipple pRippleCentered="true"
+        pRippleColor="var(--primaryLowOpacity)" *ngFor="let day of days" (click)="selectDay(day)"
+        id="day-{{day}}">{{day.day}}</span>
     </div>
-    <div class="content">
-      <div>
-        <span [class]="day.selected ? 'day selected' : 'day'" pRipple pRippleCentered="true"
-          pRippleColor="var(--primaryLowOpacity)" *ngFor="let day of days" (click)="selectDay(day)"
-          id="day-{{day}}">{{day.day}}</span>
-      </div>
-      <div *ngIf="showMonths">
-        <span class="month" pRipple>Jan</span>
-      </div>
-      <div *ngIf="showYears">
-        <span class="year" pRipple>2021</span>
-      </div>
+    <div *ngIf="showMonths" class="text-center">
+      <span class="month" pRipple *ngFor="let month of months" (click)="selectMonth(month)">{{month}}</span>
+    </div>
+    <div *ngIf="showYears" class="text-center">
+      <span class="year" pRipple *ngFor="let year of years" (click)="selectYear(year)">{{year}}</span>
     </div>
   </div>
 </div>
