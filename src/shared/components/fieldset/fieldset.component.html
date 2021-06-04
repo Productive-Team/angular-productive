@@ -1,4 +1,4 @@
-<div class="fieldset">
+<!-- <div class="fieldset">
   <div>
     <ng-content></ng-content>
     <span [class]="isTextarea ? 'label-wrapper-textarea' : 'label-wrapper'" [id]="labelId + '-label'">
@@ -18,4 +18,22 @@
     <i class="material-icons left helper-icon">info</i>
     {{helperText}}
   </span>
+</div> -->
+
+<div class="fieldset">
+  <div>
+    <div class="input-wrapper {{appearence}}">
+      <span class="input-label-wrapper">
+        <label for="" class="input-label">{{labelText}}</label>
+      </span>
+      <div class="input-content">
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div class="p-input-bar"></div>
+  </div>
+  <!-- <span class="helper-text">
+    <i class="material-icons left helper-icon">info</i>
+    text
+  </span> -->
 </div>

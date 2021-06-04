@@ -1,4 +1,4 @@
-<div class="picker elevation" *ngIf="isOpen">
+<div class="picker elevation" *ngIf="isOpen" @animationTrigger>
   <div class="header">
     <span *ngIf="showDays">
       <button class="btn fab flat left" pRipple pRippleCentered="true" (click)="previousMonth()">
@@ -29,15 +29,6 @@
         {{currYear}}
       </button>
     </span>
-    <!-- <div>
-      <span>S</span>
-      <span>M</span>
-      <span>T</span>
-      <span>W</span>
-      <span>T</span>
-      <span>F</span>
-      <span>S</span>
-    </div> -->
   </div>
   <div class="content">
     <div *ngIf="showDays">

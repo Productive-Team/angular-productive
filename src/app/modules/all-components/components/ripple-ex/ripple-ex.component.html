@@ -1,7 +1,7 @@
-<h5>The Ripple Effect is used to represent when the user has clicked something, sending a visual feedback to the user.
-</h5>
+<span>The Ripple Effect is used to represent when the user has clicked something, sending a visual feedback to the user.
+</span>
 <br>
-<h5>Here's an interactive example of the Ripple Effect:</h5>
+<span>Here's an interactive example of the Ripple Effect:</span>
 <br>
 <p-section>
   <ng-container section-content>
@@ -17,27 +17,27 @@
         </div>
       </div>
       <div class="col m3 s6">
-        <p-fieldset labelText="Ripple Color" labelId="color-rip">
-          <input type="text" class="p-input" pInput [(ngModel)]="color" id="color-rip">
+        <p-fieldset labelText="Ripple Color" labelId="color-rip" [pFieldsetAppearence]="'outlined'">
+          <input type="text" pInput [(ngModel)]="color" id="color-rip">
         </p-fieldset>
       </div>
-      <div class="col m3 s6">
+      <!-- <div class="col m3 s6">
         <p-fieldset labelText="Ripple Radius" labelId="radius-rip">
           <input type="number" class="p-input" pInput [(ngModel)]="radius" id="radius-rip">
         </p-fieldset>
-      </div>
+      </div> -->
     </div>
     <div class="ripple-example elevation" pRipple [pRippleCentered]="center" [pRippleColor]="color"
       [pRippleUnbounded]="unbound" [pRippleRadius]="radius" [pRippleDisabled]="disabled" id="rip-ex-1">Click Me!</div>
   </ng-container>
 </p-section>
 <br>
-<h5>You can also set up an element to be a trigger of a ripple on another element.<br><br> When doing so, the ripple
+<span>You can also set up an element to be a trigger of a ripple on another element.<br><br> When doing so, the ripple
   will
-  always be centered, however every other setting will work as intended.</h5>
+  always be centered, however every other setting will work as intended.</span>
 <br>
 <br>
-<h5>Here's an example:</h5>
+<span>Here's an example:</span>
 <p-section>
   <ng-container section-content>
     <div class="row">

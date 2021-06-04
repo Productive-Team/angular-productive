@@ -19,25 +19,31 @@ const labelActive = [];
 export class InputDirective {
   constructor(private el: ElementRef) {}
   @HostListener('focus', ['$event']) onFocus(event) {
-    const input = this.el.nativeElement as HTMLInputElement;
-    const label = document.getElementById(
-      input.id + '-label'
-    ) as HTMLDivElement;
-    label.classList.add('active');
+    const input = this.el.nativeElement.parentElement
+      .parentElement as HTMLInputElement;
+    console.log(input);
+    input.classList.add('focused');
+    // const label = document.getElementById(
+    //   input.id + '-label'
+    // ) as HTMLDivElement;
+    // label.classList.add('active');
   }
-  @HostListener('focusout', ['$event']) onFocusOut(event) {
-    const input = this.el.nativeElement as HTMLInputElement;
-    const activeInp = labelActive.find((x) => x === input);
-    const label = document.getElementById(
-      input.id + '-label'
-    ) as HTMLDivElement;
-    if (
-      (input.value === '' && activeInp === undefined) ||
-      (input.value === undefined && activeInp === undefined) ||
-      (input.value === null && activeInp === undefined)
-    ) {
-      label.classList.remove('active');
-    }
+  @HostListener('blur', ['$event']) onFocusOut(event) {
+    const input = this.el.nativeElement.parentElement
+      .parentElement as HTMLInputElement;
+    console.log(input);
+    input.classList.remove('focused');
+    // const activeInp = labelActive.find((x) => x === input);
+    // const label = document.getElementById(
+    //   input.id + '-label'
+    // ) as HTMLDivElement;
+    // if (
+    //   (input.value === '' && activeInp === undefined) ||
+    //   (input.value === undefined && activeInp === undefined) ||
+    //   (input.value === null && activeInp === undefined)
+    // ) {
+    //   label.classList.remove('active');
+    // }
   }
 }
 
@@ -62,6 +68,8 @@ export class FieldsetComponent
   @Input() helperState: string;
   @Input() inputValidate = false;
   @Input() isTextarea = false;
+  // tslint:disable-next-line: no-input-rename
+  @Input('pFieldsetAppearence') appearence: string;
 
   private required = 'required';
   private maxlengthValid = 'maxlength';
@@ -164,5 +172,9 @@ export class FieldsetComponent
       default:
         icon.innerHTML = 'info';
     }
+  }
+
+  @HostListener('focus', ['$event']) focused(event) {
+    console.log('object');
   }
 }

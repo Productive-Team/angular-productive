@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
   Input,
@@ -19,7 +20,7 @@ export class DatepickerTriggerDirective {
 
   @HostBinding('class.picker-trigger')
   @HostBinding('attr.readonly')
-  setClss() {
+  get clss() {
     return true;
   }
 
@@ -45,6 +46,15 @@ export class DatepickerTriggerDirective {
   selector: 'app-datepicker, p-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.css'],
+  animations: [
+    trigger('animationTrigger', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.98)' }),
+        animate('100ms', style({ opacity: 1, transform: 'scale(1)' })),
+      ]),
+      transition(':leave', [animate('100ms', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class DatepickerComponent implements OnInit {
   @Input() pDatepickerType: string;

@@ -113,10 +113,13 @@ export class RippleDirective implements OnInit, AfterViewInit {
         if (this.unbounded) {
           element.classList.add('p-ripple-unbounded');
         }
-      } else {
-        this.el.nativeElement.classList.add('p-ripple-container');
       }
     }
+  }
+
+  @HostBinding('class.p-ripple-container')
+  get val() {
+    return true;
   }
 
   @HostBinding('class.p-ripple-unbounded') get unbound() {

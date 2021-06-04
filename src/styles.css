@@ -10,13 +10,13 @@
 
 * {
   font-family: Roboto;
+  color: #262626;
 }
 
 html,
 body {
   margin: 0;  
   font-size: 16px;
-  color: #262626;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
   background-color: var(--appBackgroundColor);
@@ -35,8 +35,10 @@ h6,
 span,
 p,
 label,
-pre {
+pre,
+button {
   margin: 0;
+  color: inherit;
 }
 
 br {
@@ -414,7 +416,6 @@ p {
   position: relative;
   margin: 0 5px;
   background-color: #e4e4e4;
-  color: #262626;
   border: 0;
   outline: none;
   font-size: 16px;
@@ -683,6 +684,83 @@ a.btn-large {
   position: relative;
   margin: 13px 0;
 }
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 15px 8px 5px 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 5px 5px 0 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  transition: box-shadow 100ms ease-in;
+}
+
+.input-wrapper.classic {
+  background-color: transparent;
+  padding: 15px 0 5px 0;
+  border-radius: 0;
+}
+
+.input-wrapper.outlined {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+  padding: 15px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.input-wrapper:hover.outlined {
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.input-wrapper.focused ~ .p-input-bar,
+.input-wrapper.classic.focused ~ .p-input-bar {
+  opacity: 1;
+  transition: width 0.2s ease-out;
+  width: 100%;
+}
+
+.input-wrapper.outlined.focused {
+  box-shadow: inset 0 0 0 2px var(--primary);
+}
+.input-wrapper.outlined ~ .p-input-bar {
+  display: none;
+}
+
+.input-wrapper .input-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-wrapper .input-label-wrapper {
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
+  color: #4d4d4d;
+  user-select: none;
+  pointer-events: none;
+}
+.input-wrapper.classic .input-label-wrapper {
+  left: 0;
+}
+.input-wrapper.outlined .input-label-wrapper {
+  bottom: 15px;
+  left: 11px;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+  width: 100%;
+  background-color: transparent;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  resize: vertical;
+  color: #262626;
+}
+
 .p-input {
   box-sizing: border-box;
   background: #f1f1f1;
@@ -1525,18 +1603,7 @@ textarea.p-input.classic {
   border-radius: 5px;
   flex-direction: column;
   overflow: hidden;
-  animation: open 0.1s ease-in-out;
   z-index: 999;
-}
-
-@keyframes open {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  } 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 .picker .header {
@@ -1605,9 +1672,5 @@ textarea.p-input.classic {
   box-shadow: 0 0 0 1px inset var(--primary);
   color: var(--primary);
   background-color: var(--primaryLowOpacity);
-}
-
-.picker.hidden {
-  display: none;
 }
 /* #endregion Datepicker */
