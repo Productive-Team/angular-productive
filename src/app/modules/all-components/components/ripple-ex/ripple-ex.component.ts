@@ -9,21 +9,10 @@ export class RippleExComponent implements OnInit {
   center = false;
   unbound = false;
   disabled = false;
-  sas = false;
   color: string;
   radius: number;
 
   constructor() {}
 
   ngOnInit() {}
-
-  unboundA(event) {
-    this.unbound = event;
-    const rip = document.querySelector('#rip-ex-1') as HTMLDivElement;
-    if (this.unbound) {
-      rip.classList.add('p-ripple-unbounded');
-    } else {
-      rip.classList.remove('p-ripple-unbounded');
-    }
-  }
 }

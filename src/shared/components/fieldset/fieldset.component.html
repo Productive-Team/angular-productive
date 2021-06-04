@@ -1,39 +1,25 @@
-<!-- <div class="fieldset">
+<div class="fieldset">
   <div>
-    <ng-content></ng-content>
-    <span [class]="isTextarea ? 'label-wrapper-textarea' : 'label-wrapper'" [id]="labelId + '-label'">
-      <label for="{{labelId}}" class="p-input-label">
-        <i class="material-icons left" *ngIf="labelIconLeft">{{labelIconLeft}}</i>
-        {{labelText}}
-        <i class="material-icons right" *ngIf="labelIconRight">{{labelIconRight}}</i>
-      </label>
-    </span>
-    <div [class]="isTextarea ? 'p-input-bar-textarea' : 'p-input-bar'"></div>
-    <button class="btn-small floating flat input-trailing" pRipple pRippleCentered="true" *ngIf="trailingButton"
-      (click)="execFunction()">
-      <i class="material-icons">{{trailingButtonIcon}}</i>
-    </button>
+    <div class="input-wrapper {{appearence}}">
+      <div class="prefix" #prefixContent>
+        <ng-content select="[prefix]"></ng-content>
+      </div>
+      <div class="field-content">
+        <span class="input-label-wrapper">
+          <label for="" class="input-label">{{labelText}}</label>
+        </span>
+        <div class="input-content">
+          <ng-content></ng-content>
+        </div>
+      </div>
+      <div class="suffix" #suffixContent>
+        <ng-content select="[suffix]"></ng-content>
+      </div>
+    </div>
+    <div class="p-input-bar"></div>
   </div>
   <span class="helper-text {{helperState}}" *ngIf="hasHelperText">
     <i class="material-icons left helper-icon">info</i>
     {{helperText}}
   </span>
-</div> -->
-
-<div class="fieldset">
-  <div>
-    <div class="input-wrapper {{appearence}}">
-      <span class="input-label-wrapper">
-        <label for="" class="input-label">{{labelText}}</label>
-      </span>
-      <div class="input-content">
-        <ng-content></ng-content>
-      </div>
-    </div>
-    <div class="p-input-bar"></div>
-  </div>
-  <!-- <span class="helper-text">
-    <i class="material-icons left helper-icon">info</i>
-    text
-  </span> -->
 </div>

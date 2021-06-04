@@ -1,7 +1,13 @@
-<div style="width: 800px; padding: 0 15px; box-sizing: border-box;">
-  <p-fieldset labelText="select date" labelId="date-1">
-    <input type="text" pInput id="date-1" pDatepickerTrigger [pTriggerFor]="picker">
-    <p-datepicker #picker></p-datepicker>
+<div style="width: 200px; padding: 0 15px; box-sizing: border-box;">
+  <p-fieldset labelText="Select Date" [pFieldsetInput]="date" [pFieldsetLabelActive]="true">
+    <input type="text" pInput #date [(ngModel)]="dateStr">
+    <ng-container suffix>
+      <button class="btn fab flat input-suffix" pRipple [pRippleCentered]="true" pDatepickerTrigger
+        [pTriggerFor]="picker">
+        <i class="material-icons">event</i>
+      </button>
+    </ng-container>
+    <p-datepicker #picker (pDateResult)="sas($event)"></p-datepicker>
   </p-fieldset>
 </div>
 <!-- <div style="width: 800px; padding: 0 15px; box-sizing: border-box;">

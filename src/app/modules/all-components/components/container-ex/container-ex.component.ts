@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ContainerExComponent implements OnInit {
   numb = 0;
 
+  dateStr: string;
+
   loading = false;
 
   constructor() {}
@@ -16,5 +18,11 @@ export class ContainerExComponent implements OnInit {
 
   rer(ev) {
     this.numb = ev;
+  }
+
+  sas(ev) {
+    setTimeout(() => {
+      this.dateStr = ev.formatted;
+    }, 5);
   }
 }

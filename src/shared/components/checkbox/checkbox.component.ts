@@ -105,9 +105,9 @@ export class CheckboxComponent implements AfterViewInit {
    *
    * This is just a temporary fix;
    */
+  @Input('pCheckboxChecked') checked: boolean;
 
   rippleColor: string;
-  @Input('pCheckboxChecked') checked: boolean;
 
   constructor() {}
 

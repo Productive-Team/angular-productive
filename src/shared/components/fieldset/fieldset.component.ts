@@ -3,15 +3,15 @@ import {
   AfterViewInit,
   Component,
   ContentChild,
+  ContentChildren,
   Directive,
   ElementRef,
+  HostBinding,
   HostListener,
   Input,
   OnInit,
 } from '@angular/core';
 import { FormControlName, NgModel } from '@angular/forms';
-
-const labelActive = [];
 
 @Directive({
   selector: '[app-input], [p-input], [pInput]',
@@ -19,31 +19,26 @@ const labelActive = [];
 export class InputDirective {
   constructor(private el: ElementRef) {}
   @HostListener('focus', ['$event']) onFocus(event) {
-    const input = this.el.nativeElement.parentElement
+    const input = this.el.nativeElement.parentElement.parentElement
       .parentElement as HTMLInputElement;
-    console.log(input);
     input.classList.add('focused');
-    // const label = document.getElementById(
-    //   input.id + '-label'
-    // ) as HTMLDivElement;
-    // label.classList.add('active');
+    const label = input.firstChild.nextSibling.firstChild as HTMLSpanElement;
+    label.classList.add('active');
   }
   @HostListener('blur', ['$event']) onFocusOut(event) {
-    const input = this.el.nativeElement.parentElement
+    const input = this.el.nativeElement.parentElement.parentElement
       .parentElement as HTMLInputElement;
-    console.log(input);
     input.classList.remove('focused');
-    // const activeInp = labelActive.find((x) => x === input);
-    // const label = document.getElementById(
-    //   input.id + '-label'
-    // ) as HTMLDivElement;
-    // if (
-    //   (input.value === '' && activeInp === undefined) ||
-    //   (input.value === undefined && activeInp === undefined) ||
-    //   (input.value === null && activeInp === undefined)
-    // ) {
-    //   label.classList.remove('active');
-    // }
+    const inputFil = this.el.nativeElement as HTMLInputElement;
+    const label = input.firstChild.nextSibling.firstChild as HTMLSpanElement;
+    if (inputFil.value.length === 0) {
+      label.classList.remove('active');
+    }
+  }
+
+  @HostBinding('class.form-input')
+  get val() {
+    return true;
   }
 }
 
@@ -55,21 +50,17 @@ export class InputDirective {
 export class FieldsetComponent
   implements OnInit, AfterViewInit, AfterContentInit
 {
-  @Input() labelText: string;
-  @Input() labelIconLeft: string;
-  @Input() labelIconRight: string;
-  @Input() labelId: string;
-  @Input() labelActive = false;
-  @Input() trailingButton = false;
-  @Input() trailingButtonIcon: string;
-  @Input() trailingButtonAction: any;
+  @Input('pFieldsetLabelText') labelText: string;
+  @Input('pFieldsetLabelActive') labelActive = false;
   @Input() hasHelperText = false;
   @Input() helperText: string;
   @Input() helperState: string;
   @Input() inputValidate = false;
-  @Input() isTextarea = false;
-  // tslint:disable-next-line: no-input-rename
   @Input('pFieldsetAppearence') appearence: string;
+  @Input('pFieldsetInput') input: any;
+
+  @ContentChildren('prefixContent') prefixContent: any;
+  @ContentChildren('suffixContent') suffix: any;
 
   private required = 'required';
   private maxlengthValid = 'maxlength';
@@ -80,12 +71,15 @@ export class FieldsetComponent
   public field: any;
   public message = '';
 
+  hasPrefix = false;
+  hasSuffix = false;
+
   @ContentChild(FormControlName, { static: false })
   control: FormControlName;
   @ContentChild(NgModel, { static: false })
   model: NgModel;
 
-  constructor() {
+  constructor(private el: ElementRef) {
     this.seedMessages();
   }
 
@@ -102,9 +96,6 @@ export class FieldsetComponent
   ngOnInit(): void {
     if (this.labelActive) {
       this.labelsActive();
-    }
-    if (this.trailingButton) {
-      this.addTrailingStyling();
     }
   }
 
@@ -138,23 +129,17 @@ export class FieldsetComponent
         'Esse componente precisa ser usado com uma diretiva NgModel ou FormControlName. Utilize o atributo isException para esconder este erro.'
       );
     }
+    // this.hasPrefix = this.prefix.nativeElement.childNodes.length > 0;
+    console.log(this.prefixContent);
+    console.log(this.suffix);
+    this.hasSuffix = this.suffix.nativeElement;
   }
 
   labelsActive(): void {
-    const input = document.getElementById(this.labelId) as HTMLInputElement;
-    input.classList.add('label-active');
-    labelActive.push(input);
-    const label = input.nextSibling as HTMLLabelElement;
+    const label =
+      this.el.nativeElement.firstChild.firstChild.firstChild.firstChild
+        .nextSibling.firstChild;
     label.classList.add('active');
-  }
-
-  addTrailingStyling(): void {
-    const input = document.getElementById(this.labelId) as HTMLInputElement;
-    input.classList.add('trailing-btn-input');
-  }
-
-  execFunction(): void {
-    this.trailingButtonAction();
   }
 
   changeIcon(): void {
@@ -174,7 +159,22 @@ export class FieldsetComponent
     }
   }
 
-  @HostListener('focus', ['$event']) focused(event) {
-    console.log('object');
+  @HostListener('click', ['$event']) focused(event) {
+    const target = event.target;
+    if (
+      target.classList.contains('input-wrapper') ||
+      target.classList.contains('form-input')
+    ) {
+      this.input.focus();
+    }
+  }
+
+  @HostBinding('class.hasPrefix')
+  get prefixState() {
+    return this.hasPrefix;
+  }
+  @HostBinding('class.hasSuffix')
+  get suffixState() {
+    return this.hasSuffix;
   }
 }

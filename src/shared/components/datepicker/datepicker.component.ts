@@ -7,6 +7,8 @@ import {
   HostBinding,
   HostListener,
   ElementRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 @Directive({
@@ -58,6 +60,7 @@ export class DatepickerTriggerDirective {
 })
 export class DatepickerComponent implements OnInit {
   @Input() pDatepickerType: string;
+  @Output() pDateResult = new EventEmitter<any>();
 
   isOpen = false;
 
@@ -162,11 +165,14 @@ export class DatepickerComponent implements OnInit {
     selDay.selected = true;
     this.selectedDate = selDay;
     this.emitDate(day.year, day.month, day.day);
-    this.isOpen = false;
+    this.close();
   }
 
   emitDate(year: number, month: number, day: number): Date {
     const dateObj = new Date(year, month - 1, day);
+    const formattedDate = `${year}/${month}/${day}`;
+    const exportObj = { date: dateObj, formatted: formattedDate };
+    this.pDateResult.emit(exportObj);
     return dateObj;
   }
 
@@ -238,6 +244,8 @@ export class DatepickerComponent implements OnInit {
   close(): void {
     this.isOpen = false;
     const backdrop = document.querySelector('.backdrop');
-    backdrop.remove();
+    if (backdrop) {
+      backdrop.remove();
+    }
   }
 }
