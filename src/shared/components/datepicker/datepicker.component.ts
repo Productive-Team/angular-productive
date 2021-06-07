@@ -1,4 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { formatDate } from '@angular/common';
 import {
   Component,
   Input,
@@ -170,7 +171,7 @@ export class DatepickerComponent implements OnInit {
 
   emitDate(year: number, month: number, day: number): Date {
     const dateObj = new Date(year, month - 1, day);
-    const formattedDate = `${year}/${month}/${day}`;
+    const formattedDate = formatDate(dateObj, 'MM/dd/yyyy', 'en-US');
     const exportObj = { date: dateObj, formatted: formattedDate };
     this.pDateResult.emit(exportObj);
     return dateObj;

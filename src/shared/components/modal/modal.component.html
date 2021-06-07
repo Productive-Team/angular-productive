@@ -1,4 +1,5 @@
-<div class="modal" [id]="pModalId">
+<div class="modal {{pModalSize}} {{pBottomSheet ? 'bottom-sheet' : ''}}" [@.disabled]="pBottomSheet" @modalRegular
+  [id]="pModalId" *ngIf="isOpen">
   <div class="modal-header" *ngIf="hasModalHeader">
     <ng-content select="[modal-header]"></ng-content>
   </div>
@@ -9,3 +10,16 @@
     <ng-content select="[modal-footer]"></ng-content>
   </div>
 </div>
+
+<!-- <div class="modal bottom-sheet {{pModalSize}}" [@modalBottom]="pBottomSheet ? true : false" [id]="pModalId"
+  *ngIf="isOpen && pBottomSheet">
+  <div class="modal-header" *ngIf="hasModalHeader">
+    <ng-content select="[modal-header-bottomSheet]"></ng-content>
+  </div>
+  <div class="modal-content">
+    <ng-content select="[modal-content]"></ng-content>
+  </div>
+  <div class="modal-footer" *ngIf="hasModalFooter">
+    <ng-content select="[modal-footer]"></ng-content>
+  </div>
+</div> -->

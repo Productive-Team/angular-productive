@@ -3,13 +3,13 @@ import {
   AfterViewInit,
   Component,
   ContentChild,
-  ContentChildren,
   Directive,
   ElementRef,
   HostBinding,
   HostListener,
   Input,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { FormControlName, NgModel } from '@angular/forms';
 
@@ -59,8 +59,8 @@ export class FieldsetComponent
   @Input('pFieldsetAppearence') appearence: string;
   @Input('pFieldsetInput') input: any;
 
-  @ContentChildren('prefixContent') prefixContent: any;
-  @ContentChildren('suffixContent') suffix: any;
+  @ViewChild('prefixContent') prefix: ElementRef;
+  @ViewChild('suffixContent') suffix: ElementRef;
 
   private required = 'required';
   private maxlengthValid = 'maxlength';
@@ -70,6 +70,8 @@ export class FieldsetComponent
   private Errors = {};
   public field: any;
   public message = '';
+
+  icon = 'info';
 
   hasPrefix = false;
   hasSuffix = false;
@@ -100,15 +102,19 @@ export class FieldsetComponent
   }
 
   ngAfterViewInit(): void {
-    if (this.hasHelperText) {
-      this.changeIcon();
-    }
+    setTimeout(() => {
+      const sufxCont = this.suffix.nativeElement.children?.length > 0;
+      const prxCont = this.prefix.nativeElement.children?.length > 0;
+      this.hasPrefix = prxCont;
+      this.hasSuffix = sufxCont;
+    }, 0);
   }
 
   public hasError(): boolean {
     if (this.field !== undefined) {
       if (this.field.errors) {
-        this.hasHelperText = true;
+        this.helperState = 'error';
+        this.changeIcon();
         const error = Object.getOwnPropertyNames(this.field.errors);
         error.forEach((element) => {
           if (this.Errors[element]) {
@@ -126,13 +132,9 @@ export class FieldsetComponent
     this.field = this.control || this.model;
     if (this.field === undefined && this.inputValidate) {
       throw new Error(
-        'Esse componente precisa ser usado com uma diretiva NgModel ou FormControlName. Utilize o atributo isException para esconder este erro.'
+        'Esse componente precisa ser usado com uma diretiva NgModel ou FormControlName.'
       );
     }
-    // this.hasPrefix = this.prefix.nativeElement.childNodes.length > 0;
-    console.log(this.prefixContent);
-    console.log(this.suffix);
-    this.hasSuffix = this.suffix.nativeElement;
   }
 
   labelsActive(): void {
@@ -143,19 +145,18 @@ export class FieldsetComponent
   }
 
   changeIcon(): void {
-    const icon = document.querySelector('.helper-icon') as HTMLDivElement;
     switch (this.helperState) {
       case 'success':
-        icon.innerHTML = 'check';
+        this.icon = 'check';
         break;
       case 'warn':
-        icon.innerHTML = 'report_problem';
+        this.icon = 'report_problem';
         break;
       case 'error':
-        icon.innerHTML = 'close';
+        this.icon = 'close';
         break;
       default:
-        icon.innerHTML = 'info';
+        this.icon = 'info';
     }
   }
 
@@ -176,5 +177,9 @@ export class FieldsetComponent
   @HostBinding('class.hasSuffix')
   get suffixState() {
     return this.hasSuffix;
+  }
+  @HostBinding('class.input-error')
+  get error() {
+    return this.hasError();
   }
 }

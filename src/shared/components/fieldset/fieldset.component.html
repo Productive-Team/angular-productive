@@ -6,7 +6,7 @@
       </div>
       <div class="field-content">
         <span class="input-label-wrapper">
-          <label for="" class="input-label">{{labelText}}</label>
+          <label class="input-label">{{labelText}}</label>
         </span>
         <div class="input-content">
           <ng-content></ng-content>
@@ -18,8 +18,8 @@
     </div>
     <div class="p-input-bar"></div>
   </div>
-  <span class="helper-text {{helperState}}" *ngIf="hasHelperText">
-    <i class="material-icons left helper-icon">info</i>
+  <span class="helper-text {{helperState}}" *ngIf="hasHelperText || hasError()">
+    <i class="material-icons left helper-icon" *ngIf="helperState">{{icon}}</i>
     {{helperText}}
   </span>
 </div>

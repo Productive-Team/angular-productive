@@ -684,6 +684,20 @@ a.btn-large {
   margin: 13px 0;
 }
 
+.input-error .input-wrapper .input-label-wrapper {
+  color: rgba(255, 0, 0, 0.623) !important; 
+}
+.input-error .input-wrapper ~ .p-input-bar {
+  border-color: rgba(255, 0, 0, 0.623);
+}
+
+.hasSuffix .input-wrapper {
+  padding-right: 56px;
+}
+.hasPrefix .input-wrapper {
+  padding-left: 56px;
+}
+
 .input-wrapper {
   position: relative;
   display: flex;
@@ -789,7 +803,25 @@ a.btn-large {
   width: 100%;
 }
 
+.input-wrapper .prefix {
+  text-align: center;
+  padding: 5px;
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  background-color: #f2f2f2;
+}
+.input-wrapper.outlined .prefix {
+  left: 5px;
+  background-color: transparent;
+}
+.input-wrapper.classic .prefix {
+  background-color: transparent;
+}
+
 .input-wrapper .suffix {
+  text-align: center;
+  padding: 5px;
   position: absolute;
   right: 0;
   bottom: 2px;
@@ -831,9 +863,11 @@ a.btn-large {
   line-height: 22px;
   color: #0000009c;
   animation: helperTextAnim 0.5s;
+  user-select: none;
 }
 .helper-text i {
   font-size: 20px;
+  user-select: none;
 }
 .helper-text.error {
   color: rgba(255, 0, 0, 0.623);
