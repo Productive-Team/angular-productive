@@ -330,6 +330,13 @@ export class DropdownComponent implements OnInit, OnDestroy {
   setWrapperSize(elementOrigin: any): void {
     const elRect = elementOrigin.getBoundingClientRect();
     const wrapper = this.el.nativeElement.firstChild as HTMLDivElement;
+    // TODO: Before setting the wrapper size, position it first
+    // then calculate the left position + the width of the menu-panel
+    // and compare with the offsetWidth of the page
+    // if it is higher, then set the transform origin to right instead of left
+    // and vice versa
+    //
+    // This will apply to the height too.
     console.log(elRect);
   }
 
