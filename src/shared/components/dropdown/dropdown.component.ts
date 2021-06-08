@@ -1,5 +1,14 @@
 import {
-  AfterViewInit,
+  animate,
+  animateChild,
+  group,
+  query,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
   Component,
   Directive,
   ElementRef,
@@ -11,19 +20,23 @@ import {
 
 @Directive({
   selector: '[app-dropdown-trigger], [p-dropdown-trigger], [pDropdownTrigger]',
+  exportAs: 'pDropdownTrigger',
 })
 export class DropdownTriggerDirective {
+  @Input() pDropdownTriggerFor: any;
   @Input() pDropdownTriggerId: string;
   @Input() pDropdownXPosition?: string;
   @Input() pDropdownYPosition?: string;
-  @Input() pDropdownCloseOnClick = true;
+  // @Input() pDropdownCloseOnClick = true;
   @Input() pDropdownOpenHover = false;
 
   constructor() {}
 
   @HostListener('click', ['$event']) openMenu(event) {
+    console.log(this.pDropdownTriggerFor);
     if (!this.pDropdownOpenHover) {
-      this.open(event);
+      this.pDropdownTriggerFor.openDropdown(event);
+      // this.open(event);
     }
   }
   @HostListener('mouseover', ['$event']) openMenuHover(event) {
@@ -48,18 +61,18 @@ export class DropdownTriggerDirective {
       back.classList.add('backdrop');
       back.style.zIndex = '999';
       body.insertAdjacentElement('beforeend', back);
-      if (this.pDropdownCloseOnClick) {
-        const links = menu.getElementsByTagName('a');
-        const buttons = menu.getElementsByTagName('button');
-        let a = 0;
-        for (; a < links.length; a++) {
-          links[a].classList.add('pDropdownButton');
-        }
-        let b = 0;
-        for (; b < buttons.length; b++) {
-          buttons[b].classList.add('pDropdownButton');
-        }
-      }
+      // if (this.pDropdownCloseOnClick) {
+      //   const links = menu.getElementsByTagName('a');
+      //   const buttons = menu.getElementsByTagName('button');
+      //   let a = 0;
+      //   for (; a < links.length; a++) {
+      //     links[a].classList.add('pDropdownButton');
+      //   }
+      //   let b = 0;
+      //   for (; b < buttons.length; b++) {
+      //     buttons[b].classList.add('pDropdownButton');
+      //   }
+      // }
       document.addEventListener('click', (ev) => {
         const tr = ev.target as HTMLDivElement;
         if (
@@ -67,27 +80,27 @@ export class DropdownTriggerDirective {
           tr.classList.contains('dropdown-wrapper') ||
           tr.classList.contains('pDropdownButton')
         ) {
-          this.close(back, menu, dropWrap);
+          // this.close(back, menu, dropWrap);
         }
       });
     }, 0);
   }
 
-  close(backdrop, menu, dropWrap): any {
-    menu.style.opacity = '0';
-    menu.addEventListener('transitionend', this.remov(backdrop, dropWrap));
-    menu.removeEventListener('transitionend', this.remov(backdrop, dropWrap));
-    const style = getComputedStyle(menu);
-    const transition = Number(style.transitionDuration.substr(2, 2) + '0');
-    setTimeout(() => {
-      const cntain = document.querySelector('.content-contain');
-      if (!cntain) {
-        const body = document.querySelector('body');
-        body.style.padding = '0';
-        body.style.overflow = 'visible';
-      }
-    }, transition);
-  }
+  // close(backdrop, menu, dropWrap): any {
+  //   menu.style.opacity = '0';
+  //   menu.addEventListener('transitionend', this.remov(backdrop, dropWrap));
+  //   menu.removeEventListener('transitionend', this.remov(backdrop, dropWrap));
+  //   const style = getComputedStyle(menu);
+  //   const transition = Number(style.transitionDuration.substr(2, 2) + '0');
+  //   setTimeout(() => {
+  //     const cntain = document.querySelector('.content-contain');
+  //     if (!cntain) {
+  //       const body = document.querySelector('body');
+  //       body.style.padding = '0';
+  //       body.style.overflow = 'visible';
+  //     }
+  //   }, transition);
+  // }
 
   private remov(backdrop, dropWrap): any {
     setTimeout(() => {
@@ -109,6 +122,25 @@ export class DropdownTriggerDirective {
     const innWdth = window.innerWidth / 1.5;
     const posY = ev.clientY;
     const innHgt = window.innerHeight / 1.5;
+
+    const rct = dropMenu.getBoundingClientRect();
+
+    const algnLft = dropMenu.offsetLeft;
+    const algnTop = dropMenu.offsetTop;
+    const dprwidth = dropMenu.offsetWidth;
+    const dprheight = dropMenu.offsetHeight;
+    const offsetFull = algnLft + dprwidth;
+    const offsetHgt = algnTop + dprheight;
+
+    const hgt = window.innerHeight;
+    const wdt = window.innerWidth;
+
+    setTimeout(() => {
+      console.log(rct);
+    }, 1000);
+
+    console.log(dprwidth);
+
     const newLocal = this.pDropdownXPosition + '|' + this.pDropdownYPosition;
     switch (newLocal) {
       case 'left|bottom':
@@ -144,28 +176,28 @@ export class DropdownTriggerDirective {
         dropMenu.classList.add('bottom-right-align');
         break;
       default:
-        if (innWdth > posX && innHgt > posY) {
+        if (offsetFull < wdt && offsetHgt < hgt) {
           dropMenu.classList.remove(
             'right-align',
             'bottom-left-align',
             'bottom-right-align'
           );
           dropMenu.classList.add('left-align');
-        } else if (innWdth < posX && innHgt > posY) {
+        } else if (offsetFull > wdt && offsetHgt < hgt) {
           dropMenu.classList.remove(
             'left-align',
             'bottom-left-align',
             'bottom-right-align'
           );
           dropMenu.classList.add('right-align');
-        } else if (innWdth > posX && innHgt < posY) {
+        } else if (offsetFull < wdt && offsetHgt > hgt) {
           dropMenu.classList.remove(
             'left-align',
             'right-align',
             'bottom-right-align'
           );
           dropMenu.classList.add('bottom-left-align');
-        } else if (innWdth < posX && innHgt < posY) {
+        } else if (offsetFull > wdt && offsetHgt > hgt) {
           dropMenu.classList.remove(
             'left-align',
             'right-align',
@@ -237,24 +269,72 @@ export class DropdownTriggerDirective {
   }
 }
 
+const parentElementAnim = trigger('prntElAnim', [
+  transition(':leave', [group([query('@dropdownAnim', animateChild())])]),
+]);
+const childElementAnim = trigger('dropdownAnim', [
+  state('void', style({ opacity: 0, transform: 'scale(0.85)' })),
+  transition(
+    'void => *',
+    animate('110ms', style({ opacity: 1, transform: 'scale(1)' }))
+  ),
+  transition('* => void', animate('100ms', style({ opacity: 0 }))),
+]);
+
 @Component({
   selector: 'app-dropdown, p-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css'],
+  animations: [childElementAnim, parentElementAnim],
 })
 export class DropdownComponent implements OnInit, OnDestroy {
   @Input() pDropdownId: string;
   @Input() pDropdownWidth: number;
+  @Input() pDropdownCloseOnClick = true;
+
+  isMenuOpen = false;
 
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
-    document
-      .querySelector('body')
-      .insertAdjacentElement('beforeend', this.el.nativeElement);
+    // document
+    //   .querySelector('body')
+    //   .insertAdjacentElement('beforeend', this.el.nativeElement);
   }
 
   ngOnDestroy(): void {
     document.querySelector('body').removeChild(this.el.nativeElement);
+  }
+
+  openDropdown(event: any): void {
+    this.isMenuOpen = true;
+    this.setBackdrop();
+    this.setWrapperSize(event.target);
+  }
+
+  setBackdrop(): void {
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('backdrop');
+    backdrop.style.zIndex = '999';
+    backdrop.addEventListener('click', () => {
+      this.closeDropdown();
+    });
+    document.body.insertAdjacentElement('beforeend', backdrop);
+  }
+
+  removeBackdrop(): void {
+    const backdrop = document.querySelector('.backdrop') as HTMLDivElement;
+    backdrop.remove();
+  }
+
+  setWrapperSize(elementOrigin: any): void {
+    const elRect = elementOrigin.getBoundingClientRect();
+    const wrapper = this.el.nativeElement.firstChild as HTMLDivElement;
+    console.log(elRect);
+  }
+
+  closeDropdown(): void {
+    this.isMenuOpen = false;
+    this.removeBackdrop();
   }
 }

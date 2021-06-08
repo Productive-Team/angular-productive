@@ -56,6 +56,7 @@ export class FieldsetComponent
   @Input() helperText: string;
   @Input() helperState: string;
   @Input() inputValidate = false;
+  @Input() disabled = false;
   @Input('pFieldsetAppearence') appearence: string;
   @Input('pFieldsetInput') input: any;
 
@@ -181,5 +182,9 @@ export class FieldsetComponent
   @HostBinding('class.input-error')
   get error() {
     return this.hasError();
+  }
+  @HostBinding('class.disabled')
+  get getDisabled() {
+    return this.disabled;
   }
 }

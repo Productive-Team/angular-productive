@@ -74,6 +74,7 @@ const directives = [
   SidenavTriggerDirective,
   ModalTriggerDirective,
   ModalCloseDirective,
+  // DropdownTriggerDirective,
   DropdownTriggerDirective,
   BadgesDirective,
   TooltipsDirective,

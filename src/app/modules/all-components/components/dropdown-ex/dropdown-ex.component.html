@@ -1,35 +1,32 @@
-<h5>A dropdown menu is a hidden menu that contains actions triggers, and is separated from the normal page flow.</h5>
+<span>A dropdown menu is a hidden menu that contains actions triggers, and is separated from the normal page
+  flow.</span>
 <br>
-<h5>The menu component will automatically be placed outisde of any container, since it needs to be outside of any parent
-  elements with the property position relative.</h5>
+<br>
+<span>The menu component will automatically be placed outisde of any container, since it needs to be outside of any
+  parent
+  elements with the property position relative.</span>
 <br>
 <p-section>
   <ng-container section-content>
-    <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="drop-1">Menu</button>
-    <p-dropdown pDropdownId="drop-1">
-      <li>
-        <button pRipple>Option 1</button>
-      </li>
-      <li>
-        <button pRipple>Option 2</button>
-      </li>
-      <li>
-        <button pRipple>Option 3</button>
-      </li>
+    <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="menu">Menu</button>
+    <p-dropdown pDropdownId="drop-1" #menu>
+      <button pRipple>Option 1</button>
+      <button pRipple>Option 2</button>
+      <button pRipple>Option 3</button>
     </p-dropdown>
   </ng-container>
 </p-section>
-<h5>Menu buttons can also have icons, to better illustrate the action it will perform.</h5>
+<span>Menu buttons can also have icons, to better illustrate the action it will perform.</span>
 <br>
-<h5>Additionally, the menu's width will adjust automatically depending of the content's size.</h5>
+<span>Additionally, the menu's width will adjust automatically depending of the content's size.</span>
 <br>
 <p-section>
   <ng-container section-content>
-    <button class="btn flat fab" style="vertical-align: middle;" pRipple pRippleCentered="true" pDropdownTrigger
-      pDropdownTriggerId="drop-2">
+    <button class="btn flat fab" style="vertical-align: middle; left: 1500px;" pRipple pRippleCentered="true"
+      pDropdownTrigger pDropdownTriggerId="drop-2">
       <i class="material-icons">more_vert</i>
     </button>
-    <p-dropdown pDropdownId="drop-2">
+    <!-- <p-dropdown pDropdownId="drop-2">
       <li>
         <button pRipple>
           <i class="material-icons left">done</i>
@@ -48,15 +45,15 @@
           Option 3
         </button>
       </li>
-    </p-dropdown>
+    </p-dropdown> -->
   </ng-container>
 </p-section>
 <br>
-<h5>Menus automatically adjust their positioning, however you can set a fixed position for the menu to trigger.</h5>
+<span>Menus automatically adjust their positioning, however you can set a fixed position for the menu to trigger.</span>
 <br>
 <p-section>
   <ng-container section-content>
-    <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="topleft" pDropdownYPosition="top"
+    <!-- <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="topleft" pDropdownYPosition="top"
       pDropdownXPosition="left">Top Left</button>
     <p-dropdown pDropdownId="topleft">
       <li>
@@ -83,18 +80,17 @@
       <li>
         <button pRipple>Bottom Right</button>
       </li>
-    </p-dropdown>
+    </p-dropdown> -->
   </ng-container>
 </p-section>
 <br>
-<h5>There's also an option to those that do not want the menu to close when a button inside it is clicked, and also an
-  option to open the menu by just hovering over the trigger element.</h5>
+<span>There's also an option to those that do not want the menu to close when a button inside it is clicked, and also an
+  option to open the menu by just hovering over the trigger element.</span>
 <br>
 <p-section>
   <ng-container section-content>
-    <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="noCloseClick"
-      [pDropdownCloseOnClick]="false">No Close On Click</button>
-    <p-dropdown pDropdownId="noCloseClick">
+    <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="noCloseClick">No Close On Click</button>
+    <!-- <p-dropdown pDropdownId="noCloseClick">
       <li>
         <button pRipple>Option 1</button>
       </li>
@@ -104,10 +100,10 @@
       <li>
         <button pRipple>Option 3</button>
       </li>
-    </p-dropdown>
+    </p-dropdown> -->
     <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="openHover"
       [pDropdownOpenHover]="true">Hover</button>
-    <p-dropdown pDropdownId="openHover">
+    <!-- <p-dropdown pDropdownId="openHover">
       <li>
         <button pRipple>Option 1</button>
       </li>
@@ -117,6 +113,6 @@
       <li>
         <button pRipple>Option 3</button>
       </li>
-    </p-dropdown>
+    </p-dropdown> -->
   </ng-container>
 </p-section>

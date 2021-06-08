@@ -1,5 +1,9 @@
-<div class="dropdown-wrapper" [id]="pDropdownId + '-wrapper'">
-  <ul class="dropdown-menu elevation" [id]="pDropdownId">
-    <ng-content></ng-content>
-  </ul>
+<div class="menu-wrapper" *ngIf="isMenuOpen" @prntElAnim>
+  <div class="menu-panel-wrapper" (click)="pDropdownCloseOnClick ? closeDropdown() : ''">
+    <div class="menu-panel elevation" @dropdownAnim>
+      <div class="menu-content">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
 </div>
