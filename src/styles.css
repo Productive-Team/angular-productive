@@ -57,13 +57,13 @@ hr {
 
 /* #region Typography */
 h1 {
-  font-size: 80px;
-  font-weight: 300;
-  letter-spacing: -1.5px;
+  font-size: 70px;
+  font-weight: 400;
+  letter-spacing: -1px;
 }
 h2 {
   font-size: 60px;
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: -0.5px;
 }
 h3 {
@@ -127,7 +127,6 @@ p {
 /* #endregion Typography */
 
 /* #region GridStyles */
-
 .content-wrapper {
   display: flex;
   flex: 1;
@@ -137,7 +136,7 @@ p {
 .content-contain {
   display: block;
   box-sizing: border-box;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
 }
 .sidenav-container {
@@ -413,7 +412,6 @@ p {
   font-weight: 400;
   display: inline-block;
   position: relative;
-  margin: 0 5px;
   background-color: #e4e4e4;
   border: 0;
   outline: none;
@@ -1157,40 +1155,6 @@ a.btn-large {
   padding: 10px 0;
 }
 
-.dropdown-menu {
-  display: inline-block;
-  position: static;
-  padding: 10px 0;
-  background-color: var(--appBackgroundColor);
-  border-radius: 5px;
-  box-sizing: content-box;
-  max-width: 100%;
-  max-height: 250px;
-  overflow: auto;
-  z-index: 1005;
-  margin: 0;
-  transition: opacity 150ms ease-out;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.dropdown-menu.left-align {
-  transform-origin: left top;
-}
-.dropdown-menu.right-align {
-  transform-origin: right top;
-}
-.dropdown-menu.bottom-right-align {
-  transform-origin: right bottom;
-}
-.dropdown-menu.bottom-left-align {
-  transform-origin: left bottom;
-}
-
-.dropdown-menu li {
-  white-space: nowrap;
-  list-style: none;
-}
-
 .menu-panel-wrapper .menu-panel .menu-content button,
 .menu-panel-wrapper .menu-panel .menu-content a 
 {
@@ -1216,31 +1180,6 @@ a.btn-large {
   text-decoration: none;
 }
 
-/* .dropdown-menu li button,
-.dropdown-menu li a {
-  display: inline-block;
-  box-sizing: border-box;
-  width: 100%;
-  outline: none;
-  border: none;
-  background-color: transparent;
-  text-align: start;
-  padding: 0 15px;
-  height: 46px;
-  cursor: pointer;
-  font-family: Roboto;
-  font-size: 16px;
-  transition: 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  user-select: none;
-  line-height: 46px;
-  color: #262626;
-  text-decoration: none;
-} */
-
 .menu-panel-wrapper .menu-panel .menu-content button:disabled,
 .menu-panel-wrapper .menu-panel .menu-content a:disabled  {
   opacity: 0.3;
@@ -1252,8 +1191,8 @@ a.btn-large {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.dropdown-menu li button i,
-.dropdown-menu li a i {
+.menu-panel-wrapper .menu-panel .menu-content button i,
+.menu-panel-wrapper .menu-panel .menu-content a i {
   line-height: 46px;
 }
 

@@ -9,7 +9,7 @@
 <p-section>
   <ng-container section-content>
     <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="menu">Menu</button>
-    <p-dropdown pDropdownId="drop-1" #menu>
+    <p-dropdown #menu>
       <button pRipple>Option 1</button>
       <button pRipple>Option 2</button>
       <button pRipple>Option 3</button>
@@ -22,30 +22,24 @@
 <br>
 <p-section>
   <ng-container section-content>
-    <button class="btn flat fab" style="vertical-align: middle; left: 1500px;" pRipple pRippleCentered="true"
-      pDropdownTrigger pDropdownTriggerId="drop-2">
+    <button class="btn flat fab" style="vertical-align: middle;" pRipple pRippleCentered="true" pDropdownTrigger
+      [pDropdownTriggerFor]="menuIcons">
       <i class="material-icons">more_vert</i>
     </button>
-    <!-- <p-dropdown pDropdownId="drop-2">
-      <li>
-        <button pRipple>
-          <i class="material-icons left">done</i>
-          Option 1
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          <i class="material-icons left">info</i>
-          Option 2
-        </button>
-      </li>
-      <li>
-        <button pRipple>
-          <i class="material-icons left">watch_later</i>
-          Option 3
-        </button>
-      </li>
-    </p-dropdown> -->
+    <p-dropdown #menuIcons>
+      <button pRipple>
+        <i class="material-icons left">done</i>
+        Option 1
+      </button>
+      <button pRipple>
+        <i class="material-icons left">info</i>
+        Option 2
+      </button>
+      <button pRipple>
+        <i class="material-icons left">watch_later</i>
+        Option 3
+      </button>
+    </p-dropdown>
   </ng-container>
 </p-section>
 <br>
@@ -53,34 +47,26 @@
 <br>
 <p-section>
   <ng-container section-content>
-    <!-- <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="topleft" pDropdownYPosition="top"
-      pDropdownXPosition="left">Top Left</button>
-    <p-dropdown pDropdownId="topleft">
-      <li>
-        <button pRipple>Top Left</button>
-      </li>
+    <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="topLeft">Top Left</button>
+    <p-dropdown #topLeft pDropdownXPosition="left" pDropdownYPosition="bottom">
+      <button pRipple>Option 1</button>
+      <button pRipple>Option 2</button>
     </p-dropdown>
-    <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="topright" pDropdownYPosition="top"
-      pDropdownXPosition="right">Top Right</button>
-    <p-dropdown pDropdownId="topright">
-      <li>
-        <button pRipple>Top Right</button>
-      </li>
+    <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="topRight">Top Right</button>
+    <p-dropdown #topRight pDropdownXPosition="right" pDropdownYPosition="bottom">
+      <button pRipple>Option 1</button>
+      <button pRipple>Option 2</button>
     </p-dropdown>
-    <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="bottomleft" pDropdownYPosition="bottom"
-      pDropdownXPosition="left">Bottom Left</button>
-    <p-dropdown pDropdownId="bottomleft">
-      <li>
-        <button pRipple>Bottom Left</button>
-      </li>
+    <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="bottomLeft">Bottom Left</button>
+    <p-dropdown #bottomLeft>
+      <button pRipple>Option 1</button>
+      <button pRipple>Option 2</button>
     </p-dropdown>
-    <button class="flat btn" pRipple pDropdownTrigger pDropdownTriggerId="bottomright" pDropdownYPosition="bottom"
-      pDropdownXPosition="right">Bottom Right</button>
-    <p-dropdown pDropdownId="bottomright">
-      <li>
-        <button pRipple>Bottom Right</button>
-      </li>
-    </p-dropdown> -->
+    <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="bottomRight">Bottom Right</button>
+    <p-dropdown #bottomRight pDropdownXPosition="right" pDropdownYPosition="top">
+      <button pRipple>Option 1</button>
+      <button pRipple>Option 2</button>
+    </p-dropdown>
   </ng-container>
 </p-section>
 <br>
@@ -89,30 +75,18 @@
 <br>
 <p-section>
   <ng-container section-content>
-    <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="noCloseClick">No Close On Click</button>
-    <!-- <p-dropdown pDropdownId="noCloseClick">
-      <li>
-        <button pRipple>Option 1</button>
-      </li>
-      <li>
-        <button pRipple>Option 2</button>
-      </li>
-      <li>
-        <button pRipple>Option 3</button>
-      </li>
-    </p-dropdown> -->
-    <button class="btn flat" pRipple pDropdownTrigger pDropdownTriggerId="openHover"
+    <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="noCloseClick">No Close On Click</button>
+    <p-dropdown #noCloseClick [pDropdownCloseOnClick]="false">
+      <button pRipple>Option 1</button>
+      <button pRipple>Option 2</button>
+      <button pRipple>Option 3</button>
+    </p-dropdown>
+    <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="openHover"
       [pDropdownOpenHover]="true">Hover</button>
-    <!-- <p-dropdown pDropdownId="openHover">
-      <li>
-        <button pRipple>Option 1</button>
-      </li>
-      <li>
-        <button pRipple>Option 2</button>
-      </li>
-      <li>
-        <button pRipple>Option 3</button>
-      </li>
-    </p-dropdown> -->
+    <p-dropdown #openHover>
+      <button pRipple>Option 1</button>
+      <button pRipple>Option 2</button>
+      <button pRipple>Option 3</button>
+    </p-dropdown>
   </ng-container>
 </p-section>

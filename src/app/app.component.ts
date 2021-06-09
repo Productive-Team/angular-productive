@@ -12,9 +12,8 @@ export class AppComponent implements AfterViewInit {
     setTimeout(() => {
       const contain = document.querySelector('.content-contain');
       if (contain) {
-        const body = document.querySelector('body');
-        body.classList.add('vh-height');
+        document.body.classList.add('vh-height');
       }
-    }, 100);
+    }, 500);
   }
 }

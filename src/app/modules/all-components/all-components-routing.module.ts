@@ -32,7 +32,7 @@ const routes: Routes = [
         component: RippleExComponent,
       },
       {
-        path: 'Dropdown',
+        path: 'Menu',
         component: DropdownExComponent,
       },
       {
