@@ -123,8 +123,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
 
     const actualPanel = menuPanel.firstChild as HTMLDivElement;
 
-    this.hasContainer(wrapper);
-
     const positioning = `${this.pDropdownXPosition} ${this.pDropdownYPosition}`;
 
     if (
@@ -146,18 +144,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
       actualPanel.style.transformOrigin = 'right bottom';
       wrapper.style.top = elRect.top - menuPanelRect.height + 'px';
       wrapper.style.left = elRect.left - 25 + 'px';
-    }
-  }
-
-  hasContainer(menuWrapper: any): void {
-    const cntain = document.querySelector('.vh-height');
-    const menu = menuWrapper as HTMLDivElement;
-    if (!cntain) {
-      const bodyRect = document.body.getBoundingClientRect();
-      const size = window.innerWidth - bodyRect.width;
-      document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = size + 'px';
-      menu.parentElement.style.position = 'fixed';
     }
   }
 
