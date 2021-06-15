@@ -1,3 +1,4 @@
+import { trigger, transition, style, animate } from '@angular/animations';
 import {
   AfterViewInit,
   Component,
@@ -29,10 +30,21 @@ export class SidenavTriggerDirective {
   }
 }
 
+const animations = trigger('sidenavTransitions', [
+  transition(':enter', [
+    style({ transform: 'translateX(-100%)', width: 0 }),
+    animate('150ms', style({ transform: 'translateX(0)', width: 250 })),
+  ]),
+  transition(':leave', [
+    animate('200ms', style({ transform: 'translateX(-100%)', width: 0 })),
+  ]),
+]);
+
 @Component({
   selector: 'app-sidenav, p-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
+  animations: [animations],
 })
 export class SidenavComponent implements OnInit, AfterViewInit {
   @Input() elevated = true;
@@ -41,6 +53,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   @Input() backdrop = false;
   @Input() sidenavId: string;
   @Input() backgroundColor: string;
+
+  sidenavOpen = true;
 
   @HostListener('window:resize', ['$event']) onResize(event) {
     if (this.pushContent) {
@@ -77,27 +91,28 @@ export class SidenavComponent implements OnInit, AfterViewInit {
 
   constructor(private el: ElementRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.hidden) {
+      this.sidenavOpen = false;
+    }
+  }
 
   ngAfterViewInit(): void {
-    if (!this.pushContent || window.innerWidth <= 600) {
-      this.hidden = true;
-      this.backdrop = true;
-      this.elevated = true;
-      this.pushContent = false;
-      this.setNavFixed();
-    } else {
-      this.setHeight();
-    }
-    if (this.hidden) {
-      this.hideNav(this.sidenavId);
-    }
-    if (this.elevated) {
-      this.elevateSidenav();
-    }
-    this.backgroundColorApply();
-    pushContent = this.pushContent;
-    hasBack = this.backdrop;
+    // if (!this.pushContent || window.innerWidth <= 600) {
+    //   this.hidden = true;
+    //   this.backdrop = true;
+    //   this.elevated = true;
+    //   this.pushContent = false;
+    //   this.setNavFixed();
+    // } else {
+    //   this.setHeight();
+    // }
+    // if (this.hidden) {
+    //   this.hideNav(this.sidenavId);
+    // }
+    // this.backgroundColorApply();
+    // pushContent = this.pushContent;
+    // hasBack = this.backdrop;
   }
 
   private setHeight(): void {
@@ -225,5 +240,9 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     const b = parseInt(hexcolor.substr(4, 2), 16);
     const yiq = (r * 299 + g * 587 + b * 114) / 1000;
     return yiq >= 145 ? '#262626' : 'white';
+  }
+
+  toggle(): void {
+    this.sidenavOpen = !this.sidenavOpen;
   }
 }

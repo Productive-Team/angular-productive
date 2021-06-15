@@ -581,32 +581,8 @@ a.btn-large {
 /* #endregion TextColors&Helpers */
 
 /* #region NavbarStyles */
-.navbar ul {
-  height: 100%;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-.navbar ul.center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  height: 100%;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-.navbar ul li {
-  display: inline;
-}
-.navbar .btn,
-.navbar .btn-small,
-.navbar .btn-large {
-  vertical-align: middle;
-  text-decoration: none;
-  -webkit-user-drag: none;
-  margin: 0;
+.navbar .spacer {
+  flex-grow: 1;
 }
 /* #endregion NavbarStyles */
 
@@ -1125,6 +1101,14 @@ a.btn-large {
   }
 }
 /* #endregion Snackbars */
+
+/* #region Divider */
+.p-divider {
+  display: block;
+  margin: 0;
+  border-top: 1px solid rgb(0 0 0 / 10%);
+}
+/* #endregion Divider */
 
 /* #region DropdownMenus */
 .menu-wrapper {
