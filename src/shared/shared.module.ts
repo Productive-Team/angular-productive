@@ -1,3 +1,6 @@
+import { ContainerComponent } from './components/container/container.component';
+import { SidenavContentComponent } from './components/sidenav/sidenav-content/sidenav-content.component';
+import { SidenavContainerComponent } from './components/sidenav/sidenav-container/sidenav-container.component';
 import {
   DatepickerComponent,
   DatepickerTriggerDirective,
@@ -18,10 +21,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RippleDirective } from './directives/ripple/ripple.directive';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  SidenavTriggerDirective,
-  SidenavComponent,
-} from './components/sidenav/sidenav.component';
+import { SidenavComponent } from './components/sidenav/sidenav-component/sidenav.component';
 import { CardComponent } from './components/card/card.component';
 import {
   FieldsetComponent,
@@ -67,14 +67,15 @@ const components = [
   CollapsibleContentComponent,
   CollapsibleGroupComponent,
   DatepickerComponent,
+  SidenavContainerComponent,
+  SidenavContentComponent,
+  ContainerComponent,
 ];
 const directives = [
   RippleDirective,
   InputDirective,
-  SidenavTriggerDirective,
   ModalTriggerDirective,
   ModalCloseDirective,
-  // DropdownTriggerDirective,
   DropdownTriggerDirective,
   BadgesDirective,
   TooltipsDirective,
