@@ -21,7 +21,7 @@ const animations = trigger('sidenavTransitions', [
   transition(':leave', [
     animate(
       '0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      style({ transform: 'translateX(-100%)' })
+      style({ transform: 'translateX(-100%)', width: 0})
     ),
   ]),
 ]);

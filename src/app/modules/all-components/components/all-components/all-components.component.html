@@ -1,13 +1,10 @@
 <div class="bg-primary"
   style="height: 50px; line-height: 50px; padding: 0 15px; box-sizing:border-box; width: 100%; color: white;">
-  <button class="left btn flat floating display-on-medium-and-bellow" pRipple pRippleCentered="true"
-    pRippleColor="#ffffff26" style="color: white; top: 2px;" pSidenavTrigger pSidenavIdForTrigger="side-ex">
+  <button (click)="sideEx.toggle()" class="btn flat" pRipple [pRippleCentered]="true" pRippleColor="#ffffff26"
+    style="top: 2px; position: relative; display: inline-block;">
     <i class="material-icons">menu</i>
   </button>
-  <button (click)="sideEx.toggle()">
-    <i class="material-icons">menu</i>
-  </button>
-  <h5>{{sectionName}}</h5>
+  <h5 style="display: inline-block;">{{sectionName}}</h5>
 </div>
 <p-sidenav-container>
   <p-sidenav #sideEx>
@@ -21,7 +18,7 @@
     <a pRipple>Toggle Switch</a>
     <a pRipple>Modal Dialog</a>
     <a pRipple>Snackbar</a>
-    <a pRipple [routerLink]="['Menu']">Dropdown Menu</a>
+    <a pRipple [routerLink]="['Menu']">Menu</a>
     <a pRipple>Badges</a>
     <a pRipple>Tooltips</a>
     <a pRipple>Custom Select</a>
@@ -31,56 +28,8 @@
   </p-sidenav>
   <p-sidenav-content [sidenav]="sideEx">
     <div class="container">
-      content
+      <router-outlet></router-outlet>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br><br>
   </p-sidenav-content>
 </p-sidenav-container>
 
@@ -108,7 +57,6 @@
   </p-sidenav>
   <div class="cont-extra">
     <div class="container" style="width: 100%;">
-      <router-outlet></router-outlet>
     </div>
   </div>
 </div> -->

@@ -1,10 +1,3 @@
-<!-- <div class="sidenav-wrap" id="{{sidenavId}}">
-  <div class="sidenav">
-    <ul class="side-content">
-      <ng-content select="[side-content]"></ng-content>
-    </ul>
-  </div>
-</div> -->
 <div class="sidenav" *ngIf="sidenavOpen" @sidenavTransitions>
   <div class="sidenav-content">
     <ng-content></ng-content>

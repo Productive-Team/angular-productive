@@ -611,8 +611,11 @@ a.btn-large {
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition: 0.35s cubic-bezier(.16,.38,.32,1);
   overflow: auto;
+  /* transition: 0.35s cubic-bezier(.16,.38,.32,1); */
+}
+
+.sidenav-animating {
 }
 
 .sidenav .side-content {
