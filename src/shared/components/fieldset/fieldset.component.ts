@@ -72,8 +72,6 @@ export class FieldsetComponent
   public field: any;
   public message = '';
 
-  icon = 'info';
-
   hasPrefix = false;
   hasSuffix = false;
 
@@ -115,7 +113,6 @@ export class FieldsetComponent
     if (this.field !== undefined) {
       if (this.field.errors) {
         this.helperState = 'error';
-        this.changeIcon();
         const error = Object.getOwnPropertyNames(this.field.errors);
         error.forEach((element) => {
           if (this.Errors[element]) {
@@ -143,22 +140,6 @@ export class FieldsetComponent
       this.el.nativeElement.firstChild.firstChild.firstChild.firstChild
         .nextSibling.firstChild;
     label.classList.add('active');
-  }
-
-  changeIcon(): void {
-    switch (this.helperState) {
-      case 'success':
-        this.icon = 'check';
-        break;
-      case 'warn':
-        this.icon = 'report_problem';
-        break;
-      case 'error':
-        this.icon = 'close';
-        break;
-      default:
-        this.icon = 'info';
-    }
   }
 
   @HostListener('click', ['$event']) focused(event) {
