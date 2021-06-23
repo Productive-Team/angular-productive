@@ -612,10 +612,6 @@ a.btn-large {
   flex-direction: column;
   height: 100%;
   overflow: auto;
-  /* transition: 0.35s cubic-bezier(.16,.38,.32,1); */
-}
-
-.sidenav-animating {
 }
 
 .sidenav .side-content {
@@ -686,7 +682,7 @@ a.btn-large {
 /* #region InputStyles */
 .fieldset {
   position: relative;
-  margin: 13px 0;
+  padding-bottom: 10px;
 }
 
 .input-error .input-wrapper .input-label-wrapper {
@@ -696,22 +692,23 @@ a.btn-large {
   border-color: rgba(255, 0, 0, 0.623);
 }
 
-.hasSuffix .input-wrapper {
+/* .hasSuffix .input-wrapper {
   padding-right: 56px;
 }
 .hasPrefix .input-wrapper {
   padding-left: 56px;
-}
+} */
 
 .input-wrapper {
-  position: relative;
-  display: flex;
+  display: inline-flex;
+  align-items: flex-end;
   width: 100%;
-  padding: 25px 8px 5px 8px;
+  padding: 10px 10px 5px 10px;
   background-color: #f2f2f2;
   border-radius: 5px 5px 0 0;
   box-sizing: border-box;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  min-height: 60px;
   transition: box-shadow 100ms ease-in;
 }
 
@@ -766,7 +763,7 @@ a.btn-large {
 
 .input-wrapper .input-content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .input-wrapper .input-label-wrapper {
@@ -820,40 +817,33 @@ a.btn-large {
   background-color: white;
 }
 
+.label-wrap {
+  position: absolute;
+  left: 0;
+  box-sizing: content-box;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
 .input-wrapper .field-content {
   width: 100%;
 }
 
-.input-wrapper .prefix {
-  text-align: center;
-  padding: 5px;
-  position: absolute;
-  left: 0;
-  bottom: 2px;
-  background-color: #f2f2f2;
-}
-.input-wrapper.outlined .prefix {
-  left: 5px;
-  background-color: transparent;
-}
-.input-wrapper.classic .prefix {
-  background-color: transparent;
+.input-wrapper .form-field {
+  display: block;
+  position: relative;
+  flex: auto;
+  width: 100%;
 }
 
-.input-wrapper .suffix {
-  text-align: center;
-  padding: 5px;
-  position: absolute;
-  right: 0;
-  bottom: 2px;
-  background-color: #f2f2f2;
-}
-.input-wrapper.outlined .suffix {
-  right: 5px;
-  background-color: transparent;
-}
-.input-wrapper.classic .suffix {
-  background-color: transparent;
+.input-wrapper .suffix,
+.input-wrapper .prefix {
+white-space: nowrap;
+flex: none;
+position: relative;
 }
 
 .input-wrapper input,
@@ -867,8 +857,8 @@ a.btn-large {
   resize: vertical;
   color: #262626;
 }
-.p-input-bar
- {
+
+.p-input-bar {
   position: relative;
   border-bottom: 2px solid var(--primary);
   width: 50%;
@@ -877,6 +867,8 @@ a.btn-large {
   left: 50%;
   opacity: 0;
 }
+
+
 .helper-text {
   position: absolute;
   font-size: 13px;

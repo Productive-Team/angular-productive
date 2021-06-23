@@ -1,4 +1,4 @@
-<div class="fieldset">
+<!-- <div class="fieldset">
   <div>
     <div class="input-wrapper {{appearence}}">
       <div class="prefix" #prefixContent>
@@ -19,6 +19,29 @@
     <div class="p-input-bar"></div>
   </div>
   <span class="helper-text {{helperState}}" *ngIf="hasHelperText || hasError()">
+    {{helperText}}
+  </span>
+</div> -->
+
+<div class="fieldset">
+  <div>
+    <div class="input-wrapper {{appearence}}">
+      <div class="prefix">
+        <ng-content select="[p-prefix]"></ng-content>
+      </div>
+      <div class="form-field">
+        <ng-content></ng-content>
+        <span class="label-wrap">
+          <label for="">{{labelText}}</label>
+        </span>
+      </div>
+      <div class="suffix">
+        <ng-content select="[p-suffix]"></ng-content>
+      </div>
+    </div>
+    <div class="p-input-bar"></div>
+  </div>
+  <span class="helper-text" *ngIf="hasHelperText || hasError()">
     {{helperText}}
   </span>
 </div>
