@@ -19,18 +19,20 @@ import { FormControlName, NgModel } from '@angular/forms';
 export class InputDirective {
   constructor(private el: ElementRef) {}
   @HostListener('focus', ['$event']) onFocus(event) {
-    const input = this.el.nativeElement.parentElement.parentElement
+    const input = this.el.nativeElement.parentElement
       .parentElement as HTMLInputElement;
     input.classList.add('focused');
-    const label = input.firstChild.nextSibling.firstChild as HTMLSpanElement;
+    const label = this.el.nativeElement.nextSibling
+      .firstChild as HTMLSpanElement;
     label.classList.add('active');
   }
   @HostListener('blur', ['$event']) onFocusOut(event) {
-    const input = this.el.nativeElement.parentElement.parentElement
+    const input = this.el.nativeElement.parentElement
       .parentElement as HTMLInputElement;
     input.classList.remove('focused');
     const inputFil = this.el.nativeElement as HTMLInputElement;
-    const label = input.firstChild.nextSibling.firstChild as HTMLSpanElement;
+    const label = this.el.nativeElement.nextSibling
+      .firstChild as HTMLSpanElement;
     if (inputFil.value.length === 0) {
       label.classList.remove('active');
     }
@@ -47,9 +49,7 @@ export class InputDirective {
   templateUrl: './fieldset.component.html',
   styleUrls: ['./fieldset.component.css'],
 })
-export class FieldsetComponent
-  implements OnInit, AfterViewInit, AfterContentInit
-{
+export class FieldsetComponent implements OnInit, AfterContentInit {
   @Input('pFieldsetLabelText') labelText: string;
   @Input('pFieldsetLabelActive') labelActive = false;
   @Input() hasHelperText = false;
@@ -60,9 +60,6 @@ export class FieldsetComponent
   @Input('pFieldsetAppearence') appearence: string;
   @Input('pFieldsetInput') input: any;
 
-  @ViewChild('prefixContent') prefix: ElementRef;
-  @ViewChild('suffixContent') suffix: ElementRef;
-
   private required = 'required';
   private maxlengthValid = 'maxlength';
   private minlengthValid = 'minlength';
@@ -71,9 +68,6 @@ export class FieldsetComponent
   private Errors = {};
   public field: any;
   public message = '';
-
-  hasPrefix = false;
-  hasSuffix = false;
 
   @ContentChild(FormControlName, { static: false })
   control: FormControlName;
@@ -98,15 +92,6 @@ export class FieldsetComponent
     if (this.labelActive) {
       this.labelsActive();
     }
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      const sufxCont = this.suffix.nativeElement.children?.length > 0;
-      const prxCont = this.prefix.nativeElement.children?.length > 0;
-      this.hasPrefix = prxCont;
-      this.hasSuffix = sufxCont;
-    }, 0);
   }
 
   public hasError(): boolean {
@@ -142,6 +127,16 @@ export class FieldsetComponent
     label.classList.add('active');
   }
 
+  hasValue(): boolean {
+    const input = this.el.nativeElement.firstChild.firstChild.firstChild
+      .firstChild.nextSibling.firstChild as HTMLInputElement;
+    if (input.value.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @HostListener('click', ['$event']) focused(event) {
     const target = event.target;
     if (
@@ -152,14 +147,11 @@ export class FieldsetComponent
     }
   }
 
-  @HostBinding('class.hasPrefix')
-  get prefixState() {
-    return this.hasPrefix;
+  @HostBinding('class.has-value')
+  get hasVal() {
+    return this.hasValue();
   }
-  @HostBinding('class.hasSuffix')
-  get suffixState() {
-    return this.hasSuffix;
-  }
+
   @HostBinding('class.input-error')
   get error() {
     return this.hasError();

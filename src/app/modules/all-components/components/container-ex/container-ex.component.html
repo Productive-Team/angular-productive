@@ -1,9 +1,9 @@
 <div style="width: 300px;">
   <p-fieldset pFieldsetLabelText="Label" [pFieldsetInput]="input">
-    <i class="material-icons" p-prefix>attach_money</i>
-    <input type="text" pInput #input style="text-align: end;" placeholder="0">
-    <span p-suffix>
-      .00
-    </span>
+    <input type="text" pInput #input [(ngModel)]="numb">
+    <!-- <textarea pInput #input [(ngModel)]="numb"></textarea> -->
+    <!-- <button class="btn fab flat" pRipple pRippleCentered="true" p-suffix>
+      <i class="material-icons">visibility</i>
+    </button> -->
   </p-fieldset>
 </div>

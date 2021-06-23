@@ -32,7 +32,11 @@
       <div class="form-field">
         <ng-content></ng-content>
         <span class="label-wrap">
-          <label for="">{{labelText}}</label>
+          <label class="label-text">
+            <span>
+              {{labelText}}
+            </span>
+          </label>
         </span>
       </div>
       <div class="suffix">
@@ -41,7 +45,7 @@
     </div>
     <div class="p-input-bar"></div>
   </div>
-  <span class="helper-text" *ngIf="hasHelperText || hasError()">
+  <span class="helper-text {{helperState}}" *ngIf="hasHelperText || hasError()">
     {{helperText}}
   </span>
 </div>
