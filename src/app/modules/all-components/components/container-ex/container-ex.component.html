@@ -1,9 +1,11 @@
 <div style="width: 300px;">
   <p-fieldset pFieldsetLabelText="Label" [pFieldsetInput]="input">
+    <!-- <i class="material-icons" p-prefix>lock</i> -->
     <input type="text" pInput #input [(ngModel)]="numb">
     <!-- <textarea pInput #input [(ngModel)]="numb"></textarea> -->
-    <!-- <button class="btn fab flat" pRipple pRippleCentered="true" p-suffix>
-      <i class="material-icons">visibility</i>
+    <!-- <span p-suffix>.00</span> -->
+    <!-- <button class="btn fab flat" pRipple pRippleCentered="true" p-suffix (click)="isShow = !isShow">
+      <i class="material-icons">{{isShow ? 'visibility' : 'visibility_off'}}</i>
     </button> -->
   </p-fieldset>
 </div>

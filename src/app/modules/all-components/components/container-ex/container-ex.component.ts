@@ -12,6 +12,8 @@ export class ContainerExComponent implements OnInit {
 
   loading = false;
 
+  isShow = false;
+
   constructor() {}
 
   ngOnInit() {}

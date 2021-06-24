@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   Component,
   ContentChild,
   Directive,
@@ -9,7 +8,6 @@ import {
   HostListener,
   Input,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import { FormControlName, NgModel } from '@angular/forms';
 
@@ -55,7 +53,7 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   @Input() hasHelperText = false;
   @Input() helperText: string;
   @Input() helperState: string;
-  @Input() inputValidate = false;
+  @Input('pFieldsetValidate') inputValidate = false;
   @Input() disabled = false;
   @Input('pFieldsetAppearence') appearence: string;
   @Input('pFieldsetInput') input: any;
