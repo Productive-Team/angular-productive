@@ -1,11 +1,7 @@
 <div style="width: 300px;">
-  <p-fieldset pFieldsetLabelText="Label" [pFieldsetInput]="input">
-    <!-- <i class="material-icons" p-prefix>lock</i> -->
-    <input type="text" pInput #input [(ngModel)]="numb">
-    <!-- <textarea pInput #input [(ngModel)]="numb"></textarea> -->
-    <!-- <span p-suffix>.00</span> -->
-    <!-- <button class="btn fab flat" pRipple pRippleCentered="true" p-suffix (click)="isShow = !isShow">
-      <i class="material-icons">{{isShow ? 'visibility' : 'visibility_off'}}</i>
-    </button> -->
+  <p-fieldset pFieldsetLabelText="Label" [pFieldsetInput]="input" [pFieldsetLabelActive]="true">
+    <p-icon p-prefix>attach_money</p-icon>
+    <input type="text" pInput #input [(ngModel)]="numb" style="text-align: end;" placeholder="0">
+    <span p-suffix>.00</span>
   </p-fieldset>
 </div>

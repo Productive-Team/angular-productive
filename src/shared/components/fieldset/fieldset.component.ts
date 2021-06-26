@@ -31,7 +31,12 @@ export class InputDirective {
     const inputFil = this.el.nativeElement as HTMLInputElement;
     const label = this.el.nativeElement.nextSibling
       .firstChild as HTMLSpanElement;
-    if (inputFil.value.length === 0) {
+    if (
+      inputFil.value.length === 0 &&
+      !input.parentElement.parentElement.parentElement.classList.contains(
+        'label-ac'
+      )
+    ) {
       label.classList.remove('active');
     }
   }
@@ -121,8 +126,10 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   labelsActive(): void {
     const label =
       this.el.nativeElement.firstChild.firstChild.firstChild.firstChild
-        .nextSibling.firstChild;
+        .nextSibling.firstChild.nextSibling.firstChild;
+    const el = this.el.nativeElement;
     label.classList.add('active');
+    el.classList.add('label-ac');
   }
 
   hasValue(): boolean {

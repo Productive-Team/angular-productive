@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./container-ex.component.css'],
 })
 export class ContainerExComponent implements OnInit {
-  numb = '';
+  numb: number;
 
   dateStr: string;
 

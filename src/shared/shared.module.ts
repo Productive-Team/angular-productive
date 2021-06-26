@@ -1,3 +1,4 @@
+import { IconComponent } from './components/icon/icon.component';
 import { ContainerComponent } from './components/container/container.component';
 import { SidenavContentComponent } from './components/sidenav/sidenav-content/sidenav-content.component';
 import { SidenavContainerComponent } from './components/sidenav/sidenav-container/sidenav-container.component';
@@ -70,6 +71,7 @@ const components = [
   SidenavContainerComponent,
   SidenavContentComponent,
   ContainerComponent,
+  IconComponent,
 ];
 const directives = [
   RippleDirective,
