@@ -1603,3 +1603,53 @@ a.btn-large {
   background-color: var(--primaryLowOpacity);
 }
 /* #endregion Datepicker */
+
+/* #region Table */
+.p-table {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--appBackgroundColor);
+  border-collapse: collapse;
+}
+
+.p-table thead {
+  border-bottom: 1px solid rgba(0, 0, 0, .15);
+}
+
+.p-table .p-table-header th {
+  user-select: none;
+  position: relative;
+  line-height: 56px;
+  font-size: 14px;
+  text-align: left;
+  padding: 0 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  color: #363636;
+}
+
+.p-table .p-table-body tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.p-table .p-table-body td {
+  line-height: 50px;
+  padding: 0 1.5rem;
+  font-weight: 400;
+  font-size: 15px;
+  white-space: nowrap;
+  color: #363636;
+}
+.p-table .p-table-body td button,
+.p-table .p-table-body td a {
+  vertical-align: middle;
+}
+/* #endregion Table */
+
+/* #region Icon */
+.p-icon {
+  pointer-events: none;
+}
+/* #endregion Icon */

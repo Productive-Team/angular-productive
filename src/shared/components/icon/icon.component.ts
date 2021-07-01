@@ -5,6 +5,10 @@ import { Component, OnInit } from '@angular/core';
   template: `<i class="material-icons">
     <ng-content></ng-content>
   </i>`,
+  // tslint:disable-next-line: no-host-metadata-property
+  host: {
+    class: 'p-icon',
+  },
 })
 export class IconComponent implements OnInit {
   constructor() {}

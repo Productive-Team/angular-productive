@@ -5,3 +5,48 @@
     <span p-suffix>.00</span>
   </p-fieldset>
 </div>
+
+<p-table>
+  <ng-container table-header>
+    <tr>
+      <th [width]="50"></th>
+      <th>Header 2</th>
+      <th>Header 3</th>
+    </tr>
+  </ng-container>
+  <ng-container table-body>
+    <tr>
+      <td [width]="50">
+        <button class="btn-small flat fab" pRipple pRippleCentered="true">
+          <p-icon>chevron_right</p-icon>
+        </button>
+      </td>
+      <td>Content</td>
+      <td>Content</td>
+    </tr>
+    <tr>
+      <td [width]="50">
+        <button class="btn-small flat fab" pRipple pRippleCentered="true">
+          <p-icon>chevron_right</p-icon>
+        </button>
+      </td>
+      <td>Content</td>
+      <td>Content</td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+      <td [width]="50">
+        <button class="btn-small flat fab" pRipple pRippleCentered="true">
+          <p-icon>chevron_right</p-icon>
+        </button>
+      </td>
+      <td>
+        Content
+      </td>
+      <td>
+        Content
+      </td>
+    </tr>
+  </ng-container>
+</p-table>

@@ -1,3 +1,4 @@
+import { TableComponent } from './components/table/table.component';
 import { IconComponent } from './components/icon/icon.component';
 import { ContainerComponent } from './components/container/container.component';
 import { SidenavContentComponent } from './components/sidenav/sidenav-content/sidenav-content.component';
@@ -49,6 +50,7 @@ import {
 import { CollapsibleContentComponent } from './components/collapsible/collapsible-content/collapsible-content.component';
 
 const components = [
+  TableComponent,
   NavbarComponent,
   SidenavComponent,
   CardComponent,
