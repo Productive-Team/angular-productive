@@ -48,6 +48,12 @@ import {
   CollapsibleTriggerDirective,
 } from './components/collapsible/collapsible/collapsible.component';
 import { CollapsibleContentComponent } from './components/collapsible/collapsible-content/collapsible-content.component';
+import {
+  TableExpandedRowContentDirective,
+  TableExpandedRowDirective,
+  TableExpandedRowTriggerDirective,
+} from './directives/table-expanded-row/table-expanded-row.directive';
+import { TableSortDirective } from './directives/table-sort/table-sort.directive';
 
 const components = [
   TableComponent,
@@ -86,6 +92,10 @@ const directives = [
   SelectDirective,
   CollapsibleTriggerDirective,
   DatepickerTriggerDirective,
+  TableExpandedRowDirective,
+  TableExpandedRowTriggerDirective,
+  TableExpandedRowContentDirective,
+  TableSortDirective,
 ];
 
 @NgModule({

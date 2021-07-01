@@ -1,52 +1,38 @@
-<div style="width: 300px;">
-  <p-fieldset pFieldsetLabelText="Label" [pFieldsetInput]="input" [pFieldsetLabelActive]="true">
-    <p-icon p-prefix>attach_money</p-icon>
-    <input type="text" pInput #input [(ngModel)]="numb" style="text-align: end;" placeholder="0">
-    <span p-suffix>.00</span>
-  </p-fieldset>
-</div>
+<p-fieldset pFieldsetLabelText="Filter Table" [pFieldsetInput]="input">
+  <p-icon p-suffix>search</p-icon>
+  <input type="text" pInput #input [(ngModel)]="numb">
+</p-fieldset>
 
-<p-table>
+<p-table [pTableExpands]="true">
   <ng-container table-header>
     <tr>
-      <th [width]="50"></th>
-      <th>Header 2</th>
-      <th>Header 3</th>
+      <th [width]="50">
+        <p-checkbox (change)="setAll($event.target.checked)" [pCheckboxChecked]="completed"
+          [pCheckboxIndeterminate]="someCompleted()"></p-checkbox>
+      </th>
+      <th pTableSort [pTableData]="tableContent" [pTableColumnForSort]="'content'">Product</th>
+      <th>Price</th>
     </tr>
   </ng-container>
   <ng-container table-body>
-    <tr>
-      <td [width]="50">
-        <button class="btn-small flat fab" pRipple pRippleCentered="true">
-          <p-icon>chevron_right</p-icon>
-        </button>
-      </td>
-      <td>Content</td>
-      <td>Content</td>
-    </tr>
-    <tr>
-      <td [width]="50">
-        <button class="btn-small flat fab" pRipple pRippleCentered="true">
-          <p-icon>chevron_right</p-icon>
-        </button>
-      </td>
-      <td>Content</td>
-      <td>Content</td>
-    </tr>
-    <tr></tr>
-    <tr></tr>
-    <tr>
-      <td [width]="50">
-        <button class="btn-small flat fab" pRipple pRippleCentered="true">
-          <p-icon>chevron_right</p-icon>
-        </button>
-      </td>
-      <td>
-        Content
-      </td>
-      <td>
-        Content
-      </td>
-    </tr>
+    <ng-container *ngFor="let cont of tableContent">
+      <tr pTableExpandedRowTrigger [TriggerFor]="row">
+        <td>
+          <p-checkbox [(ngModel)]="cont.selected" (ngModelChange)="completes()"></p-checkbox>
+        </td>
+        <td>{{cont.content}}</td>
+        <td>{{cont.pho}}</td>
+      </tr>
+      <tr pTableExpandedRow>
+        <td>
+          <div pTableExpandedRowContent #row>
+            <p style="padding: 15px 100px;">
+              Description:
+              <b>{{cont.desc}}</b>
+            </p>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
   </ng-container>
 </p-table>

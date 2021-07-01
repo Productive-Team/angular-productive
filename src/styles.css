@@ -1646,6 +1646,46 @@ a.btn-large {
 .p-table .p-table-body td a {
   vertical-align: middle;
 }
+
+.p-table .table-expanded-content {
+  --scrollHeightForTable: 0px;
+  padding: 0 1.5rem;
+  transition: height 0.2s cubic-bezier(.07,.43,.38,1.01);
+  overflow: hidden;
+  height: var(--scrollHeightForTable);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.p-table .table-expanded-row td {
+  line-height: unset;
+  padding: 0;
+}
+.p-table .table-expanded-row {
+  border: 0;
+}
+
+.table-expanded-row-trigger {
+  cursor: pointer;
+}
+
+.p-table .table-expanded-content.hidden {
+  height: 0px;
+}
+
+.table-expanded .p-table tr{
+  border: 0 !important;
+}
+
+.p-table .p-table-header-sort {
+  background-color: red;
+  cursor: pointer;
+}
+.p-table .p-table-header-sort.dsc {
+  background-color: green;
+}
+.p-table .p-table-header-sort.asc {
+  background-color: blue;
+}
 /* #endregion Table */
 
 /* #region Icon */

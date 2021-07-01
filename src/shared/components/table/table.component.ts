@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-table, p-table',
@@ -15,7 +15,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
   @Input() pTableElevated = true;
+  @Input() pTableExpands = false;
   constructor() {}
 
   ngOnInit() {}
+
+  @HostBinding('class.table-expanded')
+  get isEx() {
+    return this.pTableExpands;
+  }
 }
