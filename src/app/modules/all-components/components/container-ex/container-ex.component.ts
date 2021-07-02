@@ -18,30 +18,35 @@ export class ContainerExComponent implements OnInit {
     {
       content: 'Chocolate',
       desc: 'Sweet',
-      pho: '$ 1.00',
+      pho: '$1.00',
+      id: 3,
       selected: false,
     },
     {
       content: 'Coke',
       desc: 'Beverage',
       pho: '$2.00',
+      id: 2,
       selected: false,
     },
     {
       content: 'Rice',
       desc: 'Grain',
       pho: '$5.00',
+      id: 1,
       selected: false,
     },
     {
       content: 'Meat',
       desc: 'Red Meat',
       selected: false,
+      id: 5,
       pho: '$4.99',
     },
     {
       content: 'Chicken',
       desc: 'Chicken Meat',
+      id: 4,
       selected: false,
       pho: '$1.99',
     },
@@ -49,6 +54,7 @@ export class ContainerExComponent implements OnInit {
       content: 'Tomato',
       desc: 'Fruit',
       pho: '$0.50',
+      id: 6,
       selected: false,
     },
   ];
@@ -74,5 +80,9 @@ export class ContainerExComponent implements OnInit {
     this.tableContent.forEach((x) => {
       x.selected = event;
     });
+  }
+
+  consos() {
+    console.log(this.tableContent);
   }
 }

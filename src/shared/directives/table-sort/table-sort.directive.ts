@@ -7,6 +7,9 @@ import {
   OnInit,
 } from '@angular/core';
 
+const isSorting = [];
+const columns = [];
+
 @Directive({
   selector: '[appTableSort], [pTableSort]',
 })
@@ -17,17 +20,19 @@ export class TableSortDirective implements OnInit {
   sortingState = 'normal';
   tableDataNormal: any[];
 
+  columnSort: any = {};
+
   constructor(private el: ElementRef) {}
   mainEl = this.el.nativeElement as HTMLTableHeaderCellElement;
 
   ngOnInit(): void {
-    this.tableDataNormal = this.pTableData.slice();
-    console.log(this.tableDataNormal);
+    this.setIcon();
+    this.configureTable();
   }
 
   @HostListener('click', ['$event'])
   sortColumns() {
-    switch (this.sortingState) {
+    switch (this.columnSort.sortingState) {
       case 'normal':
         this.sortAsc(this.pTableColumnForSort);
         break;
@@ -35,42 +40,79 @@ export class TableSortDirective implements OnInit {
         this.sortDsc(this.pTableColumnForSort);
         break;
       case 'dsc':
-        this.sortAsc(this.pTableColumnForSort);
+        this.sortNormal();
         break;
     }
+    this.hasCls();
+    console.log(isSorting);
   }
 
-  sortAsc(col): any[] {
-    this.sortingState = 'asc';
+  private sortAsc(col): any[] {
+    this.columnSort.sortingState = 'asc';
     this.pTableData.sort((a, b) => {
-      return a[col].localeCompare(b[col]);
+      return a[col].toString().localeCompare(b[col]);
     });
     this.mainEl.classList.add('asc');
+    this.mainEl.classList.add('isSorting');
+    isSorting.push(this.mainEl);
     return this.pTableData;
   }
 
-  sortDsc(col): any[] {
-    this.sortingState = 'dsc';
+  private sortDsc(col): any[] {
+    this.columnSort.sortingState = 'dsc';
     this.pTableData.sort((a, b) => {
-      return b[col].localeCompare(a[col]);
+      return b[col].toString().localeCompare(a[col]);
     });
     this.mainEl.classList.remove('asc');
     this.mainEl.classList.add('dsc');
     return this.pTableData;
   }
 
-  sortNormal(): any[] {
-    this.sortingState = 'normal';
+  private sortNormal(): any[] {
+    this.columnSort.sortingState = 'normal';
     this.pTableData.sort((a, b) => {
-      return 0;
+      return a.origiIdx.toString().localeCompare(b.origiIdx);
     });
-    console.log(this.pTableData);
+    const idx = isSorting.find((x) => x === this.mainEl);
+    isSorting.splice(idx, 1);
     this.mainEl.classList.remove('dsc');
+    this.mainEl.classList.remove('isSorting');
     return this.pTableData;
   }
 
   @HostBinding('class.p-table-header-sort')
   get val() {
     return true;
+  }
+
+  private setIcon(): void {
+    const icon = document.createElement('i');
+    icon.innerHTML = 'arrow_upward';
+    icon.classList.add('material-icons');
+    this.mainEl.insertAdjacentElement('beforeend', icon);
+  }
+
+  private configureTable(): void {
+    this.tableDataNormal = this.pTableData.slice();
+    this.pTableData.forEach((x, y) => {
+      x.origiIdx = y;
+    });
+    const obj = {
+      sortingState: 'normal',
+      column: this.pTableColumnForSort,
+    };
+    this.columnSort = obj;
+    this.mainEl.classList.add(obj.column);
+    columns.push(obj);
+  }
+
+  private hasCls(): void {
+    if (isSorting.length > 1) {
+      isSorting.splice(0, 1);
+      // isSorting[0].classList.remove('dsc', 'isSorting', 'asc');
+      const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
+      const idx = columns.indexOf(obj);
+      columns[idx].sortingState = 'normal';
+    }
   }
 }

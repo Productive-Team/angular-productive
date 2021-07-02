@@ -10,6 +10,9 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
       <tbody class="p-table-body">
         <ng-content select="[table-body]"></ng-content>
       </tbody>
+      <tfoot>
+        <ng-content select="[table-footer]"></ng-content>
+      </tfoot>
     </table>
   `,
 })

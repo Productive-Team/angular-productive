@@ -1677,14 +1677,33 @@ a.btn-large {
 }
 
 .p-table .p-table-header-sort {
-  background-color: red;
   cursor: pointer;
 }
-.p-table .p-table-header-sort.dsc {
-  background-color: green;
+.p-table .p-table-header-sort i {
+  position: absolute; 
+  right: 5px;
+  font-size: 16px;
+  top: 50%;
+  opacity: 0;
+  transition: 0.3s cubic-bezier(0,.48,.36,1);
+  transition-property: opacity, transform;
 }
-.p-table .p-table-header-sort.asc {
-  background-color: blue;
+
+.p-table .p-table-header-sort:hover i {
+  transform: translateY(-50%);
+  opacity: 0.5;
+}
+
+.p-table .p-table-header-sort.isSorting i {
+  transform: translate(-50%);
+  opacity: 1;
+}
+
+.p-table .p-table-header-sort.dsc i {
+  transform: translateY(-50%) rotateX(180deg);
+}
+.p-table .p-table-header-sort.asc i {
+  transform: translateY(-50%) rotateX(0deg);
 }
 /* #endregion Table */
 

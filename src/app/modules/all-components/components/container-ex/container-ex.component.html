@@ -10,8 +10,9 @@
         <p-checkbox (change)="setAll($event.target.checked)" [pCheckboxChecked]="completed"
           [pCheckboxIndeterminate]="someCompleted()"></p-checkbox>
       </th>
+      <th pTableSort [pTableData]="tableContent" [pTableColumnForSort]="'id'">Product Id</th>
       <th pTableSort [pTableData]="tableContent" [pTableColumnForSort]="'content'">Product</th>
-      <th>Price</th>
+      <th pTableSort [pTableData]="tableContent" [pTableColumnForSort]="'pho'">Price</th>
     </tr>
   </ng-container>
   <ng-container table-body>
@@ -20,6 +21,7 @@
         <td>
           <p-checkbox [(ngModel)]="cont.selected" (ngModelChange)="completes()"></p-checkbox>
         </td>
+        <td>{{cont.id}}</td>
         <td>{{cont.content}}</td>
         <td>{{cont.pho}}</td>
       </tr>
@@ -36,3 +38,5 @@
     </ng-container>
   </ng-container>
 </p-table>
+<br>
+<button class="btn" pRipple (click)="consos()">Test</button>
