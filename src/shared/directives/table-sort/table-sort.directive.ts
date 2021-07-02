@@ -31,8 +31,10 @@ export class TableSortDirective implements OnInit {
   }
 
   @HostListener('click', ['$event'])
-  sortColumns() {
-    switch (this.columnSort.sortingState) {
+  sortColumns(event) {
+    const obj = columns.find((x) => x.column === event.target.classList[0]);
+    const idx1 = columns.indexOf(obj);
+    switch (columns[idx1].sortingState) {
       case 'normal':
         this.sortAsc(this.pTableColumnForSort);
         break;
@@ -48,18 +50,23 @@ export class TableSortDirective implements OnInit {
   }
 
   private sortAsc(col): any[] {
-    this.columnSort.sortingState = 'asc';
     this.pTableData.sort((a, b) => {
       return a[col].toString().localeCompare(b[col]);
     });
     this.mainEl.classList.add('asc');
     this.mainEl.classList.add('isSorting');
     isSorting.push(this.mainEl);
+    console.log(isSorting);
+    const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
+    const idx = columns.indexOf(obj);
+    columns[idx].sortingState = 'asc';
     return this.pTableData;
   }
 
   private sortDsc(col): any[] {
-    this.columnSort.sortingState = 'dsc';
+    const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
+    const idx = columns.indexOf(obj);
+    columns[idx].sortingState = 'dsc';
     this.pTableData.sort((a, b) => {
       return b[col].toString().localeCompare(a[col]);
     });
@@ -69,7 +76,9 @@ export class TableSortDirective implements OnInit {
   }
 
   private sortNormal(): any[] {
-    this.columnSort.sortingState = 'normal';
+    const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
+    const idx1 = columns.indexOf(obj);
+    columns[idx1].sortingState = 'normal';
     this.pTableData.sort((a, b) => {
       return a.origiIdx.toString().localeCompare(b.origiIdx);
     });
@@ -108,11 +117,12 @@ export class TableSortDirective implements OnInit {
 
   private hasCls(): void {
     if (isSorting.length > 1) {
+      isSorting[0].classList.remove('dsc', 'isSorting', 'asc');
       isSorting.splice(0, 1);
-      // isSorting[0].classList.remove('dsc', 'isSorting', 'asc');
       const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
       const idx = columns.indexOf(obj);
       columns[idx].sortingState = 'normal';
+      console.log(columns[idx]);
     }
   }
 }
