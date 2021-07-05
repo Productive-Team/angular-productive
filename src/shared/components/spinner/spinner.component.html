@@ -1,7 +1,7 @@
 <div class="spinner">
   <svg width="100px" height="100px" [class]="pSpinnerDeterminate ? '' : 'p-spinner-indeterminate-rotation'">
     <circle r="45" cx="50%" cy="50%" [attr.stroke]="pSpinnerColor" fill="none" stroke-width="10%"
-      style="stroke-dasharray: 280px;"
-      [class]="pSpinnerDeterminate ? 'p-spinner' : 'p-spinner p-spinner-indeterminate-anim'" />
+      [class]="pSpinnerDeterminate ? 'p-spinner' : 'p-spinner p-spinner-indeterminate-anim'"
+      [style]="pSpinnerDeterminate ? 'stroke-dashoffset:' + (pSpinnerProgress - 100) * 2.82743 * -1 +'px' : ''" />
   </svg>
 </div>

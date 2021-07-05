@@ -48,4 +48,6 @@
 
 <!-- <p-progress-indicators></p-progress-indicators> -->
 
-<p-spinner></p-spinner>
+<input type="range" [(ngModel)]="numb">
+
+<p-spinner [pSpinnerDeterminate]="true" [pSpinnerProgress]="numb"></p-spinner>
