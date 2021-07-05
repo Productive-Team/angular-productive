@@ -18,21 +18,21 @@ export class ContainerExComponent implements OnInit {
     {
       content: 'Chocolate',
       desc: 'Sweet',
-      pho: '$1.00',
+      pho: 1.0,
       id: 3,
       selected: false,
     },
     {
       content: 'Coke',
       desc: 'Beverage',
-      pho: '$2.00',
+      pho: 2.0,
       id: 2,
       selected: false,
     },
     {
       content: 'Rice',
       desc: 'Grain',
-      pho: '$5.00',
+      pho: 5.0,
       id: 1,
       selected: false,
     },
@@ -41,19 +41,19 @@ export class ContainerExComponent implements OnInit {
       desc: 'Red Meat',
       selected: false,
       id: 5,
-      pho: '$4.99',
+      pho: 4.99,
     },
     {
       content: 'Chicken',
       desc: 'Chicken Meat',
       id: 4,
       selected: false,
-      pho: '$1.99',
+      pho: 1.99,
     },
     {
       content: 'Tomato',
       desc: 'Fruit',
-      pho: '$0.50',
+      pho: 0.5,
       id: 6,
       selected: false,
     },
@@ -61,28 +61,43 @@ export class ContainerExComponent implements OnInit {
 
   completed: boolean;
 
+  sel: string;
+
+  pri = 0;
+
   constructor() {}
 
   ngOnInit() {}
 
-  completes() {
+  completes(ev) {
     this.completed = this.tableContent.every((t) => t.selected);
+    this.sum(ev);
   }
 
   someCompleted(): boolean {
+    const a = this.tableContent.filter((x) => x.selected).length;
+    this.sel = a.toString();
     return (
       this.tableContent.filter((x) => x.selected).length > 0 && !this.completed
     );
   }
 
-  setAll(event): void {
-    this.completed = event;
-    this.tableContent.forEach((x) => {
-      x.selected = event;
-    });
+  sum(obj): void {
+    if (obj.selected) {
+      this.pri += obj.pho;
+    } else {
+      this.pri -= obj.pho;
+    }
   }
 
-  consos() {
-    console.log(this.tableContent);
+  setAll(event): void {
+    this.completed = event;
+    if (event === true) {
+      this.pri = 0;
+    }
+    this.tableContent.forEach((x) => {
+      x.selected = event;
+      this.sum(x);
+    });
   }
 }

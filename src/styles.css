@@ -1609,7 +1609,7 @@ a.btn-large {
   width: 100%;
   box-sizing: border-box;
   background-color: var(--appBackgroundColor);
-  border-collapse: collapse;
+  border-collapse:collapse;
 }
 
 .p-table thead {
@@ -1680,11 +1680,11 @@ a.btn-large {
   cursor: pointer;
 }
 .p-table .p-table-header-sort i {
+  opacity: 0;
   position: absolute; 
   right: 5px;
   font-size: 16px;
   top: 50%;
-  opacity: 0;
   transition: 0.3s cubic-bezier(0,.48,.36,1);
   transition-property: opacity, transform;
 }
@@ -1704,6 +1704,23 @@ a.btn-large {
 }
 .p-table .p-table-header-sort.asc i {
   transform: translateY(-50%) rotateX(0deg);
+}
+
+.p-table .p-table-footer td {
+  padding: 0 1.5rem;
+  line-height: 56px;
+  text-align: left;
+}
+
+.p-table .p-table-header-sticky {
+  background-color: var(--appBackgroundColor);
+  position: sticky;
+  top: 0;
+}
+.p-table .p-table-footer-sticky {
+  background-color: var(--appBackgroundColor);
+  position: sticky;
+  bottom: 0;
 }
 /* #endregion Table */
 

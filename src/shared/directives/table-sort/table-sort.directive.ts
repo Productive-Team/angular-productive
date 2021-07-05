@@ -45,8 +45,6 @@ export class TableSortDirective implements OnInit {
         this.sortNormal();
         break;
     }
-    this.hasCls();
-    console.log(isSorting);
   }
 
   private sortAsc(col): any[] {
@@ -56,7 +54,7 @@ export class TableSortDirective implements OnInit {
     this.mainEl.classList.add('asc');
     this.mainEl.classList.add('isSorting');
     isSorting.push(this.mainEl);
-    console.log(isSorting);
+    this.hasCls();
     const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
     const idx = columns.indexOf(obj);
     columns[idx].sortingState = 'asc';
@@ -64,6 +62,7 @@ export class TableSortDirective implements OnInit {
   }
 
   private sortDsc(col): any[] {
+    this.hasCls();
     const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
     const idx = columns.indexOf(obj);
     columns[idx].sortingState = 'dsc';
@@ -76,6 +75,7 @@ export class TableSortDirective implements OnInit {
   }
 
   private sortNormal(): any[] {
+    this.hasCls();
     const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
     const idx1 = columns.indexOf(obj);
     columns[idx1].sortingState = 'normal';
@@ -117,12 +117,11 @@ export class TableSortDirective implements OnInit {
 
   private hasCls(): void {
     if (isSorting.length > 1) {
-      isSorting[0].classList.remove('dsc', 'isSorting', 'asc');
-      isSorting.splice(0, 1);
       const obj = columns.find((x) => x.column === isSorting[0].classList[0]);
       const idx = columns.indexOf(obj);
       columns[idx].sortingState = 'normal';
-      console.log(columns[idx]);
+      isSorting[0].classList.remove('dsc', 'isSorting', 'asc');
+      isSorting.splice(0, 1);
     }
   }
 }
