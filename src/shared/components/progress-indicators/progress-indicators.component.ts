@@ -14,7 +14,7 @@ import {
 export class ProgressIndicatorsComponent implements OnInit {
   @Input() pProgressType = 'spinner';
   @Input() pProgressColor = 'var(--primary)';
-  @Input() pProgressDeterminate = true;
+  @Input() pProgressDeterminate = false;
   @Input() pProgress = 0;
 
   backgroundColor: string;

@@ -1,9 +1,12 @@
 <div class="p-spinner" *ngIf="pProgressType === 'spinner'">
-  <svg viewBox="0 0 36 36">
+  <!-- <svg viewBox="0 0 36 36">
     <path d="M18 2.0845
         a 15.9155 15.9155 0 0 1 0 31.831
         a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"
       [style]="'stroke:' + pProgressColor +'; stroke-dasharray:' + pProgress+ ', 100;' " class="p-spinner-path" />
+  </svg> -->
+  <svg height="100" width="100">
+    <circle cx="50" cy="50" r="40" [attr.stroke]="pProgressColor" stroke-width="5" fill="none" />
   </svg>
 </div>
 <div class="p-progress-bar" *ngIf="pProgressType === 'bar'">

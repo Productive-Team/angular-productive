@@ -54,6 +54,7 @@ import {
   TableExpandedRowTriggerDirective,
 } from './directives/table-expanded-row/table-expanded-row.directive';
 import { TableSortDirective } from './directives/table-sort/table-sort.directive';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 const components = [
   TableComponent,
@@ -80,6 +81,7 @@ const components = [
   SidenavContentComponent,
   ContainerComponent,
   IconComponent,
+  SpinnerComponent,
 ];
 const directives = [
   RippleDirective,

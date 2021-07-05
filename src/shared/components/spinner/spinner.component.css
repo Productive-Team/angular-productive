@@ -1,0 +1,37 @@
+.p-spinner-indeterminate-rotation {
+  animation: indeterminateRoation 2s linear infinite;
+}
+
+.p-spinner {
+  transition: stroke-dashoffset 0.2 linear;
+}
+
+.p-spinner-indeterminate-anim {
+  animation: indeterminateCircleAnimation 4s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+}
+
+@keyframes indeterminateRoation {
+  0% {
+    transform: rotate(0deg);
+  } 100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes indeterminateCircleAnimation {
+  0% {
+    stroke-dashoffset: 268px;
+  }
+  25% {
+    stroke-dashoffset: 56px;
+  }
+  50% {
+    stroke-dashoffset: 20px;
+  }
+  75% {
+    stroke-dashoffset: 56px;
+  }
+  100% {
+    stroke-dashoffset: 268px;
+  }
+}
