@@ -1,3 +1,4 @@
+import { RadioGroupComponent } from './components/radio-btn/radio-group/radio-group.component';
 import { TableComponent } from './components/table/table.component';
 import { IconComponent } from './components/icon/icon.component';
 import { ContainerComponent } from './components/container/container.component';
@@ -9,7 +10,6 @@ import {
 } from './components/datepicker/datepicker.component';
 import { CollapsibleGroupComponent } from './components/collapsible/collapsible-group/collapsible-group.component';
 import { SliderComponent } from './components/slider/slider.component';
-import { ProgressIndicatorsComponent } from './components/progress-indicators/progress-indicators.component';
 import { TabsService } from './services/tabs.service';
 import { TabsComponent } from './components/tabs/tab/tabs.component';
 import { TabGroupComponent } from './components/tabs/tab-group/tab-group.component';
@@ -55,6 +55,7 @@ import {
 } from './directives/table-expanded-row/table-expanded-row.directive';
 import { TableSortDirective } from './directives/table-sort/table-sort.directive';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 const components = [
   TableComponent,
@@ -71,7 +72,6 @@ const components = [
   SwitchToggleComponent,
   TabGroupComponent,
   TabsComponent,
-  ProgressIndicatorsComponent,
   SliderComponent,
   CollapsibleComponent,
   CollapsibleContentComponent,
@@ -82,6 +82,8 @@ const components = [
   ContainerComponent,
   IconComponent,
   SpinnerComponent,
+  ProgressBarComponent,
+  RadioGroupComponent,
 ];
 const directives = [
   RippleDirective,

@@ -1,7 +1,7 @@
 <label class="radio-wrapper" id="wrapper-{{pRadioId}}" pRipple [pRippleCentered]="true"
   [pRippleTriggerFor]="rippleRadio" [pRippleColor]="pRadioRippleColor">
   <span class="radio-text left" *ngIf="pRadioTextAlignment === 'left' || pRadioTextAlignment === 'before'">
-    {{pRadioText}}
+    <ng-content></ng-content>
   </span>
   <span class="radio-container">
     <input type="radio" name="{{pRadioCollectionName}}" value="{{pRadioValue}}" id="{{pRadioId}}"
@@ -11,6 +11,16 @@
     <span class="radio-ripple-container" #rippleRadio></span>
   </span>
   <span class="radio-text right" *ngIf="pRadioTextAlignment === 'right' || pRadioTextAlignment === 'after'">
-    {{pRadioText}}
+    <ng-content></ng-content>
+  </span>
+</label>
+
+<label class="p-radio-wrapper">
+  <span>
+    <ng-content></ng-content>
+  </span>
+  <span></span>
+  <span>
+    <ng-content></ng-content>
   </span>
 </label>

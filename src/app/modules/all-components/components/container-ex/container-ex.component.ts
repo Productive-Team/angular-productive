@@ -10,6 +10,8 @@ export class ContainerExComponent implements OnInit {
 
   dateStr: string;
 
+  sas = '';
+
   loading = false;
 
   isShow = false;
@@ -65,6 +67,8 @@ export class ContainerExComponent implements OnInit {
 
   pri = 0;
 
+  b = 'cust2';
+
   constructor() {}
 
   ngOnInit() {}
@@ -99,5 +103,11 @@ export class ContainerExComponent implements OnInit {
       x.selected = event;
       this.sum(x);
     });
+  }
+
+  sess(): void {
+    const id = 'name';
+    const a = document.getElementById(id) as HTMLFormElement;
+    console.log(a.elements[id].value);
   }
 }

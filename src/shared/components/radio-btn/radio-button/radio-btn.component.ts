@@ -89,6 +89,8 @@ export class RadioBtnComponent implements OnInit {
   @Output() returnRadioValue = new EventEmitter<any>();
 
   pRadioRippleColor = 'var(--primaryLowOpacity)';
+
+  contents: any;
   constructor() {}
 
   ngOnInit(): void {

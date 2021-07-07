@@ -16,6 +16,14 @@
   animation: indeterminateCircleAnimation 4s cubic-bezier(0.35, 0, 0.25, 1) infinite;
 }
 
+.query .p-spinner.p-spinner-indeterminate-anim {
+  animation-direction: reverse !important;
+}
+.query .p-spinner-indeterminate-rotation {
+  animation-direction: reverse;
+}
+
+
 @keyframes indeterminateRoation {
   0% {
     transform: rotate(0deg);

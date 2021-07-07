@@ -1412,58 +1412,6 @@ a.btn-large {
 }
 /*#endregion Tabs */
 
-/* #region ProgressIndicators */
-.p-spinner {
-  display: flex;
-  width: 150px;
-  height: 150px;
-}
-.p-progress-bar {
-  display: inline-block;
-  position: relative;
-  height: 8px;
-  box-sizing: border-box;
-  overflow: hidden;
-  width: 100%;
-}
-.p-progress-bar .background-progress {
-  width: 100%;
-  height: 100%;
-  border-radius: 1px;
-}
-.p-progress-bar .actual-progress {
-  position: absolute;
-  top: 0;
-  left: -5px;
-  height: 8px;
-  border-radius: 1px;
-  transition: .2s linear;
-}
-.p-progress-bar .actual-progress.animated {
-  animation: indetAnim 1.5s infinite linear;
-}
-@keyframes indetAnim {
-  0% {
-    left: -30%;
-    width: 25%;
-  } 25% {
-    left: 10%;
-    width: 35%;
-  } 
-  50% {
-    left: 50%;
-    width: 60%;
-  } 75% {
-    left: 80%;
-    width: 35%;
-  }
-  100% {
-    left: 100%;
-    width: 5%;
-  }
-}
-/* #endregion ProgressIndicators */
-
 /* #region Collapsible */
 .collapsible {
   position: relative;
