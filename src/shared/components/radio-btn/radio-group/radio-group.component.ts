@@ -1,17 +1,19 @@
+import { RadioBtnComponent } from './../radio-button/radio-btn.component';
 import {
   Component,
   forwardRef,
   Input,
-  OnInit,
   ElementRef,
-  HostListener,
+  ContentChildren,
+  QueryList,
+  OnInit,
   AfterViewInit,
+  AfterContentInit,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-radio-group, p-radio-group',
-  templateUrl: './radio-group.component.html',
   styleUrls: ['./radio-group.component.css'],
   providers: [
     {
@@ -20,12 +22,29 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
       multi: true,
     },
   ],
+  template: `
+    <div (change)="watchValue()" class="radio-group">
+      <ng-content></ng-content>
+    </div>
+  `,
 })
-export class RadioGroupComponent {
+export class RadioGroupComponent implements AfterViewInit {
   @Input() pRadioCollectionName: string;
+
+  @ContentChildren(forwardRef(() => RadioBtnComponent), { descendants: true })
+  radioButtons: any;
+
+  radioArr = [];
+
   constructor(private el: ElementRef) {}
 
   value: any;
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.initRadGroup();
+    }, 0);
+  }
 
   change = (_) => {};
   blur = (_) => {};
@@ -42,11 +61,25 @@ export class RadioGroupComponent {
     this.blur = fn;
   }
 
-  watchValue() {
-    const id = this.pRadioCollectionName;
-    const formEl = document.getElementById(id) as HTMLFormElement;
-    const value = formEl.elements[id].value;
-    this.value = value;
+  watchValue(): void {
+    const radioChecked = this.radioArr.find((x) => x.checked);
+    this.value = radioChecked.value;
     this.change(this.value);
+  }
+
+  checkSelected(): void {
+    const rad = this.radioArr.find((x) => x.value === this.value);
+    if (rad) {
+      rad.checked = true;
+    }
+  }
+
+  initRadGroup(): void {
+    this.radioButtons._results.forEach((x) => {
+      x.pRadioCollectionName = this.pRadioCollectionName;
+      const btn = x.radioBtn.nativeElement;
+      this.radioArr.push(btn);
+    });
+    this.checkSelected();
   }
 }

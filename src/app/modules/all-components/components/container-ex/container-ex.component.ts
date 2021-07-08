@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControlName, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-container-ex',
@@ -10,7 +11,7 @@ export class ContainerExComponent implements OnInit {
 
   dateStr: string;
 
-  sas = '';
+  sas = 'determinate';
 
   loading = false;
 
@@ -69,9 +70,17 @@ export class ContainerExComponent implements OnInit {
 
   b = 'cust2';
 
+  fof: FormGroup;
+
+  ts: Test = {
+    pass: 'value1',
+  };
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fotmini(this.ts);
+  }
 
   completes(ev) {
     this.completed = this.tableContent.every((t) => t.selected);
@@ -110,4 +119,14 @@ export class ContainerExComponent implements OnInit {
     const a = document.getElementById(id) as HTMLFormElement;
     console.log(a.elements[id].value);
   }
+
+  fotmini(model: Test) {
+    this.fof = new FormGroup({
+      pass: new FormControl(model.pass),
+    });
+  }
+}
+
+export class Test {
+  pass: string;
 }

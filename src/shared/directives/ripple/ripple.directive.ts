@@ -119,7 +119,9 @@ export class RippleDirective implements OnInit, AfterViewInit {
 
   @HostBinding('class.p-ripple-container')
   get val() {
-    return true;
+    if (!this.pRippleTriggerFor) {
+      return true;
+    }
   }
 
   @HostBinding('class.p-ripple-unbounded') get unbound() {

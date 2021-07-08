@@ -48,29 +48,39 @@
 
 <!-- <p-progress-indicators></p-progress-indicators> -->
 
-<div style="width: 400px;">
+<div style="width: 300px;">
   <p-slider (pSliderValue)="numb = $event"></p-slider>
 </div>
 
-<p-radio-button pRadioCollectionName="col" pRadioValue="determinate" pRadioText="Determinate"
-  (returnRadioValue)="sas = $event"></p-radio-button>
-<p-radio-button pRadioCollectionName="col" pRadioValue="indeterminate" pRadioText="Indeterminate"
-  (returnRadioValue)="sas = $event"></p-radio-button>
-<p-radio-button pRadioCollectionName="col" pRadioValue="query" pRadioText="Query" (returnRadioValue)="sas = $event">
-</p-radio-button>
+<p-radio-group pRadioCollectionName="col" [(ngModel)]="sas">
+  <p-radio-button pRadioCollectionName="col" pRadioValue="determinate">
+    Determinate
+  </p-radio-button>
+  <p-radio-button pRadioCollectionName="col" pRadioValue="indeterminate">
+    Indeterminate
+  </p-radio-button>
+  <p-radio-button pRadioCollectionName="col" pRadioValue="query">
+    Query
+  </p-radio-button>
+</p-radio-group>
 
 <p-progress-bar [pProgressBarValue]="numb" [pProgressBarMode]="sas"></p-progress-bar>
 
 <p-spinner [pSpinnerMode]="sas" [pSpinnerProgress]="numb"></p-spinner>
 
-<p-radio-group pRadioCollectionName="name" [(ngModel)]="b">
-  <p-radio-button pRadioCollectionName="name" pRadioValue="cust" pRadioId="sadkj" [pRadioTextAlignment]="">
-    Name
-  </p-radio-button>
-  <p-radio-button pRadioCollectionName="name" pRadioValue="cust1" pRadioId="sadkjf"></p-radio-button>
-  <p-radio-button pRadioCollectionName="name" pRadioValue="cust2" pRadioId="sadkjsad"></p-radio-button>
-</p-radio-group>
-
-{{b}}
-
-<button class="btn" (click)="sess()">asdakdasd</button>
+<form [formGroup]="fof">
+  <p-radio-group pRadioCollectionName="name" class="ex" formControlName="pass">
+    <p-radio-button pRadioValue="value1">
+      Value 1
+    </p-radio-button>
+    <p-radio-button pRadioValue="value2">
+      Value 2
+    </p-radio-button>
+    <p-radio-button pRadioValue="value3">
+      Value 3
+    </p-radio-button>
+  </p-radio-group>
+  <span>
+    {{this.fof.get('pass').value}}
+  </span>
+</form>

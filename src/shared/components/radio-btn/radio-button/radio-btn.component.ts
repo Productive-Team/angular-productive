@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-radio-button, p-radio-button',
@@ -34,79 +41,22 @@ export class RadioBtnComponent implements OnInit {
    *    <p-radio-button radioColor="#3f51b5"></p-radio-button>
    */
   @Input() pRadioColor: string;
-  /**
-   * radioText is a text that appears at the side of the Radio Button
-   *
-   * This property is optional, if it's not filled, it will not appear
-   *
-   * Example:
-   *    <p-radio-button radioText="Radio!"></p-radio-button>
-   */
-  @Input() pRadioText: string;
-  /**
-   * radioCollectionName is a value given to a collection of radio buttons, it is used where there are two or more
-   * related buttons
-   *
-   * This property is mandatory, if it's not filled, an error will be thrown;
-   *
-   * Example:
-   *    <p-radio-button radioCollectionName="YourCollectionName"></p-radio-button>
-   *    <p-radio-button radioCollectionName="YourCollectionName"></p-radio-button>
-   *    <p-radio-button radioCollectionName="YourCollectionName"></p-radio-button>
-   *    <p-radio-button radioCollectionName="YourCollectionName"></p-radio-button>
-   */
-  @Input() pRadioCollectionName: string;
-  /**
-   * pRadioTextAlignment is an option to align the radio button text;
-   *
-   * Accepted values are left, right (default), before, after;
-   *
-   * For this property to work, the radioText property needs to be filled;
-   *
-   * This property is optional, if it's not filled, it will automatically assume the value of right;
-   *
-   * Example:
-   *    <p-radio-button pRadioTextAlignment="left"></p-radio-button>
-   */
-  @Input() pRadioTextAlignment = 'right';
-  /**
-   * returnRadioValue refers to the set value of a radio button;
-   *
-   * It emits the value set in radioValue back to the parent component
-   *
-   * Example:
-   *    parent.component.html:
-   *      <p-radio-button (returnRadioValue)="receiveValue($event)" radioValue="YourValue"></p-radio-button>
-   *
-   *    parent.component.ts:
-   *      receiveValue(event): any {
-   *        console.log(event);
-   *      }
-   *
-   *    Result:
-   *      YourValue
-   */
-  @Output() returnRadioValue = new EventEmitter<any>();
+
+  pRadioCollectionName: string;
+
+  @ViewChild('input') radioBtn: any;
 
   pRadioRippleColor = 'var(--primaryLowOpacity)';
 
   contents: any;
+
   constructor() {}
 
   ngOnInit(): void {
-    this.checkRequiredFields(
-      this.pRadioValue,
-      this.pRadioCollectionName,
-      this.pRadioValue
-    );
+    this.checkRequiredFields(this.pRadioValue);
     setTimeout(() => {
       this.checkCustomColor();
     }, 5);
-  }
-
-  // Returns value set in radioValue back to parent component
-  returnRadValue(event): any {
-    this.returnRadioValue.emit(event);
   }
 
   checkCustomColor(): any {
@@ -155,17 +105,10 @@ export class RadioBtnComponent implements OnInit {
   }
 
   // Checks if radioId, radioCollectionName and radioValue are filled
-  checkRequiredFields(inputId, inputName, inputValue): boolean {
-    if (
-      inputId === null ||
-      inputId === undefined ||
-      inputName === null ||
-      inputName === undefined ||
-      inputValue === undefined ||
-      inputValue === null
-    ) {
+  checkRequiredFields(inputValue): boolean {
+    if (!inputValue) {
       throw new Error(
-        'Attributes "radioId", "radioCollectionName" and "radioValue" are mandatory.  Example:    <p-radio-button radioId="radioBtn" radioCollectionName="radioCollection" radioValue="YourValue"></p-radio-button>'
+        'Attribute "pRadioValue" is mandatory.  Example:    <p-radio-button pRadioValue="YourValue"></p-radio-button>'
       );
     } else {
       return true;

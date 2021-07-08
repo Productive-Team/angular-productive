@@ -2,3 +2,8 @@
   height: 250px;
   overflow: auto;
 }
+
+.ex {
+  display: flex;
+  flex-direction: column;
+}
