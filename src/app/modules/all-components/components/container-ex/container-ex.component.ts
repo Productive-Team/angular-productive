@@ -7,7 +7,7 @@ import { FormGroup, FormControlName, FormControl } from '@angular/forms';
   styleUrls: ['./container-ex.component.css'],
 })
 export class ContainerExComponent implements OnInit {
-  numb = 0;
+  numb = 25;
 
   dateStr: string;
 
@@ -74,6 +74,7 @@ export class ContainerExComponent implements OnInit {
 
   ts: Test = {
     pass: 'value1',
+    sel: 0,
   };
 
   constructor() {}
@@ -123,10 +124,12 @@ export class ContainerExComponent implements OnInit {
   fotmini(model: Test) {
     this.fof = new FormGroup({
       pass: new FormControl(model.pass),
+      sel: new FormControl(model.sel),
     });
   }
 }
 
 export class Test {
   pass: string;
+  sel: number;
 }

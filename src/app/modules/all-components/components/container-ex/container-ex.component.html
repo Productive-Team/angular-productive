@@ -49,7 +49,7 @@
 <!-- <p-progress-indicators></p-progress-indicators> -->
 
 <div style="width: 300px;">
-  <p-slider (pSliderValue)="numb = $event"></p-slider>
+  <p-slider [(ngModel)]="numb"></p-slider>
 </div>
 
 <p-radio-group pRadioCollectionName="col" [(ngModel)]="sas">
@@ -69,6 +69,10 @@
 <p-spinner [pSpinnerMode]="sas" [pSpinnerProgress]="numb"></p-spinner>
 
 <form [formGroup]="fof">
+  <div style="width: 400px;">
+    <p-slider formControlName="sel" [pSliderMinValue]="50"></p-slider>
+    <b>{{this.fof.get('sel').value}}</b>
+  </div>
   <p-radio-group pRadioCollectionName="name" class="ex" formControlName="pass">
     <p-radio-button pRadioValue="value1">
       Value 1

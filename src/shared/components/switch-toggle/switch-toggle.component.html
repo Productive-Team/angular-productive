@@ -1,5 +1,5 @@
 <label [class]="pSwitchDisabled ? 'switch-layout switch-layout-disabled':'switch-layout'"
-  *ngIf="this.checkRequiredFields(this.pSwitchId)" pRipple pRippleCentered="true" [pRippleTriggerFor]="switchRipple"
+  *ngIf="this.checkRequiredFields(this.pSwitchId)" pRipple [pRippleTriggerFor]="switchRipple"
   [pRippleDisabled]="pSwitchHasRipple" [pRippleColor]="switchVal ? undefined : this.rippleColor">
   <span class="switch-toggle">
     <span class="checkbox-text left">

@@ -1,13 +1,9 @@
-<div class="all-container">
-  <div class="slider-container">
-    <div class="slider" role="slider" [attr.aria-valuenow]="sliderValue" [attr.aria-valuemax]="pSliderMaxValue"
-      [attr.aria-valuemin]="pSliderMinValue">
-      <div class="slider-background">
-        <div class="slider-progress"></div>
-      </div>
-    </div>
+<div class="p-slider-container" pRipple [pRippleTriggerFor]="slider" role="slider">
+  <div class="p-silder-background">
+    <div class="p-slider-progress" [style]="'background-color: '+ pSliderColor +';'"></div>
   </div>
-  <div class="thumb-container">
-    <div class="slider-thumb none"></div>
+  <div class="p-slider-thumb-container" #slider>
+    <div [class]="percentage === 0 ? 'p-slider-thumb zero-value' : 'p-slider-thumb'"
+      [style]="'background-color: '+ pSliderColor +';'"></div>
   </div>
 </div>
