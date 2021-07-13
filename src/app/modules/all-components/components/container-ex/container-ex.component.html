@@ -49,6 +49,9 @@
 <!-- <p-progress-indicators></p-progress-indicators> -->
 
 <div style="width: 300px;">
+  <p-fieldset [pFieldsetInput]="int">
+    <input type="number" pInput #int placeholder="test" [(ngModel)]="numb">
+  </p-fieldset>
   <p-slider [(ngModel)]="numb"></p-slider>
 </div>
 
@@ -70,7 +73,7 @@
 
 <form [formGroup]="fof">
   <div style="width: 400px;">
-    <p-slider formControlName="sel" [pSliderMinValue]="50"></p-slider>
+    <p-slider formControlName="sel" [pSliderMinValue]="0"></p-slider>
     <b>{{this.fof.get('sel').value}}</b>
   </div>
   <p-radio-group pRadioCollectionName="name" class="ex" formControlName="pass">

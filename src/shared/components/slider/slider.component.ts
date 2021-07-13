@@ -46,11 +46,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.calculatePositions(this.pSliderValue / this.pSliderMaxValue);
       this.setSliderColor(this.pSliderColor);
-      this.percentage = this.calcClamp(
-        this.pSliderValue / this.pSliderMaxValue
-      );
     }, 0);
   }
 
@@ -72,6 +68,11 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   writeValue(obj: number): void {
     this.pSliderValue = obj;
+    this.calculatePositions(
+      (this.pSliderValue - this.pSliderMinValue) /
+        (this.pSliderMaxValue - this.pSliderMinValue)
+    );
+    this.percentage = this.calcClamp(this.pSliderValue / this.pSliderMaxValue);
   }
 
   registerOnChange(fn: any): void {

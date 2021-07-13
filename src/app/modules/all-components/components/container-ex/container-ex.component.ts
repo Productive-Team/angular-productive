@@ -74,7 +74,7 @@ export class ContainerExComponent implements OnInit {
 
   ts: Test = {
     pass: 'value1',
-    sel: 0,
+    sel: 50,
   };
 
   constructor() {}
