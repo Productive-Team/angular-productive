@@ -1,0 +1,11 @@
+<label class="p-radio-wrapper" pRipple [pRippleTriggerFor]="radioRipple" [pRippleColor]="pRadioRippleColor">
+  <span class="p-radio-container">
+    <input type="radio" name="{{pRadioCollectionName}}" #input value="{{pRadioValue}}">
+    <span class="p-radio-inner-circle"></span>
+    <span class="p-radio-outer-circle"></span>
+    <span class="p-radio-ripple" #radioRipple></span>
+  </span>
+  <span class="p-radio-label">
+    <ng-content></ng-content>
+  </span>
+</label>

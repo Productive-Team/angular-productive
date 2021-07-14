@@ -1,0 +1,17 @@
+<div class="tab-group-header">
+  <button pRipple [pRippleCentered]="true" id="goBack" (click)="scroll($event)">
+    <i class="material-icons">chevron_left</i>
+  </button>
+  <div class="tab-header-container">
+    <div class="tab-list" style="transform: translateX(0);">
+      <div class="all-tabs">
+        <ng-content></ng-content>
+        <div class="tab-ink-bar"></div>
+      </div>
+    </div>
+  </div>
+  <button pRipple [pRippleCentered]="true" id="goForward" (click)="scroll($event)">
+    <i class="material-icons">navigate_next</i>
+  </button>
+</div>
+<div class="tab-content"></div>

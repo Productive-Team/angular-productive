@@ -1,0 +1,65 @@
+<p-tab-group>
+  <p-tab pTabLabel="Documentation">
+    <br>
+    <span>The Ripple Effect is used to represent when the user has clicked something, sending a visual feedback to the
+      user.
+    </span>
+    <br>
+    <br>
+    <span>Here's an interactive example of the Ripple Effect:</span>
+    <br>
+    <p-section>
+      <ng-container section-content>
+        <div class="row">
+          <div class="col m6 s12">
+            <div class="fieldset">
+              <p-checkbox pCheckboxLabel="Ripple Centered" [(ngModel)]="center">
+              </p-checkbox>
+              <p-checkbox pCheckboxLabel="Ripple Unbounded" [(ngModel)]="unbound">
+              </p-checkbox>
+              <p-checkbox pCheckboxLabel="Ripple Disabled" [(ngModel)]="disabled">
+              </p-checkbox>
+            </div>
+          </div>
+          <div class="col m3 s6">
+            <p-fieldset pFieldsetLabelText="Ripple Color" [pFieldsetInput]="colorRip">
+              <input type="text" pInput [(ngModel)]="color" #colorRip>
+            </p-fieldset>
+          </div>
+          <div class="col m3 s6">
+            <p-fieldset pFieldsetLabelText="Ripple Radius" [pFieldsetInput]="radiusRip">
+              <input type="number" pInput [(ngModel)]="radius" #radiusRip>
+            </p-fieldset>
+          </div>
+        </div>
+        <div class="ripple-example elevation" pRipple [pRippleCentered]="center" [pRippleColor]="color"
+          [pRippleUnbounded]="unbound" [pRippleRadius]="radius" [pRippleDisabled]="disabled" id="rip-ex-1">Click Me!
+        </div>
+      </ng-container>
+    </p-section>
+    <br>
+    <span>You can also set up an element to be a trigger of a ripple on another element.<br><br> When doing so, the
+      ripple
+      will
+      always be centered, however every other setting will work as intended.</span>
+    <br>
+    <br>
+    <span>Here's an example:</span>
+    <p-section>
+      <ng-container section-content>
+        <div class="row">
+          <div class="col m6 s12">
+            <div class="ripple-example elevation" pRipple [pRippleTriggerFor]="rippleTrigger">
+              Click Me!</div>
+          </div>
+          <div class="col m6 s12">
+            <div class="ripple-example elevation" #rippleTrigger></div>
+          </div>
+        </div>
+      </ng-container>
+    </p-section>
+  </p-tab>
+  <p-tab pTabLabel="References">
+
+  </p-tab>
+</p-tab-group>

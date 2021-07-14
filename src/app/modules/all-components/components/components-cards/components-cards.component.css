@@ -1,0 +1,26 @@
+a {
+  text-decoration: none !important;
+  color: #262626;
+}
+
+.card-btn {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: white;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+  cursor: pointer;
+  margin: 10px 0;
+
+}
+
+.card-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+h5 {
+  pointer-events: none;
+  user-select: none;
+}

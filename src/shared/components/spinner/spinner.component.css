@@ -1,0 +1,100 @@
+.spinner svg {
+  transform: rotate(-90deg);
+}
+
+.p-spinner-indeterminate-rotation {
+  animation: indeterminateRoation 2s linear infinite;
+}
+
+.p-spinner {
+  stroke-dasharray: 282.743px;
+  transform-origin: center;
+  transition: stroke-dashoffset 0.2s linear;
+}
+
+.p-spinner-indeterminate-anim {
+  animation: indeterminateCircleAnimation 4s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+}
+
+.query .p-spinner.p-spinner-indeterminate-anim {
+  animation-direction: reverse !important;
+}
+.query .p-spinner-indeterminate-rotation {
+  animation-direction: reverse;
+}
+
+
+@keyframes indeterminateRoation {
+  0% {
+    transform: rotate(0deg);
+  } 100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes indeterminateCircleAnimation {
+  0% {
+    stroke-dashoffset: 268px;
+    transform: rotate(0);
+  }
+  12.5% {
+    stroke-dashoffset: 56px;
+    transform: rotate(0);
+  }
+  12.5001% {
+    stroke-dashoffset: 56px;
+    transform: rotateX(180deg) rotate(72.5deg);
+  }
+  25% {
+    stroke-dashoffset: 268px;
+    transform: rotateX(180deg) rotate(72.5deg);
+  }
+  25.0001% {
+    stroke-dashoffset: 268px;
+    transform: rotate(270deg);
+  }
+  37.5% {
+    stroke-dashoffset: 56px;
+    transform: rotate(270deg);
+  }
+  37.50001% {
+    stroke-dashoffset: 56px;
+    transform: rotateX(180deg) rotate(161.5deg);
+  }
+  50% {
+    stroke-dashoffset: 268px;
+    transform: rotateX(180deg) rotate(161.5deg)
+  }
+  50.0001% {
+    stroke-dashoffset: 268px;
+    transform: rotate(180deg);
+  }
+  62.5% {
+    stroke-dashoffset: 56px;
+    transform: rotate(180deg);
+  }
+  62.5001% {
+    stroke-dashoffset: 56px;
+    transform: rotateX(180deg) rotate(251.5deg);
+  }
+  75% {
+    stroke-dashoffset: 268px;
+    transform: rotateX(180deg) rotate(251.5deg);
+  }
+  75.0001% {
+    stroke-dashoffset: 268px;
+    transform: rotate(90deg);
+  }
+  87.5% {
+    stroke-dashoffset: 56px;
+    transform: rotate(90deg);
+  }
+  87.5001% {
+    stroke-dashoffset: 56px;
+    transform: rotateX(180deg) rotate(341.5deg);
+  }
+  100% {
+    stroke-dashoffset: 268px;
+    transform: rotateX(180deg) rotate(341.5deg);
+  }
+}

@@ -1,0 +1,116 @@
+/*#region CheckSwitch*/
+/* checkbox switch container */
+.switch-layout {
+  display: inline-block;
+  height: 24px;
+  max-width: 100%;
+  line-height: 24px;
+  white-space: nowrap;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: 0.1s linear;
+}
+
+.switch-layout.switch-layout-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* hides default browser checkbox */
+.switch-layout input {
+  opacity: 0;
+  bottom: -5px;
+  transform: scale(0);
+  position: absolute;
+}
+
+.switch-ripple {
+  position: absolute;
+  left: calc(50% - 21px);
+  top: calc(50% - 21px);
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* checkbox body */
+.switch-toggle {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  height: inherit;
+  cursor: pointer;
+}
+
+/* switch container */
+.switch-container {
+  position: relative;
+  width: 36px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  margin: auto 8px;
+  background-color: rgba(0, 0, 0, 0.38);
+  transition: all 0.08s linear !important;
+  transition-property: background-color;
+  transition-delay: 50ms;
+}
+
+.switch-container.active {
+  background-color: var(--container-background) !important;
+  --container-background: ;
+}
+
+.switch-layout
+  input:checked:disabled
+  ~ .switch-thumb-container
+  .switch-ripple,
+.switch-layout
+  input:disabled
+  ~ .switch-thumb-container
+  .switch-ripple {
+  display: none;
+}
+
+/* switch thumb container */
+.switch-thumb-container {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: -3px;
+  transition: all 0.3s linear;
+  transition-property: transform;
+}
+
+/* switch thumb */
+.switch-thumb {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  white-space: nowrap;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  transition: 0.08s linear;
+  --switch-thumb: var(--primary);
+}
+
+/* thumb transformation */
+.switch-layout input:checked + .switch-thumb-container .switch-thumb {
+  transform: translate3d(16px, 0, 0);
+  background-color: var(--switch-thumb);
+}
+
+span i.left {
+  margin-right: 5px !important;
+}
+
+span i.right {
+  margin-left: 5px !important;
+}
+/*#endregion CheckSwitch*/

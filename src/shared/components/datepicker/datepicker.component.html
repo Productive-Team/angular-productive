@@ -1,0 +1,46 @@
+<div class="picker elevation" *ngIf="isOpen" @animationTrigger>
+  <div class="header">
+    <span *ngIf="showDays">
+      <button class="btn fab flat left" pRipple pRippleCentered="true" (click)="previousMonth()">
+        <i class="material-icons">chevron_left</i>
+      </button>
+      <button class="btn-small flat t-600" pRipple (click)="showDays = false; showYears = true; setYears(currYear)">
+        {{currMonth}}
+        {{currYear}}
+      </button>
+      <button class="btn fab flat right" pRipple pRippleCentered="true" (click)="nextMonth()">
+        <i class="material-icons">chevron_right</i>
+      </button>
+    </span>
+    <span *ngIf="showYears">
+      <button class="btn fab flat left" pRipple pRippleCentered="true" (click)="previousYears()">
+        <i class="material-icons">chevron_left</i>
+      </button>
+      <button class="btn-small flat t-600" pRipple (click)="showDays = true; showYears = false;">
+        {{years[0]}} -
+        {{years[19]}}
+      </button>
+      <button class="btn fab flat right" pRipple pRippleCentered="true" (click)="nextYears()">
+        <i class="material-icons">chevron_right</i>
+      </button>
+    </span>
+    <span *ngIf="showMonths">
+      <button class="btn-small flat t-600" pRipple (click)="showYears = true; showMonths = false">
+        {{currYear}}
+      </button>
+    </span>
+  </div>
+  <div class="content">
+    <div *ngIf="showDays">
+      <span [class]="day.selected ? 'day selected' : 'day'" pRipple pRippleCentered="true"
+        pRippleColor="var(--primaryLowOpacity)" *ngFor="let day of days" (click)="selectDay(day)"
+        id="day-{{day}}">{{day.day}}</span>
+    </div>
+    <div *ngIf="showMonths" class="text-center">
+      <span class="month" pRipple *ngFor="let month of months" (click)="selectMonth(month)">{{month}}</span>
+    </div>
+    <div *ngIf="showYears" class="text-center">
+      <span class="year" pRipple *ngFor="let year of years" (click)="selectYear(year)">{{year}}</span>
+    </div>
+  </div>
+</div>

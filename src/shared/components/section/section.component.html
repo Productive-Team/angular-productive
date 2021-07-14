@@ -1,0 +1,16 @@
+<div class="section-container">
+  <div class="section-links">
+    <ng-content select="[section-buttons]"></ng-content>
+  </div>
+  <div>
+    <span class="section-header">
+      <i class="material-icons left" *ngIf="pSectionHeaderIcon">{{pSectionHeaderIcon}}</i>
+      {{pSectionHeader}}
+    </span>
+  </div>
+  <div class="section">
+    <div class="section-content">
+      <ng-content select="[section-content]"></ng-content>
+    </div>
+  </div>
+</div>

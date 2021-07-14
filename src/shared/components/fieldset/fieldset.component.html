@@ -1,8 +1,26 @@
 <div class="fieldset">
-  <label for="{{labelId}}" class="p-input-label">
-    <i class="material-icons left" *ngIf="labelIcon">{{labelIcon}}</i>
-    {{labelText}}
-  </label>
-  <ng-content></ng-content>
-  <div class="p-input-bar"></div>
+  <div>
+    <div class="input-wrapper {{appearence}}">
+      <div class="prefix">
+        <ng-content select="[p-prefix]"></ng-content>
+      </div>
+      <div class="form-field">
+        <ng-content></ng-content>
+        <span class="label-wrap">
+          <label class="label-text">
+            <span>
+              {{labelText}}
+            </span>
+          </label>
+        </span>
+      </div>
+      <div class="suffix">
+        <ng-content select="[p-suffix]"></ng-content>
+      </div>
+    </div>
+    <div class="p-input-bar"></div>
+  </div>
+  <span class="helper-text {{helperState}}" *ngIf="hasHelperText || hasError()">
+    {{helperText}}
+  </span>
 </div>

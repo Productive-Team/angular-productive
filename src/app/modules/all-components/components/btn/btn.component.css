@@ -1,0 +1,13 @@
+button, a {
+  margin: 10px 10px 10px 0;
+}
+
+.label-row {
+  display: table-cell;
+  min-width: 200px;
+}
+
+.btn-row {
+  display: table-cell;
+  width: 100%;
+}

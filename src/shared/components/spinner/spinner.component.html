@@ -1,0 +1,7 @@
+<div [class]="pSpinnerMode === 'query' ? 'spinner query' : 'spinner'">
+  <svg width="100px" height="100px" [class]="pSpinnerMode === 'determinate' ? '' : 'p-spinner-indeterminate-rotation'">
+    <circle r="45" cx="50%" cy="50%" [attr.stroke]="pSpinnerColor" fill="none" stroke-width="10%"
+      [class]="pSpinnerMode === 'determinate' ? 'p-spinner' : 'p-spinner p-spinner-indeterminate-anim'"
+      [style]="pSpinnerMode === 'determinate' ? 'stroke-dashoffset:' + (pSpinnerProgress - 100) * 2.82743 * -1 +'px' : ''" />
+  </svg>
+</div>

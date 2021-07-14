@@ -1,0 +1,26 @@
+.tab-group-header button{
+  display: flex;
+  width: 50px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+  0 4px 10px 0 rgba(0, 0, 0, 0.14);
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-group-header button i {
+  user-select: none;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.tab-group-header button.disabled {
+  opacity: .4;
+  pointer-events: none;
+  box-shadow: none;
+}

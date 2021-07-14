@@ -1,0 +1,46 @@
+<div class="content-wrapper">
+  <div class="elevation" style="z-index: 998;">
+    <app-navbar backgroundColor="bg-primary" [elevated]="false">
+      <ng-container navbarContent>
+        <button class="btn flat" pRipple pRippleColor="#ffffff26" [routerLink]="['/']">
+          Angular Productive
+        </button>
+        <button class="btn-small flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26">
+          Get Started
+        </button>
+        <button class="btn-small flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26"
+          [routerLink]="['/Components']">
+          Components
+        </button>
+        <div class="spacer"></div>
+        <button class="btn flat" pRipple pRippleColor="#ffffff26">v1.0</button>
+        <a class="btn flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26"
+          href="https://github.com/Productive-Team/angular-productive" target="_blank">
+          <img src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg"
+            style="top: 12px; position: relative; pointer-events: none;" class="left">
+          Github
+        </a>
+        <a class="btn-small flat fab display-on-small-only" pRipple pRippleColor="#ffffff26" [pRippleCentered]="true"
+          href="https://github.com/Productive-Team/angular-productive" target="_blank">
+          <img src="../../../../../assets/img/github-white-transparent.svg" class="left"
+            style="position: relative; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); pointer-events: none;">
+        </a>
+      </ng-container>
+    </app-navbar>
+    <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="display-on-small-only">
+      <ng-container navbarContent>
+        <button class="btn-small bg-secondary" style="width: 50%;" pRipple pRippleColor="#ffffff26"
+          [routerLink]="['/Components']">
+          Components
+        </button>
+        <button class="btn-small flat" pRipple pRippleColor="#ffffff26" style="width: 50%;">
+          Get Started
+        </button>
+      </ng-container>
+    </app-navbar>
+  </div>
+  <p-container>
+    <router-outlet></router-outlet>
+    <footer style="background-color: var(--primary); height: 250px; width: 100%; box-sizing: border-box;"></footer>
+  </p-container>
+</div>

@@ -1,0 +1,11 @@
+<div class="p-slider-container" pRipple [pRippleTriggerFor]="slider" role="slider">
+  <div class="p-silder-background">
+    <div class="p-slider-progress" [style]="'background-color: '+ pSliderColor +';'"></div>
+  </div>
+  <div class="p-slider-thumb-wrapper">
+    <div class="p-slider-thumb-container" #slider>
+      <div [class]="percentage === 0 ? 'p-slider-thumb zero-value' : 'p-slider-thumb'"
+        [style]="'background-color: '+ pSliderColor +';'"></div>
+    </div>
+  </div>
+</div>

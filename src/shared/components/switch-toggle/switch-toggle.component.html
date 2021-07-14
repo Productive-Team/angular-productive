@@ -1,0 +1,23 @@
+<label [class]="pSwitchDisabled ? 'switch-layout switch-layout-disabled':'switch-layout'"
+  *ngIf="this.checkRequiredFields(this.pSwitchId)" pRipple [pRippleTriggerFor]="switchRipple"
+  [pRippleDisabled]="pSwitchHasRipple" [pRippleColor]="switchVal ? undefined : this.rippleColor">
+  <span class="switch-toggle">
+    <span class="checkbox-text left">
+      <i class="material-icons left" *ngIf="pSwitchIconLeft">{{pSwitchIconLeft}}</i>
+      {{pSwitchLabelLeft}}
+    </span>
+    <div [class]="switchVal ? 'switch-container active':'switch-container'" id="switch-cont">
+      <input type="checkbox" id="{{pSwitchId}}" [disabled]="pSwitchDisabled" [checked]="switchVal"
+        (change)="onCheck($event)" (blur)="blur($event)">
+      <div class="switch-thumb-container">
+        <div class="switch-thumb" id="switch-thumb">
+          <div class="switch-ripple" #switchRipple></div>
+        </div>
+      </div>
+    </div>
+    <span class="checkbox-text right">
+      <i class="material-icons right" *ngIf="pSwitchIconRight">{{pSwitchIconRight}}</i>
+      {{pSwitchLabelRight}}
+    </span>
+  </span>
+</label>

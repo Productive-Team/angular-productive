@@ -1,0 +1,105 @@
+.p-radio-wrapper {
+  --radio-selected-color: var(--primary);
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+  margin: 0.5rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.p-radio-container {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+  vertical-align: bottom;
+}
+
+.p-radio-label {
+  user-select: none;
+  display: inline-block;
+  line-height: inherit;
+  padding: 0 8px;
+}
+
+.p-radio-container input {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%) scale(0);
+  opacity: 0;
+}
+
+.p-radio-outer-circle {
+  box-sizing: border-box;
+  display: block;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 2px solid rgba(0, 0, 0, 0.54);
+  border-radius: 50%;
+  transition: border 0.1s linear;
+}
+
+.p-radio-container .p-radio-ripple {
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+
+.p-radio-inner-circle {
+  box-sizing: border-box;
+  display: block;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--radio-selected-color);
+  opacity: 0;
+  transform: scale(0.00);
+  transition:  400ms cubic-bezier(0,.52,.58,.99);
+  border-radius: 50%;
+}
+
+.p-radio-container input:checked ~ .p-radio-inner-circle {
+  opacity: 1;
+  transform: scale(0.5);
+  animation: animation 300ms cubic-bezier(0,.52,.58,.99);
+}
+
+.p-radio-container input:checked ~ .p-radio-outer-circle {
+  border-color: var(--radio-selected-color);
+}
+
+@keyframes animation {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  75% {
+    opacity: 1;
+    transform: scale(0.75);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(0.5);
+  }
+}

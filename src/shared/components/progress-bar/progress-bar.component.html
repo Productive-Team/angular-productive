@@ -1,0 +1,11 @@
+<div class="p-progress-bar">
+  <div class="progress-container">
+    <div class="progress" [style]="'transform: translateX(-' + (100 - pProgressBarValue) + '%)'"
+      *ngIf="pProgressBarMode === 'determinate'"></div>
+    <ng-container *ngIf="pProgressBarMode === 'indeterminate' || pProgressBarMode === 'query'">
+      <div [class]="pProgressBarMode === 'query' ? 'progress-indeterminate query' : 'progress-indeterminate'"></div>
+      <div [class]="pProgressBarMode === 'query' ? 'progress-indeterminate-2 query' : 'progress-indeterminate-2'"></div>
+    </ng-container>
+    <div class="progress-query"></div>
+  </div>
+</div>

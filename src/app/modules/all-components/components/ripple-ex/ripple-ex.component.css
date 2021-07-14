@@ -1,0 +1,10 @@
+.ripple-example {
+  margin: 15px auto;
+  width: 250px;
+  height: 250px;
+  line-height: 250px;
+  user-select: none;
+  cursor: pointer;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}

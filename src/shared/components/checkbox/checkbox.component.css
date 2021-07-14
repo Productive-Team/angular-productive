@@ -1,0 +1,180 @@
+/* #region RegularCheckbox */
+/* container da checkbox (label embrulhando tudo) */
+.checkbox-layout {
+  font-size: 16px;
+  font-weight: 400;
+  user-select: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0 15px;
+  transition: 0.1s linear;
+}
+
+.checkbox-layout.checkbox-layout-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* esconde o input checkbox padrão do browser */
+.checkbox-layout input {
+  opacity: 0;
+  bottom: -5px;
+  transform: scale(0);
+  position: absolute;
+}
+
+/* texto do span da checkbox */
+.checkbox-text {
+  -webkit-user-drag: none;
+  line-height: 25px;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* container do input da checkbox */
+.checkbox-toggle {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  line-height: 0;
+  margin: auto;
+  position: relative;
+  vertical-align: middle;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* borda do container da checkbox */
+.checkbox-frame {
+  border: 2px solid rgba(0, 0, 0, 0.54);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 2.5px;
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* container do efeito ripple */
+.checkbox-ripple {
+  position: absolute;
+  left: calc(50% - 21px);
+  top: calc(50% - 21px);
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* fundo da checkbox */
+.checkbox-background {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 2.5px;
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.18s ease 0s;
+}
+
+/* esconde a div de ripple quando esta desabilitado */
+.checkbox-layout input:checked:disabled ~ .checkbox-ripple,
+.checkbox-layout input:disabled ~ .checkbox-ripple,
+.checkbox-layout-switch
+  input:checked:disabled
+  ~ .switch-thumb-container
+  .switch-ripple,
+.checkbox-layout-switch
+  input:disabled
+  ~ .switch-thumb-container
+  .switch-ripple {
+  display: none;
+}
+
+/* marca svg */
+.checkbox-mark {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  fill: #fafafa;
+  transition: 0.1s linear;
+  stroke-width: 2.1333333333px;
+}
+
+/* icone da checkbox em indeterminado */
+.checkbox-mixed {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - 6px);
+  height: 2px;
+  border-radius: 2px;
+  background-color: white;
+  transform: scaleX(1) rotate(-10deg) translateX(-50%) translateY(-50%);
+  transition: opacity 0.1s linear;
+  opacity: 0;
+}
+
+/* path do svg */
+.checkbox-mark .path {
+  stroke-dasharray: 70;
+  stroke-dashoffset: 100;
+  fill: none;
+}
+
+/* deixa o cinza da borda da checkbox mais claro quando esta desabilitada */
+.checkbox-layout input:disabled ~ .checkbox-frame {
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* quando a checkbox é marcada aumenta a opacidade do fundo da checkbox */
+.checkbox-layout input:checked ~ .checkbox-background {
+  opacity: 1;
+}
+
+/* deixa o fundo cinza quando a checkbox esta como marcada e desabilitada*/
+/* .checkbox-layout input:checked:disabled ~ .checkbox-background,
+.checkbox-layout input:indeterminate:disabled ~ .checkbox-background {
+  background-color: #b0b0b0 !important;
+} */
+
+/* transição da checkmark na checkbox */
+.checkbox-layout input:checked ~ .checkbox-background .checkbox-mark .path,
+.checkbox-layout
+  input:checked:indeterminate
+  ~ .checkbox-background
+  .checkbox-mark
+  .path {
+  transition: 0.3s linear;
+  stroke-dasharray: 70;
+  stroke-dashoffset: 0;
+}
+
+/* changes the background opacity if input is indeterminate */
+.checkbox-layout input:indeterminate ~ .checkbox-background {
+  opacity: 1;
+}
+
+/* shows the mixed icon in checkbox */
+.checkbox-layout input:indeterminate ~ .checkbox-background .checkbox-mixed {
+  transition: all 0.1s linear;
+  opacity: 1;
+  transform: scaleX(1) rotate(0deg) translateX(-50%) translateY(-50%);
+}
+
+/* rotares the checkmark to transition to the mixed input and vice versa */
+.checkbox-layout input:indeterminate ~ .checkbox-background .checkbox-mark {
+  transform: scaleX(1) rotate(-120deg);
+  opacity: 0;
+}
+/* #endregion RegularCheckbox */
