@@ -4,11 +4,13 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  forwardRef,
   HostListener,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const labelActive = [];
 @Directive({
@@ -139,6 +141,13 @@ export class SelectDirective {
   selector: 'app-select, p-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectComponent),
+      multi: true,
+    },
+  ],
 })
 export class SelectComponent implements OnInit, AfterViewInit {
   @Input() pSelectLabelText: string;
@@ -162,10 +171,27 @@ export class SelectComponent implements OnInit, AfterViewInit {
   allAreSelected = false;
   filteredItems: SelectModel[];
   filterValue: string;
+
+  selectedItem: any;
   private selArr = [];
   private selTxtArr = [];
 
   constructor() {}
+
+  change = () => {};
+  blur = (_) => {};
+
+  writeValue(obj: any): void {
+    this.selectedItem = obj;
+  }
+
+  registerOnChange(fn: any): void {
+    this.change = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.blur = fn;
+  }
 
   ngOnInit() {
     this.filteredItems = this.pSelectItems;
@@ -326,6 +352,27 @@ export class SelectComponent implements OnInit, AfterViewInit {
       input.value = this.selTxtArr.join(', ');
     }
     this.pMultipleSelectedItem.emit(this.selArr);
+  }
+}
+
+@Component({
+  selector: 'app-option, p-option',
+  styleUrls: ['./select.component.css'],
+  template: ` <button
+    [value]="value"
+    class="p-select-option"
+    pRipple
+    (click)="exvalexport($event.target.value)"
+  >
+    <ng-content></ng-content>
+  </button>`,
+})
+export class SelectOptionComponent {
+  @Input() value: any;
+  constructor() {}
+
+  exvalexport(value) {
+    console.log(value);
   }
 }
 

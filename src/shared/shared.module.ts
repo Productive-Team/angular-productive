@@ -41,6 +41,7 @@ import {
 import {
   SelectComponent,
   SelectDirective,
+  SelectOptionComponent,
 } from './components/select/select.component';
 import { FormsModule } from '@angular/forms';
 import {
@@ -84,6 +85,7 @@ const components = [
   SpinnerComponent,
   ProgressBarComponent,
   RadioGroupComponent,
+  SelectOptionComponent,
 ];
 const directives = [
   RippleDirective,

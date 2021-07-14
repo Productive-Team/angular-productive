@@ -40,7 +40,7 @@ const routes: Routes = [
         component: ContainerExComponent,
       },
       {
-        path: 'Checkboxes',
+        path: 'Checkbox',
         component: CheckboxExComponent,
       },
     ],

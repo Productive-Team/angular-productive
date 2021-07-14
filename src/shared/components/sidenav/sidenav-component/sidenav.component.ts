@@ -12,16 +12,16 @@ import {
 
 const animations = trigger('sidenavTransitions', [
   transition(':enter', [
-    style({ transform: 'translateX(-100%)' }),
+    style({ transform: 'translateX(-100%)', width: 0 }),
     animate(
       '0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      style({ transform: 'translateX(0)' })
+      style({ transform: 'translateX(0)', width: 250 })
     ),
   ]),
   transition(':leave', [
     animate(
       '0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      style({ transform: 'translateX(-100%)', width: 0})
+      style({ transform: 'translateX(-100%)', width: 0 })
     ),
   ]),
 ]);
@@ -33,7 +33,7 @@ const animations = trigger('sidenavTransitions', [
   animations: [animations],
 })
 export class SidenavComponent implements OnInit, AfterViewInit {
-  @Input() elevated = true;
+  @Input() elevated: boolean;
   @Input() hidden = false;
   @Input() pushContent = true;
   @Input() backdrop = false;
@@ -45,41 +45,9 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   @HostListener('window:resize', ['$event']) onResize(event) {
     if (window.innerWidth < 1000) {
       this.sidenavOpen = false;
-    }
-    console.log(window.innerWidth);
-    if (window.innerHeight >= 1000) {
+    } else if (window.innerHeight >= 1000) {
       this.sidenavOpen = true;
     }
-    // if (this.pushContent) {
-    //   this.setHeight();
-    // }
-    // if (window.innerWidth <= 600) {
-    //   pushContent = false;
-    //   hasBack = true;
-    //   this.setNavFixed();
-    // } else if (window.innerWidth > 600) {
-    //   pushContent = this.pushContent;
-    //   hasBack = this.backdrop;
-    //   if (this.hidden) {
-    //     this.hideNav(this.sidenavId);
-    //   }
-    //   if (this.pushContent) {
-    //     const sidenav = this.el.nativeElement.firstChild as HTMLDivElement;
-    //     sidenav.style.position = 'sticky';
-    //     sidenav.style.zIndex = '996';
-    //   }
-    // }
-    // if (isOpen === true && window.innerWidth <= 1000) {
-    //   this.hideNav(this.sidenavId);
-    //   const backdrop = document.querySelector('.backdrop') as HTMLElement;
-    //   if (backdrop) {
-    //     this.removeBackdrop(backdrop);
-    //   }
-    // } else {
-    //   if (!this.hidden && window.innerWidth > 1000) {
-    //     this.showNav(this.sidenavId);
-    //   }
-    // }
   }
 
   constructor(private el: ElementRef) {}
@@ -106,15 +74,6 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     // this.backgroundColorApply();
     // pushContent = this.pushContent;
     // hasBack = this.backdrop;
-  }
-
-  private setHeight(): void {
-    const height = window.innerHeight;
-    const nav = document.querySelector('nav') as HTMLDivElement;
-    const boundRectNav = nav.getBoundingClientRect();
-    const finalHeight = Math.abs(height - boundRectNav.height) + 'px';
-    const sideWrap = document.querySelector('.sidenav-wrap') as HTMLDivElement;
-    sideWrap.style.height = finalHeight;
   }
 
   hideNav(id: string): void {
@@ -234,8 +193,13 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     this.sidenavOpen = !this.sidenavOpen;
   }
 
-  @HostBinding('class.sidenav-wrap')
-  get val() {
-    return true;
+  @HostBinding('class.closed')
+  get openClosedValue() {
+    return !this.sidenavOpen;
+  }
+
+  @HostBinding('class.elevation')
+  get elevationValue() {
+    return this.elevated;
   }
 }

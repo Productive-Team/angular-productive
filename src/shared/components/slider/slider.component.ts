@@ -8,6 +8,7 @@ import {
   HostListener,
   forwardRef,
   AfterViewInit,
+  HostBinding,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -29,6 +30,8 @@ export class SliderComponent implements OnInit, AfterViewInit {
   @Input() pSliderMaxValue = 100;
   @Input() pSliderDisabled?: boolean;
   @Input() pSliderColor?: string;
+  @Input() pSliderInverted: boolean;
+  @Input() pSliderVertical: boolean;
 
   isMDragging = false;
 
@@ -117,7 +120,6 @@ export class SliderComponent implements OnInit, AfterViewInit {
     const thumb = this.el.nativeElement.firstChild.lastChild as HTMLDivElement;
     const slider = this.el.nativeElement.firstChild.firstChild
       .firstChild as HTMLDivElement;
-    const positions = this.getSliderBoundRect();
 
     if (pctg > 100) {
       pctg = 100;
@@ -125,8 +127,15 @@ export class SliderComponent implements OnInit, AfterViewInit {
       pctg = 0;
     }
 
+    // if (this.pSliderInverted) {
+    //   slider.style.transform = `translateX(${100 - pctg}%)`;
+    //   thumb.style.transform = `translateX(${100 - pctg}%)`;
+    // } else if (!this.pSliderInverted) {
     slider.style.transform = `translateX(-${100 - pctg}%)`;
-    thumb.style.transform = `translateX(${(positions.width * pctg) / 100}px)`;
+    thumb.style.transform = `translateX(-${100 - pctg}%)`;
+    // }
+    // calculate px position
+    // positions.width * pctg / 100;
   }
 
   calcClamp(val: number, min = 0, max = 1) {
@@ -134,5 +143,10 @@ export class SliderComponent implements OnInit, AfterViewInit {
   }
   getSliderBoundRect(): DOMRect {
     return this.el.nativeElement.firstChild.getBoundingClientRect();
+  }
+
+  @HostBinding('class.inverted')
+  get invertedValue() {
+    return this.pSliderInverted;
   }
 }

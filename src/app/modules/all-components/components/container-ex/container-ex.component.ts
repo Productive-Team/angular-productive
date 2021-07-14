@@ -7,7 +7,9 @@ import { FormGroup, FormControlName, FormControl } from '@angular/forms';
   styleUrls: ['./container-ex.component.css'],
 })
 export class ContainerExComponent implements OnInit {
-  numb = 25;
+  numb = 36;
+
+  inv = false;
 
   dateStr: string;
 

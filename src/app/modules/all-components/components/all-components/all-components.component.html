@@ -8,32 +8,7 @@
 </div>
 <p-sidenav-container>
   <p-sidenav #sideEx>
-    <a pRipple [routerLink]="['Buttons']">Buttons</a>
-    <a pRipple [routerLink]="['Containers']">Containers</a>
-    <a pRipple [routerLink]="['Grid']">Grid</a>
-    <a pRipple>Input Field</a>
-    <a pRipple>Cards</a>
-    <a pRipple [routerLink]="['Ripple']">Ripple</a>
-    <a pRipple [routerLink]="['Checkboxes']">Checkbox</a>
-    <a pRipple>Toggle Switch</a>
-    <a pRipple>Modal Dialog</a>
-    <a pRipple>Snackbar</a>
-    <a pRipple [routerLink]="['Menu']">Menu</a>
-    <a pRipple>Badges</a>
-    <a pRipple>Tooltips</a>
-    <a pRipple>Select</a>
-    <a pRipple>Radio Button</a>
-    <a pRipple>Section</a>
-    <a pRipple>Datepicker</a>
-    <a pRipple>Icons</a>
-    <a pRipple>Collapsible</a>
-    <a pRipple>Tabs</a>
-    <a pRipple>Progress Spinner</a>
-    <a pRipple>Progress Bar</a>
-    <a pRipple>Table</a>
-    <a pRipple>Sidenav</a>
-    <a pRipple>Topnav</a>
-    <a pRipple>Footer</a>
+    <a pRipple *ngFor="let route of routes" [routerLink]="[route.route]">{{route.name}}</a>
   </p-sidenav>
   <p-sidenav-content [sidenav]="sideEx">
     <div class="container">
@@ -41,31 +16,3 @@
     </div>
   </p-sidenav-content>
 </p-sidenav-container>
-
-<!-- <div class="sidenav-container-a">
-  <p-sidenav sidenavId="side-ex" #side>
-    <ng-container>
-      <a pRipple>Containers</a>
-      <a pRipple [routerLink]="['Grid']">Grid</a>
-      <a pRipple [routerLink]="['Buttons']">Button</a>
-      <a pRipple>Input Field</a>
-      <a pRipple>Cards</a>
-      <a pRipple [routerLink]="['Ripple']">Ripple</a>
-      <a pRipple [routerLink]="['Checkboxes']">Checkbox</a>
-      <a pRipple>Toggle Switch</a>
-      <a pRipple>Modal Dialog</a>
-      <a pRipple>Snackbar</a>
-      <a pRipple [routerLink]="['Menu']">Dropdown Menu</a>
-      <a pRipple>Badges</a>
-      <a pRipple>Tooltips</a>
-      <a pRipple>Custom Select</a>
-      <a pRipple>Radio Button</a>
-      <a pRipple>Section</a>
-      <a pRipple>Collapsible</a>
-    </ng-container>
-  </p-sidenav>
-  <div class="cont-extra">
-    <div class="container" style="width: 100%;">
-    </div>
-  </div>
-</div> -->

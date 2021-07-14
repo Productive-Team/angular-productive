@@ -146,16 +146,10 @@ p {
   height: 100%;
   overflow-y: auto;
 }
-.sidenav-container-a {
-  display: flex;
-}
 .container {
   box-sizing: border-box;
   width: 100%;
   padding: 15px 30px;
-}
-.sidenav-container-a .container {
-  width: calc(100% - 250px);
 }
 @media screen and (max-width: 1000px) {
   .sidenav-container .container {
@@ -596,15 +590,13 @@ a.btn-large {
 /* #region SidebarStyles */
 .sidenav-container {
   position: relative;
-  display: block;
   overflow: auto;
   box-sizing: border-box;
-  display: flex;
+  display: contents;
 }
 
-.sidenav-wrap {
-  position: sticky;
-  top: 0;
+.p-sidenav-full-wrap {
+  display: flex;
 }
 
 .sidenav-container-content {
@@ -613,6 +605,7 @@ a.btn-large {
   flex-direction: column;
   height: 100%;
   overflow: auto;
+  transition: 400ms cubic-bezier(.01,.47,.4,.99);
 }
 
 .sidenav .side-content {
@@ -620,6 +613,7 @@ a.btn-large {
   padding: 0;
   list-style-type: none;
 }
+
 .sidenav a,
 .sidenav button {
   display: inline-block;
@@ -879,7 +873,7 @@ a.btn-large {
   }
 }
 
-.select-wrapper {
+/* .select-wrapper {
   position: absolute;
   display: none;
   flex-direction: column;
@@ -976,7 +970,7 @@ a.btn-large {
     opacity: 1;
     transform: scale(1);
   }
-}
+} */
 /* #endregion InputStyles */
 
 /* #region Elevation */
@@ -1675,5 +1669,40 @@ a.btn-large {
 /* #region Icon */
 .p-icon {
   pointer-events: none;
+  user-select: none;
 }
 /* #endregion Icon */
+
+/* #region Select */
+.p-select-wrapper {
+  position: relative;
+  z-index: 999;
+}
+
+.p-select {
+  position: absolute;
+  top: 0;
+  background-color: var(--appBackgroundColor);
+  border-radius: 5px;
+  max-height: 450px;
+  padding: 0.5rem 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.p-select button {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  padding: 0 1rem;
+  margin: 0;
+  font-size: 16px;
+  height: 48px;
+  text-align: start;
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+.p-select button:hover {
+  background-color: rgb(240, 240, 240);
+}
+/* #endregion Select */

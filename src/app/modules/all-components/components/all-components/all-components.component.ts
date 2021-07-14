@@ -1,77 +1,123 @@
-import { SelectModel } from '../../../../../shared/components/select/select.component';
-import { ModalComponent } from '../../../../../shared/components/modal/modal.component';
 import { SnackbarService } from '../../../../../shared/services/snackbar.service';
 import { Component, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { ActivationEnd, Router } from '@angular/router';
 
-const a = true;
 @Component({
   selector: 'app-all-components',
   templateUrl: './all-components.component.html',
   styleUrls: ['./all-components.component.css'],
 })
 export class AllComponentsComponent implements OnInit {
-  snackTxt: string;
-  snackDur: number;
-  snackPosY: string;
-  snackPosX: string;
-  snackBtn = false;
-  snackBtnTxt: string;
-
-  tooltipPos = 'bottom';
-  tooltipTxt = 'Tooltip';
-  tooltipOnClick = false;
-  tooltipClickDuration: number;
-
-  testSelArr = [
-    { id: 1, option: 'Option 1' },
-    { id: 2, option: 'Option 2' },
-    { id: 3, option: 'Option 3' },
-    { id: 4, option: 'Disabled Option', isDisabled: true },
+  routes = [
+    {
+      route: 'Buttons',
+      name: 'Buttons',
+    },
+    {
+      route: 'Containers',
+      name: 'Containers',
+    },
+    {
+      route: 'Grid',
+      name: 'Grid',
+    },
+    {
+      route: 'Cards',
+      name: 'Cards',
+    },
+    {
+      route: 'Ripple',
+      name: 'Ripple',
+    },
+    {
+      route: 'Checkbox',
+      name: 'Checkbox',
+    },
+    {
+      route: 'Switch',
+      name: 'Switch Toggle',
+    },
+    {
+      route: 'Fieldset',
+      name: 'Fieldset',
+    },
+    {
+      route: 'Footer',
+      name: 'Footer',
+    },
+    {
+      route: 'Modal',
+      name: 'Modal',
+    },
+    {
+      route: 'Snackbar',
+      name: 'Snackbar',
+    },
+    {
+      route: 'Menu',
+      name: 'Menu',
+    },
+    {
+      route: 'Badges',
+      name: 'Badges',
+    },
+    {
+      route: 'Tooltips',
+      name: 'Tooltips',
+    },
+    {
+      route: 'Select',
+      name: 'Select',
+    },
+    {
+      route: 'Radio',
+      name: 'Radio Button',
+    },
+    {
+      route: 'Section',
+      name: 'Section',
+    },
+    {
+      route: 'Datepicker',
+      name: 'Datepicker',
+    },
+    {
+      route: 'Icons',
+      name: 'Icons',
+    },
+    {
+      route: 'Collapsible',
+      name: 'Collapsible',
+    },
+    {
+      route: 'Tabs',
+      name: 'Tabs',
+    },
+    {
+      route: 'Spinner',
+      name: 'Progress Spinner',
+    },
+    {
+      route: 'Bar',
+      name: 'Progress Bar',
+    },
+    {
+      route: 'Table',
+      name: 'Table',
+    },
+    {
+      route: 'Sidenav',
+      name: 'Sidenav',
+    },
+    {
+      route: 'Topnav',
+      name: 'Topnav',
+    },
   ];
-  testSelSercArr = [
-    { id: 12, option: 'Option 1' },
-    { id: 13, option: 'Option 2' },
-    { id: 14, option: 'Option 3' },
-    { id: 15, option: 'Option 4' },
-  ];
-  testSelMultiArr = [
-    { id: 5, option: 'Option 1 Multi' },
-    { id: 6, option: 'Option 2 Multi' },
-    { id: 7, option: 'Option 3 Multi' },
-    { id: 8, option: 'Option 4 Multi Disabled', isDisabled: true },
-  ];
-  testSelAllOptArr = [
-    { id: 9, option: 'Option 1 Multi' },
-    { id: 10, option: 'Option 2 Multi' },
-    { id: 11, option: 'Option 3 Multi' },
-    // { id: 12, option: 'Option 4 Multi Disabled', isDisabled: true },
-  ];
-  testMultiSelSearch = [
-    { id: 16, option: 'Option 1' },
-    { id: 17, option: 'Option 2' },
-    { id: 18, option: 'Option 3' },
-    { id: 19, option: 'Option 4' },
-  ];
-
-  singSel = '';
-  singSelSrch = '';
-  selectItms: SelectModel[];
-  selectAllItms = [];
-  selectAllItmsSrc = [];
-
-  selectedRadioVal = '';
-  radioBoolVal: boolean;
 
   sectionName: string;
 
   constructor(private snackbar: SnackbarService, private router: Router) {
-    // tslint:disable-next-line: deprecation
     this.router.events.subscribe((x) => {
       if (x instanceof ActivationEnd) {
         const route = this.router.url.split('/');
@@ -84,108 +130,10 @@ export class AllComponentsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
-
-  checkDis(event): void {
-    const check = document.getElementById('Check2') as HTMLInputElement;
-    if (event) {
-      check.parentElement.parentElement.classList.add(
-        'checkbox-layout-disabled'
-      );
-      check.disabled = true;
-    } else {
-      check.parentElement.parentElement.classList.remove(
-        'checkbox-layout-disabled'
-      );
-      check.disabled = false;
-    }
-  }
-  checkChk(event): void {
-    const check = document.getElementById('Check2') as HTMLInputElement;
-    check.checked = event;
-  }
-  checkInt(event): void {
-    const check = document.getElementById('Check2') as HTMLInputElement;
-    check.indeterminate = event;
-  }
-
-  switchDis(event): void {
-    const switc = document.getElementById('Check') as HTMLInputElement;
-    if (event) {
-      switc.parentElement.parentElement.parentElement.classList.add(
-        'checkbox-layout-switch-disabled'
-      );
-    } else {
-      switc.parentElement.parentElement.parentElement.classList.remove(
-        'checkbox-layout-switch-disabled'
-      );
-    }
-  }
-  switchChk(event): void {
-    const swit = document.getElementById('Check') as HTMLInputElement;
-    swit.checked = event;
-  }
-
-  snackBtnChg(event): void {
-    this.snackBtn = event;
-  }
-
-  a(event): void {
-    console.log(event);
-  }
-
-  openSnack(): void {
-    if (!this.snackTxt) {
-      this.snackTxt = 'Snackbar Text';
-    }
-    if (this.snackBtn && !this.snackBtnTxt) {
-      this.snackBtnTxt = 'Close';
-    }
-    this.snackbar.openSnackbar(
-      this.snackPosY,
-      this.snackPosX,
-      this.snackTxt,
-      this.snackDur,
-      this.snackBtn,
-      this.snackBtnTxt
-    );
-  }
-
-  changeTooltipPost(): void {
-    const sel = document.getElementById('tooltipPos') as HTMLInputElement;
-    if (sel.value) {
-      this.tooltipPos = sel.value;
-    } else {
-      this.tooltipPos = 'bottom';
-    }
-  }
-  tooltipClick(event): void {
-    this.tooltipOnClick = event;
-  }
-
-  seleSing(event): void {
-    this.singSel = event.option;
-  }
-  seleSingSrch(event): void {
-    this.singSelSrch = event.option;
-  }
-
-  recieveItems(event): void {
-    this.selectItms = event;
-  }
-
-  recieveAllItem(event): void {
-    this.selectAllItms = event;
-  }
-
-  receiveAllSearchMultiItems(event): void {
-    this.selectAllItmsSrc = event;
-  }
-
-  receiveRadioVal(event): void {
-    this.selectedRadioVal = event;
-  }
-  receiveRadioBoolVal(event): void {
-    this.radioBoolVal = event;
+  ngOnInit() {
+    // tslint:disable-next-line: no-shadowed-variable
+    this.routes.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
   }
 }

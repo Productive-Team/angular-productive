@@ -1,4 +1,4 @@
-<!-- <p-table [pTableExpands]="true">
+<p-table [pTableExpands]="true">
   <ng-container table-header>
     <tr>
       <th [width]="80">
@@ -44,18 +44,27 @@
       <td>Total: {{pri | currency}}</td>
     </tr>
   </ng-container>
-</p-table> -->
+</p-table>
 
-<!-- <p-progress-indicators></p-progress-indicators> -->
+
+<br>
 
 <div style="width: 300px;">
-  <p-fieldset [pFieldsetInput]="int">
-    <input type="number" pInput #int placeholder="test" [(ngModel)]="numb">
-  </p-fieldset>
-  <p-slider [(ngModel)]="numb"></p-slider>
+  <p-select [pSelectLabelText]="'Select'">
+    <p-option value="val1">Option 1</p-option>
+    <p-option value="val2">Option 2</p-option>
+    <p-option value="val3">Option 3</p-option>
+  </p-select>
 </div>
+<!-- <p-progress-indicators></p-progress-indicators> -->
+<!-- 
+<p-fieldset [pFieldsetInput]="int">
+  <input type="number" pInput #int placeholder="test" [(ngModel)]="numb">
+</p-fieldset>
+<p-checkbox pCheckboxLabel="Inverted" [(ngModel)]="inv"></p-checkbox>
+<p-slider [(ngModel)]="numb" [pSliderInverted]="inv"></p-slider> -->
 
-<p-radio-group pRadioCollectionName="col" [(ngModel)]="sas">
+<!-- <p-radio-group pRadioCollectionName="col" [(ngModel)]="sas">
   <p-radio-button pRadioCollectionName="col" pRadioValue="determinate">
     Determinate
   </p-radio-button>
@@ -69,13 +78,11 @@
 
 <p-progress-bar [pProgressBarValue]="numb" [pProgressBarMode]="sas"></p-progress-bar>
 
-<p-spinner [pSpinnerMode]="sas" [pSpinnerProgress]="numb"></p-spinner>
+<p-spinner [pSpinnerMode]="sas" [pSpinnerProgress]="numb"></p-spinner> -->
 
-<form [formGroup]="fof">
-  <div style="width: 400px;">
-    <p-slider formControlName="sel" [pSliderMinValue]="0"></p-slider>
-    <b>{{this.fof.get('sel').value}}</b>
-  </div>
+<!-- <form [formGroup]="fof">
+  <p-slider formControlName="sel" [pSliderMinValue]="0"></p-slider>
+  <b>{{this.fof.get('sel').value}}</b>
   <p-radio-group pRadioCollectionName="name" class="ex" formControlName="pass">
     <p-radio-button pRadioValue="value1">
       Value 1
@@ -90,4 +97,4 @@
   <span>
     {{this.fof.get('pass').value}}
   </span>
-</form>
+</form> -->

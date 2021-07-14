@@ -19,3 +19,8 @@ a {
 .card-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+h5 {
+  pointer-events: none;
+  user-select: none;
+}

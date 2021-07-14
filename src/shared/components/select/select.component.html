@@ -1,4 +1,4 @@
-<div class="fieldset">
+<!-- <div class="fieldset">
   <div>
     <input type="text" class="p-input select" pSelect id="{{pSelectId}}" readonly>
     <span class="label-wrapper select" [id]="pSelectId + '-label'">
@@ -30,6 +30,21 @@
     </div>
     <div class="p-select-item text-center" style="pointer-events: none;" *ngIf="filteredItems?.length === 0">
       {{pSelectSearchNotFoundMessage}}
+    </div>
+  </div>
+</div> -->
+
+<div>
+  <p-fieldset [pFieldsetInput]="input" [pFieldsetLabelText]="pSelectLabelText" style="cursor: pointer;">
+    <input type="text" pInput #input readonly>
+    <p-icon p-suffix>arrow_drop_down</p-icon>
+  </p-fieldset>
+  <div class="p-select-wrapper">
+    <div class="p-select elevation">
+      <div class="p-select-header"></div>
+      <div class="p-select-content">
+        <ng-content></ng-content>
+      </div>
     </div>
   </div>
 </div>

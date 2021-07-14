@@ -26,6 +26,14 @@
   top: 0;
 }
 
+.p-slider-thumb-wrapper {
+  display: flex;
+  align-items: center;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
 .p-slider-thumb-container {
   position: absolute;
   display: flex;
@@ -34,7 +42,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  left: -20px;
+  right: -20px;
 }
 
 .p-slider-thumb {
