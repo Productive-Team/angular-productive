@@ -38,11 +38,10 @@ import {
   DropdownComponent,
   DropdownTriggerDirective,
 } from './components/dropdown/dropdown.component';
-import {
-  SelectComponent,
-  SelectDirective,
-  SelectOptionComponent,
-} from './components/select/select.component';
+// import {
+//   SelectComponent,
+//   SelectOptionComponent,
+// } from './components/select/select.component';
 import { FormsModule } from '@angular/forms';
 import {
   CollapsibleComponent,
@@ -57,6 +56,10 @@ import {
 import { TableSortDirective } from './directives/table-sort/table-sort.directive';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import {
+  CustomSelectComponent,
+  SelectCustomOptionComponent,
+} from './components/custom-select/custom-select.component';
 
 const components = [
   TableComponent,
@@ -67,7 +70,6 @@ const components = [
   CheckboxComponent,
   ModalComponent,
   DropdownComponent,
-  SelectComponent,
   RadioBtnComponent,
   SectionComponent,
   SwitchToggleComponent,
@@ -85,7 +87,8 @@ const components = [
   SpinnerComponent,
   ProgressBarComponent,
   RadioGroupComponent,
-  SelectOptionComponent,
+  CustomSelectComponent,
+  SelectCustomOptionComponent,
 ];
 const directives = [
   RippleDirective,
@@ -95,7 +98,6 @@ const directives = [
   DropdownTriggerDirective,
   BadgesDirective,
   TooltipsDirective,
-  SelectDirective,
   CollapsibleTriggerDirective,
   DatepickerTriggerDirective,
   TableExpandedRowDirective,

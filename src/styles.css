@@ -1674,20 +1674,21 @@ a.btn-large {
 /* #endregion Icon */
 
 /* #region Select */
-.p-select-wrapper {
-  position: relative;
+/* .p-select-wrapper {
   z-index: 999;
-}
+} */
 
 .p-select {
   position: absolute;
   top: 0;
   background-color: var(--appBackgroundColor);
   border-radius: 5px;
-  max-height: 450px;
+  max-height: 250px;
   padding: 0.5rem 0;
   width: 100%;
   box-sizing: border-box;
+  z-index: 999;
+  overflow: auto;
 }
 
 .p-select button {

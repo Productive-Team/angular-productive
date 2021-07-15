@@ -50,11 +50,15 @@
 <br>
 
 <div style="width: 300px;">
-  <p-select [pSelectLabelText]="'Select'">
+  <!-- <p-select [pSelectLabelText]="'Select'" [pSingleSelect]="true" [(ngModel)]="ses">
     <p-option value="val1">Option 1</p-option>
     <p-option value="val2">Option 2</p-option>
     <p-option value="val3">Option 3</p-option>
   </p-select>
+  {{selec}} -->
+  <p-custom-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab">
+    <p-custom-option *ngFor="let opt of optionArr" [value]="opt.value">{{opt.name}}</p-custom-option>
+  </p-custom-select>
 </div>
 <!-- <p-progress-indicators></p-progress-indicators> -->
 <!-- 

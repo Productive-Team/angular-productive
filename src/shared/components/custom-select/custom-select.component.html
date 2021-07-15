@@ -1,0 +1,15 @@
+<div class="p-select-parent-wrapper">
+  <p-fieldset [pFieldsetInput]="input" [pFieldsetLabelText]="pSelectLabel" [pFieldsetAppearence]="pSelectAppearence"
+    class="select-input-wrap" (click)="openMenu()">
+    <input type="text" pInput #input readonly style="user-select: none; cursor: pointer;">
+    <p-icon p-suffix>arrow_drop_down</p-icon>
+  </p-fieldset>
+  <div class="p-select-wrapper" #menu>
+    <div class="p-select elevation" *ngIf="menuOpen" @menuAnimation>
+      <div class="p-select-header"></div>
+      <div class="p-select-content">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

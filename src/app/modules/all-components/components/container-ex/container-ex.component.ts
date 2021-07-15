@@ -11,6 +11,9 @@ export class ContainerExComponent implements OnInit {
 
   inv = false;
 
+  selec = 'val1';
+  ses = '';
+
   dateStr: string;
 
   sas = 'determinate';
@@ -78,6 +81,35 @@ export class ContainerExComponent implements OnInit {
     pass: 'value1',
     sel: 50,
   };
+
+  optionArr = [
+    {
+      value: 'opt1',
+      name: 'Option 1',
+    },
+    {
+      value: 'opt2',
+      name: 'Option 2',
+    },
+    {
+      value: 'opt3',
+      name: 'Option 3',
+    },
+    {
+      value: 'opt4',
+      name: 'Option 4',
+    },
+    {
+      value: 'opt5',
+      name: 'Option 5',
+    },
+    {
+      value: 'opt6',
+      name: 'Option 6',
+    },
+  ];
+
+  variab: any;
 
   constructor() {}
 
