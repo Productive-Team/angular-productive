@@ -1,5 +1,6 @@
 .select-input-wrap {
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .p-select-parent-wrapper {

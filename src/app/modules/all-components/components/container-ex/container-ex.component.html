@@ -1,4 +1,4 @@
-<p-table [pTableExpands]="true">
+<!-- <p-table [pTableExpands]="true">
   <ng-container table-header>
     <tr>
       <th [width]="80">
@@ -47,7 +47,7 @@
 </p-table>
 
 
-<br>
+<br> -->
 
 <div style="width: 300px;">
   <!-- <p-select [pSelectLabelText]="'Select'" [pSingleSelect]="true" [(ngModel)]="ses">
@@ -56,6 +56,7 @@
     <p-option value="val3">Option 3</p-option>
   </p-select>
   {{selec}} -->
+  <!-- <form [formGroup]="fof"> -->
   <p-custom-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab">
     <p-custom-option *ngFor="let opt of optionArr" [value]="opt.value">{{opt.name}}</p-custom-option>
   </p-custom-select>
@@ -65,7 +66,19 @@
       {{variab}}
     </b>
   </span>
+
+  <!-- </form> -->
 </div>
+<!-- <p-custom-select [pSelectLabel]="'Select'" [(pSelectValue)]="vev">
+  <p-custom-option value="a">Valorante 1</p-custom-option>
+  <p-custom-option value="b">Valorante 2</p-custom-option>
+</p-custom-select>
+<span>
+  Value:
+  <b>
+    {{vev}}
+  </b>
+</span> -->
 <!-- <p-progress-indicators></p-progress-indicators> -->
 <!-- 
 <p-fieldset [pFieldsetInput]="int">

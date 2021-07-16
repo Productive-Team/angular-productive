@@ -1679,13 +1679,13 @@ a.btn-large {
 } */
 
 .p-select {
-  position: absolute;
+  position: fixed;
   top: 0;
   background-color: var(--appBackgroundColor);
   border-radius: 5px;
-  max-height: 250px;
+  max-height: 200px;
   padding: 0.5rem 0;
-  width: 100%;
+  max-width: 350px;
   box-sizing: border-box;
   z-index: 999;
   overflow: auto;
@@ -1700,6 +1700,7 @@ a.btn-large {
   font-size: 16px;
   height: 48px;
   text-align: start;
+  outline: none;
   cursor: pointer;
   transition: all 250ms ease;
 }

@@ -78,7 +78,7 @@ export class ContainerExComponent implements OnInit {
   fof: FormGroup;
 
   ts: Test = {
-    pass: 'value1',
+    pass: 'opt6',
     sel: 50,
   };
 
@@ -109,7 +109,8 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  variab: any;
+  variab = '';
+  vev = '';
 
   constructor() {}
 

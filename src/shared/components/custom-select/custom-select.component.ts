@@ -11,6 +11,8 @@ import {
   Output,
   ContentChildren,
   QueryList,
+  AfterViewInit,
+  AfterContentInit,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -54,6 +56,8 @@ export class CustomSelectComponent implements OnInit {
 
   selectedOptions = [];
 
+  selectedOption: any;
+
   menuOpen: boolean;
 
   @ViewChild('menu') selectMenu: ElementRef;
@@ -66,19 +70,47 @@ export class CustomSelectComponent implements OnInit {
 
   constructor() {}
 
+  change = (_) => {};
+  blur = (_) => {};
+
   ngOnInit() {
     // this.setToBody();
+    setTimeout(() => {
+      this.setToBody();
+      this.checkToSelectSingle(this.pSelectValue);
+    }, 0);
   }
 
-  // setToBody(): void {
-  //   setTimeout(() => {
-  //     console.log(this.selectMenu.nativeElement);
-  //   }, 50);
-  // }
+  setToBody(): void {
+    const menu = this.selectMenu.nativeElement as HTMLElement;
+    document.body.insertAdjacentElement('beforeend', menu);
+  }
+
+  // writes the checkbox value
+  writeValue(obj: any): void {
+    this.pSelectValue = obj;
+    setTimeout(() => {
+      if (obj) {
+        this.checkToSelectSingle(obj);
+      }
+    }, 0);
+  }
+
+  // register the changes
+  registerOnChange(fn: any): void {
+    this.change = fn;
+  }
+
+  // blurs the component
+  registerOnTouched(fn: any): void {
+    this.blur = fn;
+  }
 
   openMenu(): void {
     this.menuOpen = true;
     this.setBackdrop();
+    this.scrollOptToView();
+    this.setPositions();
   }
 
   closeMenu(): void {
@@ -101,12 +133,74 @@ export class CustomSelectComponent implements OnInit {
   }
 
   setSingleValue(value: any) {
-    if (this.selectedOptions.length > 0) {
-      console.log(this.selectedOptions[0]);
-      this.selectedOptions[0].selected = false;
-    }
+    this.checkToSelectSingle(value);
     this.pSelectValueChange.emit(value);
+    this.change(value);
     this.closeMenu();
+  }
+
+  checkToSelectSingle(value: any): void {
+    this.optButtons._results.forEach((x) => {
+      x.selected = false;
+    });
+    const component = this.optButtons._results.find((x) => x.value === value);
+    this.selectedOption = component;
+    const elementComp = component.el.nativeElement
+      .firstChild as HTMLButtonElement;
+    if (component) {
+      this.selectInput.nativeElement.value = elementComp.textContent;
+      component.selected = true;
+    }
+  }
+
+  scrollOptToView(): void {
+    setTimeout(() => {
+      if (this.selectedOption) {
+        const element = this.selectedOption.el.nativeElement as HTMLElement;
+        const scrollOpt: ScrollIntoViewOptions = {
+          behavior: 'auto',
+          block: 'center',
+          inline: 'nearest',
+        };
+        element.scrollIntoView(scrollOpt);
+      }
+    }, 0);
+  }
+
+  setPositions(): void {
+    const opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
+    const fieldset = this.selectInput.nativeElement as HTMLInputElement;
+    const fieldPos = this.getPositions(fieldset);
+    setTimeout(() => {
+      const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
+      const optPos = this.getPositions(opt);
+      const menuPos = this.getPositions(menu);
+      const topPos = fieldPos.top - (optPos.top - optPos.height / 2) - 35;
+      const leftPos = fieldPos.left - 16;
+
+      menu.style.width =
+        fieldset.parentElement.parentElement.parentElement.offsetWidth + 'px';
+
+      menu.style.left = leftPos + 'px';
+
+      const fullHeight = topPos + menuPos.height;
+      console.log(fullHeight);
+      if (topPos < 0) {
+        if (topPos + fieldPos.top + menuPos.height > window.innerHeight) {
+          menu.style.top = topPos - fieldPos.top / 10 + 'px';
+        } else {
+          menu.style.top = topPos + fieldPos.top + 'px';
+        }
+        // } else if (fullHeight > window.innerHeight) {
+        //   menu.style.top = topPos - menuPos.height / 2 + 'px';
+      } else {
+        menu.style.top = topPos + 'px';
+      }
+    }, 0);
+  }
+
+  getPositions(element: any): DOMRect {
+    return element.getBoundingClientRect();
   }
 }
 
@@ -142,11 +236,7 @@ export class SelectCustomOptionComponent {
   constructor(public parent: CustomSelectComponent, private el: ElementRef) {}
 
   selectSingleValue(value: any): void {
-    const nativeEl = this.el.nativeElement.firstChild as HTMLButtonElement;
     this.selected = true;
-    console.log(this.el);
-    this.parent.selectedOptions.push(this.el.nativeElement);
-    this.parent.selectInput.nativeElement.value = nativeEl.textContent;
     this.parent.setSingleValue(value);
   }
 }
