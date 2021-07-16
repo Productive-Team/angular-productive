@@ -7,6 +7,10 @@ import {
   ElementRef,
   forwardRef,
   EventEmitter,
+  Directive,
+  Output,
+  ContentChildren,
+  QueryList,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -40,23 +44,37 @@ export class CustomSelectComponent implements OnInit {
   @Input() pSelectAppearence: string;
   @Input() pSelectLabel: string;
 
+  pSelectMultiple: boolean;
+  pSelectAllInput: boolean;
+
+  pSelectSearch: boolean;
+
   @Input() pSelectValue: any;
-  @Input() pSelectValueChange = new EventEmitter<any>();
+  @Output() pSelectValueChange = new EventEmitter<any>();
+
+  selectedOptions = [];
 
   menuOpen: boolean;
 
   @ViewChild('menu') selectMenu: ElementRef;
+  @ViewChild('input') selectInput: ElementRef;
+
+  @ContentChildren(forwardRef(() => SelectCustomOptionComponent), {
+    descendants: true,
+  })
+  optButtons: any;
+
   constructor() {}
 
   ngOnInit() {
-    this.setToBody();
+    // this.setToBody();
   }
 
-  setToBody(): void {
-    setTimeout(() => {
-      console.log(this.selectMenu.nativeElement);
-    }, 50);
-  }
+  // setToBody(): void {
+  //   setTimeout(() => {
+  //     console.log(this.selectMenu.nativeElement);
+  //   }, 50);
+  // }
 
   openMenu(): void {
     this.menuOpen = true;
@@ -81,6 +99,15 @@ export class CustomSelectComponent implements OnInit {
     const backdrop = document.querySelector('.backdrop');
     backdrop.remove();
   }
+
+  setSingleValue(value: any) {
+    if (this.selectedOptions.length > 0) {
+      console.log(this.selectedOptions[0]);
+      this.selectedOptions[0].selected = false;
+    }
+    this.pSelectValueChange.emit(value);
+    this.closeMenu();
+  }
 }
 
 @Component({
@@ -93,11 +120,58 @@ export class CustomSelectComponent implements OnInit {
       multi: true,
     },
   ],
-  template: ` <button pRipple [value]="value">
+  template: ` <button
+    pRipple
+    [class]="selected ? 'selected' : ''"
+    [value]="value"
+    (click)="
+      parent.pSelectMultiple ? '' : selectSingleValue($event.target.value)
+    "
+  >
+    <p-checkbox
+      class="p-select-no-pointer-events"
+      *ngIf="parent.pSelectMultiple"
+    ></p-checkbox>
     <ng-content></ng-content>
   </button>`,
 })
 export class SelectCustomOptionComponent {
   @Input() value: any;
-  constructor() {}
+
+  selected: boolean;
+  constructor(public parent: CustomSelectComponent, private el: ElementRef) {}
+
+  selectSingleValue(value: any): void {
+    const nativeEl = this.el.nativeElement.firstChild as HTMLButtonElement;
+    this.selected = true;
+    console.log(this.el);
+    this.parent.selectedOptions.push(this.el.nativeElement);
+    this.parent.selectInput.nativeElement.value = nativeEl.textContent;
+    this.parent.setSingleValue(value);
+  }
+}
+
+@Directive({
+  selector: '[multiple], [appMultiple]',
+})
+export class SelectMultipleDirective implements OnInit {
+  @Input() pSelectAllInput: boolean;
+  constructor(public parent: CustomSelectComponent) {
+    this.parent.pSelectMultiple = true;
+  }
+
+  ngOnInit(): void {
+    if (this.pSelectAllInput) {
+      this.parent.pSelectAllInput = true;
+    }
+  }
+}
+
+@Directive({
+  selector: '[search], [appSearch]',
+})
+export class SelectSearchDirective {
+  constructor(public parent: CustomSelectComponent) {
+    this.parent.pSelectSearch = true;
+  }
 }

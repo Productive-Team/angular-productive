@@ -59,6 +59,8 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import {
   CustomSelectComponent,
   SelectCustomOptionComponent,
+  SelectMultipleDirective,
+  SelectSearchDirective,
 } from './components/custom-select/custom-select.component';
 
 const components = [
@@ -104,6 +106,8 @@ const directives = [
   TableExpandedRowTriggerDirective,
   TableExpandedRowContentDirective,
   TableSortDirective,
+  SelectMultipleDirective,
+  SelectSearchDirective,
 ];
 
 @NgModule({

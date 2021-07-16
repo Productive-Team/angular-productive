@@ -6,7 +6,14 @@
   </p-fieldset>
   <div class="p-select-wrapper" #menu>
     <div class="p-select elevation" *ngIf="menuOpen" @menuAnimation>
-      <div class="p-select-header"></div>
+      <div class="p-select-header">
+        <div class="p-select-search" *ngIf="pSelectSearch">
+          <input type="text" placeholder="Search">
+        </div>
+        <div class="p-select-all-multiple" *ngIf="pSelectMultiple && pSelectAllInput">
+          <p-checkbox [pCheckboxLabel]="'Select All'"></p-checkbox>
+        </div>
+      </div>
       <div class="p-select-content">
         <ng-content></ng-content>
       </div>

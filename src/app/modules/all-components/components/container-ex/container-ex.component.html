@@ -59,6 +59,12 @@
   <p-custom-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab">
     <p-custom-option *ngFor="let opt of optionArr" [value]="opt.value">{{opt.name}}</p-custom-option>
   </p-custom-select>
+  <span>
+    Value:
+    <b>
+      {{variab}}
+    </b>
+  </span>
 </div>
 <!-- <p-progress-indicators></p-progress-indicators> -->
 <!-- 
