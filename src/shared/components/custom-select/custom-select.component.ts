@@ -10,9 +10,6 @@ import {
   Directive,
   Output,
   ContentChildren,
-  QueryList,
-  AfterViewInit,
-  AfterContentInit,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -20,29 +17,29 @@ const menuAnim = trigger('menuAnimation', [
   transition(':enter', [
     style({ opacity: 0, transform: 'scale(0.95)' }),
     animate(
-      '150ms cubic-bezier(.07,.36,.41,.88)',
+      '150ms cubic-bezier(.1,.5,.65,.99)',
       style({ opacity: 1, transform: 'scale(1)' })
     ),
   ]),
   transition(':leave', [
-    animate('150ms cubic-bezier(.07,.36,.41,.88)', style({ opacity: 0 })),
+    animate('150ms cubic-bezier(.1,.5,.65,.99)', style({ opacity: 0 })),
   ]),
 ]);
 
 @Component({
-  selector: 'app-custom-select, p-custom-select',
+  selector: 'app-select, p-select',
   templateUrl: './custom-select.component.html',
   styleUrls: ['./custom-select.component.css'],
   animations: [menuAnim],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CustomSelectComponent),
+      useExisting: forwardRef(() => SelectComponent),
       multi: true,
     },
   ],
 })
-export class CustomSelectComponent implements OnInit {
+export class SelectComponent implements OnInit {
   @Input() pSelectAppearence: string;
   @Input() pSelectLabel: string;
 
@@ -56,6 +53,10 @@ export class CustomSelectComponent implements OnInit {
 
   selectedOptions = [];
 
+  allSelected = false;
+
+  selectedTotal = 0;
+
   selectedOption: any;
 
   menuOpen: boolean;
@@ -63,7 +64,7 @@ export class CustomSelectComponent implements OnInit {
   @ViewChild('menu') selectMenu: ElementRef;
   @ViewChild('input') selectInput: ElementRef;
 
-  @ContentChildren(forwardRef(() => SelectCustomOptionComponent), {
+  @ContentChildren(forwardRef(() => SelectOptionComponent), {
     descendants: true,
   })
   optButtons: any;
@@ -74,7 +75,6 @@ export class CustomSelectComponent implements OnInit {
   blur = (_) => {};
 
   ngOnInit() {
-    // this.setToBody();
     setTimeout(() => {
       this.setToBody();
       this.checkToSelectSingle(this.pSelectValue);
@@ -145,12 +145,43 @@ export class CustomSelectComponent implements OnInit {
     });
     const component = this.optButtons._results.find((x) => x.value === value);
     this.selectedOption = component;
-    const elementComp = component.el.nativeElement
-      .firstChild as HTMLButtonElement;
     if (component) {
+      const elementComp = component.el.nativeElement
+        .firstChild as HTMLButtonElement;
       this.selectInput.nativeElement.value = elementComp.textContent;
       component.selected = true;
     }
+  }
+
+  checkToSelectMultiple(): void {
+    const selected = this.optButtons._results.filter((x) => x.selected);
+    const input = this.selectInput.nativeElement as HTMLInputElement;
+    if (selected.length > 0) {
+      this.selectedOption = selected[0];
+      this.selectedOptions = selected;
+      input.value = selected[0].el.nativeElement.firstChild.textContent;
+      this.selectedTotal = this.selectedOptions.length - 1;
+      const values = [];
+      this.selectedOptions.forEach((x) => {
+        values.push(x.el.nativeElement.firstChild.value);
+      });
+      this.pSelectValueChange.emit(values);
+      this.change(values);
+    } else {
+      input.value = null;
+      this.selectedOption = undefined;
+      this.pSelectValueChange.emit([]);
+      this.selectedTotal = this.selectedOptions.length - 1;
+      this.change([]);
+    }
+  }
+
+  selectAll(event): void {
+    this.optButtons._results.forEach((x) => {
+      x.selected = event;
+    });
+    this.allSelected = event;
+    this.checkToSelectMultiple();
   }
 
   scrollOptToView(): void {
@@ -168,31 +199,30 @@ export class CustomSelectComponent implements OnInit {
   }
 
   setPositions(): void {
-    const opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
     const fieldset = this.selectInput.nativeElement as HTMLInputElement;
     const fieldPos = this.getPositions(fieldset);
+    let opt;
+    if (!this.selectedOption) {
+      opt = this.optButtons._results[0].el.nativeElement.firstChild;
+    } else {
+      opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
+    }
     setTimeout(() => {
       const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
-      const optPos = this.getPositions(opt);
-      const menuPos = this.getPositions(menu);
-      const topPos = fieldPos.top - (optPos.top - optPos.height / 2) - 35;
-      const leftPos = fieldPos.left - 16;
-
       menu.style.width =
         fieldset.parentElement.parentElement.parentElement.offsetWidth + 'px';
+      const menuPos = this.getPositions(menu);
+      const optPos = this.getPositions(opt);
+      const topPos =
+        fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height / 1.3;
+      const leftPos = fieldPos.left - 16;
 
       menu.style.left = leftPos + 'px';
 
-      const fullHeight = topPos + menuPos.height;
-      console.log(fullHeight);
       if (topPos < 0) {
-        if (topPos + fieldPos.top + menuPos.height > window.innerHeight) {
-          menu.style.top = topPos - fieldPos.top / 10 + 'px';
-        } else {
-          menu.style.top = topPos + fieldPos.top + 'px';
-        }
-        // } else if (fullHeight > window.innerHeight) {
-        //   menu.style.top = topPos - menuPos.height / 2 + 'px';
+        menu.style.top = '0px';
+      } else if (topPos + menuPos.height > window.innerHeight) {
+        menu.style.top = fieldPos.top - menuPos.height + 'px';
       } else {
         menu.style.top = topPos + 'px';
       }
@@ -205,12 +235,12 @@ export class CustomSelectComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-custom-option, p-custom-option',
+  selector: 'app-option, p-option',
   styleUrls: ['./custom-select.component.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectCustomOptionComponent),
+      useExisting: forwardRef(() => SelectOptionComponent),
       multi: true,
     },
   ],
@@ -219,25 +249,33 @@ export class CustomSelectComponent implements OnInit {
     [class]="selected ? 'selected' : ''"
     [value]="value"
     (click)="
-      parent.pSelectMultiple ? '' : selectSingleValue($event.target.value)
+      parent.pSelectMultiple
+        ? selectMultiple($event.target.value)
+        : selectSingleValue($event.target.value)
     "
   >
     <p-checkbox
       class="p-select-no-pointer-events"
+      [(ngModel)]="selected"
       *ngIf="parent.pSelectMultiple"
     ></p-checkbox>
     <ng-content></ng-content>
   </button>`,
 })
-export class SelectCustomOptionComponent {
+export class SelectOptionComponent {
   @Input() value: any;
 
   selected: boolean;
-  constructor(public parent: CustomSelectComponent, private el: ElementRef) {}
+  constructor(public parent: SelectComponent, private el: ElementRef) {}
 
   selectSingleValue(value: any): void {
     this.selected = true;
     this.parent.setSingleValue(value);
+  }
+
+  selectMultiple(value: any): void {
+    this.selected = !this.selected;
+    this.parent.checkToSelectMultiple();
   }
 }
 
@@ -246,7 +284,7 @@ export class SelectCustomOptionComponent {
 })
 export class SelectMultipleDirective implements OnInit {
   @Input() pSelectAllInput: boolean;
-  constructor(public parent: CustomSelectComponent) {
+  constructor(public parent: SelectComponent) {
     this.parent.pSelectMultiple = true;
   }
 
@@ -261,7 +299,7 @@ export class SelectMultipleDirective implements OnInit {
   selector: '[search], [appSearch]',
 })
 export class SelectSearchDirective {
-  constructor(public parent: CustomSelectComponent) {
+  constructor(public parent: SelectComponent) {
     this.parent.pSelectSearch = true;
   }
 }

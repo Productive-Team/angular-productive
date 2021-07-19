@@ -57,8 +57,8 @@ import { TableSortDirective } from './directives/table-sort/table-sort.directive
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import {
-  CustomSelectComponent,
-  SelectCustomOptionComponent,
+  SelectComponent,
+  SelectOptionComponent,
   SelectMultipleDirective,
   SelectSearchDirective,
 } from './components/custom-select/custom-select.component';
@@ -89,8 +89,8 @@ const components = [
   SpinnerComponent,
   ProgressBarComponent,
   RadioGroupComponent,
-  CustomSelectComponent,
-  SelectCustomOptionComponent,
+  SelectComponent,
+  SelectOptionComponent,
 ];
 const directives = [
   RippleDirective,

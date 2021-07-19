@@ -3,6 +3,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.p-select-header {
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  background-color: var(--appBackgroundColor);
+}
+
 .p-select-parent-wrapper {
   position: relative;
 }
@@ -42,4 +49,10 @@
 .selected {
   color: var(--primary);
   background-color: var(--primaryLowOpacity);
+}
+
+.p-select-multiple-total {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.75;
 }

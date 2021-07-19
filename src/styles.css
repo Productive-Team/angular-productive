@@ -1683,8 +1683,8 @@ a.btn-large {
   top: 0;
   background-color: var(--appBackgroundColor);
   border-radius: 5px;
-  max-height: 200px;
-  padding: 0.5rem 0;
+  max-height: 210px;
+  padding: 0;
   max-width: 350px;
   box-sizing: border-box;
   z-index: 999;

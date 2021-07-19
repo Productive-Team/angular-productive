@@ -2,6 +2,11 @@
   <p-fieldset [pFieldsetInput]="input" [pFieldsetLabelText]="pSelectLabel" [pFieldsetAppearence]="pSelectAppearence"
     class="select-input-wrap" (click)="openMenu()">
     <input type="text" pInput #input readonly style="user-select: none; cursor: pointer;">
+    <ng-container p-suffix *ngIf="selectedTotal > 0 && pSelectMultiple">
+      <span class="p-select-multiple-total">
+        (+{{selectedTotal}} {{selectedTotal > 1 ? 'others':'other'}})
+      </span>
+    </ng-container>
     <p-icon p-suffix>arrow_drop_down</p-icon>
   </p-fieldset>
   <div class="p-select-wrapper" #menu>
@@ -11,7 +16,9 @@
           <input type="text" placeholder="Search">
         </div>
         <div class="p-select-all-multiple" *ngIf="pSelectMultiple && pSelectAllInput">
-          <p-checkbox [pCheckboxLabel]="'Select All'"></p-checkbox>
+          <p-checkbox [pCheckboxLabel]="'Select All'" [pCheckboxChecked]="allSelected"
+            (change)="selectAll($event.target.checked)">
+          </p-checkbox>
         </div>
       </div>
       <div class="p-select-content">
