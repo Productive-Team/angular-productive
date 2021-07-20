@@ -112,10 +112,13 @@ export class ContainerExComponent implements OnInit {
   variab = '';
   vev = '';
 
+  arr = [];
+
   constructor() {}
 
   ngOnInit() {
     this.fotmini(this.ts);
+    this.arr = this.optionArr;
   }
 
   completes(ev) {
@@ -161,6 +164,16 @@ export class ContainerExComponent implements OnInit {
       pass: new FormControl(model.pass),
       sel: new FormControl(model.sel),
     });
+  }
+
+  search(): void {
+    if (this.vev.length === 0) {
+      this.arr = this.optionArr;
+    } else {
+      this.arr = this.optionArr.filter((x) =>
+        x.name.toUpperCase().includes(this.vev.toUpperCase()) ||
+        x.value.toUpperCase().includes(this.vev.toUpperCase()));
+    }
   }
 }
 

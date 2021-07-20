@@ -34,20 +34,12 @@
   border-bottom: 1px solid rgb(233, 233, 233);
 }
 
-.p-select-search input {
-  border: none;
-  outline: none;
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  font-size: 16px;
-  caret-color: var(--primary);
-  color: var(--textColor);
-}
-
 .selected {
   color: var(--primary);
+  background-color: var(--primaryLowOpacity);
+}
+
+.selected:hover {
   background-color: var(--primaryLowOpacity);
 }
 

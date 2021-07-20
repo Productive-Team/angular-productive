@@ -6,10 +6,10 @@
   --appBackgroundColor: white;
   --textColor: #262626;
 }
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); */
 
 * {
-  font-family: Roboto;
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
 html,
@@ -1706,5 +1706,17 @@ a.btn-large {
 }
 .p-select button:hover {
   background-color: rgb(240, 240, 240);
+}
+
+.p-select-search input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  font-size: 16px;
+  caret-color: var(--primary);
+  color: var(--textColor);
 }
 /* #endregion Select */

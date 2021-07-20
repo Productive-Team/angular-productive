@@ -156,9 +156,9 @@ export class SelectComponent implements OnInit {
   checkToSelectMultiple(): void {
     const selected = this.optButtons._results.filter((x) => x.selected);
     const input = this.selectInput.nativeElement as HTMLInputElement;
+    this.selectedOptions = selected;
     if (selected.length > 0) {
       this.selectedOption = selected[0];
-      this.selectedOptions = selected;
       input.value = selected[0].el.nativeElement.firstChild.textContent;
       this.selectedTotal = this.selectedOptions.length - 1;
       const values = [];
@@ -181,7 +181,17 @@ export class SelectComponent implements OnInit {
       x.selected = event;
     });
     this.allSelected = event;
-    this.checkToSelectMultiple();
+    setTimeout(() => {
+      this.checkToSelectMultiple();
+    }, 0);
+  }
+
+  isEverySelected(): void  {
+    this.allSelected = this.optButtons._results.every((t) => t.selected);
+  }
+
+  indeterminateSelected(): boolean {
+    return this.optButtons._results.filter((x) => x.selected).length > 0 && !this.allSelected;
   }
 
   scrollOptToView(): void {
@@ -223,6 +233,9 @@ export class SelectComponent implements OnInit {
         menu.style.top = '0px';
       } else if (topPos + menuPos.height > window.innerHeight) {
         menu.style.top = fieldPos.top - menuPos.height + 'px';
+      } else if (topPos > window.innerHeight) {
+        menu.style.top = null;
+        menu.style.bottom = '0px';
       } else {
         menu.style.top = topPos + 'px';
       }
@@ -256,7 +269,7 @@ export class SelectComponent implements OnInit {
   >
     <p-checkbox
       class="p-select-no-pointer-events"
-      [(ngModel)]="selected"
+      [(pCheckboxChecked)]="selected"
       *ngIf="parent.pSelectMultiple"
     ></p-checkbox>
     <ng-content></ng-content>
@@ -276,6 +289,7 @@ export class SelectOptionComponent {
   selectMultiple(value: any): void {
     this.selected = !this.selected;
     this.parent.checkToSelectMultiple();
+    this.parent.isEverySelected();
   }
 }
 

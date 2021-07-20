@@ -1,6 +1,9 @@
 <div style="width: 300px;">
-  <p-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab" multiple [pSelectAllInput]="true">
-    <p-option *ngFor="let opt of optionArr" [value]="opt.value">{{opt.name}}</p-option>
+  <p-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab" multiple [pSelectAllInput]="true" search>
+    <ng-container search-input>
+      <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
+    </ng-container>
+    <p-option *ngFor="let opt of arr" [value]="opt.value">{{opt.name}}</p-option>
   </p-select>
   <span>
     Value:

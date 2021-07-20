@@ -13,11 +13,11 @@
     <div class="p-select elevation" *ngIf="menuOpen" @menuAnimation>
       <div class="p-select-header">
         <div class="p-select-search" *ngIf="pSelectSearch">
-          <input type="text" placeholder="Search">
+          <ng-content select="[search-input]"></ng-content>
         </div>
         <div class="p-select-all-multiple" *ngIf="pSelectMultiple && pSelectAllInput">
-          <p-checkbox [pCheckboxLabel]="'Select All'" [pCheckboxChecked]="allSelected"
-            (change)="selectAll($event.target.checked)">
+          <p-checkbox [pCheckboxLabel]="allSelected ? 'Deselect All' : 'Select All'" [pCheckboxChecked]="allSelected"
+            [pCheckboxIndeterminate]="indeterminateSelected()" (change)="selectAll($event.target.checked)">
           </p-checkbox>
         </div>
       </div>
