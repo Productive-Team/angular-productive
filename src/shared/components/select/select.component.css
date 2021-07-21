@@ -1,0 +1,55 @@
+.select-input-wrap {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.p-select-header {
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  background-color: var(--appBackgroundColor);
+}
+
+.p-select-parent-wrapper {
+  position: relative;
+}
+
+.p-select-no-pointer-events {
+  pointer-events: none;
+}
+
+.p-select-all-multiple {
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.p-select-search {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 1rem;
+  border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.selected {
+  color: var(--primary);
+  background-color: var(--primaryLowOpacity);
+}
+
+.selected:hover {
+  background-color: var(--primaryLowOpacity);
+}
+
+.p-select-multiple-total {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.p-select-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

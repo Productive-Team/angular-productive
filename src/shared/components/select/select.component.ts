@@ -1,306 +1,370 @@
-// import {
-//   AfterViewInit,
-//   Component,
-//   Directive,
-//   ElementRef,
-//   EventEmitter,
-//   forwardRef,
-//   HostListener,
-//   Input,
-//   OnInit,
-//   Output,
-//   ViewChild,
-// } from '@angular/core';
-// import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { animate, style, transition, trigger } from '@angular/animations';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  forwardRef,
+  EventEmitter,
+  Directive,
+  Output,
+  ContentChildren,
+  OnDestroy,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-// @Component({
-//   selector: 'app-select, p-select',
-//   templateUrl: './select.component.html',
-//   styleUrls: ['./select.component.css'],
-//   providers: [
-//     {
-//       provide: NG_VALUE_ACCESSOR,
-//       useExisting: forwardRef(() => SelectComponent),
-//       multi: true,
-//     },
-//   ],
-// })
-// export class SelectComponent implements OnInit, AfterViewInit {
-//   @Input() pSelectLabelText: string;
-//   @Input() pSelectId: string;
-//   @Input() labelIconRight: string;
-//   @Input() labelIconLeft: string;
-//   @Input() pSelectItems: SelectModel[];
-//   @Input() pSelectAll = false;
-//   @Input() pSingleSelect = true;
-//   @Input() pSelectSearch = false;
-//   @Input() pSelectInputType: string;
-//   @Input() pSelectAllText = 'Select All';
-//   @Input() pDeselectAllText = 'Deselect All';
-//   @Input() pSelectSearchPlaceholder = 'Search';
-//   @Input() pSelectSearchNotFoundMessage = 'Not Found';
+const menuAnim = trigger('menuAnimation', [
+  transition(':enter', [
+    style({ opacity: 0, transform: 'scale(0.95)' }),
+    animate(
+      '150ms cubic-bezier(.1,.5,.65,.99)',
+      style({ opacity: 1, transform: 'scale(1)' })
+    ),
+  ]),
+  transition(':leave', [
+    animate('150ms cubic-bezier(.1,.5,.65,.99)', style({ opacity: 0 })),
+  ]),
+]);
 
-//   @Input() value: any;
-//   @Output() valueChange = new EventEmitter<SelectModel>();
-//   @Output() pMultipleSelectedItem = new EventEmitter<SelectModel[]>();
+@Component({
+  selector: 'app-select, p-select',
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.css'],
+  animations: [menuAnim],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectComponent),
+      multi: true,
+    },
+  ],
+})
+export class SelectComponent implements OnInit, OnDestroy {
+  @Input() pSelectAppearence: string;
+  @Input() pSelectLabel: string;
 
-//   isOpen = false;
-//   allAreSelected = false;
-//   filteredItems: SelectModel[];
-//   filterValue: string;
+  pSelectMultiple: boolean;
+  pSelectAllInput: boolean;
+  @Input() pSelectDisabled: boolean;
 
-//   selectedItem: any;
-//   private selArr = [];
-//   private selTxtArr = [];
+  pSelectSearch: boolean;
 
-//   @ViewChild('input') textInput: ElementRef;
+  @Input() pSelectValue: any;
+  @Output() pSelectValueChange = new EventEmitter<any>();
 
-//   constructor() {}
+  selectedOptions = [];
+  multipleValues = [];
 
-//   change = (_) => {};
-//   blur = (_) => {};
+  allSelected = false;
 
-//   writeValue(obj: any): void {
-//     this.selectedItem = obj;
-//   }
+  selectedTotal = 0;
 
-//   registerOnChange(fn: any): void {
-//     this.change = fn;
-//   }
+  selectedOption: any;
 
-//   registerOnTouched(fn: any): void {
-//     this.blur = fn;
-//   }
+  menuOpen: boolean;
 
-//   ngOnInit() {
-//     this.filteredItems = this.pSelectItems;
-//   }
+  @ViewChild('menu') selectMenu: ElementRef;
+  @ViewChild('input') selectInput: ElementRef;
 
-//   setInputType(): void {
-//     const input = document.getElementById(this.pSelectId);
-//     switch (this.pSelectInputType) {
-//       case 'outlined':
-//         input.classList.add('outlined');
-//         break;
-//       case 'classic':
-//         input.classList.add('classic');
-//         break;
-//       default:
-//     }
-//   }
+  @ContentChildren(forwardRef(() => SelectOptionComponent), {
+    descendants: true,
+  })
+  optButtons: any;
 
-//   ngAfterViewInit(): void {
-//     this.setInputType();
-//   }
+  constructor() {}
 
-//   selectAll(event): void {
-//     this.allAreSelected = event;
-//     this.pSelectItems.forEach((x) => {
-//       x.isChecked = event;
-//       setTimeout(() => {
-//         const checkboxes = document.querySelectorAll('#check-' + x.id);
-//         let c = 0;
-//         for (; c < checkboxes.length; c++) {
-//           const check = checkboxes[c] as HTMLInputElement;
-//           check.checked = event;
-//         }
-//       }, 0);
-//     });
-//     this.setAllItemsAfterSelectAll(this.pSelectItems);
-//   }
+  change = (_) => {};
+  blur = (_) => {};
 
-//   setAllItemsAfterSelectAll(item: SelectModel[]): void {
-//     const input = document.querySelector(
-//       '#' + this.pSelectId
-//     ) as HTMLInputElement;
-//     item.forEach((x) => {
-//       const dupItm = this.selArr.find((y) => y === x);
-//       // const dupTxt = this.selTxtArr.find((z) => z === x.option);
-//       if (x.isChecked && !dupItm) {
-//         this.selArr.push(x);
-//         this.selTxtArr.push(x.option);
-//         input.value = this.selTxtArr.join(', ');
-//       } else if (!x.isChecked) {
-//         this.selArr = [];
-//         this.selTxtArr = [];
-//         input.value = this.selTxtArr.join('');
-//         // const indexDup = this.selArr.indexOf(dupItm);
-//         // const indexTxt = this.selTxtArr.indexOf(dupTxt);
-//         // if (indexDup === 0) {
-//         //   this.selArr.splice(0, 1);
-//         // } else {
-//         //   this.selArr.splice(indexDup, indexDup);
-//         // }
-//         // if (indexTxt === 0) {
-//         //   this.selTxtArr.splice(0, 1);
-//         // } else {
-//         //   this.selTxtArr.splice(indexTxt, indexTxt);
-//         // }
-//         // input.value = this.selTxtArr.join(', ');
-//       }
-//     });
-//     this.pMultipleSelectedItem.emit(this.selArr);
-//   }
+  ngOnInit() {
+    setTimeout(() => {
+      this.setToBody();
+      this.checkToSelectSingle(this.pSelectValue);
+    }, 0);
+  }
 
-//   filterInArray(value: string): void {
-//     let val = '';
-//     if (value !== undefined) {
-//       val = value.toUpperCase();
-//     }
-//     if (val.length > 0) {
-//       this.filteredItems = this.pSelectItems.filter((x) =>
-//         x.option.toUpperCase().includes(val)
-//       );
-//     } else {
-//       this.filteredItems = this.pSelectItems;
-//     }
-//     if (!this.pSingleSelect) {
-//       setTimeout(() => {
-//         this.selArr.forEach((x) => {
-//           const checkbox = document.querySelectorAll('#check-' + x.id);
-//           let cb = 0;
-//           for (; cb < checkbox.length; cb++) {
-//             const check = checkbox[cb] as HTMLInputElement;
-//             check.checked = true;
-//           }
-//         });
-//       }, 0);
-//     }
-//   }
+  setToBody(): void {
+    const menu = this.selectMenu.nativeElement as HTMLElement;
+    document.body.insertAdjacentElement('beforeend', menu);
+  }
 
-//   // setInputValue(item: SelectModel): void {
-//   //   const input = document.getElementById(this.pSelectId) as HTMLInputElement;
-//   //   input.value = item.option;
-//   //   this.pSingleSelectedItem.emit(item);
-//   // }
+  // writes the checkbox value
+  writeValue(obj: any): void {
+    this.pSelectValue = obj;
+    setTimeout(() => {
+      if (obj) {
+        this.checkToSelectSingle(obj);
+      }
+    }, 0);
+  }
 
-//   selectOne(option: SelectModel): void {
-//     option.isChecked = !option.isChecked;
-//     const checkbox = document.querySelectorAll('#check-' + option.id);
-//     let cb = 0;
-//     for (; cb < checkbox.length; cb++) {
-//       const check = checkbox[cb] as HTMLInputElement;
-//       check.checked = !check.checked;
-//     }
-//     this.setMultipleSelectedValues(option);
-//     if (this.pSelectAll) {
-//       const selAllCheckbox = document.getElementById(
-//         'selAll'
-//       ) as HTMLInputElement;
-//       const allOpt = this.pSelectItems.length;
-//       const selOpt = this.selArr.length;
-//       if (selOpt === 0) {
-//         selAllCheckbox.checked = false;
-//         selAllCheckbox.indeterminate = false;
-//         this.allAreSelected = false;
-//       } else if (allOpt === selOpt) {
-//         selAllCheckbox.checked = true;
-//         selAllCheckbox.indeterminate = false;
-//         this.allAreSelected = true;
-//       } else if (selOpt < allOpt) {
-//         selAllCheckbox.checked = false;
-//         selAllCheckbox.indeterminate = true;
-//         this.allAreSelected = false;
-//       }
-//     }
-//   }
+  // register the changes
+  registerOnChange(fn: any): void {
+    this.change = fn;
+  }
 
-//   setMultipleSelectedValues(item: SelectModel): void {
-//     const input = document.querySelector(
-//       '#' + this.pSelectId
-//     ) as HTMLInputElement;
-//     const dupItm = this.selArr.find((x) => x === item);
-//     const dupTxt = this.selTxtArr.find((x) => x === item.option);
-//     if (item.isChecked && !dupItm) {
-//       this.selArr.push(item);
-//       this.selTxtArr.push(item.option);
-//       input.value = this.selTxtArr.join(', ');
-//     } else {
-//       const indexDup = this.selArr.indexOf(dupItm);
-//       const indexTxt = this.selTxtArr.indexOf(dupTxt);
-//       if (indexDup === 0) {
-//         this.selArr.splice(0, 1);
-//       } else {
-//         this.selArr.splice(indexDup, indexDup);
-//       }
-//       if (indexTxt === 0) {
-//         this.selTxtArr.splice(0, 1);
-//       } else {
-//         this.selTxtArr.splice(indexTxt, indexTxt);
-//       }
-//       input.value = this.selTxtArr.join(', ');
-//     }
-//     this.pMultipleSelectedItem.emit(this.selArr);
-//   }
+  // blurs the component
+  registerOnTouched(fn: any): void {
+    this.blur = fn;
+  }
 
-//   openMenu(): void {
-//     this.isOpen = true;
-//     this.setSelectBackdrop();
-//   }
+  openMenu(): void {
+    this.menuOpen = true;
+    this.setBackdrop();
+    this.scrollOptToView();
+    this.setPositions();
+  }
 
-//   closeMenu(): any {
-//     this.isOpen = false;
-//     this.removeSelectBackdrop();
-//   }
+  closeMenu(): void {
+    this.menuOpen = false;
+    this.removeBackdrop();
+  }
 
-//   setSelectBackdrop(): void {
-//     const backdrop = document.createElement('div');
-//     backdrop.classList.add('backdrop');
-//     backdrop.style.backgroundColor = 'rgba(0,0,0,0.8)';
-//     document.body.insertAdjacentElement('beforeend', backdrop);
-//     backdrop.addEventListener('click', () => {
-//       this.isOpen = false;
-//       this.removeSelectBackdrop();
-//     });
-//   }
+  setBackdrop(): void {
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('backdrop');
+    backdrop.addEventListener('click', () => {
+      this.closeMenu();
+    });
+    document.body.insertAdjacentElement('beforeend', backdrop);
+  }
 
-//   removeSelectBackdrop(): void {
-//     const backdrop = document.querySelector('.backdrop');
-//     backdrop.remove();
-//   }
-// }
+  removeBackdrop(): void {
+    const backdrop = document.querySelector('.backdrop');
+    backdrop.remove();
+  }
 
-// @Component({
-//   selector: 'app-option, p-option',
-//   styleUrls: ['./select.component.css'],
-//   template: ` <button
-//     [value]="value"
-//     class="p-select-option"
-//     pRipple
-//     (click)="
-//       parent.pSingleSelect ? selectOne($event.target.value) : setSelect()
-//     "
-//   >
-//     <p-checkbox
-//       [pCheckboxChecked]="optionMarked"
-//       style="pointer-events: none;"
-//       *ngIf="!parent.pSingleSelect"
-//     ></p-checkbox>
-//     <ng-content></ng-content>
-//   </button>`,
-// })
-// export class SelectOptionComponent {
-//   @Input() value: any;
+  setSingleValue(value: any) {
+    this.checkToSelectSingle(value);
+    this.pSelectValueChange.emit(value);
+    this.change(value);
+    this.closeMenu();
+  }
 
-//   optionMarked = false;
-//   constructor(public parent: SelectComponent, private el: ElementRef) {}
+  setMultipleValue(value: any) {
+    this.pSelectValueChange.emit(value);
+    this.change(value);
+  }
 
-//   selectOne(value) {
-//     const a = this.el.nativeElement as HTMLElement;
-//     this.parent.textInput.nativeElement.value = a.textContent;
-//     this.parent.valueChange.emit(value);
-//     this.parent.change(value);
-//     this.parent.closeMenu();
-//   }
+  checkToSelectSingle(value: any): void {
+    this.optButtons._results.forEach((x) => {
+      x.selected = false;
+    });
+    const component = this.optButtons._results.find((x) => x.value === value);
+    this.selectedOption = component;
+    if (component) {
+      const elementComp = component.el.nativeElement
+        .firstChild as HTMLButtonElement;
+      this.selectInput.nativeElement.value = elementComp.textContent;
+      component.selected = true;
+    }
+  }
 
-//   setSelect() {
-//     this.optionMarked = !this.optionMarked;
-//   }
-// }
+  checkToSelectMultiple(value: any): void {
+    const input = this.selectInput.nativeElement as HTMLInputElement;
+    const select = this.optButtons._results.find((o) => o.value === value);
+    const opt = this.selectedOptions.find((v) => v.value === select.value);
+    if (!opt) {
+      select.selected = true;
+      this.selectedOptions.push(select);
+    } else {
+      const index = this.selectedOptions.indexOf(opt);
+      this.selectedOptions.splice(index, 1);
+      select.selected = false;
+    }
+    const allSelected = this.optButtons._results.filter((x) => x.selected);
+    if (allSelected.length > 0) {
+      this.selectedOption = allSelected[0];
+      input.value = allSelected[0].el.nativeElement.firstChild.textContent;
+      this.selectedTotal = this.selectedOptions.length - 1;
+    } else {
+      this.selectedOption = undefined;
+      input.value = null;
+      this.selectedTotal = 0;
+    }
+    const val = [];
+    if (this.selectedOptions.length > 0) {
+      this.selectedOptions.forEach((v) => {
+        val.push(v.value);
+        this.multipleValues = val;
+      });
+    } else {
+      this.multipleValues = [];
+    }
+    this.setMultipleValue(this.multipleValues);
+  }
 
-// export class SelectModel {
-//   id: any;
-//   option: any;
-//   isDisabled?: boolean;
-//   isChecked?: boolean;
-// }
+  selectAll(event): void {
+    this.optButtons._results.forEach((x) => {
+      if (event === true) {
+        if (x.selected) {
+          const idx = this.selectedOptions.indexOf(x);
+          this.selectedOptions.splice(idx, 1);
+        }
+      }
+      this.checkToSelectMultiple(x.value);
+    });
+    this.allSelected = event;
+  }
+
+  isEverySelected(): void {
+    this.allSelected = this.optButtons._results.every((t) => t.selected);
+  }
+
+  indeterminateSelected(): boolean {
+    return (
+      this.optButtons._results.filter((x) => x.selected).length > 0 &&
+      !this.allSelected
+    );
+  }
+
+  scrollOptToView(): void {
+    setTimeout(() => {
+      if (this.selectedOption) {
+        const element = this.selectedOption.el.nativeElement as HTMLElement;
+        const scrollOpt: ScrollIntoViewOptions = {
+          behavior: 'auto',
+          block: 'center',
+          inline: 'nearest',
+        };
+        element.scrollIntoView(scrollOpt);
+      }
+    }, 0);
+  }
+
+  setPositions(): void {
+    const fieldset = this.selectInput.nativeElement as HTMLInputElement;
+    const fieldPos = this.getPositions(fieldset);
+    let opt;
+    if (!this.selectedOption) {
+      opt = this.optButtons._results[0].el.nativeElement.firstChild;
+    } else {
+      opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
+    }
+    setTimeout(() => {
+      const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
+      menu.style.width =
+        fieldset.parentElement.parentElement.parentElement.offsetWidth + 'px';
+      const menuPos = this.getPositions(menu);
+      const optPos = this.getPositions(opt);
+      const topPos =
+        fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height / 1.3;
+      const leftPos = fieldPos.left - 16;
+
+      menu.style.left = leftPos + 'px';
+
+      if (topPos < 0) {
+        menu.style.top = '0px';
+      } else if (topPos + menuPos.height > window.innerHeight) {
+        menu.style.top = fieldPos.top - menuPos.height + 'px';
+      } else if (topPos > window.innerHeight) {
+        menu.style.top = null;
+        menu.style.bottom = '0px';
+      } else {
+        menu.style.top = topPos + 'px';
+      }
+    }, 0);
+  }
+
+  getPositions(element: any): DOMRect {
+    return element.getBoundingClientRect();
+  }
+
+  public updateSearch(): void {
+    if (this.pSelectMultiple) {
+      const currentValue = this.pSelectValue;
+      currentValue.forEach((x) => {
+        const component = this.optButtons._results.find((v) => v.value === x);
+        if (component) {
+          component.selected = true;
+        }
+      });
+    } else {
+      const currentValue = this.pSelectValue;
+      const component = this.optButtons._results.find(
+        (x) => x.value === currentValue
+      );
+      if (component) {
+        component.selected = true;
+      }
+    }
+    this.isEverySelected();
+  }
+
+  ngOnDestroy(): void {
+    const menu = this.selectMenu.nativeElement as HTMLElement;
+    menu.remove();
+  }
+}
+
+@Component({
+  selector: 'app-option, p-option',
+  styleUrls: ['./select.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectOptionComponent),
+      multi: true,
+    },
+  ],
+  template: ` <button
+    pRipple
+    [class]="selected ? 'selected' : ''"
+    [value]="value"
+    (click)="
+      parent.pSelectMultiple
+        ? selectMultiple($event.target.value)
+        : selectSingleValue($event.target.value)
+    "
+  >
+    <p-checkbox
+      class="p-select-no-pointer-events"
+      [(pCheckboxChecked)]="selected"
+      *ngIf="parent.pSelectMultiple"
+    ></p-checkbox>
+    <ng-content></ng-content>
+  </button>`,
+})
+export class SelectOptionComponent {
+  @Input() value: any;
+
+  selected: boolean;
+  constructor(public parent: SelectComponent, private el: ElementRef) {}
+
+  selectSingleValue(value: any): void {
+    this.selected = true;
+    this.parent.setSingleValue(value);
+  }
+
+  selectMultiple(value: any): void {
+    this.selected = !this.selected;
+    this.parent.checkToSelectMultiple(value);
+    this.parent.isEverySelected();
+  }
+}
+
+@Directive({
+  selector: '[multiple], [appMultiple]',
+})
+export class SelectMultipleDirective implements OnInit {
+  @Input() pSelectAllInput: boolean;
+  constructor(public parent: SelectComponent) {
+    this.parent.pSelectMultiple = true;
+  }
+
+  ngOnInit(): void {
+    if (this.pSelectAllInput) {
+      this.parent.pSelectAllInput = true;
+    }
+  }
+}
+
+@Directive({
+  selector: '[search], [appSearch]',
+})
+export class SelectSearchDirective {
+  constructor(public parent: SelectComponent) {
+    this.parent.pSelectSearch = true;
+  }
+}

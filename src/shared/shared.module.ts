@@ -61,7 +61,7 @@ import {
   SelectOptionComponent,
   SelectMultipleDirective,
   SelectSearchDirective,
-} from './components/custom-select/custom-select.component';
+} from './components/select/select.component';
 
 const components = [
   TableComponent,

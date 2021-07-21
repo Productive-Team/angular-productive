@@ -1,5 +1,5 @@
 <div style="width: 300px;">
-  <p-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab" multiple [pSelectAllInput]="true" search>
+  <p-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab" search #test [pSelectDisabled]="ses">
     <ng-container search-input>
       <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
     </ng-container>
@@ -12,3 +12,5 @@
     </b>
   </span>
 </div>
+
+<p-checkbox pCheckboxLabel="Disabled" [(ngModel)]="ses"></p-checkbox>

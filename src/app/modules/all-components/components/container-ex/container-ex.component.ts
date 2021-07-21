@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControlName, FormControl } from '@angular/forms';
 
 @Component({
@@ -114,6 +114,8 @@ export class ContainerExComponent implements OnInit {
 
   arr = [];
 
+  @ViewChild('test') testComp: any;
+
   constructor() {}
 
   ngOnInit() {
@@ -170,10 +172,15 @@ export class ContainerExComponent implements OnInit {
     if (this.vev.length === 0) {
       this.arr = this.optionArr;
     } else {
-      this.arr = this.optionArr.filter((x) =>
-        x.name.toUpperCase().includes(this.vev.toUpperCase()) ||
-        x.value.toUpperCase().includes(this.vev.toUpperCase()));
+      this.arr = this.optionArr.filter(
+        (x) =>
+          x.name.toUpperCase().includes(this.vev.toUpperCase()) ||
+          x.value.toUpperCase().includes(this.vev.toUpperCase())
+      );
     }
+    setTimeout(() => {
+      this.testComp.updateSearch();
+    }, 0);
   }
 }
 
