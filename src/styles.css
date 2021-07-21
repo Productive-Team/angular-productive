@@ -1224,70 +1224,33 @@ a.btn-large {
 /* #endregion Badges */
 
 /* #region Tooltip */
-.p-tooltip-container {
-  position: relative;
-  display: inline-block;
-  margin: 0 10px;
-}
 .pTooltip {
-  position: absolute;
+  position: fixed;
   user-select: none;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgb(97, 97, 97);
   color: white;
   border-radius: 3px;
-  max-width: 250%;
+  max-width: 500%;
+  min-width: 50px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   height: 24px;
   padding: 0 5px;
   line-height: 24px;
-  font-size: 14px;
+  font-size: 12px;
+  text-align: center;
   backface-visibility: hidden;
-  transition: opacity 0.2s cubic-bezier(0, 0, 0.2, 1);
+  animation: tooltipAnim 200ms cubic-bezier(.33,.68,.82,.99);
 }
-.pTooltip.bottom-align {
-  left: 50%;
-  transform: translateX(-50%);
-  top: 115%;
-  animation: tooltipFadeTopBottom 0.2s cubic-bezier(0, 0, 0.2, 1);
-}
-.pTooltip.top-align {
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 115%;
-  animation: tooltipFadeTopBottom 0.2s cubic-bezier(0, 0, 0.2, 1);
-}
-.pTooltip.right-align {
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  animation: tooltipFadeRightLeft 0.2s cubic-bezier(0, 0, 0.2, 1);
-}
-.pTooltip.left-align {
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  animation: tooltipFadeRightLeft 0.2s cubic-bezier(0, 0, 0.2, 1);
-}
-@keyframes tooltipFadeTopBottom {
-  from {
-    transform: translateX(-50%) scale(0.9);
+@keyframes tooltipAnim {
+  0% {
     opacity: 0;
+    transform: scale(0.8);
   }
-  to {
-    transform: translateX(-50%) scale(1);
+  100% {
     opacity: 1;
-  }
-}
-@keyframes tooltipFadeRightLeft {
-  from {
-    transform: translateY(-50%) scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(-50%) scale(1);
-    opacity: 1;
+    transform: scale(1);
   }
 }
 /*#endregion Tooltip */

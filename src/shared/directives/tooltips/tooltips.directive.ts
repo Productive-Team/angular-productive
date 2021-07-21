@@ -10,21 +10,21 @@ export class TooltipsDirective {
   @Input() pTooltipClickDuration = 2500;
 
   constructor(private el: ElementRef) {
-    this.insertElementIntoContainer(this.el.nativeElement);
+    // this.insertElementIntoContainer(this.el.nativeElement);
   }
 
   @HostListener('mouseover', ['$event']) showTooltip(event): void {
     const allTooltips = document.querySelectorAll('.pTooltip');
     if (!this.pTooltipClickOpen) {
       if (allTooltips.length < 1) {
-        this.createToolTip(event.target, this.pTooltipText);
+        this.createToolTip(this.el.nativeElement, this.pTooltipText);
       }
     }
   }
 
   @HostListener('mouseout', ['$event']) hideTooltip(event): void {
     if (!this.pTooltipClickOpen) {
-      this.removeTooltip();
+      // this.removeTooltip();
     }
   }
 
@@ -54,31 +54,39 @@ export class TooltipsDirective {
     container.insertAdjacentElement('beforeend', element);
   }
 
-  private setTooltipPosition(element: HTMLElement): void {
+  private setTooltipPosition(element: HTMLElement, tooltip: HTMLElement): void {
+    const elPos = element.getBoundingClientRect();
+    const toolPos = tooltip.getBoundingClientRect();
     switch (this.pTooltipPosition) {
       case 'left':
-        element.classList.add('left-align');
+        // element.classList.add('left-align');
         break;
       case 'top':
-        element.classList.add('top-align');
+        tooltip.style.top = elPos.top - elPos.height / 2 - 5 + 'px';
+        tooltip.style.left = elPos.left + 'px';
+        console.log(elPos.left - elPos.right);
         break;
       case 'bottom':
-        element.classList.add('bottom-align');
+        tooltip.style.top = elPos.bottom + 5 + 'px';
+        tooltip.style.left =
+          elPos.left - toolPos.width / 2 - elPos.width / 2 + 'px';
         break;
       case 'right':
-        element.classList.add('right-align');
+        // element.classList.add('right-align');
         break;
       default:
-        element.classList.add('bottom-align');
+        tooltip.style.top = elPos.bottom + 5 + 'px';
+        tooltip.style.left =
+          elPos.left - toolPos.width / 2 - elPos.width / 2 + 'px';
     }
   }
 
   private createToolTip(element: HTMLElement, tooltipText: string): void {
     const tooltip = document.createElement('span');
     tooltip.classList.add('pTooltip');
-    this.setTooltipPosition(tooltip);
     tooltip.innerHTML = tooltipText;
-    element.insertAdjacentElement('afterend', tooltip);
+    document.body.insertAdjacentElement('beforeend', tooltip);
+    this.setTooltipPosition(element, tooltip);
   }
 
   private removeTooltip(): any {

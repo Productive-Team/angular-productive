@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-icon, p-icon',
-  template: `<i class="material-icons">
+  template: `<i
+    [class]="
+      pIconType === 'filled' ? 'material-icons' : 'material-icons-' + pIconType
+    "
+  >
     <ng-content></ng-content>
   </i>`,
   // tslint:disable-next-line: no-host-metadata-property
@@ -11,6 +15,8 @@ import { Component, OnInit } from '@angular/core';
   },
 })
 export class IconComponent implements OnInit {
+  @Input() pIconType =
+    'filled' || 'outlined' || 'round' || 'sharp' || 'two-tone';
   constructor() {}
 
   ngOnInit() {}
