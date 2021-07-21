@@ -1,5 +1,6 @@
 <div style="width: 300px;">
-  <p-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab" search #test [pSelectDisabled]="ses">
+  <p-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab" multiple search [pSelectAllInput]="true" #test
+    [pSelectDisabled]="ses">
     <ng-container search-input>
       <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
     </ng-container>

@@ -9,12 +9,12 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); */
 
 * {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
 }
 
 html,
 body {
-  margin: 0;  
+  margin: 0;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;
@@ -60,7 +60,7 @@ hr {
 h1 {
   font-size: 3rem;
   font-weight: 500;
-  letter-spacing:-1px;
+  letter-spacing: -1px;
 }
 h2 {
   font-size: px;
@@ -86,7 +86,8 @@ h6 {
   letter-spacing: 0.15px;
 }
 
-span, label {
+span,
+label {
   font-size: 16px;
   font-weight: normal;
   letter-spacing: 0.15px;
@@ -123,7 +124,7 @@ p {
   font-weight: 800;
 }
 .t-900 {
-  font-weight:900;
+  font-weight: 900;
 }
 /* #endregion Typography */
 
@@ -153,8 +154,8 @@ p {
 }
 @media screen and (max-width: 1000px) {
   .sidenav-container .container {
-  width: calc(100%);
-}
+    width: calc(100%);
+  }
 }
 @media screen and (max-width: 600px) {
   .container,
@@ -605,7 +606,7 @@ a.btn-large {
   flex-direction: column;
   height: 100%;
   overflow: auto;
-  transition: 400ms cubic-bezier(.01,.47,.4,.99);
+  transition: 400ms cubic-bezier(0.01, 0.47, 0.4, 0.99);
 }
 
 .sidenav .side-content {
@@ -681,17 +682,17 @@ a.btn-large {
 }
 
 .input-error .input-wrapper .label-wrap .label-text {
-  color: rgb(255, 51, 0) !important; 
+  color: rgb(255, 51, 0) !important;
 }
 .input-error .input-wrapper ~ .p-input-bar,
 .input-error .input-wrapper.outlined,
- .input-error .input-wrapper {
+.input-error .input-wrapper {
   border-color: rgb(255, 51, 0);
 }
 
 .input-error .input-wrapper input,
 .input-error .input-wrapper textarea {
-  caret-color: rgb(255,51,0);
+  caret-color: rgb(255, 51, 0);
 }
 
 .input-wrapper.focused .label-wrap {
@@ -751,7 +752,6 @@ a.btn-large {
   width: 100%;
 }
 
-
 .input-wrapper.outlined.focused {
   box-shadow: inset 0 0 0 2px var(--primary);
 }
@@ -763,7 +763,6 @@ a.btn-large {
   display: flex;
   flex-direction: row;
 }
-
 
 .label-wrap {
   position: absolute;
@@ -799,12 +798,12 @@ a.btn-large {
   position: relative;
   flex: auto;
   width: 100%;
-  padding: .25rem 0 .75rem 0;
-  border-top: .8rem solid transparent;
+  padding: 0.25rem 0 0.75rem 0;
+  border-top: 0.8rem solid transparent;
 }
 
 .input-wrapper.classic .form-field {
-  padding: .25rem 0 .25rem 0;
+  padding: 0.25rem 0 0.25rem 0;
 }
 
 .input-wrapper .suffix,
@@ -837,7 +836,6 @@ a.btn-large {
   left: 50%;
   opacity: 0;
 }
-
 
 .helper-text {
   position: absolute;
@@ -1135,8 +1133,7 @@ a.btn-large {
 }
 
 .menu-panel-wrapper .menu-panel .menu-content button,
-.menu-panel-wrapper .menu-panel .menu-content a 
-{
+.menu-panel-wrapper .menu-panel .menu-content a {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -1160,7 +1157,7 @@ a.btn-large {
 }
 
 .menu-panel-wrapper .menu-panel .menu-content button:disabled,
-.menu-panel-wrapper .menu-panel .menu-content a:disabled  {
+.menu-panel-wrapper .menu-panel .menu-content a:disabled {
   opacity: 0.3;
   pointer-events: none;
 }
@@ -1383,11 +1380,11 @@ a.btn-large {
   color: #262626;
 }
 .tab.disabled {
-  opacity: .4;
+  opacity: 0.4;
   pointer-events: none;
 }
 .tab.active span,
-.tab.active i{
+.tab.active i {
   color: var(--primary);
   opacity: 1;
 }
@@ -1537,7 +1534,7 @@ a.btn-large {
   box-sizing: border-box;
   border-radius: 999px;
   font-size: 14px;
-} 
+}
 
 .picker .content .day.selected {
   box-shadow: 0 0 0 1px inset var(--primary);
@@ -1551,11 +1548,11 @@ a.btn-large {
   width: 100%;
   box-sizing: border-box;
   background-color: var(--appBackgroundColor);
-  border-collapse:collapse;
+  border-collapse: collapse;
 }
 
 .p-table thead {
-  border-bottom: 1px solid rgba(0, 0, 0, .15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .p-table .p-table-header th {
@@ -1592,7 +1589,7 @@ a.btn-large {
 .p-table .table-expanded-content {
   --scrollHeightForTable: 0px;
   padding: 0 1.5rem;
-  transition: height 0.2s cubic-bezier(.07,.43,.38,1.01);
+  transition: height 0.2s cubic-bezier(0.07, 0.43, 0.38, 1.01);
   overflow: hidden;
   height: var(--scrollHeightForTable);
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
@@ -1614,7 +1611,7 @@ a.btn-large {
   height: 0px;
 }
 
-.table-expanded .p-table tr{
+.table-expanded .p-table tr {
   border: 0 !important;
 }
 
@@ -1623,11 +1620,11 @@ a.btn-large {
 }
 .p-table .p-table-header-sort i {
   opacity: 0;
-  position: absolute; 
+  position: absolute;
   right: 5px;
   font-size: 16px;
   top: 50%;
-  transition: 0.3s cubic-bezier(0,.48,.36,1);
+  transition: 0.3s cubic-bezier(0, 0.48, 0.36, 1);
   transition-property: opacity, transform;
 }
 
@@ -1674,10 +1671,6 @@ a.btn-large {
 /* #endregion Icon */
 
 /* #region Select */
-/* .p-select-wrapper {
-  z-index: 999;
-} */
-
 .p-select {
   position: fixed;
   top: 0;
