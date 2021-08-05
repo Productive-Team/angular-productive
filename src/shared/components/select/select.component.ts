@@ -16,10 +16,10 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const menuAnim = trigger('menuAnimation', [
   transition(':enter', [
-    style({ opacity: 0, transform: 'scale(0.95)' }),
+    style({ opacity: 0, transform: 'scaleY(0.9)' }),
     animate(
       '150ms cubic-bezier(.1,.5,.65,.99)',
-      style({ opacity: 1, transform: 'scale(1)' })
+      style({ opacity: 1, transform: 'scaleY(1)' })
     ),
   ]),
   transition(':leave', [
