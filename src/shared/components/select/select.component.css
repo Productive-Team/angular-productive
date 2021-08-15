@@ -11,6 +11,7 @@
 }
 
 .p-select-parent-wrapper {
+  display: flex;
   position: relative;
 }
 

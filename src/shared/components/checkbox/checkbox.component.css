@@ -111,17 +111,20 @@
   stroke-width: 2.1333333333px;
 }
 
+.checkbox-mark .path {
+  transform-origin: center;
+}
+
 /* icone da checkbox em indeterminado */
 .checkbox-mixed {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: calc(100% - 6px);
+  width: calc(25% - 6px);
   height: 2px;
   border-radius: 2px;
   background-color: white;
-  transform: scaleX(1) rotate(-10deg) translateX(-50%) translateY(-50%);
-  transition: opacity 0.1s linear;
+  transform: scaleX(1) translateX(-50%) translateY(-50%);
   opacity: 0;
 }
 
@@ -142,12 +145,6 @@
   opacity: 1;
 }
 
-/* deixa o fundo cinza quando a checkbox esta como marcada e desabilitada*/
-/* .checkbox-layout input:checked:disabled ~ .checkbox-background,
-.checkbox-layout input:indeterminate:disabled ~ .checkbox-background {
-  background-color: #b0b0b0 !important;
-} */
-
 /* transição da checkmark na checkbox */
 .checkbox-layout input:checked ~ .checkbox-background .checkbox-mark .path,
 .checkbox-layout
@@ -155,7 +152,6 @@
   ~ .checkbox-background
   .checkbox-mark
   .path {
-  transition: 0.3s linear;
   stroke-dasharray: 70;
   stroke-dashoffset: 0;
 }
@@ -167,14 +163,69 @@
 
 /* shows the mixed icon in checkbox */
 .checkbox-layout input:indeterminate ~ .checkbox-background .checkbox-mixed {
-  transition: all 0.1s linear;
+  transition: 100ms cubic-bezier(0.07, 0.24, 0.65, 0.99);
+  width: calc(100% - 6px);
   opacity: 1;
-  transform: scaleX(1) rotate(0deg) translateX(-50%) translateY(-50%);
+  transform: scaleX(1) translateX(-50%) translateY(-50%);
 }
 
 /* rotares the checkmark to transition to the mixed input and vice versa */
-.checkbox-layout input:indeterminate ~ .checkbox-background .checkbox-mark {
+.checkbox-layout
+  input:indeterminate
+  ~ .checkbox-background
+  .checkbox-mark
+  .path {
   transform: scaleX(1) rotate(-120deg);
   opacity: 0;
 }
 /* #endregion RegularCheckbox */
+
+@keyframes checkboxCheck {
+  0% {
+    stroke-dasharray: 70;
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dasharray: 70;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes checkboxUncheckedIndet {
+  0% {
+    width: 50%;
+  }
+  100% {
+    width: calc(100% - 6px);
+  }
+}
+
+@keyframes checkboxPathToIndet {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes checkboxIndetToPath {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes checkboxPathFromIndet {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+}

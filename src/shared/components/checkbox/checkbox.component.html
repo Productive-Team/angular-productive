@@ -3,15 +3,15 @@
   [pRippleDisabled]="!hasRipple">
   <span class="checkbox-toggle" [style]="pCheckboxLabel ? 'margin-right: 8px;' : 'margin-right: 0px;'">
     <input type="checkbox" id="{{pCheckboxId}}" [checked]="checked" (change)="onCheck($event)" (blur)="blur($event)"
-      [disabled]="pCheckboxDisabled" [indeterminate]="pCheckboxIndeterminate">
+      [disabled]="pCheckboxDisabled" [(indeterminate)]="pCheckboxIndeterminate">
     <span class=" checkbox-ripple" #rippleCheckbox></span>
     <span class="checkbox-frame"></span>
     <span class="checkbox-background"
       [style]="pCheckboxColor ? 'background-color:' + pCheckboxColor + ';' : 'background-color: var(--primary);'">
       <svg version="1.1" focusable="false" viewBox="0 0 24 24" xml:space="preserve" class="checkbox-mark">
-        <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3 " class="path"></path>
+        <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3 " class="path" #checkmark></path>
       </svg>
-      <span class="checkbox-mixed"></span>
+      <span class="checkbox-mixed" #mixed></span>
     </span>
   </span>
   <span class="checkbox-text">

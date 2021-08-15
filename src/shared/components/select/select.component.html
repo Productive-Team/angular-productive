@@ -1,14 +1,17 @@
-<div [class]="pSelectDisabled ? 'p-select-parent-wrapper p-select-disabled' : 'p-select-parent-wrapper'">
-  <p-fieldset [pFieldsetInput]="input" [pFieldsetLabelText]="pSelectLabel" [pFieldsetAppearence]="pSelectAppearence"
-    class="select-input-wrap" (click)="openMenu()">
-    <input type="text" pInput #input readonly style="user-select: none; cursor: pointer;" [disabled]="pSelectDisabled">
-    <ng-container p-suffix *ngIf="selectedTotal > 0 && pSelectMultiple">
-      <span class="p-select-multiple-total">
-        (+{{selectedTotal}} {{selectedTotal > 1 ? 'others':'other'}})
-      </span>
-    </ng-container>
+<div [class]="pSelectDisabled ? 'p-select-parent-wrapper p-select-disabled' : 'p-select-parent-wrapper'"
+  (click)="openMenu()">
+  <input type="text" #input pInput readonly style="user-select: none; cursor: pointer;" [disabled]="pSelectDisabled"
+    (focus)="openMenu()">
+  <ng-container p-suffix *ngIf="selectedTotal > 0 && pSelectMultiple">
+    <span class="p-select-multiple-total">
+      (+{{selectedTotal}} {{selectedTotal > 1 ? 'others':'other'}})
+    </span>
+  </ng-container>
+  <p-icon p-suffix>arrow_drop_down</p-icon>
+  <!-- <p-fieldset [pFieldsetLabelText]="pSelectLabel" [pFieldsetAppearence]="pSelectAppearence" class="select-input-wrap"
+    (click)="openMenu()">
     <p-icon p-suffix>arrow_drop_down</p-icon>
-  </p-fieldset>
+  </p-fieldset> -->
   <div class="p-select-wrapper" #menu>
     <div class="p-select elevation" *ngIf="menuOpen && !pSelectDisabled" @menuAnimation>
       <div class="p-select-header">

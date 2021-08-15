@@ -22,12 +22,14 @@
             </div>
           </div>
           <div class="col m3 s6">
-            <p-fieldset pFieldsetLabelText="Ripple Color" [pFieldsetInput]="colorRip">
+            <p-fieldset pFieldsetLabelText="Ripple Color">
+              <!-- [pFieldsetInput]="colorRip" -->
               <input type="text" pInput [(ngModel)]="color" #colorRip>
             </p-fieldset>
           </div>
           <div class="col m3 s6">
-            <p-fieldset pFieldsetLabelText="Ripple Radius" [pFieldsetInput]="radiusRip">
+            <p-fieldset pFieldsetLabelText="Ripple Radius">
+              <!-- [pFieldsetInput]="radiusRip" -->
               <input type="number" pInput [(ngModel)]="radius" #radiusRip>
             </p-fieldset>
           </div>

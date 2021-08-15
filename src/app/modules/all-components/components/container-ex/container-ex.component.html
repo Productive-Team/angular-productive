@@ -1,17 +1,24 @@
 <div style="width: 300px;">
-  <p-select [pSelectLabel]="'Select'" [(pSelectValue)]="variab" multiple search [pSelectAllInput]="true" #test
-    [pSelectDisabled]="ses">
-    <ng-container search-input>
-      <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
-    </ng-container>
-    <p-option *ngFor="let opt of arr" [value]="opt.value">{{opt.name}}</p-option>
-  </p-select>
+  <p-fieldset [pFieldsetLabelText]="'Select'">
+    <p-select [(pSelectValue)]="variab" multiple search [pSelectAllInput]="true" [pSelectDisabled]="ses" pInput>
+      <ng-container search-input>
+        <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
+      </ng-container>
+      <p-option *ngFor="let opt of arr" [value]="opt.value">{{opt.name}}</p-option>
+    </p-select>
+  </p-fieldset>
   <span>
     Value:
     <b>
       {{variab}}
     </b>
   </span>
+</div>
+
+<div style="width: calc(100% - 80%);">
+  <p-fieldset pFieldsetLabelText="text">
+    <input type="text" pInput>
+  </p-fieldset>
 </div>
 
 <p-checkbox pCheckboxLabel="Disabled" [(ngModel)]="ses"></p-checkbox>
@@ -25,4 +32,8 @@
   <button class="btn fab flat" pRipple pRippleCentered="true">
     <p-icon>format_bold</p-icon>
   </button>
+</div>
+
+<div>
+  <p-checkbox></p-checkbox>
 </div>

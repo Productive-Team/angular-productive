@@ -2,8 +2,10 @@ import {
   AfterContentInit,
   Component,
   ContentChild,
+  ContentChildren,
   Directive,
   ElementRef,
+  forwardRef,
   HostBinding,
   HostListener,
   Input,
@@ -29,6 +31,7 @@ export class InputDirective {
       .parentElement as HTMLInputElement;
     input.classList.remove('focused');
     const inputFil = this.el.nativeElement as HTMLInputElement;
+    console.log(inputFil);
     const label = this.el.nativeElement.nextSibling
       .firstChild as HTMLSpanElement;
     if (
@@ -61,7 +64,6 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   @Input('pFieldsetValidate') inputValidate = false;
   @Input() disabled = false;
   @Input('pFieldsetAppearence') appearence: string;
-  @Input('pFieldsetInput') input: any;
 
   private required = 'required';
   private maxlengthValid = 'maxlength';
@@ -133,8 +135,9 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
 
   hasValue(): boolean {
-    const input = this.el.nativeElement.firstChild.firstChild.firstChild
-      .firstChild.nextSibling.firstChild as HTMLInputElement;
+    const input = this.el.nativeElement.querySelector(
+      'input'
+    ) as HTMLInputElement;
     if (input.value.length > 0) {
       return true;
     } else {
@@ -144,11 +147,12 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
 
   @HostListener('click', ['$event']) focused(event) {
     const target = event.target;
+    const input = this.el.nativeElement.querySelector('input');
     if (
       target.classList.contains('input-wrapper') ||
       target.classList.contains('form-input')
     ) {
-      this.input.focus();
+      input.focus();
     }
   }
 

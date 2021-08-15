@@ -1,4 +1,14 @@
-import { Component, Input, AfterViewInit, forwardRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  forwardRef,
+  HostListener,
+  ElementRef,
+  ViewChild,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -63,9 +73,10 @@ export class CheckboxComponent implements AfterViewInit {
    * This property is optional, if it's not filled, it will automatically assume the value of false;
    *
    * Example:
-   *    <app-checkbox [isIndeterminate]="true"></app-checkbox>
+   *    <app-checkbox [pCheckboxIndeterminate]="true"></app-checkbox>
    */
-  @Input() pCheckboxIndeterminate = false;
+  @Input() pCheckboxIndeterminate: boolean;
+  @Output() pCheckboxIndeterminateChange = new EventEmitter<boolean>();
   /**
    * hasRipple is an option that indicates if a checkbox or a Switch has the RippleEffect with them;
    *
@@ -109,7 +120,42 @@ export class CheckboxComponent implements AfterViewInit {
 
   rippleColor: string;
 
+  @ViewChild('checkmark') checkMark: ElementRef;
+  @ViewChild('mixed') mixed: ElementRef;
+
   constructor() {}
+
+  @HostListener('click', ['$event'])
+  addAnimations(event): void {
+    console.log(event.target);
+    const checkmark = this.checkMark.nativeElement as HTMLElement;
+    const mixedMark = this.mixed.nativeElement as HTMLElement;
+    if (!this.checked) {
+      if (!this.pCheckboxIndeterminate) {
+        checkmark.style.animation =
+          'checkboxCheck 500ms cubic-bezier(0.07, 0.24, 0.65, 0.99) normal';
+      } else {
+        checkmark.style.animation =
+          'checkboxPathToIndet 300ms cubic-bezier(0.07, 0.24, 0.65, 0.99) normal';
+      }
+    } else {
+      checkmark.removeAttribute('style');
+    }
+
+    checkmark.addEventListener('animationend', () => {
+      checkmark.removeAttribute('style');
+    });
+  }
+
+  @HostListener('change', ['$event.target'])
+  addAnim(event): void {
+    console.log(this.checked);
+    const checkmark = this.checkMark.nativeElement as HTMLElement;
+    if (this.checked && this.pCheckboxIndeterminate) {
+      checkmark.style.animation =
+        'checkboxIndetToPath 300ms cubic-bezier(0.07, 0.24, 0.65, 0.99) normal';
+    }
+  }
 
   change = (_) => {};
   blur = (_) => {};
@@ -140,6 +186,9 @@ export class CheckboxComponent implements AfterViewInit {
   // writes the checkbox value
   writeValue(obj: boolean): void {
     this.checked = obj;
+    if (this.checked === false) {
+      this.pCheckboxIndeterminateChange.emit(false);
+    }
   }
 
   // register the changes
