@@ -13,6 +13,7 @@
 .p-select-parent-wrapper {
   display: flex;
   position: relative;
+  height: 19px;
 }
 
 .p-select-no-pointer-events {
@@ -48,9 +49,14 @@
   font-size: 14px;
   font-weight: 600;
   opacity: 0.75;
+  white-space: nowrap;
 }
 
 .p-select-disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.p-select-arrow {
+  font-size: 19px !important;
 }

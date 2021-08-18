@@ -72,6 +72,8 @@ export class SelectComponent implements OnInit, OnDestroy {
   })
   optButtons: any;
 
+  selectedOptionText: string;
+
   constructor() {}
 
   change = (_) => {};
@@ -113,7 +115,9 @@ export class SelectComponent implements OnInit, OnDestroy {
     this.menuOpen = true;
     this.setBackdrop();
     this.scrollOptToView();
-    this.setPositions();
+    setTimeout(() => {
+      this.setPositions();
+    }, 0);
   }
 
   closeMenu(): void {
@@ -242,29 +246,29 @@ export class SelectComponent implements OnInit, OnDestroy {
     } else {
       opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
     }
-    setTimeout(() => {
-      const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
-      menu.style.width =
-        fieldset.parentElement.parentElement.parentElement.offsetWidth + 'px';
-      const menuPos = this.getPositions(menu);
-      const optPos = this.getPositions(opt);
-      const topPos =
-        fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height / 1.3;
-      const leftPos = fieldPos.left - 16;
+    const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
+    menu.style.width =
+      fieldset.parentElement.parentElement.parentElement.offsetWidth +
+      24 +
+      'px';
+    const menuPos = this.getPositions(menu);
+    const optPos = this.getPositions(opt);
+    const topPos =
+      fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height / 1.3;
+    const leftPos = fieldPos.left - 12;
 
-      menu.style.left = leftPos + 'px';
+    menu.style.left = leftPos + 'px';
 
-      if (topPos < 0) {
-        menu.style.top = '0px';
-      } else if (topPos + menuPos.height > window.innerHeight) {
-        menu.style.top = fieldPos.top - menuPos.height + 'px';
-      } else if (topPos > window.innerHeight) {
-        menu.style.top = null;
-        menu.style.bottom = '0px';
-      } else {
-        menu.style.top = topPos + 'px';
-      }
-    }, 0);
+    if (topPos < 0) {
+      menu.style.top = '0px';
+    } else if (topPos + menuPos.height > window.innerHeight) {
+      menu.style.top = fieldPos.top - menuPos.height + 'px';
+    } else if (topPos > window.innerHeight) {
+      menu.style.top = null;
+      menu.style.bottom = '0px';
+    } else {
+      menu.style.top = topPos + 'px';
+    }
   }
 
   getPositions(element: any): DOMRect {

@@ -109,7 +109,7 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  variab = '';
+  variab = 'opt1';
   vev = '';
 
   arr = [];

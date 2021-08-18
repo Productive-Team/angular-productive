@@ -1,13 +1,25 @@
 <div [class]="pSelectDisabled ? 'p-select-parent-wrapper p-select-disabled' : 'p-select-parent-wrapper'"
   (click)="openMenu()">
+  <!-- <div class="p-select-option-text">
+    <div class="p-select-value">
+      <span class="p-select-value-text">
+        <span>
+          {{selectedOptionText}}
+        </span>
+      </span>
+    </div>
+    <div class="p-select-arrow-wrapper">
+      <div class="p-select-arrow"></div>
+    </div>
+  </div> -->
   <input type="text" #input pInput readonly style="user-select: none; cursor: pointer;" [disabled]="pSelectDisabled"
     (focus)="openMenu()">
-  <ng-container p-suffix *ngIf="selectedTotal > 0 && pSelectMultiple">
+  <ng-container *ngIf="selectedTotal > 0 && pSelectMultiple">
     <span class="p-select-multiple-total">
       (+{{selectedTotal}} {{selectedTotal > 1 ? 'others':'other'}})
     </span>
   </ng-container>
-  <p-icon p-suffix>arrow_drop_down</p-icon>
+  <p-icon class="p-select-arrow">arrow_drop_down</p-icon>
   <!-- <p-fieldset [pFieldsetLabelText]="pSelectLabel" [pFieldsetAppearence]="pSelectAppearence" class="select-input-wrap"
     (click)="openMenu()">
     <p-icon p-suffix>arrow_drop_down</p-icon>

@@ -1,3 +1,4 @@
+import { SelectComponent } from './../select/select.component';
 import {
   AfterContentInit,
   Component,
@@ -31,7 +32,6 @@ export class InputDirective {
       .parentElement as HTMLInputElement;
     input.classList.remove('focused');
     const inputFil = this.el.nativeElement as HTMLInputElement;
-    console.log(inputFil);
     const label = this.el.nativeElement.nextSibling
       .firstChild as HTMLSpanElement;
     if (
@@ -135,9 +135,7 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
 
   hasValue(): boolean {
-    const input = this.el.nativeElement.querySelector(
-      'input'
-    ) as HTMLInputElement;
+    const input = this.el.nativeElement.querySelector('input');
     if (input.value.length > 0) {
       return true;
     } else {
