@@ -1,6 +1,6 @@
 <div style="width: 300px;">
   <p-fieldset [pFieldsetLabelText]="'Select'">
-    <p-select [(pSelectValue)]="variab" multiple search [pSelectAllInput]="true" [pSelectDisabled]="ses" pInput>
+    <p-select [(pSelectValue)]="variab" [pSelectDisabled]="ses" pInput>
       <ng-container search-input>
         <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
       </ng-container>

@@ -96,7 +96,11 @@ export class SelectComponent implements OnInit, OnDestroy {
     this.pSelectValue = obj;
     setTimeout(() => {
       if (obj) {
-        this.checkToSelectSingle(obj);
+        if (!this.pSelectMultiple) {
+          this.checkToSelectSingle(obj);
+        } else {
+          this.checkToSelectMultiple(obj);
+        }
       }
     }, 0);
   }
@@ -246,16 +250,13 @@ export class SelectComponent implements OnInit, OnDestroy {
     } else {
       opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
     }
+    const leftPos = fieldPos.left - 12;
     const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
-    menu.style.width =
-      fieldset.parentElement.parentElement.parentElement.offsetWidth +
-      24 +
-      'px';
+    menu.style.width = fieldset.offsetWidth + 48 + 'px';
     const menuPos = this.getPositions(menu);
     const optPos = this.getPositions(opt);
     const topPos =
-      fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height / 1.3;
-    const leftPos = fieldPos.left - 12;
+      fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height + 19;
 
     menu.style.left = leftPos + 'px';
 
