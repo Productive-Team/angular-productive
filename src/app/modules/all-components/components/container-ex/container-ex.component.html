@@ -1,25 +1,8 @@
-<div style="width: 300px;">
-  <p-fieldset [pFieldsetLabelText]="'Select'">
-    <p-select [(pSelectValue)]="variab" [pSelectDisabled]="ses" pInput>
-      <ng-container search-input>
-        <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
-      </ng-container>
-      <p-option *ngFor="let opt of arr" [value]="opt.value">{{opt.name}}</p-option>
-    </p-select>
-  </p-fieldset>
-  <span>
-    Value:
-    <b>
-      {{variab}}
-    </b>
-  </span>
-</div>
-
-<div style="width: calc(100% - 80%);">
+<!-- <div style="width: calc(100% - 80%);">
   <p-fieldset pFieldsetLabelText="text">
-    <input type="text" pInput>
+    <input type="text" pInput [disabled]="ses">
   </p-fieldset>
-</div>
+</div> -->
 
 <p-checkbox pCheckboxLabel="Disabled" [(ngModel)]="ses"></p-checkbox>
 <br>
@@ -34,6 +17,19 @@
   </button>
 </div>
 
-<div>
-  <p-checkbox></p-checkbox>
+<div style="width: 300px;">
+  <p-fieldset [pFieldsetLabelText]="'Select'" [pFieldsetValidate]="true">
+    <p-select [(pSelectValue)]="variab" [disabled]="ses" required>
+      <ng-container search-input>
+        <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
+      </ng-container>
+      <p-option *ngFor="let opt of arr" [value]="opt.value">{{opt.name}}</p-option>
+    </p-select>
+  </p-fieldset>
+  <span>
+    Value:
+    <b>
+      {{variab}}
+    </b>
+  </span>
 </div>

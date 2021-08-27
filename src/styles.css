@@ -712,13 +712,14 @@ a.btn-large {
 }
 
 .disabled .input-wrapper {
-  background-color: #868686;
+  background-color: #e0e0e0;
+  opacity: 0.8;
   border: none;
   pointer-events: none;
 }
 
 .disabled .input-wrapper.classic {
-  border-style: dotted;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
   pointer-events: none;
 }
 
@@ -830,7 +831,7 @@ a.btn-large {
 .p-input-bar {
   position: relative;
   border-bottom: 2px solid var(--primary);
-  width: 50%;
+  width: 40%;
   bottom: 2px;
   transform: translateX(-50%);
   left: 50%;
@@ -1637,6 +1638,7 @@ a.btn-large {
 
 /* #region Select */
 .p-select {
+  display: inline-block;
   position: fixed;
   top: 0;
   background-color: var(--appBackgroundColor);
@@ -1647,6 +1649,7 @@ a.btn-large {
   box-sizing: border-box;
   z-index: 999;
   overflow: auto;
+  transition: none;
 }
 
 .p-select button {
@@ -1660,7 +1663,8 @@ a.btn-large {
   text-align: start;
   outline: none;
   cursor: pointer;
-  transition: all 250ms ease;
+  transition: 250ms ease;
+  user-select: none !important;
 }
 .p-select button:hover {
   background-color: rgb(240, 240, 240);

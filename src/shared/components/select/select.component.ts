@@ -16,10 +16,16 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const menuAnim = trigger('menuAnimation', [
   transition(':enter', [
-    style({ opacity: 0, transform: 'scaleY(0.9)' }),
+    style({
+      opacity: 0,
+      transform: 'scaleY(0.9)',
+    }),
     animate(
       '150ms cubic-bezier(.1,.5,.65,.99)',
-      style({ opacity: 1, transform: 'scaleY(1)' })
+      style({
+        opacity: 1,
+        transform: 'scaleY(1)',
+      })
     ),
   ]),
   transition(':leave', [
@@ -46,7 +52,7 @@ export class SelectComponent implements OnInit, OnDestroy {
 
   pSelectMultiple: boolean;
   pSelectAllInput: boolean;
-  @Input() pSelectDisabled: boolean;
+  @Input('disabled') pSelectDisabled = false;
 
   pSelectSearch: boolean;
 
@@ -73,6 +79,8 @@ export class SelectComponent implements OnInit, OnDestroy {
   optButtons: any;
 
   selectedOptionText: string;
+
+  postionStyle: string;
 
   constructor() {}
 
@@ -147,10 +155,12 @@ export class SelectComponent implements OnInit, OnDestroy {
     this.checkToSelectSingle(value);
     this.pSelectValueChange.emit(value);
     this.change(value);
+    this.selectInput.nativeElement.closest('.fieldset').parentElement.click();
     this.closeMenu();
   }
 
   setMultipleValue(value: any) {
+    this.checkToSelectMultiple(value);
     this.pSelectValueChange.emit(value);
     this.change(value);
   }
@@ -161,11 +171,13 @@ export class SelectComponent implements OnInit, OnDestroy {
     });
     const component = this.optButtons._results.find((x) => x.value === value);
     this.selectedOption = component;
-    if (component) {
+    if (component && value.length > 0) {
       const elementComp = component.el.nativeElement
         .firstChild as HTMLButtonElement;
       this.selectInput.nativeElement.value = elementComp.textContent;
       component.selected = true;
+    } else {
+      this.selectInput.nativeElement.value = '';
     }
   }
 
@@ -242,34 +254,74 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   setPositions(): void {
-    const fieldset = this.selectInput.nativeElement as HTMLInputElement;
-    const fieldPos = this.getPositions(fieldset);
-    let opt;
+    let styleStr = '';
+
+    const input = this.selectInput.nativeElement as HTMLInputElement;
+    const inputPositions = this.getPositions(input);
+
+    let selectedOpt;
     if (!this.selectedOption) {
-      opt = this.optButtons._results[0].el.nativeElement.firstChild;
+      selectedOpt = this.optButtons._results[0].el.nativeElement
+        .firstChild as HTMLElement;
     } else {
-      opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
+      selectedOpt = this.selectedOption.el.nativeElement
+        .firstChild as HTMLElement;
     }
-    const leftPos = fieldPos.left - 12;
-    const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
-    menu.style.width = fieldset.offsetWidth + 48 + 'px';
-    const menuPos = this.getPositions(menu);
-    const optPos = this.getPositions(opt);
-    const topPos =
-      fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height + 19;
 
-    menu.style.left = leftPos + 'px';
+    let topPosition =
+      inputPositions.top - (selectedOpt.offsetHeight - input.offsetHeight) / 2;
 
-    if (topPos < 0) {
-      menu.style.top = '0px';
-    } else if (topPos + menuPos.height > window.innerHeight) {
-      menu.style.top = fieldPos.top - menuPos.height + 'px';
-    } else if (topPos > window.innerHeight) {
-      menu.style.top = null;
-      menu.style.bottom = '0px';
-    } else {
-      menu.style.top = topPos + 'px';
+    if (topPosition < 0) {
+      topPosition = 0;
     }
+    // const a = this.getPositions(selectedOpt);
+
+    // const b = this.getPositions(this.selectMenu.nativeElement);
+
+    // console.log(a, inputPositions);
+
+    // const translate = Math.round(
+    //   Math.abs(selectedOpt.offsetTop - inputPositions.top)
+    // );
+
+    // needs to adjust positioning to match button's position when scrolled.
+    // since the button's offsetTop is being based on the scrolling parent, instead of the document window
+
+    styleStr = `
+    top: ${topPosition}px; left: ${inputPositions.left - 12}px; width: ${
+      inputPositions.width + 48
+    }px; `;
+
+    this.postionStyle = styleStr;
+
+    // const fieldset = this.selectInput.nativeElement as HTMLInputElement;
+    // const fieldPos = this.getPositions(fieldset);
+    // let opt;
+    // if (!this.selectedOption) {
+    //   opt = this.optButtons._results[0].el.nativeElement.firstChild;
+    // } else {
+    //   opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
+    // }
+    // const leftPos = fieldPos.left - 12;
+    // const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
+    // menu.style.width = fieldset.offsetWidth + 48 + 'px';
+    // const menuPos = this.getPositions(menu);
+    // const optPos = this.getPositions(opt);
+    // const topPos =
+    //   fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height + 19;
+
+    // menu.style.left = leftPos + 'px';
+
+    // if (topPos < 0) {
+    //   menu.style.top = '0px';
+    // } else if (topPos + menuPos.height > window.innerHeight) {
+    //   menu.style.top = fieldPos.top - menuPos.height + 'px';
+    // } else if (topPos > window.innerHeight) {
+    //   menu.style.top = null;
+    //   menu.style.bottom = '0px';
+    // } else {
+    //   menu.style.top = topPos + 'px';
+    // }
   }
 
   getPositions(element: any): DOMRect {

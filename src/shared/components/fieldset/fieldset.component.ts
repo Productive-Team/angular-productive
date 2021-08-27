@@ -144,13 +144,23 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
 
   @HostListener('click', ['$event']) focused(event) {
-    const target = event.target;
-    const input = this.el.nativeElement.querySelector('input');
+    const input = this.el.nativeElement.querySelector(
+      'input'
+    ) as HTMLInputElement;
+    const tgt = event.target.parentElement as HTMLElement;
     if (
-      target.classList.contains('input-wrapper') ||
-      target.classList.contains('form-input')
+      !tgt.classList.contains('suffix') &&
+      !tgt.classList.contains('prefix')
     ) {
       input.focus();
+      const wrap = this.el.nativeElement.firstChild.firstChild
+        .firstChild as HTMLDivElement;
+      if (input === document.activeElement) {
+        wrap.classList.add('focused');
+      }
+      input.addEventListener('blur', () => {
+        wrap.classList.remove('focused');
+      });
     }
   }
 
@@ -165,6 +175,13 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
   @HostBinding('class.disabled')
   get getDisabled() {
-    return this.disabled;
+    const input = this.el.nativeElement.querySelector(
+      'input'
+    ) as HTMLInputElement;
+    if (input.disabled) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

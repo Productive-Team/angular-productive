@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControlName, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormControlName,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-container-ex',
@@ -84,6 +89,10 @@ export class ContainerExComponent implements OnInit {
 
   optionArr = [
     {
+      value: null,
+      name: '--none--',
+    },
+    {
       value: 'opt1',
       name: 'Option 1',
     },
@@ -109,7 +118,7 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  variab = 'opt1';
+  variab = '';
   vev = '';
 
   arr = [];
@@ -164,7 +173,7 @@ export class ContainerExComponent implements OnInit {
   fotmini(model: Test) {
     this.fof = new FormGroup({
       pass: new FormControl(model.pass),
-      sel: new FormControl(model.sel),
+      sel: new FormControl(model.sel, Validators.required),
     });
   }
 
