@@ -85,12 +85,12 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
 
   public seedMessages(): void {
     this.Errors[this.required] = (obj: FieldsetComponent) =>
-      `O campo '${obj.labelText}' é obrigatório`;
+      `The field '${obj.labelText}' is required`;
     this.Errors[this.maxlengthValid] = (obj: FieldsetComponent) =>
-      `O campo '${obj.labelText}' excedeu o limite de caracteres`;
+      `The field '${obj.labelText}' exceeded the character limit`;
     this.Errors[this.minlengthValid] = (obj: FieldsetComponent) =>
-      `O campo '${obj.labelText}' não atingiu o mínimo de caracteres`;
-    this.Errors[this.email] = (obj: FieldsetComponent) => `E-mail inválido`;
+      `The field '${obj.labelText}' didn't achieve the minimum length`;
+    this.Errors[this.email] = (obj: FieldsetComponent) => `Invalid e-mail`;
   }
 
   ngOnInit(): void {
@@ -135,7 +135,10 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
 
   hasValue(): boolean {
-    const input = this.el.nativeElement.querySelector('input');
+    let input = this.el.nativeElement.querySelector('input');
+    if (input === null) {
+      input = this.el.nativeElement.querySelector('select');
+    }
     if (input.value.length > 0) {
       return true;
     } else {
@@ -144,9 +147,12 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
 
   @HostListener('click', ['$event']) focused(event) {
-    const input = this.el.nativeElement.querySelector(
+    let input = this.el.nativeElement.querySelector(
       'input'
     ) as HTMLInputElement;
+    if (input === null) {
+      input = this.el.nativeElement.querySelector('select');
+    }
     const tgt = event.target.parentElement as HTMLElement;
     if (
       !tgt.classList.contains('suffix') &&
@@ -175,9 +181,12 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
   @HostBinding('class.disabled')
   get getDisabled() {
-    const input = this.el.nativeElement.querySelector(
+    let input = this.el.nativeElement.querySelector(
       'input'
     ) as HTMLInputElement;
+    if (input === null) {
+      input = this.el.nativeElement.querySelector('select') as HTMLInputElement;
+    }
     if (input.disabled) {
       return true;
     } else {

@@ -18,13 +18,14 @@ const menuAnim = trigger('menuAnimation', [
   transition(':enter', [
     style({
       opacity: 0,
-      transform: 'scaleY(0.9) translateY(0)',
+      // transform: 'scaleY(0.9)',
+      transformOrigin: '50% 0px 0px',
     }),
     animate(
       '150ms cubic-bezier(.1,.5,.65,.99)',
       style({
         opacity: 1,
-        transform: 'scaleY(1) translateY(0)',
+        // transform: 'scaleY(1)',
       })
     ),
   ]),
@@ -81,6 +82,8 @@ export class SelectComponent implements OnInit, OnDestroy {
   selectedOptionText: string;
 
   postionStyle: string;
+
+  public transformOrigin = '50% 0px 0px';
 
   constructor() {}
 
@@ -269,58 +272,42 @@ export class SelectComponent implements OnInit, OnDestroy {
     }
 
     const select = this.selectMenu.nativeElement.firstChild as HTMLInputElement;
-    const a = this.getPositions(selectedOpt);
-    const b = this.getPositions(select);
-    const translate = Math.round(Math.abs(selectedOpt.offsetHeight));
-    console.log(input.offsetTop);
+
     let topPosition =
       inputPositions.top - (selectedOpt.offsetHeight - input.offsetHeight) / 2;
-    let topPositioning = selectedOpt.offsetTop;
-    if (topPosition < 0) {
+
+    let topPositioning = Math.abs(selectedOpt.offsetTop - select.scrollTop);
+
+    const topValue = topPosition - topPositioning;
+    let topString = `top: ${topPosition}px;`;
+    if (topValue < 0) {
       topPosition = 0;
-    }
-    if (topPosition > 100) {
-      topPositioning = topPositioning - select.scrollTop;
+      topPositioning = 0;
+    } else if (topValue + select.offsetHeight > window.innerHeight) {
+      topPosition = topPosition - select.offsetHeight;
+      if (topPosition < 0) {
+        topPosition = 0;
+      }
+      topPositioning = 0;
+      topString = `top: ${topPosition}px;`;
+    } else if (topValue > window.innerHeight) {
+      topPosition = 0;
+      topString = `bottom: ${topPosition}px;`;
     }
 
-    styleStr = `
-    top: ${topPosition}px; left: ${inputPositions.left - 12}px; width: ${
-      inputPositions.width + 48
-    }px; transform: scaleY(1) translateY(-${topPositioning}px);`;
+    styleStr =
+      topString +
+      `
+     left: ${inputPositions.left - 12}px; width: ${
+        inputPositions.width + 48
+      }px; transform: scaleY(1) translateY(-${topPositioning}px); bottom: ${
+        topValue > window.innerHeight ? topPosition : null
+      };`;
 
     this.postionStyle = styleStr;
-
-    // const fieldset = this.selectInput.nativeElement as HTMLInputElement;
-    // const fieldPos = this.getPositions(fieldset);
-    // let opt;
-    // if (!this.selectedOption) {
-    //   opt = this.optButtons._results[0].el.nativeElement.firstChild;
-    // } else {
-    //   opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
-    // }
-    // const leftPos = fieldPos.left - 12;
-    // const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
-    // menu.style.width = fieldset.offsetWidth + 48 + 'px';
-    // const menuPos = this.getPositions(menu);
-    // const optPos = this.getPositions(opt);
-    // const topPos =
-    //   fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height + 19;
-
-    // menu.style.left = leftPos + 'px';
-
-    // if (topPos < 0) {
-    //   menu.style.top = '0px';
-    // } else if (topPos + menuPos.height > window.innerHeight) {
-    //   menu.style.top = fieldPos.top - menuPos.height + 'px';
-    // } else if (topPos > window.innerHeight) {
-    //   menu.style.top = null;
-    //   menu.style.bottom = '0px';
-    // } else {
-    //   menu.style.top = topPos + 'px';
-    // }
   }
 
-  getPositions(element: any): DOMRect {
+  private getPositions(element: any): DOMRect {
     return element.getBoundingClientRect();
   }
 

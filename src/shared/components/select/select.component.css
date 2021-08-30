@@ -56,8 +56,3 @@
   opacity: 0.5;
   pointer-events: none;
 }
-
-.p-select-arrow {
-  font-size: 19px !important;
-  pointer-events: none;
-}

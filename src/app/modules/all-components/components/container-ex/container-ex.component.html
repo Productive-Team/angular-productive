@@ -26,7 +26,7 @@
       <ng-container search-input>
         <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
       </ng-container>
-      <p-option *ngFor="let opt of arr" [value]="opt.value">{{opt.name}}</p-option>
+      <p-option *ngFor="let opt of states" [value]="opt">{{opt}}</p-option>
     </p-select>
   </p-fieldset>
   <span>
@@ -35,4 +35,9 @@
       {{variab}}
     </b>
   </span>
+  <p-fieldset [pFieldsetLabelText]="'Native Select'">
+    <select pInput>
+      <option *ngFor="let opt of arr" [value]="opt.value">{{opt.name}}</option>
+    </select>
+  </p-fieldset>
 </div>
