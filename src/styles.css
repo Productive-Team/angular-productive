@@ -1649,7 +1649,7 @@ a.btn-large {
   box-sizing: border-box;
   z-index: 999;
   overflow: auto;
-  transition: none;
+  transition: 300ms;
 }
 
 .p-select button {

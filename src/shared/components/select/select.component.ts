@@ -18,13 +18,13 @@ const menuAnim = trigger('menuAnimation', [
   transition(':enter', [
     style({
       opacity: 0,
-      transform: 'scaleY(0.9)',
+      transform: 'scaleY(0.9) translateY(0)',
     }),
     animate(
       '150ms cubic-bezier(.1,.5,.65,.99)',
       style({
         opacity: 1,
-        transform: 'scaleY(1)',
+        transform: 'scaleY(1) translateY(0)',
       })
     ),
   ]),
@@ -268,29 +268,25 @@ export class SelectComponent implements OnInit, OnDestroy {
         .firstChild as HTMLElement;
     }
 
+    const select = this.selectMenu.nativeElement.firstChild as HTMLInputElement;
+    const a = this.getPositions(selectedOpt);
+    const b = this.getPositions(select);
+    const translate = Math.round(Math.abs(selectedOpt.offsetHeight));
+    console.log(input.offsetTop);
     let topPosition =
       inputPositions.top - (selectedOpt.offsetHeight - input.offsetHeight) / 2;
-
+    let topPositioning = selectedOpt.offsetTop;
     if (topPosition < 0) {
       topPosition = 0;
     }
-    // const a = this.getPositions(selectedOpt);
-
-    // const b = this.getPositions(this.selectMenu.nativeElement);
-
-    // console.log(a, inputPositions);
-
-    // const translate = Math.round(
-    //   Math.abs(selectedOpt.offsetTop - inputPositions.top)
-    // );
-
-    // needs to adjust positioning to match button's position when scrolled.
-    // since the button's offsetTop is being based on the scrolling parent, instead of the document window
+    if (topPosition > 100) {
+      topPositioning = topPositioning - select.scrollTop;
+    }
 
     styleStr = `
     top: ${topPosition}px; left: ${inputPositions.left - 12}px; width: ${
       inputPositions.width + 48
-    }px; `;
+    }px; transform: scaleY(1) translateY(-${topPositioning}px);`;
 
     this.postionStyle = styleStr;
 

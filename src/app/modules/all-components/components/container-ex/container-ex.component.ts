@@ -17,7 +17,7 @@ export class ContainerExComponent implements OnInit {
   inv = false;
 
   selec = 'val1';
-  ses = '';
+  ses = false;
 
   dateStr: string;
 
@@ -88,10 +88,10 @@ export class ContainerExComponent implements OnInit {
   };
 
   optionArr = [
-    {
-      value: null,
-      name: '--none--',
-    },
+    // {
+    //   value: null,
+    //   name: '--none--',
+    // },
     {
       value: 'opt1',
       name: 'Option 1',

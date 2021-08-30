@@ -1,6 +1,9 @@
 <!-- <div style="width: calc(100% - 80%);">
-  <p-fieldset pFieldsetLabelText="text">
-    <input type="text" pInput [disabled]="ses">
+  <p-fieldset pFieldsetLabelText="Senha" pFieldsetAppearence="outlined">
+    <input [type]="ses ? 'text' : 'password'" pInput>
+    <button class="btn fab flat" pRipple [pRippleCentered]="true" p-suffix (click)="ses = !ses">
+      <p-icon>{{ses ? 'visibility' : 'visibility_off'}}</p-icon>
+    </button>
   </p-fieldset>
 </div> -->
 
@@ -17,7 +20,7 @@
   </button>
 </div>
 
-<div style="width: 300px;">
+<div style="width: calc(100% - 80%);">
   <p-fieldset [pFieldsetLabelText]="'Select'" [pFieldsetValidate]="true">
     <p-select [(pSelectValue)]="variab" [disabled]="ses" required>
       <ng-container search-input>
