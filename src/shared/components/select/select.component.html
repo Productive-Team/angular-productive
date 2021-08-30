@@ -8,7 +8,7 @@
   </ng-container>
   <p-icon class="p-select-arrow">arrow_drop_down</p-icon>
   <div class="p-select-wrapper" #menu>
-    <div class="p-select elevation" *ngIf="menuOpen && !pSelectDisabled" @menuAnimation [style]="postionStyle">
+    <div class="p-select" *ngIf="menuOpen && !pSelectDisabled" @menuAnimation [style]="postionStyle">
       <div class="p-select-header">
         <div class="p-select-search" *ngIf="pSelectSearch">
           <ng-content select="[search-input]"></ng-content>
@@ -19,7 +19,7 @@
           </p-checkbox>
         </div>
       </div>
-      <div class="p-select-content">
+      <div class="p-select-content elevation">
         <ng-content></ng-content>
       </div>
     </div>

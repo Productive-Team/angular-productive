@@ -149,7 +149,6 @@ export class CheckboxComponent implements AfterViewInit {
 
   @HostListener('change', ['$event.target'])
   addAnim(event): void {
-    console.log(this.checked);
     const checkmark = this.checkMark.nativeElement as HTMLElement;
     if (this.checked && this.pCheckboxIndeterminate) {
       checkmark.style.animation =

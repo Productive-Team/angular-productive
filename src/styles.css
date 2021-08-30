@@ -1638,9 +1638,10 @@ a.btn-large {
 /* #endregion Icon */
 
 /* #region Select */
-.p-select-parent {
+.p-select-parent-wrapper {
   display: flex;
-  position: absolute;
+  position: relative;
+  height: 19px;
 }
 
 .p-select {
@@ -1648,14 +1649,10 @@ a.btn-large {
   position: fixed;
   top: 0;
   background-color: var(--appBackgroundColor);
-  border-radius: 5px;
-  max-height: 250px;
   padding: 0;
-  max-width: 350px;
+  border-radius: 5px;
   box-sizing: border-box;
   z-index: 999;
-  overflow: auto;
-  animation: enterAnim 150ms cubic-bezier(0.1, 0.5, 0.65, 0.99);
 }
 
 .p-select button {
@@ -1674,6 +1671,14 @@ a.btn-large {
 }
 .p-select button:hover {
   background-color: rgb(240, 240, 240);
+}
+
+.p-select-content {
+  border-radius: 5px;
+  max-height: 250px;
+  overflow: auto;
+  transform-origin: inherit;
+  animation: enterAnim 150ms cubic-bezier(0.1, 0.5, 0.65, 0.99);
 }
 
 .p-select-search input {
@@ -1699,10 +1704,10 @@ a.btn-large {
 
 @keyframes enterAnim {
   0% {
-    scale: 0.95;
+    transform: scaleY(0.85);
   }
   100% {
-    scale: 1;
+    transform: scaleY(1);
   }
 }
 /* #endregion Select */

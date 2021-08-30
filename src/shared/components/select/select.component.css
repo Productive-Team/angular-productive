@@ -10,12 +10,6 @@
   background-color: var(--appBackgroundColor);
 }
 
-.p-select-parent-wrapper {
-  display: flex;
-  position: relative;
-  height: 19px;
-}
-
 .p-select-no-pointer-events {
   pointer-events: none;
 }

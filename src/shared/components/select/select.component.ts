@@ -18,14 +18,13 @@ const menuAnim = trigger('menuAnimation', [
   transition(':enter', [
     style({
       opacity: 0,
-      // transform: 'scaleY(0.9)',
-      transformOrigin: '50% 0px 0px',
+      // scale: '0.85',
     }),
     animate(
       '150ms cubic-bezier(.1,.5,.65,.99)',
       style({
         opacity: 1,
-        // transform: 'scaleY(1)',
+        // scale: '1',
       })
     ),
   ]),
@@ -53,7 +52,7 @@ export class SelectComponent implements OnInit, OnDestroy {
 
   pSelectMultiple: boolean;
   pSelectAllInput: boolean;
-  @Input('disabled') pSelectDisabled = false;
+  @Input('disabled') pSelectDisabled: boolean;
 
   pSelectSearch: boolean;
 
@@ -259,9 +258,11 @@ export class SelectComponent implements OnInit, OnDestroy {
   setPositions(): void {
     let styleStr = '';
 
+    // Get the input and the input positions
     const input = this.selectInput.nativeElement as HTMLInputElement;
     const inputPositions = this.getPositions(input);
 
+    // Gets the selected or first option in the list
     let selectedOpt;
     if (!this.selectedOption) {
       selectedOpt = this.optButtons._results[0].el.nativeElement
@@ -271,14 +272,30 @@ export class SelectComponent implements OnInit, OnDestroy {
         .firstChild as HTMLElement;
     }
 
-    const select = this.selectMenu.nativeElement.firstChild as HTMLInputElement;
+    // Gets the select content
+    // <div class="p-select-content"></div>
 
+    const select = this.selectMenu.nativeElement.firstChild.firstChild
+      .nextSibling as HTMLDivElement;
+
+    // Calculates the top distance in pixels, by subtracting the offsetHeight of the
+    // selected option and the input, diving the result by two, and then subtracting
+    // the DOMRect top from the input by the result of the division
     let topPosition =
       inputPositions.top - (selectedOpt.offsetHeight - input.offsetHeight) / 2;
 
+    // Calculates the positioning the menu needs to translate backwards via transform.
+    // This is done by subtracting the offsetTop of the selected option by the scrollTop value
+    // of the p-select-content div, which scrolls
     let topPositioning = Math.abs(selectedOpt.offsetTop - select.scrollTop);
 
+    // By subtracting the two values above you will find the real distance between the menu
+    // and the top of the viewport
     const topValue = topPosition - topPositioning;
+
+    // Calculates the transform origin
+    select.style.transformOrigin = `50% ${topPositioning + 9}px 0px`;
+
     let topString = `top: ${topPosition}px;`;
     if (topValue < 0) {
       topPosition = 0;
@@ -302,7 +319,7 @@ export class SelectComponent implements OnInit, OnDestroy {
         inputPositions.width + 48
       }px; transform: scaleY(1) translateY(-${topPositioning}px); bottom: ${
         topValue > window.innerHeight ? topPosition : null
-      };`;
+      }; `;
 
     this.postionStyle = styleStr;
   }
