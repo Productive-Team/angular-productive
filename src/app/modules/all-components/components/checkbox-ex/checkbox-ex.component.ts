@@ -10,6 +10,8 @@ export class CheckboxExComponent implements OnInit {
   indet = false;
   chck = false;
 
+  labelDir = 'right';
+
   child = [
     {
       label: 'Item 1',

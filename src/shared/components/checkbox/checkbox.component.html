@@ -1,20 +1,21 @@
-<label [class]="pCheckboxDisabled ? 'checkbox-layout checkbox-layout-disabled' : 'checkbox-layout'" pRipple
-  pRippleCentered="true" [pRippleColor]="checked ? '' : this.rippleColor" [pRippleTriggerFor]="rippleCheckbox"
-  [pRippleDisabled]="!hasRipple">
-  <span class="checkbox-toggle" [style]="pCheckboxLabel ? 'margin-right: 8px;' : 'margin-right: 0px;'">
-    <input type="checkbox" id="{{pCheckboxId}}" [checked]="checked" (change)="onCheck($event)" (blur)="blur($event)"
-      [disabled]="pCheckboxDisabled" [(indeterminate)]="pCheckboxIndeterminate">
-    <span class=" checkbox-ripple" #rippleCheckbox></span>
-    <span class="checkbox-frame"></span>
-    <span class="checkbox-background"
-      [style]="pCheckboxColor ? 'background-color:' + pCheckboxColor + ';' : 'background-color: var(--primary);'">
-      <svg version="1.1" focusable="false" viewBox="0 0 24 24" xml:space="preserve" class="checkbox-mark">
-        <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3 " class="path" #checkmark></path>
+<label class="p-checkbox-wrapper" pRipple [pRippleCentered]="true" [pRippleTriggerFor]="ripple"
+  [pRippleColor]="pCheckboxChecked ?  '' : rippleColor">
+  <span class="p-checkbox-text-left" *ngIf="pCheckboxLabelPosition === 'left'">
+    {{pCheckboxLabel}}
+  </span>
+  <span class="p-checkbox-container">
+    <input type="checkbox" [checked]="pCheckboxChecked" [indeterminate]="pCheckboxIndeterminate"
+      [disabled]="pCheckboxDisabled" (change)="registerChecked($event)" (blur)="blur($event)">
+    <span class="p-checkbox-ripple" #ripple></span>
+    <span class="p-checkbox-frame"></span>
+    <span class="p-checkbox-background" #background>
+      <svg version="1.1" focusable="false" viewBox="0 0 24 24" xml:space="preserve">
+        <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3 " class="p-checkbox-mark" #checkMark></path>
       </svg>
-      <span class="checkbox-mixed" #mixed></span>
+      <div class="p-checkbox-indeterminate" #indetMark></div>
     </span>
   </span>
-  <span class="checkbox-text">
+  <span class="p-checkbox-text-right" *ngIf="pCheckboxLabelPosition === 'right'">
     {{pCheckboxLabel}}
   </span>
 </label>

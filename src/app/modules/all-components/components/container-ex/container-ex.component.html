@@ -7,10 +7,7 @@
   </p-fieldset>
 </div> -->
 
-<p-checkbox pCheckboxLabel="Disabled" [(ngModel)]="ses"></p-checkbox>
-<br>
-<br>
-
+<!-- <p-checkbox pCheckboxLabel="Disabled" [(ngModel)]="ses"></p-checkbox> -->
 <div>
   <button class="btn fab flat" pRipple pRippleCentered="true" pTooltip pTooltipText="Print" [pTooltipPosition]="'top'">
     <p-icon>print</p-icon>
@@ -21,13 +18,26 @@
 </div>
 
 <div style="width: calc(100% - 80%);">
-  <p-fieldset [pFieldsetLabelText]="'Select'" [pFieldsetValidate]="true">
+  <!-- <p-fieldset [pFieldsetLabelText]="'Select'" [pFieldsetValidate]="true">
     <p-select [(pSelectValue)]="variab" [disabled]="ses" required search #select>
       <ng-container search-input>
         <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
       </ng-container>
       <p-option *ngFor="let opt of arr" [value]="opt">{{opt}}</p-option>
     </p-select>
+  </p-fieldset> -->
+  <p-fieldset pFieldsetLabelText="Options">
+    <p-select [(pSelectValue)]="input">
+      <p-option value="filled">Filled</p-option>
+      <p-option value="outlined">Outlined</p-option>
+      <p-option value="classic">Classic</p-option>
+    </p-select>
+  </p-fieldset>
+  <p-fieldset pFieldsetLabelText="Senha" pFieldsetAppearence="{{input}}">
+    <input [type]="ses ? 'text' : 'password'" pInput>
+    <button class="btn fab flat" pRipple [pRippleCentered]="true" p-suffix (click)="ses = !ses">
+      <p-icon>{{ses ? 'visibility' : 'visibility_off'}}</p-icon>
+    </button>
   </p-fieldset>
   <!-- <p-fieldset [pFieldsetLabelText]="'Native Select'">
     <select pInput>
@@ -43,4 +53,11 @@
 </span>
 <br>
 <br>
-<app-checknew label="Checkbox" [indeterminate]="true"></app-checknew>
+<app-checkbox label="Indet" [(checked)]="indet" labelPosition="right">
+</app-checkbox>
+<br>
+<app-checkbox label="Checkbox" [(checked)]="checked" [(indeterminate)]="indet" labelPosition="left">
+</app-checkbox>
+<br>
+{{checked}}
+{{indet}}

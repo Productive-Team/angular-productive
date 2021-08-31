@@ -176,6 +176,11 @@ export class ContainerExComponent implements OnInit {
     'Wyoming',
   ];
 
+  indet = true;
+  checked = false;
+
+  input = 'filled';
+
   @ViewChild('select') testComp: any;
 
   constructor() {}

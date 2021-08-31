@@ -5,13 +5,20 @@
       <h5>Checkboxes are check</h5>
       <p-section>
         <ng-container section-content>
-          <p-checkbox pCheckboxId="Check" pCheckboxLabel="Checked" [(ngModel)]="chck"></p-checkbox>
-          <p-checkbox pCheckboxId="Indet" pCheckboxLabel="Indeterminate" [(ngModel)]="indet"></p-checkbox>
-          <p-checkbox pCheckboxId="Disa" pCheckboxLabel="Disabled" [(ngModel)]="dis"></p-checkbox>
+          <p-checkbox label="Checked" [(ngModel)]="chck"></p-checkbox>
+          <p-checkbox label="Indeterminate" [(ngModel)]="indet"></p-checkbox>
+          <p-checkbox label="Disabled" [(ngModel)]="dis"></p-checkbox>
           <br>
           <br>
-          <p-checkbox pCheckboxId="ex" pCheckboxLabel="Checkbox" [(ngModel)]="chck" [pCheckboxDisabled]="dis"
-            [(pCheckboxIndeterminate)]="indet">
+          <h6>Label Direction</h6>
+          <p-radio-group [(ngModel)]="labelDir" pRadioCollectionName="dir">
+            <p-radio-button pRadioValue="left">Left</p-radio-button>
+            <p-radio-button pRadioValue="right">Right</p-radio-button>
+          </p-radio-group>
+          <br>
+          <br>
+          <p-checkbox label="Checkbox" [(ngModel)]="chck" [disabled]="dis" [(indeterminate)]="indet"
+            [labelPosition]="labelDir">
           </p-checkbox>
         </ng-container>
       </p-section>
@@ -19,13 +26,13 @@
       <p-section>
         <ng-container section-content>
           <div>
-            <p-checkbox [pCheckboxChecked]="comp" pCheckboxLabel="Select All" [pCheckboxIndeterminate]="someComp()"
+            <p-checkbox [checked]="comp" label="Select All" [indeterminate]="someComp()"
               (change)="setAll($event.target.checked)">
             </p-checkbox>
             <div style="margin-left: 30px;">
               <div *ngFor="let check of child">
-                <p-checkbox [(ngModel)]="check.selected" pCheckboxLabel="{{check.label}}"
-                  pCheckboxColor="{{check.color}}" (ngModelChange)="areComp()">
+                <p-checkbox [(ngModel)]="check.selected" label="{{check.label}}" color="{{check.color}}"
+                  (ngModelChange)="areComp()">
                 </p-checkbox>
               </div>
             </div>
