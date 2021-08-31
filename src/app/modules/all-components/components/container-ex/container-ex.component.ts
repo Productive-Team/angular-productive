@@ -118,7 +118,7 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  variab = '';
+  variab = 'Delaware';
   vev = '';
 
   arr = [];
@@ -176,13 +176,13 @@ export class ContainerExComponent implements OnInit {
     'Wyoming',
   ];
 
-  @ViewChild('test') testComp: any;
+  @ViewChild('select') testComp: any;
 
   constructor() {}
 
   ngOnInit() {
     this.fotmini(this.ts);
-    this.arr = this.optionArr;
+    this.arr = this.states;
   }
 
   completes(ev) {
@@ -232,12 +232,10 @@ export class ContainerExComponent implements OnInit {
 
   search(): void {
     if (this.vev.length === 0) {
-      this.arr = this.optionArr;
+      this.arr = this.states;
     } else {
-      this.arr = this.optionArr.filter(
-        (x) =>
-          x.name.toUpperCase().includes(this.vev.toUpperCase()) ||
-          x.value.toUpperCase().includes(this.vev.toUpperCase())
+      this.arr = this.states.filter((x) =>
+        x.toUpperCase().includes(this.vev.toUpperCase())
       );
     }
     setTimeout(() => {

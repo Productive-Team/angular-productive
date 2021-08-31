@@ -62,6 +62,7 @@ import {
   SelectMultipleDirective,
   SelectSearchDirective,
 } from './components/select/select.component';
+import { ChecknewComponent } from './components/checknew/checknew.component';
 
 const components = [
   TableComponent,
@@ -91,6 +92,7 @@ const components = [
   RadioGroupComponent,
   SelectComponent,
   SelectOptionComponent,
+  ChecknewComponent,
 ];
 const directives = [
   RippleDirective,

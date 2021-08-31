@@ -1,12 +1,9 @@
-import { SelectComponent } from './../select/select.component';
 import {
   AfterContentInit,
   Component,
   ContentChild,
-  ContentChildren,
   Directive,
   ElementRef,
-  forwardRef,
   HostBinding,
   HostListener,
   Input,
@@ -139,10 +136,12 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
     if (input === null) {
       input = this.el.nativeElement.querySelector('select');
     }
-    if (input.value.length > 0) {
-      return true;
-    } else {
-      return false;
+    if (input.closest('.p-select-search') === null) {
+      if (input.value.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -187,10 +186,12 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
     if (input === null) {
       input = this.el.nativeElement.querySelector('select') as HTMLInputElement;
     }
-    if (input.disabled) {
-      return true;
-    } else {
-      return false;
+    if (input.closest('.p-select-search') === null) {
+      if (input.disabled) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }

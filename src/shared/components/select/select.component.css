@@ -15,7 +15,7 @@
 }
 
 .p-select-all-multiple {
-  padding: 0 1rem;
+  padding: 0 0.75em;
   display: flex;
   align-items: center;
   height: 48px;
@@ -26,7 +26,7 @@
   display: flex;
   align-items: center;
   height: 48px;
-  padding: 0 1rem;
+  padding: 0 0.75em;
   border-bottom: 1px solid rgb(233, 233, 233);
 }
 
@@ -44,6 +44,8 @@
   font-weight: 600;
   opacity: 0.75;
   white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 }
 
 .p-select-disabled {

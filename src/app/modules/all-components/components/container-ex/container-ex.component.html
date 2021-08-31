@@ -22,22 +22,25 @@
 
 <div style="width: calc(100% - 80%);">
   <p-fieldset [pFieldsetLabelText]="'Select'" [pFieldsetValidate]="true">
-    <p-select [(pSelectValue)]="variab" [disabled]="ses" required>
+    <p-select [(pSelectValue)]="variab" [disabled]="ses" required search #select>
       <ng-container search-input>
         <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
       </ng-container>
-      <p-option *ngFor="let opt of states" [value]="opt">{{opt}}</p-option>
+      <p-option *ngFor="let opt of arr" [value]="opt">{{opt}}</p-option>
     </p-select>
   </p-fieldset>
-  <span>
-    Value:
-    <b>
-      {{variab}}
-    </b>
-  </span>
-  <p-fieldset [pFieldsetLabelText]="'Native Select'">
+  <!-- <p-fieldset [pFieldsetLabelText]="'Native Select'">
     <select pInput>
-      <option *ngFor="let opt of arr" [value]="opt.value">{{opt.name}}</option>
+      <option *ngFor="let opt of arr" [value]="opt">{{opt}}</option>
     </select>
-  </p-fieldset>
+  </p-fieldset> -->
 </div>
+<span style="max-width: 50%;">
+  Value:
+  <b>
+    {{variab}}
+  </b>
+</span>
+<br>
+<br>
+<app-checknew label="Checkbox" [indeterminate]="true"></app-checknew>

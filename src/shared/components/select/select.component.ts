@@ -18,13 +18,11 @@ const menuAnim = trigger('menuAnimation', [
   transition(':enter', [
     style({
       opacity: 0,
-      // scale: '0.85',
     }),
     animate(
       '150ms cubic-bezier(.1,.5,.65,.99)',
       style({
         opacity: 1,
-        // scale: '1',
       })
     ),
   ]),
@@ -93,6 +91,7 @@ export class SelectComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.setToBody();
       this.checkToSelectSingle(this.pSelectValue);
+      this.checkToSelectMultiple(this.pSelectValue);
     }, 0);
   }
 
@@ -101,7 +100,6 @@ export class SelectComponent implements OnInit, OnDestroy {
     document.body.insertAdjacentElement('beforeend', menu);
   }
 
-  // writes the checkbox value
   writeValue(obj: any): void {
     this.pSelectValue = obj;
     setTimeout(() => {
@@ -115,17 +113,17 @@ export class SelectComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
-  // register the changes
   registerOnChange(fn: any): void {
     this.change = fn;
   }
 
-  // blurs the component
   registerOnTouched(fn: any): void {
     this.blur = fn;
   }
 
   openMenu(): void {
+    // TODO: Fix bug after filter query, it doesn't scroll the option to view and doesn't set the position
+    // even though it still recieves the option normally
     this.menuOpen = true;
     this.setBackdrop();
     this.scrollOptToView();
@@ -162,7 +160,6 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   setMultipleValue(value: any) {
-    this.checkToSelectMultiple(value);
     this.pSelectValueChange.emit(value);
     this.change(value);
   }
@@ -275,8 +272,8 @@ export class SelectComponent implements OnInit, OnDestroy {
     // Gets the select content
     // <div class="p-select-content"></div>
 
-    const select = this.selectMenu.nativeElement.firstChild.firstChild
-      .nextSibling as HTMLDivElement;
+    const select = this.selectMenu.nativeElement.firstChild
+      .firstChild as HTMLDivElement;
 
     // Calculates the top distance in pixels, by subtracting the offsetHeight of the
     // selected option and the input, diving the result by two, and then subtracting
@@ -296,6 +293,8 @@ export class SelectComponent implements OnInit, OnDestroy {
     // Calculates the transform origin
     select.style.transformOrigin = `50% ${topPositioning + 9}px 0px`;
 
+    const fieldset = this.getPositions(input.closest('.fieldset'));
+
     let topString = `top: ${topPosition}px;`;
     if (topValue < 0) {
       topPosition = 0;
@@ -312,12 +311,25 @@ export class SelectComponent implements OnInit, OnDestroy {
       topString = `bottom: ${topPosition}px;`;
     }
 
+    const inputDifferece = Math.round(fieldset.width - input.offsetWidth);
+
+    let leftPos = inputPositions.left - inputDifferece / 4;
+
+    let inputWidth = fieldset.width;
+
+    if (this.pSelectMultiple) {
+      leftPos = inputPositions.left - 40;
+      if (leftPos < 0) {
+        leftPos = 0;
+      }
+      inputWidth = fieldset.width + 40;
+    }
+
     styleStr =
       topString +
-      `
-     left: ${inputPositions.left - 12}px; width: ${
-        inputPositions.width + 48
-      }px; transform: scaleY(1) translateY(-${topPositioning}px); bottom: ${
+      `left: ${leftPos}px;` +
+      `width: ${inputWidth}px;` +
+      `transform: scaleY(1) translateY(-${topPositioning}px); bottom: ${
         topValue > window.innerHeight ? topPosition : null
       }; `;
 

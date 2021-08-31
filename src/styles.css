@@ -1648,10 +1648,9 @@ a.btn-large {
   display: inline-block;
   position: fixed;
   top: 0;
-  background-color: var(--appBackgroundColor);
   padding: 0;
-  border-radius: 5px;
   box-sizing: border-box;
+  background-color: transparent;
   z-index: 999;
 }
 
@@ -1674,11 +1673,11 @@ a.btn-large {
 }
 
 .p-select-content {
+  background-color: var(--appBackgroundColor);
   border-radius: 5px;
-  max-height: 250px;
+  max-height: 300px;
   overflow: auto;
-  transform-origin: inherit;
-  animation: enterAnim 150ms cubic-bezier(0.1, 0.5, 0.65, 0.99);
+  animation: enterAnim 180ms cubic-bezier(0.1, 0.5, 0.65, 0.99);
 }
 
 .p-select-search input {
@@ -1704,10 +1703,17 @@ a.btn-large {
 
 @keyframes enterAnim {
   0% {
-    transform: scaleY(0.85);
+    transform: scaleY(0.75);
   }
   100% {
     transform: scaleY(1);
   }
 }
 /* #endregion Select */
+
+/* #region Checkbox */
+.checkbox-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+/* #endregion Checkbox */

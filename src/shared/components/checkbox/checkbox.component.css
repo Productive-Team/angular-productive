@@ -1,5 +1,4 @@
 /* #region RegularCheckbox */
-/* container da checkbox (label embrulhando tudo) */
 .checkbox-layout {
   font-size: 16px;
   font-weight: 400;
@@ -7,7 +6,7 @@
   vertical-align: middle;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  margin: 0 15px;
+  margin: 0 1rem 0 0;
   transition: 0.1s linear;
 }
 
@@ -17,7 +16,6 @@
   cursor: default;
 }
 
-/* esconde o input checkbox padrão do browser */
 .checkbox-layout input {
   opacity: 0;
   bottom: -5px;
@@ -25,7 +23,6 @@
   position: absolute;
 }
 
-/* texto do span da checkbox */
 .checkbox-text {
   -webkit-user-drag: none;
   line-height: 25px;
@@ -33,7 +30,6 @@
   color: rgba(0, 0, 0, 0.87);
 }
 
-/* container do input da checkbox */
 .checkbox-toggle {
   display: inline-block;
   height: 16px;
@@ -46,7 +42,7 @@
   white-space: nowrap;
 }
 
-/* borda do container da checkbox */
+/* checkbox border */
 .checkbox-frame {
   border: 2px solid rgba(0, 0, 0, 0.54);
   top: 0;
@@ -59,7 +55,7 @@
   pointer-events: none;
 }
 
-/* container do efeito ripple */
+/* ripple container */
 .checkbox-ripple {
   position: absolute;
   left: calc(50% - 21px);
@@ -70,7 +66,6 @@
   pointer-events: none;
 }
 
-/* fundo da checkbox */
 .checkbox-background {
   top: 0;
   left: 0;
@@ -84,7 +79,6 @@
   transition: 0.18s ease 0s;
 }
 
-/* esconde a div de ripple quando esta desabilitado */
 .checkbox-layout input:checked:disabled ~ .checkbox-ripple,
 .checkbox-layout input:disabled ~ .checkbox-ripple,
 .checkbox-layout-switch
@@ -98,7 +92,6 @@
   display: none;
 }
 
-/* marca svg */
 .checkbox-mark {
   top: 0;
   left: 0;
@@ -115,7 +108,7 @@
   transform-origin: center;
 }
 
-/* icone da checkbox em indeterminado */
+/* indeterminate checkmark */
 .checkbox-mixed {
   position: absolute;
   top: 50%;
@@ -128,24 +121,20 @@
   opacity: 0;
 }
 
-/* path do svg */
 .checkbox-mark .path {
   stroke-dasharray: 70;
   stroke-dashoffset: 100;
   fill: none;
 }
 
-/* deixa o cinza da borda da checkbox mais claro quando esta desabilitada */
 .checkbox-layout input:disabled ~ .checkbox-frame {
   border-color: rgba(0, 0, 0, 0.3);
 }
 
-/* quando a checkbox é marcada aumenta a opacidade do fundo da checkbox */
 .checkbox-layout input:checked ~ .checkbox-background {
   opacity: 1;
 }
 
-/* transição da checkmark na checkbox */
 .checkbox-layout input:checked ~ .checkbox-background .checkbox-mark .path,
 .checkbox-layout
   input:checked:indeterminate

@@ -9,17 +9,17 @@
   <p-icon class="p-select-arrow">arrow_drop_down</p-icon>
   <div class="p-select-wrapper" #menu>
     <div class="p-select" *ngIf="menuOpen && !pSelectDisabled" @menuAnimation [style]="postionStyle">
-      <div class="p-select-header">
-        <div class="p-select-search" *ngIf="pSelectSearch">
-          <ng-content select="[search-input]"></ng-content>
-        </div>
-        <div class="p-select-all-multiple" *ngIf="pSelectMultiple && pSelectAllInput">
-          <p-checkbox [pCheckboxLabel]="allSelected ? 'Deselect All' : 'Select All'" [pCheckboxChecked]="allSelected"
-            [pCheckboxIndeterminate]="indeterminateSelected()" (change)="selectAll($event.target.checked)">
-          </p-checkbox>
-        </div>
-      </div>
       <div class="p-select-content elevation">
+        <div class="p-select-header">
+          <div class="p-select-search" *ngIf="pSelectSearch">
+            <ng-content select="[search-input]"></ng-content>
+          </div>
+          <div class="p-select-all-multiple" *ngIf="pSelectMultiple && pSelectAllInput">
+            <p-checkbox [pCheckboxLabel]="allSelected ? 'Deselect All' : 'Select All'" [pCheckboxChecked]="allSelected"
+              [pCheckboxIndeterminate]="indeterminateSelected()" (change)="selectAll($event.target.checked)">
+            </p-checkbox>
+          </div>
+        </div>
         <ng-content></ng-content>
       </div>
     </div>
