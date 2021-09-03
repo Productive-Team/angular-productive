@@ -67,7 +67,7 @@
 
 .p-checkbox-indeterminate {
   position: absolute;
-  width: calc(50% + 4px);
+  width: calc(40% + 4px);
   height: 2px;
   border-radius: 6px;
   top: 50%;
@@ -96,7 +96,7 @@ input:indeterminate ~ .p-checkbox-background .p-checkbox-mark {
     width: 10%;
   }
   100% {
-    width: calc(50% + 4px);
+    width: calc(40% + 4px);
   }
 }
 

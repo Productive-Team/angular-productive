@@ -5,7 +5,7 @@
   </span>
   <span class="p-checkbox-container">
     <input type="checkbox" [checked]="pCheckboxChecked" [indeterminate]="pCheckboxIndeterminate"
-      [disabled]="pCheckboxDisabled" (change)="registerChecked($event)" (blur)="blur($event)">
+      [disabled]="pCheckboxDisabled" (change)="registerChecked($event)" (blur)="blur($event)" #checkbox>
     <span class="p-checkbox-ripple" #ripple></span>
     <span class="p-checkbox-frame"></span>
     <span class="p-checkbox-background" #background>

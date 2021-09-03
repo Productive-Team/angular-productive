@@ -50,7 +50,6 @@ export class InputDirective {
 @Component({
   selector: 'app-fieldset, p-fieldset',
   templateUrl: './fieldset.component.html',
-  styleUrls: ['./fieldset.component.css'],
 })
 export class FieldsetComponent implements OnInit, AfterContentInit {
   @Input('pFieldsetLabelText') labelText: string;
@@ -117,7 +116,7 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
     this.field = this.control || this.model;
     if (this.field === undefined && this.inputValidate) {
       throw new Error(
-        'Esse componente precisa ser usado com uma diretiva NgModel ou FormControlName.'
+        'This component needs an NgModel or FormControlName directive to have proper validation.'
       );
     }
   }

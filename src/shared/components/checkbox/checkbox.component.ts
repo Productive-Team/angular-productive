@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -45,6 +44,7 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
   @ViewChild('checkMark') checkMark: ElementRef;
   @ViewChild('indetMark') indetMark: ElementRef;
   @ViewChild('background') background: ElementRef;
+  @ViewChild('checkbox') checkbox: ElementRef;
 
   private previousIndeterminateState: boolean;
 
@@ -152,11 +152,15 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
 
   ngOnChanges(event): void {
     const indeterminate = event.pCheckboxIndeterminate as SimpleChange;
+    const checked = event.pCheckboxChecked as SimpleChange;
     if (indeterminate !== undefined) {
       this.previousIndeterminateState = indeterminate.previousValue;
     }
-    if (!this.pCheckboxChecked && !this.pCheckboxIndeterminate) {
-      this.previousIndeterminateState = false;
+    if (checked !== undefined) {
+      if (!checked.currentValue && !this.pCheckboxIndeterminate) {
+        this.previousIndeterminateState = false;
+      }
+      console.log(checked);
     }
     setTimeout(() => {
       if (!event.pCheckboxDisabled) {
@@ -170,13 +174,33 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
 
   @HostListener('change', ['$event'])
   changeSome(event) {
+    const checkbox = event.target;
+
+    if (!checkbox.checked && !checkbox.indeterminate) {
+      this.previousIndeterminateState = false;
+    }
+
     setTimeout(() => {
-      this.insertAnimations(this.pCheckboxChecked, this.pCheckboxIndeterminate);
+      if (!checkbox.disabled) {
+        this.insertAnimations(
+          this.pCheckboxChecked,
+          this.pCheckboxIndeterminate
+        );
+      }
     }, 0);
   }
 
   @HostBinding('class.checkbox-disabled')
   get isDisabled() {
     return this.pCheckboxDisabled;
+  }
+
+  @HostBinding('attr.indeterminate')
+  get isIndeterminate() {
+    const check = this.el.nativeElement.querySelector(
+      'input'
+    ) as HTMLInputElement;
+    check.indeterminate = this.pCheckboxIndeterminate ? true : false;
+    return check.indeterminate;
   }
 }

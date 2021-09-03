@@ -4,7 +4,6 @@ import {
   Input,
   OnInit,
   ElementRef,
-  HostListener,
   AfterViewInit,
 } from '@angular/core';
 
@@ -12,7 +11,6 @@ const tabs = [];
 @Component({
   selector: 'app-tab, p-tab',
   templateUrl: './tabs.component.html',
-  styleUrls: ['./tabs.component.css'],
 })
 export class TabsComponent implements OnInit, AfterViewInit {
   @Input() pTabLabel: string;
@@ -47,8 +45,9 @@ export class TabsComponent implements OnInit, AfterViewInit {
   }
 
   private setDeafultActive(): void {
-    const allTabs = (this.el.nativeElement
-      .parentElement as HTMLDivElement).getElementsByClassName('tab');
+    const allTabs = (
+      this.el.nativeElement.parentElement as HTMLDivElement
+    ).getElementsByClassName('tab');
     let el;
     if (!this.activeIndex) {
       let i = 0;
@@ -106,8 +105,9 @@ export class TabsComponent implements OnInit, AfterViewInit {
 
   addActive(event): void {
     const tab = event.target as HTMLDivElement;
-    const ac = (this.el.nativeElement
-      .parentElement as HTMLDivElement).querySelector('.tab.active');
+    const ac = (
+      this.el.nativeElement.parentElement as HTMLDivElement
+    ).querySelector('.tab.active');
     if (ac && ac !== tab) {
       ac.classList.remove('active');
       this.hideContent(ac);
@@ -163,10 +163,12 @@ export class TabsComponent implements OnInit, AfterViewInit {
   }
 
   private setButtons(containerElement): void {
-    const goBack = this.el.nativeElement.parentElement.parentElement
-      .parentElement.parentElement.firstChild;
-    const goForward = this.el.nativeElement.parentElement.parentElement
-      .parentElement.parentElement.lastChild;
+    const goBack =
+      this.el.nativeElement.parentElement.parentElement.parentElement
+        .parentElement.firstChild;
+    const goForward =
+      this.el.nativeElement.parentElement.parentElement.parentElement
+        .parentElement.lastChild;
     if (containerElement.scrollLeft > 0) {
       goBack.classList.remove('disabled');
     } else if (containerElement.scrollLeft === 0) {

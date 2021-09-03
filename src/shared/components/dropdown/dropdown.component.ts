@@ -57,7 +57,6 @@ const childElementAnim = trigger('dropdownAnim', [
 @Component({
   selector: 'app-dropdown, p-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.css'],
   animations: [childElementAnim, parentElementAnim],
 })
 export class DropdownComponent implements OnInit, OnDestroy {
