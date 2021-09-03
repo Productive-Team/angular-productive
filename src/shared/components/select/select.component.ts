@@ -16,10 +16,14 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const menuAnim = trigger('menuAnimation', [
   transition(':enter', [
-    style({ opacity: 0, transform: 'scaleY(0.9)' }),
+    style({
+      opacity: 0,
+    }),
     animate(
       '150ms cubic-bezier(.1,.5,.65,.99)',
-      style({ opacity: 1, transform: 'scaleY(1)' })
+      style({
+        opacity: 1,
+      })
     ),
   ]),
   transition(':leave', [
@@ -46,7 +50,7 @@ export class SelectComponent implements OnInit, OnDestroy {
 
   pSelectMultiple: boolean;
   pSelectAllInput: boolean;
-  @Input() pSelectDisabled: boolean;
+  @Input('disabled') pSelectDisabled: boolean;
 
   pSelectSearch: boolean;
 
@@ -72,6 +76,12 @@ export class SelectComponent implements OnInit, OnDestroy {
   })
   optButtons: any;
 
+  selectedOptionText: string;
+
+  postionStyle: string;
+
+  public transformOrigin = '50% 0px 0px';
+
   constructor() {}
 
   change = (_) => {};
@@ -81,6 +91,7 @@ export class SelectComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.setToBody();
       this.checkToSelectSingle(this.pSelectValue);
+      this.checkToSelectMultiple(this.pSelectValue);
     }, 0);
   }
 
@@ -89,31 +100,36 @@ export class SelectComponent implements OnInit, OnDestroy {
     document.body.insertAdjacentElement('beforeend', menu);
   }
 
-  // writes the checkbox value
   writeValue(obj: any): void {
     this.pSelectValue = obj;
     setTimeout(() => {
       if (obj) {
-        this.checkToSelectSingle(obj);
+        if (!this.pSelectMultiple) {
+          this.checkToSelectSingle(obj);
+        } else {
+          this.checkToSelectMultiple(obj);
+        }
       }
     }, 0);
   }
 
-  // register the changes
   registerOnChange(fn: any): void {
     this.change = fn;
   }
 
-  // blurs the component
   registerOnTouched(fn: any): void {
     this.blur = fn;
   }
 
   openMenu(): void {
+    // TODO: Fix bug after filter query, it doesn't scroll the option to view and doesn't set the position
+    // even though it still recieves the option normally
     this.menuOpen = true;
     this.setBackdrop();
     this.scrollOptToView();
-    this.setPositions();
+    setTimeout(() => {
+      this.setPositions();
+    }, 0);
   }
 
   closeMenu(): void {
@@ -139,6 +155,7 @@ export class SelectComponent implements OnInit, OnDestroy {
     this.checkToSelectSingle(value);
     this.pSelectValueChange.emit(value);
     this.change(value);
+    this.selectInput.nativeElement.closest('.fieldset').parentElement.click();
     this.closeMenu();
   }
 
@@ -153,11 +170,13 @@ export class SelectComponent implements OnInit, OnDestroy {
     });
     const component = this.optButtons._results.find((x) => x.value === value);
     this.selectedOption = component;
-    if (component) {
+    if (component && value.length > 0) {
       const elementComp = component.el.nativeElement
         .firstChild as HTMLButtonElement;
       this.selectInput.nativeElement.value = elementComp.textContent;
       component.selected = true;
+    } else {
+      this.selectInput.nativeElement.value = '';
     }
   }
 
@@ -234,40 +253,90 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   setPositions(): void {
-    const fieldset = this.selectInput.nativeElement as HTMLInputElement;
-    const fieldPos = this.getPositions(fieldset);
-    let opt;
+    let styleStr = '';
+
+    // Get the input and the input positions
+    const input = this.selectInput.nativeElement as HTMLInputElement;
+    const inputPositions = this.getPositions(input);
+
+    // Gets the selected or first option in the list
+    let selectedOpt;
     if (!this.selectedOption) {
-      opt = this.optButtons._results[0].el.nativeElement.firstChild;
+      selectedOpt = this.optButtons._results[0].el.nativeElement
+        .firstChild as HTMLElement;
     } else {
-      opt = this.selectedOption.el.nativeElement.firstChild as HTMLElement;
+      selectedOpt = this.selectedOption.el.nativeElement
+        .firstChild as HTMLElement;
     }
-    setTimeout(() => {
-      const menu = this.selectMenu.nativeElement.firstChild as HTMLDivElement;
-      menu.style.width =
-        fieldset.parentElement.parentElement.parentElement.offsetWidth + 'px';
-      const menuPos = this.getPositions(menu);
-      const optPos = this.getPositions(opt);
-      const topPos =
-        fieldPos.top - (optPos.top - optPos.height / 2) - optPos.height / 1.3;
-      const leftPos = fieldPos.left - 16;
 
-      menu.style.left = leftPos + 'px';
+    // Gets the select content
+    // <div class="p-select-content"></div>
 
-      if (topPos < 0) {
-        menu.style.top = '0px';
-      } else if (topPos + menuPos.height > window.innerHeight) {
-        menu.style.top = fieldPos.top - menuPos.height + 'px';
-      } else if (topPos > window.innerHeight) {
-        menu.style.top = null;
-        menu.style.bottom = '0px';
-      } else {
-        menu.style.top = topPos + 'px';
+    const select = this.selectMenu.nativeElement.firstChild
+      .firstChild as HTMLDivElement;
+
+    // Calculates the top distance in pixels, by subtracting the offsetHeight of the
+    // selected option and the input, diving the result by two, and then subtracting
+    // the DOMRect top from the input by the result of the division
+    let topPosition =
+      inputPositions.top - (selectedOpt.offsetHeight - input.offsetHeight) / 2;
+
+    // Calculates the positioning the menu needs to translate backwards via transform.
+    // This is done by subtracting the offsetTop of the selected option by the scrollTop value
+    // of the p-select-content div, which scrolls
+    let topPositioning = Math.abs(selectedOpt.offsetTop - select.scrollTop);
+
+    // By subtracting the two values above you will find the real distance between the menu
+    // and the top of the viewport
+    const topValue = topPosition - topPositioning;
+
+    // Calculates the transform origin
+    select.style.transformOrigin = `50% ${topPositioning + 9}px 0px`;
+
+    const fieldset = this.getPositions(input.closest('.fieldset'));
+
+    let topString = `top: ${topPosition}px;`;
+    if (topValue < 0) {
+      topPosition = 0;
+      topPositioning = 0;
+    } else if (topValue + select.offsetHeight > window.innerHeight) {
+      topPosition = topPosition - select.offsetHeight;
+      if (topPosition < 0) {
+        topPosition = 0;
       }
-    }, 0);
+      topPositioning = 0;
+      topString = `top: ${topPosition}px;`;
+    } else if (topValue > window.innerHeight) {
+      topPosition = 0;
+      topString = `bottom: ${topPosition}px;`;
+    }
+
+    const inputDifferece = Math.round(fieldset.width - input.offsetWidth);
+
+    let leftPos = inputPositions.left - inputDifferece / 4;
+
+    let inputWidth = fieldset.width;
+
+    if (this.pSelectMultiple) {
+      leftPos = inputPositions.left - 40;
+      if (leftPos < 0) {
+        leftPos = 0;
+      }
+      inputWidth = fieldset.width + 40;
+    }
+
+    styleStr =
+      topString +
+      `left: ${leftPos}px;` +
+      `width: ${inputWidth}px;` +
+      `transform: scaleY(1) translateY(-${topPositioning}px); bottom: ${
+        topValue > window.innerHeight ? topPosition : null
+      }; `;
+
+    this.postionStyle = styleStr;
   }
 
-  getPositions(element: any): DOMRect {
+  private getPositions(element: any): DOMRect {
     return element.getBoundingClientRect();
   }
 

@@ -61,7 +61,8 @@ export class DatepickerTriggerDirective {
 })
 export class DatepickerComponent implements OnInit {
   @Input() pDatepickerType: string;
-  @Output() pDateResult = new EventEmitter<any>();
+  @Input() pDate: any;
+  @Output() pDateChange = new EventEmitter<any>();
 
   isOpen = false;
 
@@ -173,7 +174,7 @@ export class DatepickerComponent implements OnInit {
     const dateObj = new Date(year, month - 1, day);
     const formattedDate = formatDate(dateObj, 'MM/dd/yyyy', 'en-US');
     const exportObj = { date: dateObj, formatted: formattedDate };
-    this.pDateResult.emit(exportObj);
+    this.pDateChange.emit(exportObj);
     return dateObj;
   }
 

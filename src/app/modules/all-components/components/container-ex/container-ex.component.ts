@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControlName, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormControlName,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-container-ex',
@@ -12,7 +17,7 @@ export class ContainerExComponent implements OnInit {
   inv = false;
 
   selec = 'val1';
-  ses = '';
+  ses = false;
 
   dateStr: string;
 
@@ -83,6 +88,10 @@ export class ContainerExComponent implements OnInit {
   };
 
   optionArr = [
+    // {
+    //   value: null,
+    //   name: '--none--',
+    // },
     {
       value: 'opt1',
       name: 'Option 1',
@@ -109,18 +118,76 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  variab = '';
+  variab = 'Delaware';
   vev = '';
 
   arr = [];
 
-  @ViewChild('test') testComp: any;
+  states: string[] = [
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming',
+  ];
+
+  indet = true;
+  checked = false;
+
+  input = 'filled';
+
+  @ViewChild('select') testComp: any;
 
   constructor() {}
 
   ngOnInit() {
     this.fotmini(this.ts);
-    this.arr = this.optionArr;
+    this.arr = this.states;
   }
 
   completes(ev) {
@@ -164,18 +231,16 @@ export class ContainerExComponent implements OnInit {
   fotmini(model: Test) {
     this.fof = new FormGroup({
       pass: new FormControl(model.pass),
-      sel: new FormControl(model.sel),
+      sel: new FormControl(model.sel, Validators.required),
     });
   }
 
   search(): void {
     if (this.vev.length === 0) {
-      this.arr = this.optionArr;
+      this.arr = this.states;
     } else {
-      this.arr = this.optionArr.filter(
-        (x) =>
-          x.name.toUpperCase().includes(this.vev.toUpperCase()) ||
-          x.value.toUpperCase().includes(this.vev.toUpperCase())
+      this.arr = this.states.filter((x) =>
+        x.toUpperCase().includes(this.vev.toUpperCase())
       );
     }
     setTimeout(() => {

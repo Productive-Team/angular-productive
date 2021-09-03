@@ -116,6 +116,11 @@ const directives = [
   exports: [components, directives],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
-  providers: [SidenavComponent, DropdownComponent, TabsService],
+  providers: [
+    SidenavComponent,
+    DropdownComponent,
+    TabsService,
+    SelectComponent,
+  ],
 })
 export class SharedModule {}

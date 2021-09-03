@@ -106,7 +106,7 @@ export class TooltipsDirective {
   }
 
   private removeTooltip(): any {
-    const allTooltips = document.querySelectorAll('.pTooltip');
+    const allTooltips = document.querySelectorAll('.tooltip-container');
     allTooltips.forEach((x) => {
       x.remove();
     });

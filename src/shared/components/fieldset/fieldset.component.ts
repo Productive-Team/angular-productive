@@ -50,7 +50,6 @@ export class InputDirective {
 @Component({
   selector: 'app-fieldset, p-fieldset',
   templateUrl: './fieldset.component.html',
-  styleUrls: ['./fieldset.component.css'],
 })
 export class FieldsetComponent implements OnInit, AfterContentInit {
   @Input('pFieldsetLabelText') labelText: string;
@@ -61,7 +60,6 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   @Input('pFieldsetValidate') inputValidate = false;
   @Input() disabled = false;
   @Input('pFieldsetAppearence') appearence: string;
-  @Input('pFieldsetInput') input: any;
 
   private required = 'required';
   private maxlengthValid = 'maxlength';
@@ -83,12 +81,12 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
 
   public seedMessages(): void {
     this.Errors[this.required] = (obj: FieldsetComponent) =>
-      `O campo '${obj.labelText}' é obrigatório`;
+      `The field '${obj.labelText}' is required`;
     this.Errors[this.maxlengthValid] = (obj: FieldsetComponent) =>
-      `O campo '${obj.labelText}' excedeu o limite de caracteres`;
+      `The field '${obj.labelText}' exceeded the character limit`;
     this.Errors[this.minlengthValid] = (obj: FieldsetComponent) =>
-      `O campo '${obj.labelText}' não atingiu o mínimo de caracteres`;
-    this.Errors[this.email] = (obj: FieldsetComponent) => `E-mail inválido`;
+      `The field '${obj.labelText}' didn't achieve the minimum length`;
+    this.Errors[this.email] = (obj: FieldsetComponent) => `Invalid e-mail`;
   }
 
   ngOnInit(): void {
@@ -118,7 +116,7 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
     this.field = this.control || this.model;
     if (this.field === undefined && this.inputValidate) {
       throw new Error(
-        'Esse componente precisa ser usado com uma diretiva NgModel ou FormControlName.'
+        'This component needs an NgModel or FormControlName directive to have proper validation.'
       );
     }
   }
@@ -133,22 +131,40 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
 
   hasValue(): boolean {
-    const input = this.el.nativeElement.firstChild.firstChild.firstChild
-      .firstChild.nextSibling.firstChild as HTMLInputElement;
-    if (input.value.length > 0) {
-      return true;
-    } else {
-      return false;
+    let input = this.el.nativeElement.querySelector('input');
+    if (input === null) {
+      input = this.el.nativeElement.querySelector('select');
+    }
+    if (input.closest('.p-select-search') === null) {
+      if (input.value.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
   @HostListener('click', ['$event']) focused(event) {
-    const target = event.target;
+    let input = this.el.nativeElement.querySelector(
+      'input'
+    ) as HTMLInputElement;
+    if (input === null) {
+      input = this.el.nativeElement.querySelector('select');
+    }
+    const tgt = event.target.parentElement as HTMLElement;
     if (
-      target.classList.contains('input-wrapper') ||
-      target.classList.contains('form-input')
+      !tgt.classList.contains('suffix') &&
+      !tgt.classList.contains('prefix')
     ) {
-      this.input.focus();
+      input.focus();
+      const wrap = this.el.nativeElement.firstChild.firstChild
+        .firstChild as HTMLDivElement;
+      if (input === document.activeElement) {
+        wrap.classList.add('focused');
+      }
+      input.addEventListener('blur', () => {
+        wrap.classList.remove('focused');
+      });
     }
   }
 
@@ -163,6 +179,18 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
   @HostBinding('class.disabled')
   get getDisabled() {
-    return this.disabled;
+    let input = this.el.nativeElement.querySelector(
+      'input'
+    ) as HTMLInputElement;
+    if (input === null) {
+      input = this.el.nativeElement.querySelector('select') as HTMLInputElement;
+    }
+    if (input.closest('.p-select-search') === null) {
+      if (input.disabled) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 }
