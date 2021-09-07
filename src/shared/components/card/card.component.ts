@@ -21,7 +21,7 @@ export class CardComponent implements OnInit {
   }
   private elevateCard(): void {
     const card = this.el.nativeElement.firstChild;
-    card.classList.add('elevation');
+    card.classList.add('elevation-p1');
   }
 
   private setWidthHeight(width?: number, height?: number): void {

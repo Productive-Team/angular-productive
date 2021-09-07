@@ -35,7 +35,7 @@ export class SnackbarService {
     buttonText?: string
   ): void {
     const snackbar = document.createElement('div');
-    snackbar.classList.add('snackbar', 'elevation');
+    snackbar.classList.add('snackbar', 'elevation-p6');
     this.setSnackPosition(positionY, positionX, snackbar);
     this.snackbars.push({ snack: snackbar, isActive: true });
 

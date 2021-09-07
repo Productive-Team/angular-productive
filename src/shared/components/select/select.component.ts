@@ -97,7 +97,9 @@ export class SelectComponent implements OnInit, OnDestroy {
 
   setToBody(): void {
     const menu = this.selectMenu.nativeElement as HTMLElement;
-    document.body.insertAdjacentElement('beforeend', menu);
+    document.body
+      .querySelector('.p-components-container')
+      .insertAdjacentElement('beforeend', menu);
   }
 
   writeValue(obj: any): void {
@@ -185,8 +187,10 @@ export class SelectComponent implements OnInit, OnDestroy {
     const select = this.optButtons._results.find((o) => o.value === value);
     const opt = this.selectedOptions.find((v) => v.value === select.value);
     if (!opt) {
-      select.selected = true;
-      this.selectedOptions.push(select);
+      if (select !== undefined) {
+        select.selected = true;
+        this.selectedOptions.push(select);
+      }
     } else {
       const index = this.selectedOptions.indexOf(opt);
       this.selectedOptions.splice(index, 1);
@@ -396,12 +400,18 @@ export class SelectComponent implements OnInit, OnDestroy {
     <ng-content></ng-content>
   </button>`,
 })
-export class SelectOptionComponent {
+export class SelectOptionComponent implements OnInit {
   @Input() value: any;
   @Input() disabled: boolean;
 
   selected: boolean;
   constructor(public parent: SelectComponent, private el: ElementRef) {}
+
+  ngOnInit(): void {
+    if (this.value === undefined) {
+      this.value = this.el.nativeElement.firstChild.textContent;
+    }
+  }
 
   selectSingleValue(value: any): void {
     this.selected = true;

@@ -17,20 +17,24 @@ import { FormControlName, NgModel } from '@angular/forms';
 export class InputDirective {
   constructor(private el: ElementRef) {}
   @HostListener('focus', ['$event']) onFocus(event) {
-    const input = this.el.nativeElement.parentElement
-      .parentElement as HTMLInputElement;
+    const input = this.el.nativeElement.closest(
+      '.input-wrapper'
+    ) as HTMLInputElement;
     input.classList.add('focused');
-    const label = this.el.nativeElement.nextSibling
-      .firstChild as HTMLSpanElement;
+    const label = this.el.nativeElement.parentElement.querySelector(
+      '.label-wrap'
+    ).firstChild as HTMLSpanElement;
     label.classList.add('active');
   }
   @HostListener('blur', ['$event']) onFocusOut(event) {
-    const input = this.el.nativeElement.parentElement
-      .parentElement as HTMLInputElement;
+    const input = this.el.nativeElement.closest(
+      '.input-wrapper'
+    ) as HTMLInputElement;
     input.classList.remove('focused');
     const inputFil = this.el.nativeElement as HTMLInputElement;
-    const label = this.el.nativeElement.nextSibling
-      .firstChild as HTMLSpanElement;
+    const label = this.el.nativeElement.parentElement.querySelector(
+      '.label-wrap'
+    ).firstChild as HTMLSpanElement;
     if (
       inputFil.value.length === 0 &&
       !input.parentElement.parentElement.parentElement.classList.contains(

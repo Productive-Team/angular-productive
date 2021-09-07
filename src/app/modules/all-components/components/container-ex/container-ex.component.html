@@ -1,65 +1,16 @@
-<!-- <div style="width: calc(100% - 80%);">
-  <p-fieldset pFieldsetLabelText="Senha" pFieldsetAppearence="outlined">
-    <input [type]="ses ? 'text' : 'password'" pInput>
-    <button class="btn fab flat" pRipple [pRippleCentered]="true" p-suffix (click)="ses = !ses">
-      <p-icon>{{ses ? 'visibility' : 'visibility_off'}}</p-icon>
+<div style="width: 300px;">
+  <p-fieldset pFieldsetLabelText="Datepicker">
+    <input type="text" pInput pDatepickerInput [pForDatepicker]="dat" [(ngModel)]="variab">
+    <button class="btn flat fab" pDateTrigger [triggerFor]="dat" p-suffix pRipple [pRippleCentered]="true">
+      <p-icon>today</p-icon>
     </button>
+    <app-datepickernew #dat [(ngModel)]="variab"></app-datepickernew>
   </p-fieldset>
-</div> -->
 
-<!-- <p-checkbox pCheckboxLabel="Disabled" [(ngModel)]="ses"></p-checkbox> -->
-<div>
-  <button class="btn fab flat" pRipple pRippleCentered="true" pTooltip pTooltipText="Print" [pTooltipPosition]="'top'">
-    <p-icon>print</p-icon>
-  </button>
-  <button class="btn fab flat" pRipple pRippleCentered="true">
-    <p-icon>format_bold</p-icon>
-  </button>
-</div>
-
-<div style="width: calc(100% - 80%);">
-  <!-- <p-fieldset [pFieldsetLabelText]="'Select'" [pFieldsetValidate]="true">
-    <p-select [(pSelectValue)]="variab" [disabled]="ses" required search #select>
-      <ng-container search-input>
-        <input type="text" placeholder="Search" [(ngModel)]="vev" (ngModelChange)="search()">
-      </ng-container>
-      <p-option *ngFor="let opt of arr" [value]="opt">{{opt}}</p-option>
-    </p-select>
-  </p-fieldset> -->
-  <p-fieldset pFieldsetLabelText="Options">
-    <p-select [(pSelectValue)]="input">
-      <p-option value="filled">Filled</p-option>
-      <p-option value="outlined">Outlined</p-option>
-      <p-option value="classic">Classic</p-option>
-    </p-select>
-  </p-fieldset>
-  <!-- <p-fieldset pFieldsetLabelText="Senha" pFieldsetAppearence="{{input}}">
-    <input [type]="ses ? 'text' : 'password'" pInput>
-    <button class="btn fab flat" pRipple [pRippleCentered]="true" p-suffix (click)="ses = !ses">
-      <p-icon>{{ses ? 'visibility' : 'visibility_off'}}</p-icon>
-    </button>
-  </p-fieldset> -->
-  <p-fieldset [pFieldsetLabelText]="'Native Select'">
+  <p-fieldset pFieldsetLabelText="Datepicker (Old)">
     <input type="text" pInput pDatepickerTrigger [pTriggerFor]="date">
-    <p-datepicker #date [(pDate)]="variab"></p-datepicker>
-    <!-- <select pInput>
-      <option *ngFor="let opt of arr" [value]="opt">{{opt}}</option>
-    </select> -->
+    <p-datepicker #date></p-datepicker>
   </p-fieldset>
 </div>
-<span style="max-width: 50%;">
-  Value:
-  <b>
-    {{variab | date : 'dd/MM/yyyy'}}
-  </b>
-</span>
-<br>
-<br>
-<app-checkbox label="Indet" [(checked)]="indet" labelPosition="right">
-</app-checkbox>
-<br>
-<app-checkbox label="Checkbox" [(checked)]="checked" [(indeterminate)]="indet" labelPosition="left">
-</app-checkbox>
-<br>
-{{checked}}
-{{indet}}
+
+{{variab | date : 'dd/MM/yyyy'}}

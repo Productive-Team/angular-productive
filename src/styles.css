@@ -26,6 +26,10 @@ body.vh-height {
   height: 100vh !important;
 }
 
+.p-components-container {
+  display: contents !important;
+}
+
 h1,
 h2,
 h3,
@@ -58,43 +62,43 @@ hr {
 
 /* #region Typography */
 h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 500;
   letter-spacing: -1px;
 }
 h2 {
-  font-size: px;
+  font-size: 2rem;
   font-weight: 300;
   letter-spacing: -0.5px;
 }
 h3 {
-  font-size: 50px;
-  font-weight: 500;
+  font-size: 1.8rem;
+  font-weight: 400;
 }
 h4 {
-  font-size: 40px;
+  font-size: 1.7rem;
   font-weight: 400;
   letter-spacing: 0.25px;
 }
 h5 {
-  font-size: 28px;
+  font-size: 1.4rem;
   font-weight: 400;
 }
 h6 {
-  font-size: 20px;
   font-weight: 600;
+  font-size: 1.25rem;
   letter-spacing: 0.15px;
 }
 
 span,
-label {
-  font-size: 16px;
+p {
+  font-size: 1rem;
   font-weight: normal;
   letter-spacing: 0.15px;
 }
 
-p {
-  font-size: 16px;
+label {
+  font-size: 14px !important;
   font-weight: normal;
   letter-spacing: 0.5px;
 }
@@ -387,7 +391,7 @@ p {
   padding: 0 6px;
   height: 36px;
   line-height: 36px;
-  font-size: 14px !important;
+  font-size: 13px !important;
 }
 .btn {
   padding: 0 12px;
@@ -398,6 +402,7 @@ p {
   padding: 0 24px;
   height: 56px;
   line-height: 56px;
+  font-size: 17px !important;
 }
 .btn-small i {
   line-height: 36px;
@@ -417,7 +422,7 @@ p {
   background-color: #e4e4e4;
   border: 0;
   outline: none;
-  font-size: 16px;
+  font-size: 15px;
   border-radius: 4px;
   cursor: pointer;
   transition: 0.2s;
@@ -453,6 +458,19 @@ a.disabled {
 .btn-large.elevation:active {
   box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
 }
+
+.btn.fab.elevation,
+.btn-small.fab.elevation,
+.btn-large.fab.elevation {
+  box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+}
+
+.btn.fab.elevation:active,
+.btn-small.fab.elevation:active,
+.btn-large.fab.elevation:active {
+  box-shadow: 0 7px 8px -4px rgb(0 0 0 / 20%), 0 12px 17px 2px rgb(0 0 0 / 14%), 0 5px 22px 4px rgb(0 0 0 / 12%);
+}
+
 .btn-small.fab {
   width: 36px;
   height: 36px;
@@ -495,6 +513,16 @@ a.btn-large {
   vertical-align: top;
   text-decoration: none;
   -webkit-user-drag: none;
+}
+.btn.flat.primary,
+.btn-small.flat.primary,
+.btn-large.flat.primary {
+  color: var(--primary);
+}
+.btn.flat.secondary,
+.btn-small.flat.secondary,
+.btn-large.flat.secondary {
+  color: var(--secondary);
 }
 .btn.flat.primary:hover,
 .btn-small.flat.primary:hover,
@@ -544,16 +572,16 @@ a.btn-large {
 /*#endregion BackColors*/
 
 /* #region TextColors&Helpers */
-.primary {
+.text-primary {
   color: var(--primary) !important;
 }
-.secondary {
+.text-secondary {
   color: var(--secondary) !important;
 }
-.white {
+.text-white {
   color: white;
 }
-.black {
+.text-black {
   color: #000;
 }
 
@@ -566,7 +594,7 @@ a.btn-large {
 .text-end {
   text-align: end;
 }
-.text-light {
+.text-lighter {
   font-weight: lighter;
 }
 .text-bold {
@@ -577,11 +605,11 @@ a.btn-large {
 }
 /* #endregion TextColors&Helpers */
 
-/* #region NavbarStyles */
-.navbar .spacer {
+/* #region FlexSpacer */
+.spacer {
   flex-grow: 1;
 }
-/* #endregion NavbarStyles */
+/* #endregion FlexSpacer */
 
 /* #region SidebarStyles */
 .sidenav-container {
@@ -835,10 +863,10 @@ a.btn-large {
 }
 
 .p-input-bar {
-  position: relative;
+  position: absolute;
   border-bottom: 2px solid var(--primary);
   width: 40%;
-  bottom: 2px;
+  bottom: 0;
   transform: translateX(-50%);
   left: 50%;
   opacity: 0;
@@ -949,11 +977,6 @@ a.btn-large {
 .elevation-p24 {
   box-shadow: 0 11px 15px -7px rgb(0 0 0 / 20%), 0 24px 38px 3px rgb(0 0 0 / 14%), 0 9px 46px 8px rgb(0 0 0 / 12%);
 }
-
-/* .elevation {
-  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
-    0 1px 5px 0 rgb(0 0 0 / 20%);
-} */
 /* #endregion Elevation */
 
 /* #region Snackbars */
@@ -1699,3 +1722,105 @@ a.btn-large {
   opacity: 0.5;
 }
 /* #endregion Checkbox */
+
+/* #region DatePicker */
+.p-datepicker {
+  position: fixed;
+  top: 0;
+  display: block;
+  z-index: 999;
+}
+
+.p-datepicker-wrapper {
+  background-color: var(--appBackgroundColor);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 315px;
+  border-radius: 0 0 8px 8px;
+  transform-origin: 0 0 0;
+  box-sizing: border-box;
+  animation: datepickerAnim 200ms cubic-bezier(.3,.94,.47,.91);
+}
+
+.p-datepicker-wrapper.bottom {
+  transform-origin: 100% 100% 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.p-datepicker-wrapper  .p-datepicker-header {
+  padding: 0.1em 0.75em;
+  display: flex;
+  border-bottom: 1px solid rgb(212, 212, 212);
+}
+
+.p-datepicker-wrapper  .p-datepicker-header .p-datepicker-header-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.p-datepicker-content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 0.25em 0.75em;
+}
+
+.p-datepicker-content .p-datepicker-days {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.p-datepicker-content .p-datepicker-days .p-datepicker-days-month {
+  padding: 0.5em 0;
+}
+
+.p-datepicker-content .p-datepicker-days .p-datepicker-days-week {
+  display: flex;
+  padding: 0.5em 0;
+
+}
+
+.p-datepicker-content .p-datepicker-days .p-datepicker-days-week .p-weekday {
+  width: 40px;
+  border: none;
+  margin-right: 0.1rem;
+  text-align: center;
+  user-select: none;
+}
+
+.p-day {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  margin-right: 0.1rem;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+}
+
+.p-day.current-date {
+  box-shadow: 0 0 0 1px inset rgb(187, 187, 187);
+}
+.p-day.selected-date {
+  box-shadow: 0 0 0 1px inset var(--primary);
+  background-color: var(--primaryLowOpacity);
+}
+
+@keyframes datepickerAnim {
+  0% {
+    transform: scaleY(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+/* #endregion DatePicker */

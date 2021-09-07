@@ -118,63 +118,9 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  variab: any;
+  // variab = new Date();
+  variab: Date;
   vev = '';
-
-  arr = [];
-
-  states: string[] = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming',
-  ];
 
   indet = true;
   checked = false;
@@ -187,7 +133,6 @@ export class ContainerExComponent implements OnInit {
 
   ngOnInit() {
     this.fotmini(this.ts);
-    this.arr = this.states;
   }
 
   completes(ev) {
@@ -233,19 +178,6 @@ export class ContainerExComponent implements OnInit {
       pass: new FormControl(model.pass),
       sel: new FormControl(model.sel, Validators.required),
     });
-  }
-
-  search(): void {
-    if (this.vev.length === 0) {
-      this.arr = this.states;
-    } else {
-      this.arr = this.states.filter((x) =>
-        x.toUpperCase().includes(this.vev.toUpperCase())
-      );
-    }
-    setTimeout(() => {
-      this.testComp.updateSearch();
-    }, 0);
   }
 }
 

@@ -1,6 +1,34 @@
-<div class="p-datepicker">
-  <div class="p-datepicker-wrapper">
-    <div class="p-datepicker-header"></div>
-    <div class="p-datepicker-content"></div>
+<div class="p-datepicker" #datepickerPos>
+  <div class="p-datepicker-wrapper elevation-p8" @datepickerAnim *ngIf="isPickerOpen">
+    <div class="p-datepicker-header">
+      <div class="p-datepicker-header-content">
+        <button class="btn flat fab" pRipple [pRippleCentered]="true" (click)="previousMonth()">
+          <p-icon>chevron_left</p-icon>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn-small flat t-600" pRipple (click)="showYears ? showYears = false : showYears = true">
+          <ng-container *ngIf="!showYears">
+            {{monthsShort[monthPage - 1]}} {{yearMonthPage}}
+          </ng-container>
+        </button>
+        <div class="spacer"></div>
+        <button class="btn flat fab" pRipple [pRippleCentered]="true" (click)="nextMonth()">
+          <p-icon>chevron_right</p-icon>
+        </button>
+      </div>
+    </div>
+    <div class="p-datepicker-content">
+      <div class="p-datepicker-days" *ngIf="!showYears && !showMonths">
+        <div class="p-datepicker-days-week">
+          <div class="p-weekday t-500" *ngFor="let weekday of weekDaysShort">{{weekday}}</div>
+        </div>
+        <div class="p-datepicker-days-month">
+          <button *ngFor="let monthDay of daysOfMonth" [class]="monthDay.selected ? 'p-day selected-date' :'p-day'"
+            pRipple [pRippleCentered]="true" (click)="closePicker(); selectDay(monthDay)">{{monthDay.day}}</button>
+        </div>
+      </div>
+      <div class="p-datepicker-months" *ngIf="!showYears && showMonths"></div>
+      <div class="p-datepicker-years" *ngIf="showYears && !showMonths"></div>
+    </div>
   </div>
 </div>
