@@ -446,17 +446,12 @@ a.disabled {
 .btn.elevation,
 .btn-small.elevation,
 .btn-large.elevation {
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-}
-.btn.elevation:hover,
-.btn-small.elevation:hover,
-.btn-large.elevation:hover {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 .btn.elevation:active,
 .btn-small.elevation:active,
 .btn-large.elevation:active {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
 }
 .btn-small.fab {
   width: 36px;
@@ -728,6 +723,16 @@ a.btn-large {
   pointer-events: none;
 }
 
+.readonly .input-wrapper{
+  border: none;
+}
+.readonly .input-wrapper.classic {
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+}
+.readonly .input-wrapper .form-field {
+  pointer-events: none;
+}
+
 .input-wrapper.classic {
   background-color: transparent;
   padding: 0;
@@ -872,112 +877,83 @@ a.btn-large {
     transform: translateY(-10%);
   }
 }
-
-/* .select-wrapper {
-  position: absolute;
-  display: none;
-  flex-direction: column;
-  z-index: 1000;
-}
-.p-input.select {
-  cursor: pointer !important;
-  -webkit-tap-highlight-color: transparent;
-}
-.p-select {
-  position: static;
-  display: inline-block;
-  box-sizing: content-box;
-  max-width: 100%;
-  max-height: 200px;
-  overflow-y: auto;
-  background-color: var(--appBackgroundColor);
-  border-radius: 5px;
-  z-index: 1001;
-  animation: showMenuAnim 0.15s cubic-bezier(0, 0, 0.2, 1);
-  transition: opacity 0.15s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.p-select.bottom {
-  border-radius: 5px;
-}
-.p-select.top {
-  border-radius: 5px;
-}
-
-.p-select .p-select-header {
-  padding: 5px;
-  height: 46px;
-  line-height: 46px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.p-select .p-select-header.search {
-  padding: 5px 10px;
-  text-overflow: unset;
-}
-.p-select .p-select-header input {
-  background-color: none;
-  border: none;
-  outline: none;
-  width: 100%;
-  height: 46px;
-  font-size: 16px;
-  font-family: Roboto;
-  text-overflow: ellipsis;
-}
-.p-select .p-select-item,
-.p-select .p-select-item-multiple {
-  height: 46px;
-  padding: 0 5px;
-  font-size: 16px;
-  line-height: 46px;
-  font-family: Roboto;
-  color: #262626;
-  cursor: pointer;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.p-select .p-select-item.disabled,
-.p-select .p-select-item-multiple.disabled {
-  pointer-events: none;
-  opacity: 0.5;
-}
-.p-select .p-select-item:hover,
-.p-select .p-select-item-multiple:hover {
-  background-color: #8f8f8f13;
-}
-.label-wrapper.select {
-  max-width: 85%;
-}
-.select-arrow {
-  position: absolute;
-  right: 0;
-  bottom: 50%;
-  transform: translateY(50%);
-  color: rgba(0, 0, 0, 0.5);
-  user-select: none;
-}
-@keyframes showMenuAnim {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-} */
 /* #endregion InputStyles */
 
 /* #region Elevation */
-.elevation {
+.elevation-p1 {
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+}
+.elevation-p2 {
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+.elevation-p3 {
+  box-shadow: 0 3px 3px -2px rgb(0 0 0 / 20%), 0 3px 4px 0 rgb(0 0 0 / 14%), 0 1px 8px 0 rgb(0 0 0 / 12%);
+}
+.elevation-p4 {
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
+}
+.elevation-p5 {
+  box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 5px 8px 0 rgb(0 0 0 / 14%), 0 1px 14px 0 rgb(0 0 0 / 12%);
+}
+.elevation-p6 {
+  box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+}
+.elevation-p7 {
+  box-shadow: 0 4px 5px -2px rgb(0 0 0 / 20%), 0 7px 10px 1px rgb(0 0 0 / 14%), 0 2px 16px 1px rgb(0 0 0 / 12%);
+}
+.elevation-p8 {
+  box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
+}
+.elevation-p9 {
+  box-shadow: 0 5px 6px -3px rgb(0 0 0 / 20%), 0 9px 12px 1px rgb(0 0 0 / 14%), 0 3px 16px 2px rgb(0 0 0 / 12%);
+}
+.elevation-p10 {
+  box-shadow: 0 6px 6px -3px rgb(0 0 0 / 20%), 0 10px 14px 1px rgb(0 0 0 / 14%), 0 4px 18px 3px rgb(0 0 0 / 12%);
+}
+.elevation-p11 {
+  box-shadow: 0 6px 7px -4px rgb(0 0 0 / 20%), 0 11px 15px 1px rgb(0 0 0 / 14%), 0 4px 20px 3px rgb(0 0 0 / 12%);
+}
+.elevation-p12 {
+  box-shadow: 0 7px 8px -4px rgb(0 0 0 / 20%), 0 12px 17px 2px rgb(0 0 0 / 14%), 0 5px 22px 4px rgb(0 0 0 / 12%);
+}
+.elevation-p13 {
+  box-shadow: 0 7px 8px -4px rgb(0 0 0 / 20%), 0 13px 19px 2px rgb(0 0 0 / 14%), 0 5px 24px 4px rgb(0 0 0 / 12%);
+}
+.elevation-p14 {
+  box-shadow: 0 7px 9px -4px rgb(0 0 0 / 20%), 0 14px 21px 2px rgb(0 0 0 / 14%), 0 5px 26px 4px rgb(0 0 0 / 12%);
+}
+.elevation-p15 {
+  box-shadow: 0 8px 9px -5px rgb(0 0 0 / 20%), 0 15px 22px 2px rgb(0 0 0 / 14%), 0 6px 28px 5px rgb(0 0 0 / 12%);
+}
+.elevation-p16 {
+  box-shadow: 0 8px 10px -5px rgb(0 0 0 / 20%), 0 16px 24px 2px rgb(0 0 0 / 14%), 0 6px 30px 5px rgb(0 0 0 / 12%);
+}
+.elevation-p17 {
+  box-shadow: 0 8px 11px -5px rgb(0 0 0 / 20%), 0 17px 26px 2px rgb(0 0 0 / 14%), 0 6px 32px 5px rgb(0 0 0 / 12%);
+}
+.elevation-p19 {
+  box-shadow: 0 9px 12px -6px rgb(0 0 0 / 20%), 0 19px 29px 2px rgb(0 0 0 / 14%), 0 7px 36px 6px rgb(0 0 0 / 12%);
+}
+.elevation-p20 {
+  box-shadow: 0 10px 13px -6px rgb(0 0 0 / 20%), 0 20px 31px 3px rgb(0 0 0 / 14%), 0 8px 38px 7px rgb(0 0 0 / 12%);
+}
+.elevation-p21 {
+  box-shadow: 0 10px 13px -6px rgb(0 0 0 / 20%), 0 21px 33px 3px rgb(0 0 0 / 14%), 0 8px 40px 7px rgb(0 0 0 / 12%);
+}
+.elevation-p22 {
+  box-shadow: 0 10px 14px -6px rgb(0 0 0 / 20%), 0 22px 35px 3px rgb(0 0 0 / 14%), 0 8px 42px 7px rgb(0 0 0 / 12%);
+}
+.elevation-p23 {
+  box-shadow: 0 11px 14px -7px rgb(0 0 0 / 20%), 0 23px 36px 3px rgb(0 0 0 / 14%), 0 9px 44px 8px rgb(0 0 0 / 12%);
+}
+.elevation-p24 {
+  box-shadow: 0 11px 15px -7px rgb(0 0 0 / 20%), 0 24px 38px 3px rgb(0 0 0 / 14%), 0 9px 46px 8px rgb(0 0 0 / 12%);
+}
+
+/* .elevation {
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%),
     0 1px 5px 0 rgb(0 0 0 / 20%);
-}
+} */
 /* #endregion Elevation */
 
 /* #region Snackbars */
@@ -1428,9 +1404,7 @@ a.btn-large {
 
 /* #region Datepicker */
 .picker {
-  position: absolute;
-  top: 50px;
-  left: 0;
+  position: fixed;
   background-color: white;
   display: flex;
   width: 300px;
@@ -1503,7 +1477,9 @@ a.btn-large {
   font-size: 14px;
 }
 
-.picker .content .day.selected {
+.picker .content .day.selected,
+.picker .content .month.selected,
+.picker .content .year.selected {
   box-shadow: 0 0 0 1px inset var(--primary);
   color: var(--primary);
   background-color: var(--primaryLowOpacity);
@@ -1672,6 +1648,12 @@ a.btn-large {
   background-color: rgb(240, 240, 240);
 }
 
+.p-select button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  background-color: rgb(241, 241, 241);
+} 
+
 .p-select-content {
   background-color: var(--appBackgroundColor);
   border-radius: 5px;
@@ -1703,7 +1685,7 @@ a.btn-large {
 
 @keyframes enterAnim {
   0% {
-    transform: scaleY(0.75);
+    transform: scaleY(0.9);
   }
   100% {
     transform: scaleY(1);

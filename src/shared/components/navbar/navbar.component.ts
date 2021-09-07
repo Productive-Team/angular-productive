@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
   navElevation(): void {
     const navbarElement = this.el.nativeElement.firstChild
       .firstChild as HTMLDivElement;
-    navbarElement.classList.add('elevation');
+    navbarElement.classList.add('elevation-p4');
   }
 
   navbarBackground(): void {

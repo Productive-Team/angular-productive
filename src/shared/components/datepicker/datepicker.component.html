@@ -18,7 +18,7 @@
       </button>
       <button class="btn-small flat t-600" pRipple (click)="showDays = true; showYears = false;">
         {{years[0]}} -
-        {{years[19]}}
+        {{years[years.length - 1]}}
       </button>
       <button class="btn fab flat right" pRipple pRippleCentered="true" (click)="nextYears()">
         <i class="material-icons">chevron_right</i>
@@ -40,7 +40,8 @@
       <span class="month" pRipple *ngFor="let month of months" (click)="selectMonth(month)">{{month}}</span>
     </div>
     <div *ngIf="showYears" class="text-center">
-      <span class="year" pRipple *ngFor="let year of years" (click)="selectYear(year)">{{year}}</span>
+      <span [class]="year === currYear ? 'year selected' : 'year'" pRipple *ngFor="let year of years"
+        (click)="selectYear(year)">{{year}}</span>
     </div>
   </div>
 </div>

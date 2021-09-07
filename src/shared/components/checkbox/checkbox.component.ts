@@ -160,7 +160,6 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
       if (!checked.currentValue && !this.pCheckboxIndeterminate) {
         this.previousIndeterminateState = false;
       }
-      console.log(checked);
     }
     setTimeout(() => {
       if (!event.pCheckboxDisabled) {

@@ -1,5 +1,5 @@
-<div class="modal {{pModalSize}} {{pBottomSheet ? 'bottom-sheet' : ''}}" [@.disabled]="pBottomSheet" @modalRegular
-  [id]="pModalId" *ngIf="isOpen">
+<div class="modal {{pModalSize}} {{pBottomSheet ? 'bottom-sheet' : ''}} elevation-p24" [@.disabled]="pBottomSheet"
+  @modalRegular [id]="pModalId" *ngIf="isOpen">
   <div class="modal-header" *ngIf="hasModalHeader">
     <ng-content select="[modal-header]"></ng-content>
   </div>

@@ -33,22 +33,24 @@
       <p-option value="classic">Classic</p-option>
     </p-select>
   </p-fieldset>
-  <p-fieldset pFieldsetLabelText="Senha" pFieldsetAppearence="{{input}}">
+  <!-- <p-fieldset pFieldsetLabelText="Senha" pFieldsetAppearence="{{input}}">
     <input [type]="ses ? 'text' : 'password'" pInput>
     <button class="btn fab flat" pRipple [pRippleCentered]="true" p-suffix (click)="ses = !ses">
       <p-icon>{{ses ? 'visibility' : 'visibility_off'}}</p-icon>
     </button>
-  </p-fieldset>
-  <!-- <p-fieldset [pFieldsetLabelText]="'Native Select'">
-    <select pInput>
-      <option *ngFor="let opt of arr" [value]="opt">{{opt}}</option>
-    </select>
   </p-fieldset> -->
+  <p-fieldset [pFieldsetLabelText]="'Native Select'">
+    <input type="text" pInput pDatepickerTrigger [pTriggerFor]="date">
+    <p-datepicker #date [(pDate)]="variab"></p-datepicker>
+    <!-- <select pInput>
+      <option *ngFor="let opt of arr" [value]="opt">{{opt}}</option>
+    </select> -->
+  </p-fieldset>
 </div>
 <span style="max-width: 50%;">
   Value:
   <b>
-    {{variab}}
+    {{variab | date : 'dd/MM/yyyy'}}
   </b>
 </span>
 <br>

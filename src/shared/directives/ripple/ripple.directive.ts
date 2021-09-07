@@ -255,7 +255,7 @@ export class RippleDirective implements OnInit, AfterViewInit {
   }
 
   // Calcs the distance to the furthest corner of the element
-  private calcDistanceToFurthestCorner(x: number, y: number, rect: ClientRect) {
+  private calcDistanceToFurthestCorner(x: number, y: number, rect: any) {
     const distX = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
     const distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);

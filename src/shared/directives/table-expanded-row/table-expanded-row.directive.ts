@@ -2,8 +2,8 @@ import {
   Directive,
   Input,
   HostListener,
-  ElementRef,
   OnInit,
+  ElementRef,
   AfterViewInit,
 } from '@angular/core';
 

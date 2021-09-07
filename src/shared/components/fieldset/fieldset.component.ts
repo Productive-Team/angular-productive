@@ -193,4 +193,25 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
       }
     }
   }
+
+  @HostBinding('class.readonly')
+  get inputReadonly() {
+    let input = this.el.nativeElement.querySelector(
+      'input'
+    ) as HTMLInputElement;
+    if (input === null) {
+      input = this.el.nativeElement.querySelector('select') as HTMLInputElement;
+    }
+    if (
+      !input.parentElement.classList.contains('p-select-parent-wrapper') &&
+      input.closest('.p-select-search') === null &&
+      !input.classList.contains('picker-trigger')
+    ) {
+      if (input.readOnly) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 }

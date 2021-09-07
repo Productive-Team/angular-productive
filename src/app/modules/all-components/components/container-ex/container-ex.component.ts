@@ -118,7 +118,7 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  variab = 'Delaware';
+  variab: any;
   vev = '';
 
   arr = [];

@@ -381,6 +381,7 @@ export class SelectComponent implements OnInit, OnDestroy {
     pRipple
     [class]="selected ? 'selected' : ''"
     [value]="value"
+    [disabled]="disabled"
     (click)="
       parent.pSelectMultiple
         ? selectMultiple($event.target.value)
@@ -397,6 +398,7 @@ export class SelectComponent implements OnInit, OnDestroy {
 })
 export class SelectOptionComponent {
   @Input() value: any;
+  @Input() disabled: boolean;
 
   selected: boolean;
   constructor(public parent: SelectComponent, private el: ElementRef) {}

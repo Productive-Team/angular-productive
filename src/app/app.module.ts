@@ -1,4 +1,4 @@
-import { SharedModule } from './../shared/shared.module';
+import { ProductiveModule } from '../shared/productive.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    SharedModule,
+    ProductiveModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

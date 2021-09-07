@@ -198,7 +198,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     return !this.sidenavOpen;
   }
 
-  @HostBinding('class.elevation')
+  @HostBinding('class.elevation-p8')
   get elevationValue() {
     return this.elevated;
   }

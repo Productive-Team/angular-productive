@@ -15,7 +15,7 @@ import {
 @Directive({
   selector:
     '[p-datepicker-trigger], [pDatepickerTrigger], [appDatepickerTriggerDirective]',
-  exportAs: 'pDatepickerTrigger',
+  exportAs: 'pDatepicker',
 })
 export class DatepickerTriggerDirective {
   @Input() pTriggerFor: any;
@@ -52,8 +52,8 @@ export class DatepickerTriggerDirective {
   animations: [
     trigger('animationTrigger', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'scale(0.98)' }),
-        animate('100ms', style({ opacity: 1, transform: 'scale(1)' })),
+        style({ opacity: 0, transform: 'scaleY(0.95)' }),
+        animate('100ms', style({ opacity: 1, transform: 'scaleY(1)' })),
       ]),
       transition(':leave', [animate('100ms', style({ opacity: 0 }))]),
     ]),
@@ -98,12 +98,15 @@ export class DatepickerComponent implements OnInit {
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
-    this.currentDate = this.getCurrentDate();
+    setTimeout(() => {
+      this.currentDate = this.getCurrentDate();
+    }, 0);
   }
 
   setDays(year: number, month: number): void {
     this.days = [];
     const allDays = new Date(year, month, 0).getDate();
+    console.log(allDays);
     let i = 1;
     for (; i <= allDays; i++) {
       const obj = {
@@ -172,9 +175,7 @@ export class DatepickerComponent implements OnInit {
 
   emitDate(year: number, month: number, day: number): Date {
     const dateObj = new Date(year, month - 1, day);
-    const formattedDate = formatDate(dateObj, 'MM/dd/yyyy', 'en-US');
-    const exportObj = { date: dateObj, formatted: formattedDate };
-    this.pDateChange.emit(exportObj);
+    this.pDateChange.emit(dateObj);
     return dateObj;
   }
 
@@ -195,28 +196,33 @@ export class DatepickerComponent implements OnInit {
   setYears(year: number): void {
     this.years = [];
     let currYear = new Date(year, 1, 1).getFullYear() - 1;
+    currYear -= 10;
     let i = 0;
     for (; i < 20; i++) {
       currYear++;
-      this.years.push(currYear);
+      if (currYear > 0) {
+        this.years.push(currYear);
+      }
     }
   }
 
   previousYears(): void {
     let firstYear = this.years[0] - 21;
     const years = [];
-    if (firstYear > -2) {
-      let i = 0;
-      for (; i < 20; i++) {
-        firstYear++;
+    let i = 0;
+    for (; i < 20; i++) {
+      firstYear++;
+      if (firstYear > 0) {
         years.push(firstYear);
       }
+    }
+    if (firstYear > 0) {
       this.years = years;
     }
   }
 
   nextYears(): void {
-    let lastYear = this.years[19];
+    let lastYear = this.years[this.years.length - 1];
     const years = [];
     let i = 0;
     for (; i < 20; i++) {

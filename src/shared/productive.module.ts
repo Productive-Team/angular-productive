@@ -38,10 +38,6 @@ import {
   DropdownComponent,
   DropdownTriggerDirective,
 } from './components/dropdown/dropdown.component';
-// import {
-//   SelectComponent,
-//   SelectOptionComponent,
-// } from './components/select/select.component';
 import { FormsModule } from '@angular/forms';
 import {
   CollapsibleComponent,
@@ -62,6 +58,7 @@ import {
   SelectMultipleDirective,
   SelectSearchDirective,
 } from './components/select/select.component';
+import { DatepickernewComponent } from './components/datepickernew/datepickernew.component';
 
 const components = [
   TableComponent,
@@ -91,6 +88,7 @@ const components = [
   RadioGroupComponent,
   SelectComponent,
   SelectOptionComponent,
+  DatepickernewComponent,
 ];
 const directives = [
   RippleDirective,
@@ -123,4 +121,4 @@ const directives = [
     SelectComponent,
   ],
 })
-export class SharedModule {}
+export class ProductiveModule {}
