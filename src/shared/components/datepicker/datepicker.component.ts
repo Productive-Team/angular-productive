@@ -1,259 +1,469 @@
+import { DatePipe } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { formatDate } from '@angular/common';
 import {
   Component,
-  Input,
   OnInit,
-  Directive,
-  HostBinding,
-  HostListener,
   ElementRef,
+  Directive,
+  Input,
+  HostListener,
+  ViewChild,
   Output,
   EventEmitter,
+  forwardRef,
 } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Directive({
-  selector:
-    '[p-datepicker-trigger], [pDatepickerTrigger], [appDatepickerTriggerDirective]',
-  exportAs: 'pDatepicker',
+  selector: '[p-date-trigger], [appDateTriggerDirective], [pDateTrigger]',
 })
 export class DatepickerTriggerDirective {
-  @Input() pTriggerFor: any;
-  constructor() {}
-
-  @HostBinding('class.picker-trigger')
-  @HostBinding('attr.readonly')
-  get clss() {
-    return true;
-  }
+  @Input() triggerFor: DatepickerComponent;
 
   @HostListener('click', ['$event'])
-  open(): void {
-    const element = this.pTriggerFor;
-    element.isOpen = true;
-    const backdrop = document.createElement('div');
-    backdrop.classList.add('backdrop');
-    const body = document.querySelector('body');
-    body.insertAdjacentElement('beforeend', backdrop);
-    backdrop.addEventListener('click', () => {
-      this.closeDate();
-    });
-  }
-
-  closeDate() {
-    this.pTriggerFor.close();
+  openPicker(): void {
+    this.triggerFor.openPicker();
   }
 }
+
+const pickerAnim = trigger('datepickerAnim', [
+  transition(':leave', [
+    animate('150ms cubic-bezier(.3,.94,.47,.91)', style({ opacity: 0 })),
+  ]),
+]);
 
 @Component({
   selector: 'app-datepicker, p-datepicker',
   templateUrl: './datepicker.component.html',
-  styleUrls: ['./datepicker.component.css'],
-  animations: [
-    trigger('animationTrigger', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'scaleY(0.95)' }),
-        animate('100ms', style({ opacity: 1, transform: 'scaleY(1)' })),
-      ]),
-      transition(':leave', [animate('100ms', style({ opacity: 0 }))]),
-    ]),
+  styleUrls: ['./Datepicker.component.css'],
+  animations: [pickerAnim],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DatepickerComponent),
+      multi: true,
+    },
+    DatePipe,
   ],
 })
 export class DatepickerComponent implements OnInit {
-  @Input() pDatepickerType: string;
-  @Input() pDate: any;
-  @Output() pDateChange = new EventEmitter<any>();
+  isPickerOpen: boolean;
 
-  isOpen = false;
+  currentDate: Date = new Date();
+  selectedDate: Date;
 
-  years = [];
-  months = [
-    'JAN',
-    'FEB',
-    'MAR',
-    'APR',
-    'MAY',
-    'JUN',
-    'JUL',
-    'AUG',
-    'SEP',
-    'OCT',
-    'NOV',
-    'DEC',
-  ];
-  days = [];
+  weekDaysShort: string[] = [];
 
-  selectedDate;
+  monthPage: number;
+  yearMonthPage: number;
 
-  currMonth;
-  currYear;
+  selectedYearIndex: number;
 
-  showDays = true;
-  showYears = false;
-  showMonths = false;
+  daysOfLastMonth: number[] = [];
+  daysOfMonth: any[] = [];
+  monthsOfYear: any[] = [];
+  years: any[] = [];
 
-  currentDate;
+  showYears: boolean;
+  showMonths: boolean;
 
-  selectedYear;
-  constructor(private el: ElementRef) {}
+  // For more info about locales: https://www.science.co.il/language/Locale-codes.php
+  @Input() locale = 'en-US';
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.currentDate = this.getCurrentDate();
-    }, 0);
+  @Input() dateInput: HTMLInputElement;
+
+  @Input() Date: Date;
+  @Output() DateChange: EventEmitter<Date> = new EventEmitter<Date>();
+
+  @ViewChild('datepickerPos') datepickerPosition: ElementRef;
+
+  change = (_) => {};
+  blur = (_) => {};
+
+  constructor(private el: ElementRef, private datePipe: DatePipe) {}
+
+  public openPicker(): void {
+    this.isPickerOpen = true;
+    this.setPickerPositions();
   }
 
-  setDays(year: number, month: number): void {
-    this.days = [];
-    const allDays = new Date(year, month, 0).getDate();
-    console.log(allDays);
-    let i = 1;
-    for (; i <= allDays; i++) {
-      const obj = {
-        day: i,
-        // tslint:disable-next-line: object-literal-shorthand
-        month: month,
-        // tslint:disable-next-line: object-literal-shorthand
-        year: year,
+  public closePicker(): void {
+    this.isPickerOpen = false;
+    this.removeBackdrop();
+  }
+
+  ngOnInit(): void {
+    this.setToBody();
+    this.setCurrentDate();
+  }
+
+  private setCurrentDate() {
+    const currentDate = this.currentDate;
+    this.setDaysOfMonth(currentDate.getFullYear(), currentDate.getMonth() + 1);
+    this.setWeekdays();
+    this.setMonths(currentDate.getFullYear());
+    this.setYears(currentDate.getFullYear());
+  }
+
+  private setDaysOfMonth(year: number, month: number) {
+    this.daysOfMonth = [];
+    const daysOfCurrentMonth = new Date(year, month, 0).getDate();
+    const lastMonthDays = new Date(year, month - 1, 1).getDay();
+
+    const lastMonthDaysArray = [];
+    let c = 0;
+    for (; c < lastMonthDays; c++) {
+      lastMonthDaysArray.push(c);
+    }
+    this.daysOfLastMonth = lastMonthDaysArray;
+
+    const currentYear = year;
+    const currentMonth = month;
+
+    let d = 1;
+    for (; d <= daysOfCurrentMonth; d++) {
+      const days = {
+        day: d,
         selected: false,
+        year: currentYear,
+        month: currentMonth,
       };
-      this.days.push(obj);
-    }
-    setTimeout(() => {
-      this.makeSureDayIsSelected();
-    }, 0);
-  }
+      this.monthPage = currentMonth;
+      this.yearMonthPage = currentYear;
 
-  nextMonth() {
-    this.currentDate.month++;
-    if (this.currentDate.month - 1 > 11) {
-      this.currentDate.month = 1;
-      this.currentDate.year++;
-      this.currYear = this.currentDate.year;
-    }
-    const index = this.currentDate.month - 1;
-    this.currMonth = this.months[index];
-    this.setDays(this.currentDate.year, this.currentDate.month);
-  }
-
-  previousMonth() {
-    this.currentDate.month -= 1;
-    if (this.currentDate.year !== 0) {
-      if (this.currentDate.month - 1 < 0) {
-        this.currentDate.month = 12;
-        this.currentDate.year--;
-        this.currYear = this.currentDate.year;
-      }
-      this.currMonth = this.months[this.currentDate.month - 1];
-      this.setDays(this.currentDate.year, this.currentDate.month);
+      this.daysOfMonth.push(days);
     }
   }
 
-  makeSureDayIsSelected(): void {
-    const sel = this.days.find(
-      (x) =>
-        x.day === this.selectedDate.day &&
-        x.month === this.selectedDate.month &&
-        x.year === this.selectedDate.year
-    );
-    if (sel) {
-      sel.selected = true;
+  setWeekdays(): void {
+    const current = this.currentDate;
+    current.setDate(current.getDate() - current.getDay());
+    for (let i = 0; i < 7; i++) {
+      this.weekDaysShort.push(
+        current.toLocaleDateString(this.locale, { weekday: 'narrow' })
+      );
+      current.setDate(current.getDate() + 1);
     }
   }
 
-  selectDay(day): void {
-    const oth = this.days.find((x) => x.selected === true);
-    if (oth) {
-      oth.selected = false;
+  setMonths(year: number): void {
+    this.monthsOfYear = [];
+
+    const monthList = [...Array(12).keys()];
+    let m = 0;
+    for (; m < monthList.length; m++) {
+      const month = new Date(year, m).toLocaleString(this.locale, {
+        month: 'short',
+      });
+
+      const obj = { monthName: month, yearMonth: year, selected: false };
+
+      this.monthsOfYear.push(obj);
     }
-    const selDay = this.days.find((x) => x.day === day.day);
-    selDay.selected = true;
-    this.selectedDate = selDay;
-    this.emitDate(day.year, day.month, day.day);
-    this.close();
   }
 
-  emitDate(year: number, month: number, day: number): Date {
-    const dateObj = new Date(year, month - 1, day);
-    this.pDateChange.emit(dateObj);
-    return dateObj;
-  }
-
-  getCurrentDate(): any {
-    const date = new Date();
-    const obj = {
-      day: date.getDate(),
-      month: date.getMonth() + 1,
-      year: date.getFullYear(),
-    };
-    this.setDays(obj.year, obj.month);
-    this.currMonth = this.months[obj.month - 1];
-    this.currYear = obj.year;
-    this.selectDay(obj);
-    return obj;
-  }
-
-  setYears(year: number): void {
+  setYears(currentYear: number): void {
     this.years = [];
-    let currYear = new Date(year, 1, 1).getFullYear() - 1;
-    currYear -= 10;
-    let i = 0;
-    for (; i < 20; i++) {
-      currYear++;
-      if (currYear > 0) {
-        this.years.push(currYear);
+
+    let minYear = currentYear;
+    minYear -= 10;
+
+    let yearQty = 20;
+
+    let y = 0;
+    for (; y < yearQty; y++) {
+      minYear++;
+      const yearFormat = new Date(minYear, 1, 1).toLocaleString(this.locale, {
+        year: 'numeric',
+      });
+      const obj = { year: yearFormat, selected: false, yearNumber: minYear };
+      if (minYear > 0) {
+        this.years.push(obj);
       }
     }
-  }
-
-  previousYears(): void {
-    let firstYear = this.years[0] - 21;
-    const years = [];
-    let i = 0;
-    for (; i < 20; i++) {
-      firstYear++;
-      if (firstYear > 0) {
-        years.push(firstYear);
+    if (this.years.length < 20 && this.years.length > 0) {
+      yearQty = 29;
+      for (; y < yearQty; y++) {
+        minYear++;
+        const yearFormat = new Date(minYear, 1, 1).toLocaleString(this.locale, {
+          year: 'numeric',
+        });
+        const obj = {
+          year: yearFormat,
+          selected: false,
+          yearNumber: minYear,
+        };
+        if (minYear > 0) {
+          this.years.push(obj);
+        }
       }
     }
-    if (firstYear > 0) {
-      this.years = years;
+    const idx = this.years.find((v) => v.yearNumber === currentYear);
+    this.selectedYearIndex = this.years.indexOf(idx);
+  }
+
+  selectDay(dayObj: any): void {
+    const selectedDate = this.daysOfMonth.find((x) => x.selected);
+    if (selectedDate) {
+      selectedDate.selected = false;
+    }
+
+    const newSelDate = this.daysOfMonth.find(
+      (c) =>
+        c.day === dayObj.day &&
+        c.month === dayObj.month &&
+        c.year === dayObj.year
+    );
+    if (newSelDate) {
+      newSelDate.selected = true;
+      this.monthPage = newSelDate.month;
+      this.yearMonthPage = newSelDate.year;
+      this.selectedDate = new Date(
+        newSelDate.year,
+        newSelDate.month - 1,
+        newSelDate.day
+      );
+
+      const idx = this.years.find((v) => v.yearNumber === newSelDate.year);
+      const yearSel = this.years.find((b) => b.selected);
+      if (yearSel) {
+        yearSel.selected = false;
+      }
+      idx.selected = true;
+      this.selectedYearIndex = this.years.indexOf(idx);
+
+      this.emitDate(this.selectedDate);
     }
   }
 
-  nextYears(): void {
-    let lastYear = this.years[this.years.length - 1];
-    const years = [];
-    let i = 0;
-    for (; i < 20; i++) {
-      lastYear++;
-      years.push(lastYear);
+  selectYear(yearObj: any): void {
+    const selectedYear = this.years.find((c) => c.selected);
+    if (selectedYear) {
+      selectedYear.selected = false;
     }
-    this.years = years;
+
+    const newSelectedYear = this.years.find((v) => v.year === yearObj.year);
+    if (newSelectedYear) {
+      newSelectedYear.selected = true;
+      this.yearMonthPage = newSelectedYear.yearNumber;
+      this.selectedYearIndex = this.years.indexOf(newSelectedYear);
+      this.showYears = false;
+      this.showMonths = true;
+      this.setMonths(newSelectedYear.yearNumber);
+    }
   }
 
-  selectYear(year: number): void {
-    this.selectedYear = year;
-    this.currentDate.year = year;
-    this.currYear = year;
-    this.showYears = false;
-    this.showMonths = true;
+  selectMonth(monthObj: any): void {
+    const selectedMonth = this.monthsOfYear.find((c) => c.selected);
+    if (selectedMonth) {
+      selectedMonth.selected = false;
+    }
+
+    const newSelectedMonth = this.monthsOfYear.find(
+      (v) =>
+        v.yearMonth === monthObj.yearMonth && v.monthName === monthObj.monthName
+    );
+    if (newSelectedMonth) {
+      newSelectedMonth.selected = true;
+      this.monthPage = this.monthsOfYear.indexOf(newSelectedMonth) + 1;
+      this.showMonths = false;
+      this.setDaysOfMonth(newSelectedMonth.yearMonth, this.monthPage);
+    }
   }
 
-  selectMonth(month: string): void {
-    const monthIdx = this.months.indexOf(month) + 1;
-    this.currMonth = month;
-    this.currentDate.month = monthIdx;
-    this.showDays = true;
+  previousMonth(): void {
+    this.daysOfMonth = [];
+    this.monthPage--;
+    if (this.monthPage <= 0) {
+      this.monthPage = 12;
+      this.yearMonthPage--;
+      let idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
+      if (idx === null) {
+        this.previousYear();
+        idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
+      }
+      this.selectedYearIndex = this.years.indexOf(idx);
+    }
+    this.setDaysOfMonth(this.yearMonthPage, this.monthPage);
+    if (this.selectedDate) {
+      const dateObj = {
+        day: this.selectedDate.getDate(),
+        selected: false,
+        year: this.selectedDate.getFullYear(),
+        month: this.selectedDate.getMonth() + 1,
+      };
+      this.selectDay(dateObj);
+    }
+  }
+
+  nextMonth(): void {
+    this.daysOfMonth = [];
+    this.monthPage++;
+    if (this.monthPage > 12) {
+      this.monthPage = 1;
+      this.yearMonthPage++;
+      let idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
+      if (idx === null) {
+        this.nextYear();
+        idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
+      }
+      this.selectedYearIndex = this.years.indexOf(idx);
+    }
+    this.setDaysOfMonth(this.yearMonthPage, this.monthPage);
+
+    if (this.selectedDate) {
+      const dateObj = {
+        day: this.selectedDate.getDate(),
+        selected: false,
+        year: this.selectedDate.getFullYear(),
+        month: this.selectedDate.getMonth() + 1,
+      };
+      this.selectDay(dateObj);
+    }
+  }
+
+  nextYear(): void {
+    const lastYear = this.years[this.years.length - 1].yearNumber + 10;
+    this.setYears(lastYear);
+  }
+
+  previousYear(): void {
+    const firstYear = this.years[0].yearNumber - 11;
+    if (firstYear > 100) {
+      this.setYears(firstYear);
+    }
+  }
+
+  previousYearsInMonths(): void {
+    this.yearMonthPage--;
+    let idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
+    if (!idx) {
+      this.previousYear();
+      idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
+    }
+    this.selectedYearIndex = this.years.indexOf(idx);
+  }
+
+  nextYearsInMonths(): void {
+    this.yearMonthPage++;
+    let idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
+    if (!idx) {
+      this.nextYear();
+      idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
+    }
+    this.selectedYearIndex = this.years.indexOf(idx);
+  }
+
+  pageChangeNext(): void {
+    if (this.showYears && !this.showMonths) {
+      this.nextYear();
+    } else if (!this.showYears && this.showMonths) {
+      this.nextYearsInMonths();
+    } else if (!this.showYears && !this.showMonths) {
+      this.nextMonth();
+    }
+  }
+
+  pageChangePrevious(): void {
+    if (this.showYears && !this.showMonths) {
+      this.previousYear();
+    } else if (!this.showYears && this.showMonths) {
+      this.previousYearsInMonths();
+    } else if (!this.showYears && !this.showMonths) {
+      this.previousMonth();
+    }
+  }
+
+  toggleVisibility(): void {
+    this.showYears = !this.showYears;
     this.showMonths = false;
-    this.setDays(this.currYear, monthIdx);
+    this.setDaysOfMonth(this.yearMonthPage, this.monthPage);
   }
 
-  close(): void {
-    this.isOpen = false;
-    const backdrop = document.querySelector('.backdrop');
-    if (backdrop) {
-      backdrop.remove();
+  emitDate(date: Date): void {
+    this.DateChange.emit(date);
+    this.change(date);
+    if (this.dateInput) {
+      // TODO: IMPLEMENT DYNAMIC LOCALE TO DATEPIPE
+      const formatted = this.datePipe.transform(date, 'MM/dd/yyyy');
+      console.log(formatted);
+      this.dateInput.value = formatted;
     }
+  }
+
+  searchAndReturnDateObj(dateString: string): Date {
+    const date = new Date(dateString);
+
+    if (date.toString() === 'Invalid Date') {
+      return new Date();
+    }
+
+    return date;
+  }
+
+  writeValue(obj: Date): void {
+    this.Date = obj;
+    if (this.Date) {
+      const dateSearched = this.searchAndReturnDateObj(this.Date.toString());
+      if (dateSearched) {
+        this.Date = dateSearched;
+      }
+      const dateObj = {
+        day: this.Date.getDate(),
+        selected: false,
+        year: this.Date.getFullYear(),
+        month: this.Date.getMonth() + 1,
+      };
+      this.selectDay(dateObj);
+    }
+  }
+
+  registerOnChange(fn: any): void {
+    this.change = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.blur = fn;
+  }
+
+  private setPickerPositions(): void {
+    const wrap = this.datepickerPosition.nativeElement as HTMLElement;
+    const input = this.el.nativeElement.closest('.fieldset') as HTMLElement;
+    const inputPos = input.getBoundingClientRect();
+    wrap.style.top = inputPos.top + input.offsetHeight + 'px';
+    wrap.style.left = inputPos.left + 'px';
+
+    setTimeout(() => {
+      if (inputPos.top + wrap.offsetHeight > window.innerHeight) {
+        let pos = inputPos.top - wrap.offsetHeight + input.offsetHeight;
+        (wrap.firstChild as HTMLElement).classList.add('bottom');
+        if (pos < 0) {
+          pos = 0;
+        }
+        wrap.style.top = pos + 'px';
+      }
+    }, 0);
+
+    this.setBackdrop();
+  }
+
+  private setBackdrop(): void {
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('backdrop');
+    document.body.insertAdjacentElement('beforeend', backdrop);
+    backdrop.addEventListener('click', (v) => {
+      this.closePicker();
+    });
+  }
+
+  private removeBackdrop(): void {
+    const backdrop = document.querySelector('.backdrop');
+    backdrop.remove();
+  }
+
+  private setToBody(): void {
+    const datepicker = this.el.nativeElement.firstChild as HTMLElement;
+    const body = document.body.querySelector('.p-components-container');
+    body.insertAdjacentElement('beforeend', datepicker);
   }
 }

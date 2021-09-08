@@ -27,6 +27,8 @@ export class ContainerExComponent implements OnInit {
 
   isShow = false;
 
+  locale = 'en-US';
+
   tableContent = [
     {
       content: 'Chocolate',

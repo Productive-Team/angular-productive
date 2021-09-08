@@ -58,11 +58,6 @@ import {
   SelectMultipleDirective,
   SelectSearchDirective,
 } from './components/select/select.component';
-import {
-  DatepickernewComponent,
-  DatepickernewInputDirective,
-  DatepickernewTriggerDirective,
-} from './components/datepickernew/datepickernew.component';
 
 const components = [
   TableComponent,
@@ -92,7 +87,6 @@ const components = [
   RadioGroupComponent,
   SelectComponent,
   SelectOptionComponent,
-  DatepickernewComponent,
 ];
 const directives = [
   RippleDirective,
@@ -110,8 +104,6 @@ const directives = [
   TableSortDirective,
   SelectMultipleDirective,
   SelectSearchDirective,
-  DatepickernewTriggerDirective,
-  DatepickernewInputDirective,
 ];
 
 @NgModule({

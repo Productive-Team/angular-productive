@@ -1854,6 +1854,7 @@ a.btn-large {
   cursor: pointer;
   user-select: none;
   background-color: transparent;
+  text-transform: uppercase;
 }
 
 .p-day-spacer {
@@ -1865,7 +1866,9 @@ a.btn-large {
 .p-day.current-date {
   box-shadow: 0 0 0 1px inset rgb(187, 187, 187);
 }
-.p-day.selected-date {
+.p-day.selected-date,
+.p-year.selected-date,
+.p-month.selected-date {
   box-shadow: 0 0 0 1px inset var(--primary);
   background-color: var(--primaryLowOpacity);
 }
