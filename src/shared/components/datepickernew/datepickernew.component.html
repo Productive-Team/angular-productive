@@ -10,6 +10,9 @@
           <ng-container *ngIf="!showYears">
             {{monthsShort[monthPage - 1]}} {{yearMonthPage}}
           </ng-container>
+          <ng-container *ngIf="showYears">
+            {{'2000'}} - {{'2001'}}
+          </ng-container>
         </button>
         <div class="spacer"></div>
         <button class="btn flat fab" pRipple [pRippleCentered]="true" (click)="nextMonth()">
@@ -23,12 +26,26 @@
           <div class="p-weekday t-500" *ngFor="let weekday of weekDaysShort">{{weekday}}</div>
         </div>
         <div class="p-datepicker-days-month">
+          <button class="p-day p-day-spacer" pRipple *ngFor="let lastmonth of daysOfLastMonth">1</button>
           <button *ngFor="let monthDay of daysOfMonth" [class]="monthDay.selected ? 'p-day selected-date' :'p-day'"
             pRipple [pRippleCentered]="true" (click)="closePicker(); selectDay(monthDay)">{{monthDay.day}}</button>
         </div>
       </div>
       <div class="p-datepicker-months" *ngIf="!showYears && showMonths"></div>
-      <div class="p-datepicker-years" *ngIf="showYears && !showMonths"></div>
+      <div class="p-datepicker-years" *ngIf="showYears && !showMonths">
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple>2021</button>
+      </div>
     </div>
   </div>
 </div>

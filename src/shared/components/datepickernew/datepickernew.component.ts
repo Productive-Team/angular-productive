@@ -65,7 +65,7 @@ export class DatepickernewComponent implements OnInit {
   currentDate: Date = new Date();
   selectedDate: Date;
 
-  weekDaysShort: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  weekDaysShort: string[] = [];
   monthsShort: string[] = [
     'JAN',
     'FEB',
@@ -84,6 +84,7 @@ export class DatepickernewComponent implements OnInit {
   monthPage: number;
   yearMonthPage: number;
 
+  daysOfLastMonth: number[] = [];
   daysOfMonth: any[] = [];
   monthsOfYear: any[] = [];
   years: any[] = [];
@@ -92,6 +93,7 @@ export class DatepickernewComponent implements OnInit {
   showMonths: boolean;
 
   @Input() locale = 'en-US';
+  @Input() dateInput: HTMLInputElement;
 
   @Input() Date: Date;
   @Output() DateChange: EventEmitter<Date> = new EventEmitter<Date>();
@@ -121,17 +123,19 @@ export class DatepickernewComponent implements OnInit {
   private setCurrentDate() {
     const currentDate = this.currentDate;
     this.setDaysOfMonth(currentDate.getFullYear(), currentDate.getMonth() + 1);
-    // const day = {
-    //   day: currentDate.getDate(),
-    //   selected: false,
-    //   year: currentDate.getFullYear(),
-    //   month: currentDate.getMonth() + 1,
-    // };
-    // this.selectDay(day);
+    this.setWeekdays();
   }
 
   private setDaysOfMonth(year: number, month: number) {
     const daysOfCurrentMonth = new Date(year, month, 0).getDate();
+    const lastMonthDays = new Date(year, month - 1, 1).getDay();
+
+    const lastMonthDaysArray = [];
+    let c = 0;
+    for (; c < lastMonthDays; c++) {
+      lastMonthDaysArray.push(c);
+    }
+    this.daysOfLastMonth = lastMonthDaysArray;
 
     const currentYear = year;
     const currentMonth = month;
@@ -150,6 +154,23 @@ export class DatepickernewComponent implements OnInit {
       this.daysOfMonth.push(days);
     }
   }
+
+  setWeekdays(): void {
+    const current = this.currentDate;
+    current.setDate(current.getDate() - current.getDay());
+    for (let i = 0; i < 7; i++) {
+      this.weekDaysShort.push(
+        current.toLocaleDateString(this.locale, { weekday: 'short' })
+      );
+      current.setDate(current.getDate() + 1);
+    }
+  }
+
+  // SET MONTHS BASED ON LOCALE
+  // setMonths(): void {
+  //   const current = new Date(2021, 0, 1);
+  //   current.setDate(current.getMonth());
+  // }
 
   selectDay(dayObj: any): void {
     const selectedDate = this.daysOfMonth.find((x) => x.selected);
@@ -220,20 +241,23 @@ export class DatepickernewComponent implements OnInit {
     this.change(date);
   }
 
-  // searchAndReturnDateObj(dateString: string): Date {
-  //   // const datePipe = new DatePipe(this.locale);
-  //   // const b = datePipe.transform(dateString, 'dd/MM/yyyy');
-  //   // console.log(b);
-  //   // return new Date();
-  // }
+  searchAndReturnDateObj(dateString: string): Date {
+    const date = new Date(dateString);
+
+    if (date.toString() === 'Invalid Date') {
+      return new Date();
+    }
+
+    return date;
+  }
 
   writeValue(obj: Date): void {
     this.Date = obj;
     if (this.Date) {
-      // const b = this.searchAndReturnDateObj(this.Date.toString());
-      // console.log(b);
-      // if (typeof Date === 'string') {
-      // } else {
+      const dateSearched = this.searchAndReturnDateObj(this.Date.toString());
+      if (dateSearched) {
+        this.Date = dateSearched;
+      }
       const dateObj = {
         day: this.Date.getDate(),
         selected: false,
@@ -241,7 +265,6 @@ export class DatepickernewComponent implements OnInit {
         month: this.Date.getMonth() + 1,
       };
       this.selectDay(dateObj);
-      // }
     }
   }
 
