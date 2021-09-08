@@ -2,20 +2,24 @@
   <div class="p-datepicker-wrapper elevation-p8" @datepickerAnim *ngIf="isPickerOpen">
     <div class="p-datepicker-header">
       <div class="p-datepicker-header-content">
-        <button class="btn flat fab" pRipple [pRippleCentered]="true" (click)="previousMonth()">
+        <button class="btn flat fab" pRipple [pRippleCentered]="true" (click)="pageChangePrevious()">
           <p-icon>chevron_left</p-icon>
         </button>
         <div class="spacer"></div>
-        <button class="btn-small flat t-600" pRipple (click)="showYears ? showYears = false : showYears = true">
-          <ng-container *ngIf="!showYears">
-            {{monthsShort[monthPage - 1]}} {{yearMonthPage}}
+        <button class="btn-small flat t-600 year-button" pRipple
+          (click)="showYears ? showYears = false : showYears = true">
+          <ng-container *ngIf="!showYears && !showMonths">
+            {{monthsOfYear[monthPage - 1]}} - {{yearMonthPage}}
           </ng-container>
-          <ng-container *ngIf="showYears">
-            {{'2000'}} - {{'2001'}}
+          <ng-container *ngIf="showYears && !showMonths">
+            {{years[0].year}} - {{years[years.length - 1].year}}
+          </ng-container>
+          <ng-container *ngIf="showMonths && !showYears">
+            {{yearMonthPage}}
           </ng-container>
         </button>
         <div class="spacer"></div>
-        <button class="btn flat fab" pRipple [pRippleCentered]="true" (click)="nextMonth()">
+        <button class="btn flat fab" pRipple [pRippleCentered]="true" (click)="pageChangeNext()">
           <p-icon>chevron_right</p-icon>
         </button>
       </div>
@@ -31,20 +35,11 @@
             pRipple [pRippleCentered]="true" (click)="closePicker(); selectDay(monthDay)">{{monthDay.day}}</button>
         </div>
       </div>
-      <div class="p-datepicker-months" *ngIf="!showYears && showMonths"></div>
+      <div class="p-datepicker-months" *ngIf="!showYears && showMonths">
+        <button class="p-month" pRipple [pRippleCentered]="true" *ngFor="let month of monthsOfYear">{{month}}</button>
+      </div>
       <div class="p-datepicker-years" *ngIf="showYears && !showMonths">
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
-        <button class="p-year" pRipple>2021</button>
+        <button class="p-year" pRipple *ngFor="let year of years" (click)="selectYear(year)">{{year.year}}</button>
       </div>
     </div>
   </div>

@@ -1837,9 +1837,12 @@ a.btn-large {
 .p-day:disabled {
   cursor: default;
   pointer-events: none;
+  opacity: 0.5;
+  color: #afafaf;
 }
 
-.p-year {
+.p-year,
+.p-month {
   width: 70px;
   height: 40px;
   border-radius: 50px;

@@ -1,5 +1,4 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { DatePipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -66,20 +65,6 @@ export class DatepickernewComponent implements OnInit {
   selectedDate: Date;
 
   weekDaysShort: string[] = [];
-  monthsShort: string[] = [
-    'JAN',
-    'FEB',
-    'MAR',
-    'APR',
-    'MAY',
-    'JUN',
-    'JUL',
-    'AUG',
-    'SEP',
-    'OCT',
-    'NOV',
-    'DEC',
-  ];
 
   monthPage: number;
   yearMonthPage: number;
@@ -92,7 +77,9 @@ export class DatepickernewComponent implements OnInit {
   showYears: boolean;
   showMonths: boolean;
 
+  // For more info about locales: https://www.science.co.il/language/Locale-codes.php
   @Input() locale = 'en-US';
+
   @Input() dateInput: HTMLInputElement;
 
   @Input() Date: Date;
@@ -124,6 +111,8 @@ export class DatepickernewComponent implements OnInit {
     const currentDate = this.currentDate;
     this.setDaysOfMonth(currentDate.getFullYear(), currentDate.getMonth() + 1);
     this.setWeekdays();
+    this.setMonths();
+    this.setYears(currentDate.getFullYear());
   }
 
   private setDaysOfMonth(year: number, month: number) {
@@ -160,17 +149,51 @@ export class DatepickernewComponent implements OnInit {
     current.setDate(current.getDate() - current.getDay());
     for (let i = 0; i < 7; i++) {
       this.weekDaysShort.push(
-        current.toLocaleDateString(this.locale, { weekday: 'short' })
+        current.toLocaleDateString(this.locale, { weekday: 'narrow' })
       );
       current.setDate(current.getDate() + 1);
     }
   }
 
-  // SET MONTHS BASED ON LOCALE
-  // setMonths(): void {
-  //   const current = new Date(2021, 0, 1);
-  //   current.setDate(current.getMonth());
-  // }
+  setMonths(): void {
+    const year = this.currentDate.getFullYear();
+    const monthList = [...Array(12).keys()];
+    let m = 0;
+    for (; m < monthList.length; m++) {
+      const month = new Date(year, m).toLocaleString(this.locale, {
+        month: 'short',
+      });
+      this.monthsOfYear.push(month);
+    }
+  }
+
+  setYears(currentYear: number): void {
+    this.years = [];
+
+    let minYear = currentYear;
+    minYear -= 10;
+
+    let yearQty = 20;
+
+    let y = 0;
+    for (; y < yearQty; y++) {
+      minYear++;
+      const obj = { year: minYear, selected: false };
+      if (minYear > 0) {
+        this.years.push(obj);
+      }
+    }
+    if (this.years.length < 20 && this.years.length > 0) {
+      yearQty = 29;
+      for (; y < yearQty; y++) {
+        minYear++;
+        const obj = { year: minYear, selected: false };
+        if (minYear > 0) {
+          this.years.push(obj);
+        }
+      }
+    }
+  }
 
   selectDay(dayObj: any): void {
     const selectedDate = this.daysOfMonth.find((x) => x.selected);
@@ -194,6 +217,21 @@ export class DatepickernewComponent implements OnInit {
         newSelDate.day
       );
       this.emitDate(this.selectedDate);
+    }
+  }
+
+  selectYear(yearObj: any): void {
+    const selectedYear = this.years.find((c) => c.selected);
+    if (selectedYear) {
+      selectedYear.selected = false;
+    }
+
+    const newSelectedYear = this.years.find((v) => v.year === yearObj.year);
+    if (newSelectedYear) {
+      newSelectedYear.selected = true;
+      this.yearMonthPage = newSelectedYear.year;
+      this.showYears = false;
+      this.showMonths = true;
     }
   }
 
@@ -233,6 +271,32 @@ export class DatepickernewComponent implements OnInit {
         month: this.selectedDate.getMonth() + 1,
       };
       this.selectDay(dateObj);
+    }
+  }
+
+  nextYear(): void {
+    const lastYear = this.years[this.years.length - 1].year + 10;
+    this.setYears(lastYear);
+  }
+
+  previousYear(): void {
+    const lastYear = this.years[0].year - 11;
+    this.setYears(1);
+  }
+
+  pageChangeNext(): void {
+    if (this.showYears && !this.showMonths) {
+      this.nextYear();
+    } else if (!this.showYears && !this.showMonths) {
+      this.nextMonth();
+    }
+  }
+
+  pageChangePrevious(): void {
+    if (this.showYears && !this.showMonths) {
+      this.previousYear();
+    } else if (!this.showYears && !this.showMonths) {
+      this.previousMonth();
     }
   }
 
