@@ -11,6 +11,8 @@ import {
   Output,
   EventEmitter,
   forwardRef,
+  SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -46,7 +48,7 @@ const pickerAnim = trigger('datepickerAnim', [
     DatePipe,
   ],
 })
-export class DatepickerComponent implements OnInit {
+export class DatepickerComponent implements OnInit, OnChanges {
   isPickerOpen: boolean;
 
   currentDate: Date = new Date();
@@ -95,6 +97,7 @@ export class DatepickerComponent implements OnInit {
   ngOnInit(): void {
     this.setToBody();
     this.setCurrentDate();
+    // this.datepickerInputValue();
   }
 
   private setCurrentDate() {
@@ -107,6 +110,7 @@ export class DatepickerComponent implements OnInit {
 
   private setDaysOfMonth(year: number, month: number) {
     this.daysOfMonth = [];
+
     const daysOfCurrentMonth = new Date(year, month, 0).getDate();
     const lastMonthDays = new Date(year, month - 1, 1).getDay();
 
@@ -136,6 +140,7 @@ export class DatepickerComponent implements OnInit {
   }
 
   setWeekdays(): void {
+    this.weekDaysShort = [];
     const current = this.currentDate;
     current.setDate(current.getDate() - current.getDay());
     for (let i = 0; i < 7; i++) {
@@ -386,10 +391,27 @@ export class DatepickerComponent implements OnInit {
     if (this.dateInput) {
       // TODO: IMPLEMENT DYNAMIC LOCALE TO DATEPIPE
       const formatted = this.datePipe.transform(date, 'MM/dd/yyyy');
-      console.log(formatted);
       this.dateInput.value = formatted;
+
+      const dateObj = {
+        day: date.getDate(),
+        selected: false,
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+      };
+      this.selectDay(dateObj);
     }
   }
+
+  // datepickerInputValue(): void {
+  //   if (this.dateInput) {
+  //     const input = this.dateInput;
+  //     input.addEventListener('change', (v) => {
+  //       const date = this.searchAndReturnDateObj(input.value);
+  //       this.emitDate(date);
+  //     });
+  //   }
+  // }
 
   searchAndReturnDateObj(dateString: string): Date {
     const date = new Date(dateString);
@@ -465,5 +487,12 @@ export class DatepickerComponent implements OnInit {
     const datepicker = this.el.nativeElement.firstChild as HTMLElement;
     const body = document.body.querySelector('.p-components-container');
     body.insertAdjacentElement('beforeend', datepicker);
+  }
+
+  ngOnChanges(event: SimpleChanges): void {
+    console.log(event.locale);
+    if (!event.locale.isFirstChange()) {
+      this.setCurrentDate();
+    }
   }
 }

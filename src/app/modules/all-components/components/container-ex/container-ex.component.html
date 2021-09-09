@@ -1,3 +1,24 @@
+<h5>Datepicker Locale</h5>
+<br>
+<p-radio-group pRadioCollectionName="locales" [(ngModel)]="locale">
+  <p-radio-button pRadioValue="en-US">
+    English
+  </p-radio-button>
+  <p-radio-button pRadioValue="pt-BR">
+    Português
+  </p-radio-button>
+  <p-radio-button pRadioValue="es-es">
+    Español
+  </p-radio-button>
+  <p-radio-button pRadioValue="ja-ja">
+    日本語
+  </p-radio-button>
+  <p-radio-button pRadioValue="zh-ch">
+    中国人
+  </p-radio-button>
+</p-radio-group>
+<br>
+<br>
 <div style="width: 300px;">
   <p-fieldset pFieldsetLabelText="Datepicker">
     <input type="text" pInput #dateInput>
@@ -6,24 +27,6 @@
     </button>
     <app-datepicker #dat [(ngModel)]="variab" [dateInput]="dateInput" locale="{{locale}}"></app-datepicker>
   </p-fieldset>
-
-  <p-radio-group pRadioCollectionName="locales" [(ngModel)]="locale">
-    <p-radio-button pRadioValue="en-US">
-      English
-    </p-radio-button>
-    <p-radio-button pRadioValue="pr-BR">
-      Português
-    </p-radio-button>
-    <p-radio-button pRadioValue="es-es">
-      Español
-    </p-radio-button>
-    <p-radio-button pRadioValue="ja-ja">
-      日本語
-    </p-radio-button>
-    <p-radio-button pRadioValue="zh-ch">
-      中国人
-    </p-radio-button>
-  </p-radio-group>
 </div>
 
 {{variab | date : 'dd/MM/yyyy'}}
