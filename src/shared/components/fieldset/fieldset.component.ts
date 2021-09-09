@@ -209,7 +209,8 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
     if (
       !input.parentElement.classList.contains('p-select-parent-wrapper') &&
       input.closest('.p-select-search') === null &&
-      !input.classList.contains('picker-trigger')
+      !input.classList.contains('picker-trigger') &&
+      !input.classList.contains('calendar-trigger')
     ) {
       if (input.readOnly) {
         return true;
@@ -217,5 +218,6 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
         return false;
       }
     }
+    return false;
   }
 }

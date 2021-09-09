@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
@@ -13,6 +12,10 @@ import {
   forwardRef,
   SimpleChanges,
   OnChanges,
+  HostBinding,
+  AfterContentInit,
+  AfterViewInit,
+  AfterViewChecked,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -22,9 +25,17 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class DatepickerTriggerDirective {
   @Input() triggerFor: DatepickerComponent;
 
+  constructor(private el: ElementRef) {}
+
   @HostListener('click', ['$event'])
   openPicker(): void {
+    this.triggerFor.triggerOrigin = this.el.nativeElement;
     this.triggerFor.openPicker();
+  }
+
+  @HostBinding('class.calendar-trigger')
+  get setDefaultClass() {
+    return true;
   }
 }
 
@@ -45,7 +56,6 @@ const pickerAnim = trigger('datepickerAnim', [
       useExisting: forwardRef(() => DatepickerComponent),
       multi: true,
     },
-    DatePipe,
   ],
 })
 export class DatepickerComponent implements OnInit, OnChanges {
@@ -69,6 +79,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
   showYears: boolean;
   showMonths: boolean;
 
+  triggerOrigin: any;
+
   // For more info about locales: https://www.science.co.il/language/Locale-codes.php
   @Input() locale = 'en-US';
 
@@ -82,7 +94,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
   change = (_) => {};
   blur = (_) => {};
 
-  constructor(private el: ElementRef, private datePipe: DatePipe) {}
+  constructor(private el: ElementRef) {}
 
   public openPicker(): void {
     this.isPickerOpen = true;
@@ -95,20 +107,26 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    // Sets Datepicker general structure to .component-container div, so it can
+    // work independent of overflow in the parents
     this.setToBody();
-    this.setCurrentDate();
-    // this.datepickerInputValue();
+    //
+    this.datepickerInputValue();
+    this.setDates(this.Date);
   }
 
-  private setCurrentDate() {
-    const currentDate = this.currentDate;
+  private setDates(date?: Date) {
+    let currentDate = date;
+    if (!date) {
+      currentDate = this.currentDate;
+    }
     this.setDaysOfMonth(currentDate.getFullYear(), currentDate.getMonth() + 1);
     this.setWeekdays();
     this.setMonths(currentDate.getFullYear());
     this.setYears(currentDate.getFullYear());
   }
 
-  private setDaysOfMonth(year: number, month: number) {
+  private setDaysOfMonth(year: number, month: number): void {
     this.daysOfMonth = [];
 
     const daysOfCurrentMonth = new Date(year, month, 0).getDate();
@@ -388,30 +406,34 @@ export class DatepickerComponent implements OnInit, OnChanges {
   emitDate(date: Date): void {
     this.DateChange.emit(date);
     this.change(date);
+    this.Date = date;
     if (this.dateInput) {
-      // TODO: IMPLEMENT DYNAMIC LOCALE TO DATEPIPE
-      const formatted = this.datePipe.transform(date, 'MM/dd/yyyy');
-      this.dateInput.value = formatted;
-
-      const dateObj = {
-        day: date.getDate(),
-        selected: false,
-        year: date.getFullYear(),
-        month: date.getMonth() + 1,
-      };
-      this.selectDay(dateObj);
+      this.dateInput.value = date.toLocaleDateString(this.locale, {
+        formatMatcher: 'best fit',
+      });
     }
   }
 
-  // datepickerInputValue(): void {
-  //   if (this.dateInput) {
-  //     const input = this.dateInput;
-  //     input.addEventListener('change', (v) => {
-  //       const date = this.searchAndReturnDateObj(input.value);
-  //       this.emitDate(date);
-  //     });
-  //   }
-  // }
+  datepickerInputValue(): void {
+    if (this.dateInput) {
+      const input = this.dateInput;
+      input.addEventListener('change', (v) => {
+        const date = this.searchAndReturnDateObj(input.value);
+        this.setDates(date);
+        setTimeout(() => {
+          const dateObj = {
+            day: date.getDate(),
+            selected: false,
+            year: date.getFullYear(),
+            month: date.getMonth() + 1,
+          };
+          this.selectDay(dateObj);
+        }, 0);
+
+        this.emitDate(date);
+      });
+    }
+  }
 
   searchAndReturnDateObj(dateString: string): Date {
     const date = new Date(dateString);
@@ -425,11 +447,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
   writeValue(obj: Date): void {
     this.Date = obj;
+    this.setDates(this.Date);
     if (this.Date) {
-      const dateSearched = this.searchAndReturnDateObj(this.Date.toString());
-      if (dateSearched) {
-        this.Date = dateSearched;
-      }
       const dateObj = {
         day: this.Date.getDate(),
         selected: false,
@@ -450,7 +469,10 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
   private setPickerPositions(): void {
     const wrap = this.datepickerPosition.nativeElement as HTMLElement;
-    const input = this.el.nativeElement.closest('.fieldset') as HTMLElement;
+    let input = this.el.nativeElement.closest('.fieldset') as HTMLElement;
+    if (input === null) {
+      input = this.triggerOrigin as HTMLElement;
+    }
     const inputPos = input.getBoundingClientRect();
     wrap.style.top = inputPos.top + input.offsetHeight + 'px';
     wrap.style.left = inputPos.left + 'px';
@@ -490,9 +512,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(event: SimpleChanges): void {
-    console.log(event.locale);
     if (!event.locale.isFirstChange()) {
-      this.setCurrentDate();
+      this.setDates(this.Date);
     }
   }
 }

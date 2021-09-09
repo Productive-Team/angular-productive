@@ -21,12 +21,12 @@
 <br>
 <div style="width: 300px;">
   <p-fieldset pFieldsetLabelText="Datepicker">
-    <input type="text" pInput #dateInput>
-    <button class="btn flat fab" pDateTrigger [triggerFor]="dat" p-suffix pRipple [pRippleCentered]="true">
+    <input type="text" pInput #dateInput pDateTrigger [triggerFor]="dat">
+    <!-- <button class="btn flat fab"  p-suffix pRipple [pRippleCentered]="true">
       <p-icon>today</p-icon>
-    </button>
-    <app-datepicker #dat [(ngModel)]="variab" [dateInput]="dateInput" locale="{{locale}}"></app-datepicker>
+    </button> -->
+    <app-datepicker #dat [(Date)]="variab" [dateInput]="dateInput" locale="{{locale}}"></app-datepicker>
   </p-fieldset>
 </div>
 
-{{variab | date : 'dd/MM/yyyy'}}
+{{variab}}

@@ -120,8 +120,8 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  // variab = new Date();
-  variab: Date;
+  variab = new Date(2004, 0, 26);
+  // variab: Date;
   vev = '';
 
   indet = true;
