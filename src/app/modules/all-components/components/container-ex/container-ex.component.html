@@ -21,11 +21,11 @@
 <br>
 <div style="width: 300px;">
   <p-fieldset pFieldsetLabelText="Datepicker">
-    <input type="text" pInput #dateInput pDateTrigger [triggerFor]="dat">
+    <input type="text" pInput #dateInput pDatepickerTrigger [pTriggerFor]="dat">
     <!-- <button class="btn flat fab"  p-suffix pRipple [pRippleCentered]="true">
       <p-icon>today</p-icon>
     </button> -->
-    <app-datepicker #dat [(Date)]="variab" [dateInput]="dateInput" locale="{{locale}}"></app-datepicker>
+    <app-datepicker #dat [(date)]="variab" [dateInput]="dateInput" locale="{{locale}}"></app-datepicker>
   </p-fieldset>
 </div>
 

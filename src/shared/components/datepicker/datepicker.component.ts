@@ -13,24 +13,22 @@ import {
   SimpleChanges,
   OnChanges,
   HostBinding,
-  AfterContentInit,
-  AfterViewInit,
-  AfterViewChecked,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Directive({
-  selector: '[p-date-trigger], [appDateTriggerDirective], [pDateTrigger]',
+  selector:
+    '[p-datepicker-trigger], [appDatepickerTriggerDirective], [pDatepickerTrigger]',
 })
 export class DatepickerTriggerDirective {
-  @Input() triggerFor: DatepickerComponent;
+  @Input() pTriggerFor: DatepickerComponent;
 
   constructor(private el: ElementRef) {}
 
   @HostListener('click', ['$event'])
   openPicker(): void {
-    this.triggerFor.triggerOrigin = this.el.nativeElement;
-    this.triggerFor.openPicker();
+    this.pTriggerFor.triggerOrigin = this.el.nativeElement;
+    this.pTriggerFor.openPicker();
   }
 
   @HostBinding('class.calendar-trigger')
@@ -86,8 +84,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
   @Input() dateInput: HTMLInputElement;
 
-  @Input() Date: Date;
-  @Output() DateChange: EventEmitter<Date> = new EventEmitter<Date>();
+  @Input() date: Date;
+  @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();
 
   @ViewChild('datepickerPos') datepickerPosition: ElementRef;
 
@@ -112,7 +110,20 @@ export class DatepickerComponent implements OnInit, OnChanges {
     this.setToBody();
     //
     this.datepickerInputValue();
-    this.setDates(this.Date);
+    this.setDates(this.date);
+    if (this.dateInput) {
+      setTimeout(() => {
+        if (this.date) {
+          const dateObj = {
+            day: this.date.getDate(),
+            selected: false,
+            year: this.date.getFullYear(),
+            month: this.date.getMonth() + 1,
+          };
+          this.selectDay(dateObj);
+        }
+      }, 0);
+    }
   }
 
   private setDates(date?: Date) {
@@ -276,6 +287,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Select months of a year
   selectMonth(monthObj: any): void {
     const selectedMonth = this.monthsOfYear.find((c) => c.selected);
     if (selectedMonth) {
@@ -294,6 +306,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Advance to the previous month when showing the days, and it also advances
+  // to the previous year when reaching january
   previousMonth(): void {
     this.daysOfMonth = [];
     this.monthPage--;
@@ -319,6 +333,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Advance to the next month when showing the days, and it also advances
+  // to next year when reaching december
   nextMonth(): void {
     this.daysOfMonth = [];
     this.monthPage++;
@@ -345,11 +361,13 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Advance to the previous 20 years when showing the year list
   nextYear(): void {
     const lastYear = this.years[this.years.length - 1].yearNumber + 10;
     this.setYears(lastYear);
   }
 
+  // Advance to the next 20 years when showing the year list
   previousYear(): void {
     const firstYear = this.years[0].yearNumber - 11;
     if (firstYear > 100) {
@@ -357,6 +375,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Advance to previous year when showing the months
   previousYearsInMonths(): void {
     this.yearMonthPage--;
     let idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
@@ -367,6 +386,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
     this.selectedYearIndex = this.years.indexOf(idx);
   }
 
+  // Advance to next year when showing the months
   nextYearsInMonths(): void {
     this.yearMonthPage++;
     let idx = this.years.find((v) => v.yearNumber === this.yearMonthPage);
@@ -377,6 +397,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
     this.selectedYearIndex = this.years.indexOf(idx);
   }
 
+  // Function to execute when pressing the right chevron button
   pageChangeNext(): void {
     if (this.showYears && !this.showMonths) {
       this.nextYear();
@@ -387,6 +408,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Function to execute when pressing the left chevron button
   pageChangePrevious(): void {
     if (this.showYears && !this.showMonths) {
       this.previousYear();
@@ -397,16 +419,18 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Toggles menu visibility to show years or days
   toggleVisibility(): void {
     this.showYears = !this.showYears;
     this.showMonths = false;
     this.setDaysOfMonth(this.yearMonthPage, this.monthPage);
   }
 
+  // Emits the date for ngModel, formControl and two-way value binding
   emitDate(date: Date): void {
-    this.DateChange.emit(date);
+    this.dateChange.emit(date);
     this.change(date);
-    this.Date = date;
+    this.date = date;
     if (this.dateInput) {
       this.dateInput.value = date.toLocaleDateString(this.locale, {
         formatMatcher: 'best fit',
@@ -414,6 +438,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Listens to input value changes so it can set the date written on it
   datepickerInputValue(): void {
     if (this.dateInput) {
       const input = this.dateInput;
@@ -435,6 +460,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
+  // Transforms a string into a Date() value
+  // returns current date, when string is an Invalid Date
   searchAndReturnDateObj(dateString: string): Date {
     const date = new Date(dateString);
 
@@ -446,17 +473,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   writeValue(obj: Date): void {
-    this.Date = obj;
-    this.setDates(this.Date);
-    if (this.Date) {
-      const dateObj = {
-        day: this.Date.getDate(),
-        selected: false,
-        year: this.Date.getFullYear(),
-        month: this.Date.getMonth() + 1,
-      };
-      this.selectDay(dateObj);
-    }
+    this.date = obj;
+    this.setDates(this.date);
   }
 
   registerOnChange(fn: any): void {
@@ -512,8 +530,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(event: SimpleChanges): void {
-    if (!event.locale.isFirstChange()) {
-      this.setDates(this.Date);
+    if (event.locale !== undefined && !event.locale.isFirstChange()) {
+      this.setDates(this.date);
     }
   }
 }
