@@ -11,10 +11,17 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
             : 'p-table-header'
         "
       >
-        <ng-content select="[table-header]"></ng-content>
+        <!-- <ng-content select="[table-header]"></ng-content> -->
+        <tr>
+          <th *ngFor="let item of data.header">{{ item.label }}</th>
+        </tr>
       </thead>
       <tbody class="p-table-body">
-        <ng-content select="[table-body]"></ng-content>
+        <!-- <ng-content select="[table-body]"></ng-content> -->
+        <tr></tr>
+        <tr *ngFor="let item of data.content">
+          <td *ngFor="let hdr of data.header">{{ item[hdr.prop] }}</td>
+        </tr>
       </tbody>
       <tfoot
         [class]="
@@ -33,9 +40,30 @@ export class TableComponent implements OnInit {
   @Input() pTableExpands = false;
   @Input() pTableHeaderFixed = false;
   @Input() pTableFooterFixed = false;
+  data;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.data = {
+      header: [
+        {
+          label: 'id',
+          prop: 'xavasca',
+        },
+        {
+          label: 'name',
+          prop: 'xa',
+        },
+      ],
+      content: [
+        {
+          xa: 'heitor',
+          xavasca: 123,
+        },
+      ],
+    };
+    console.log('##### datatable ', this.data.content[0]['name']);
+  }
 
   @HostBinding('class.table-expanded')
   get isEx() {

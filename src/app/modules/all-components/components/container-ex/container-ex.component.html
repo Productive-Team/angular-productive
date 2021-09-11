@@ -20,13 +20,36 @@
 <br>
 <br>
 <div style="width: 300px;">
-  <p-fieldset pFieldsetLabelText="Datepicker">
-    <input type="text" pInput #dateInput pDatepickerTrigger [pTriggerFor]="dat">
-    <!-- <button class="btn flat fab"  p-suffix pRipple [pRippleCentered]="true">
-      <p-icon>today</p-icon>
-    </button> -->
-    <app-datepicker #dat [(date)]="variab" [dateInput]="dateInput" locale="{{locale}}"></app-datepicker>
+  <p-fieldset pFieldsetLabelText="label">
+    <p-select [(pSelectValue)]="sel">
+      <p-option value="1">1</p-option>
+      <p-option value="2">2</p-option>
+      <p-option value="3">3</p-option>
+    </p-select>
   </p-fieldset>
 </div>
+<!-- <button pDatepickerTrigger [pTriggerFor]="datepicker">
+  das
+</button> -->
+{{sel}}
+<!-- <p-datepicker #datepicker [(date)]="variab"></p-datepicker> -->
+{{variab | date : 'dd/MM/yyyy'}}
 
-{{variab}}
+<p-table>
+  <!-- <ng-container table-header>
+    <tr>
+      <td>sadasd</td>
+      <td>as</td>
+      <td></td>
+    </tr>
+  </ng-container> -->
+  <ng-container></ng-container>
+</p-table>
+
+<!-- <p-fieldset pFieldsetLabelText="Datepicker">
+  <input type="text" pInput #dateInput pDatepickerTrigger [pTriggerFor]="dat">
+  <app-datepicker #dat [(date)]="variab" [dateInput]="dateInput" locale="{{locale}}"></app-datepicker>
+</p-fieldset> -->
+<!-- <button class="btn flat fab"  p-suffix pRipple [pRippleCentered]="true">
+  <p-icon>today</p-icon>
+</button> -->
