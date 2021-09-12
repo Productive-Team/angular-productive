@@ -11,6 +11,10 @@ import {
   Output,
   ContentChildren,
   OnDestroy,
+  ViewChildren,
+  AfterViewChecked,
+  DoCheck,
+  AfterContentChecked,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -44,7 +48,9 @@ const menuAnim = trigger('menuAnimation', [
     },
   ],
 })
-export class SelectComponent implements OnInit, OnDestroy {
+export class SelectComponent
+  implements OnInit, OnDestroy, DoCheck, AfterContentChecked
+{
   @Input() pSelectAppearence: string;
   @Input() pSelectLabel: string;
 
@@ -54,11 +60,15 @@ export class SelectComponent implements OnInit, OnDestroy {
 
   pSelectSearch: boolean;
 
+  @Input() pSelectData: SelectDataModel[] = [];
+
   @Input() pSelectValue: any;
   @Output() pSelectValueChange = new EventEmitter<any>();
 
   selectedOptions = [];
   multipleValues = [];
+
+  optionButtons = [];
 
   allSelected = false;
 
@@ -68,13 +78,20 @@ export class SelectComponent implements OnInit, OnDestroy {
 
   menuOpen: boolean;
 
+  searchText: string;
+
   @ViewChild('menu') selectMenu: ElementRef;
   @ViewChild('input') selectInput: ElementRef;
+
+  @ViewChild('optionContain') contain: ElementRef;
+
+  @ViewChildren(forwardRef(() => SelectOptionComponent))
+  arrayGeneratedButtons: any;
 
   @ContentChildren(forwardRef(() => SelectOptionComponent), {
     descendants: true,
   })
-  optButtons: any;
+  contentProjectionButtons: any;
 
   selectedOptionText: string;
 
@@ -82,17 +99,50 @@ export class SelectComponent implements OnInit, OnDestroy {
 
   public transformOrigin = '50% 0px 0px';
 
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
   change = (_) => {};
   blur = (_) => {};
 
+  //  TODO: find a way of implementing properly the data array form of sending options
   ngOnInit() {
     setTimeout(() => {
       this.setToBody();
       this.checkToSelectSingle(this.pSelectValue);
       this.checkToSelectMultiple(this.pSelectValue);
     }, 0);
+  }
+
+  ngDoCheck(): void {
+    if (this.arrayGeneratedButtons !== undefined) {
+      const genLength = this.arrayGeneratedButtons._results.length;
+      let i = 0;
+      for (; i < genLength; i++) {
+        const idx = this.optionButtons.findIndex(
+          (x) => x.value === this.arrayGeneratedButtons._results[i].value
+        );
+        if (idx < 0) {
+          this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
+        }
+      }
+    }
+    if (this.contentProjectionButtons !== undefined) {
+      const genLength = this.contentProjectionButtons._results.length;
+      let i = 0;
+      for (; i < genLength; i++) {
+        const idx = this.optionButtons.findIndex(
+          (x) => x.value === this.contentProjectionButtons._results[i].value
+        );
+        if (idx < 0) {
+          this.optionButtons.push(this.contentProjectionButtons._results[i]);
+        }
+      }
+    }
+  }
+
+  ngAfterContentChecked() {
+    // this.checkToSelectSingle(this.pSelectValue);
+    // this.checkToSelectMultiple(this.pSelectValue);
   }
 
   setToBody(): void {
@@ -124,11 +174,10 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   openMenu(): void {
-    // TODO: Fix bug after filter query, it doesn't scroll the option to view and doesn't set the position
-    // even though it still recieves the option normally
     this.menuOpen = true;
     this.setBackdrop();
     this.scrollOptToView();
+    console.log(this.optionButtons);
     setTimeout(() => {
       this.setPositions();
     }, 0);
@@ -154,6 +203,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   setSingleValue(value: any) {
+    console.log(value);
     this.checkToSelectSingle(value);
     this.pSelectValueChange.emit(value);
     this.change(value);
@@ -167,11 +217,12 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   checkToSelectSingle(value: any): void {
-    this.optButtons._results.forEach((x) => {
+    this.optionButtons.forEach((x) => {
       x.selected = false;
     });
-    const component = this.optButtons._results.find((x) => x.value === value);
+    const component = this.optionButtons.find((x) => x.value === value);
     this.selectedOption = component;
+    console.log(this.selectedOption);
     if (component && value.length > 0) {
       const elementComp = component.el.nativeElement
         .firstChild as HTMLButtonElement;
@@ -184,7 +235,7 @@ export class SelectComponent implements OnInit, OnDestroy {
 
   checkToSelectMultiple(value: any): void {
     const input = this.selectInput.nativeElement as HTMLInputElement;
-    const select = this.optButtons._results.find((o) => o.value === value);
+    const select = this.optionButtons.find((o) => o.value === value);
     const opt = this.selectedOptions.find((v) => v.value === select.value);
     if (!opt) {
       if (select !== undefined) {
@@ -196,7 +247,7 @@ export class SelectComponent implements OnInit, OnDestroy {
       this.selectedOptions.splice(index, 1);
       select.selected = false;
     }
-    const allSelected = this.optButtons._results.filter((x) => x.selected);
+    const allSelected = this.optionButtons.filter((x) => x.selected);
     if (allSelected.length > 0) {
       this.selectedOption = allSelected[0];
       input.value = allSelected[0].el.nativeElement.firstChild.textContent;
@@ -219,7 +270,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   selectAll(event): void {
-    this.optButtons._results.forEach((x) => {
+    this.optionButtons.forEach((x) => {
       if (event === true) {
         if (x.selected) {
           const idx = this.selectedOptions.indexOf(x);
@@ -232,12 +283,12 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   isEverySelected(): void {
-    this.allSelected = this.optButtons._results.every((t) => t.selected);
+    this.allSelected = this.optionButtons.every((t) => t.selected);
   }
 
   indeterminateSelected(): boolean {
     return (
-      this.optButtons._results.filter((x) => x.selected).length > 0 &&
+      this.optionButtons.filter((x) => x.selected).length > 0 &&
       !this.allSelected
     );
   }
@@ -266,12 +317,18 @@ export class SelectComponent implements OnInit, OnDestroy {
     // Gets the selected or first option in the list
     let selectedOpt;
     if (!this.selectedOption) {
-      selectedOpt = this.optButtons._results[0].el.nativeElement
+      selectedOpt = this.optionButtons[0].el.nativeElement
         .firstChild as HTMLElement;
     } else {
       selectedOpt = this.selectedOption.el.nativeElement
         .firstChild as HTMLElement;
     }
+
+    const selectedOptHeight = selectedOpt.offsetHeight;
+
+    // if (selectedOptHeight === 0) {
+    //   selectedOptHeight = 48;
+    // }
 
     // Gets the select content
     // <div class="p-select-content"></div>
@@ -283,7 +340,7 @@ export class SelectComponent implements OnInit, OnDestroy {
     // selected option and the input, diving the result by two, and then subtracting
     // the DOMRect top from the input by the result of the division
     let topPosition =
-      inputPositions.top - (selectedOpt.offsetHeight - input.offsetHeight) / 2;
+      inputPositions.top - (selectedOptHeight - input.offsetHeight) / 2;
 
     // Calculates the positioning the menu needs to translate backwards via transform.
     // This is done by subtracting the offsetTop of the selected option by the scrollTop value
@@ -315,18 +372,23 @@ export class SelectComponent implements OnInit, OnDestroy {
       topString = `bottom: ${topPosition}px;`;
     }
 
-    const inputDifferece = Math.round(fieldset.width - input.offsetWidth);
-
-    let leftPos = inputPositions.left - inputDifferece / 4;
+    let inputDifferece = Math.round(fieldset.width - input.offsetWidth - 24);
 
     let inputWidth = fieldset.width;
 
+    if (inputDifferece === 0) {
+      inputDifferece = 24;
+      inputWidth = fieldset.width + inputDifferece;
+    }
+
+    let leftPos = inputPositions.left - inputDifferece / 2;
+
     if (this.pSelectMultiple) {
-      leftPos = inputPositions.left - 40;
+      leftPos = inputPositions.left - 52;
       if (leftPos < 0) {
         leftPos = 0;
       }
-      inputWidth = fieldset.width + 40;
+      inputWidth = fieldset.width + 52;
     }
 
     styleStr =
@@ -348,14 +410,14 @@ export class SelectComponent implements OnInit, OnDestroy {
     if (this.pSelectMultiple) {
       const currentValue = this.pSelectValue;
       currentValue.forEach((x) => {
-        const component = this.optButtons._results.find((v) => v.value === x);
+        const component = this.optionButtons.find((v) => v.value === x);
         if (component) {
           component.selected = true;
         }
       });
     } else {
       const currentValue = this.pSelectValue;
-      const component = this.optButtons._results.find(
+      const component = this.optionButtons.find(
         (x) => x.value === currentValue
       );
       if (component) {
@@ -363,6 +425,10 @@ export class SelectComponent implements OnInit, OnDestroy {
       }
     }
     this.isEverySelected();
+  }
+
+  searchOptions(): void {
+    const value = this.searchText;
   }
 
   ngOnDestroy(): void {
@@ -394,7 +460,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   >
     <p-checkbox
       class="p-select-no-pointer-events"
-      [(pCheckboxChecked)]="selected"
+      [(checked)]="selected"
       *ngIf="parent.pSelectMultiple"
     ></p-checkbox>
     <ng-content></ng-content>
@@ -448,4 +514,10 @@ export class SelectSearchDirective {
   constructor(public parent: SelectComponent) {
     this.parent.pSelectSearch = true;
   }
+}
+
+export class SelectDataModel {
+  id: any;
+  name: any;
+  disabled?: boolean;
 }

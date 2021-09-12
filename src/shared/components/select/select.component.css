@@ -52,3 +52,7 @@
   opacity: 0.5;
   pointer-events: none;
 }
+
+.p-select-content-options {
+  display: contents;
+}

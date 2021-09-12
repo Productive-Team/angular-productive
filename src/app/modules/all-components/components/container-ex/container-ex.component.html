@@ -20,12 +20,29 @@
 <br>
 <br>
 <div style="width: 300px;">
-  <p-fieldset pFieldsetLabelText="Datepicker">
+  <!-- <p-fieldset pFieldsetLabelText="Datepicker">
     <input type="text" pInput #dateInput pDatepickerTrigger [pTriggerFor]="dat">
-    <!-- <button class="btn flat fab"  p-suffix pRipple [pRippleCentered]="true">
+    <button class="btn flat fab"  p-suffix pRipple [pRippleCentered]="true">
       <p-icon>today</p-icon>
-    </button> -->
+    </button>
     <app-datepicker #dat [(date)]="variab" [dateInput]="dateInput" locale="{{locale}}"></app-datepicker>
+  </p-fieldset> -->
+  <p-fieldset pFieldsetLabelText="Select Normal">
+    <p-select>
+      <p-option>Hello</p-option>
+      <p-option>World</p-option>
+      <p-option>!!</p-option>
+    </p-select>
+  </p-fieldset>
+  <p-fieldset pFieldsetLabelText="Select ngFor">
+    <p-select multiple search [(pSelectValue)]="variab">
+      <p-option *ngFor="let item of optionArr" [value]="item.id" [disabled]="item.disabled">{{item.name}}</p-option>
+    </p-select>
+  </p-fieldset>
+  <p-fieldset pFieldsetLabelText="Select Array Input">
+    <p-select [pSelectData]="optionArr" [(pSelectValue)]="variab">
+      <p-option>Hello</p-option>
+    </p-select>
   </p-fieldset>
 </div>
 

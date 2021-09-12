@@ -1,3 +1,4 @@
+import { SelectDataModel } from './../../../../../shared/components/select/select.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
@@ -89,38 +90,39 @@ export class ContainerExComponent implements OnInit {
     sel: 50,
   };
 
-  optionArr = [
+  optionArr: SelectDataModel[] = [
     // {
     //   value: null,
     //   name: '--none--',
     // },
     {
-      value: 'opt1',
+      id: 'opt1',
       name: 'Option 1',
     },
     {
-      value: 'opt2',
+      id: 'opt2',
       name: 'Option 2',
     },
     {
-      value: 'opt3',
+      id: 'opt3',
       name: 'Option 3',
     },
     {
-      value: 'opt4',
+      id: 'opt4',
       name: 'Option 4',
+      disabled: true,
     },
     {
-      value: 'opt5',
+      id: 'opt5',
       name: 'Option 5',
     },
     {
-      value: 'opt6',
+      id: 'opt6',
       name: 'Option 6',
     },
   ];
 
-  variab = new Date(2004, 0, 26);
+  variab = 'opt5';
   // variab: Date;
   vev = '';
 
