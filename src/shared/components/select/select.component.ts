@@ -102,13 +102,17 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   change = (_) => {};
   blur = (_) => {};
 
-  //  TODO: find a way of implementing properly the data array form of sending options
   ngOnInit() {
     setTimeout(() => {
       this.setToBody();
       if (this.pSelectData.length === 0) {
         this.checkToSelectSingle(this.pSelectValue);
         this.checkToSelectMultiple(this.pSelectValue);
+      } else {
+        const text = this.pSelectData.find((x) => x.id === this.pSelectValue);
+        if (text !== undefined) {
+          this.selectInput.nativeElement.value = text.name.trim();
+        }
       }
     }, 0);
   }
@@ -137,6 +141,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
           this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
         }
         this.checkToSelectSingle(this.pSelectValue);
+        this.checkToSelectMultiple(this.pSelectValue);
       }
     }
     if (this.contentProjectionButtons !== undefined) {
@@ -227,7 +232,6 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     this.optionButtons.forEach((x) => {
       x.selected = false;
     });
-    console.log('object');
     const component = this.optionButtons.find((x) => x.value === value);
     this.selectedOption = component;
     if (component && value.length > 0) {
@@ -484,7 +488,7 @@ export class SelectOptionComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.value === undefined) {
-      this.value = this.el.nativeElement.firstChild.textContent;
+      this.value = this.el.nativeElement.firstChild.textContent.trim();
     }
   }
 
@@ -527,6 +531,6 @@ export class SelectSearchDirective {
 
 export class SelectDataModel {
   id: any;
-  name: any;
+  name: string;
   disabled?: boolean;
 }
