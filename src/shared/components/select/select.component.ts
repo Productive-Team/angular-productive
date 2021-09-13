@@ -246,6 +246,8 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   checkToSelectMultiple(value: any): void {
+    // TODO: SELECT CONST IS RETURNING UNDEFINED
+    // TODO: FIX SET VALUE FOR MULTIPLE TO ALLOW ARRAY OF VALUES
     const input = this.selectInput.nativeElement as HTMLInputElement;
     const select = this.optionButtons.find((o) => o.value === value);
     const opt = this.selectedOptions.find((v) => v.value === select.value);
