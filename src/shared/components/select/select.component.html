@@ -23,11 +23,10 @@
         </div>
         <div class="p-select-content-options">
           <ng-content></ng-content>
-          <ng-template>
-            <p-option *ngFor="let option of pSelectData" [value]="option.id || option.name"
-              [disabled]="option.disabled">
+          <ng-container>
+            <p-option *ngFor="let option of pSelectData" [value]="option.id" [disabled]="option.disabled">
               {{option.name}}</p-option>
-          </ng-template>
+          </ng-container>
         </div>
       </div>
     </div>

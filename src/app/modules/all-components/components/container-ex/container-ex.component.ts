@@ -124,7 +124,7 @@ export class ContainerExComponent implements OnInit {
 
   variab = 'opt5';
   // variab: Date;
-  vev = '';
+  vev = new Date();
 
   indet = true;
   checked = false;

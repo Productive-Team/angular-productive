@@ -20,10 +20,17 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
   selector:
     '[p-datepicker-trigger], [appDatepickerTriggerDirective], [pDatepickerTrigger]',
 })
-export class DatepickerTriggerDirective {
+export class DatepickerTriggerDirective implements OnInit {
   @Input() pTriggerFor: DatepickerComponent;
 
   constructor(private el: ElementRef) {}
+
+  ngOnInit() {
+    const isInputText = this.el.nativeElement instanceof HTMLInputElement;
+    if (isInputText) {
+      this.pTriggerFor.dateInput = this.el.nativeElement;
+    }
+  }
 
   @HostListener('click', ['$event'])
   openPicker(): void {
@@ -108,8 +115,10 @@ export class DatepickerComponent implements OnInit, OnChanges {
     // Sets Datepicker general structure to .component-container div, so it can
     // work independent of overflow in the parents
     this.setToBody();
-    //
+    // Sets a change event listener to the datepicker input in question, so it can update
     this.datepickerInputValue();
+    // Set the date of the calendar based on current date
+    // and selects the day
     this.setDates(this.date);
     if (this.dateInput) {
       setTimeout(() => {

@@ -48,9 +48,7 @@ const menuAnim = trigger('menuAnimation', [
     },
   ],
 })
-export class SelectComponent
-  implements OnInit, OnDestroy, DoCheck, AfterContentChecked
-{
+export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   @Input() pSelectAppearence: string;
   @Input() pSelectLabel: string;
 
@@ -108,8 +106,10 @@ export class SelectComponent
   ngOnInit() {
     setTimeout(() => {
       this.setToBody();
-      this.checkToSelectSingle(this.pSelectValue);
-      this.checkToSelectMultiple(this.pSelectValue);
+      if (this.pSelectData.length === 0) {
+        this.checkToSelectSingle(this.pSelectValue);
+        this.checkToSelectMultiple(this.pSelectValue);
+      }
     }, 0);
   }
 
@@ -121,9 +121,22 @@ export class SelectComponent
         const idx = this.optionButtons.findIndex(
           (x) => x.value === this.arrayGeneratedButtons._results[i].value
         );
-        if (idx < 0) {
+        if (idx >= 0) {
+          this.optionButtons.splice(idx, 1);
+          if (this.selectedOption !== undefined) {
+            if (
+              this.arrayGeneratedButtons._results[i].value ===
+              this.selectedOption.value
+            ) {
+              this.arrayGeneratedButtons._results[i].selected = true;
+              this.selectedOption = this.arrayGeneratedButtons._results[i];
+            }
+          }
+          this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
+        } else {
           this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
         }
+        this.checkToSelectSingle(this.pSelectValue);
       }
     }
     if (this.contentProjectionButtons !== undefined) {
@@ -138,11 +151,6 @@ export class SelectComponent
         }
       }
     }
-  }
-
-  ngAfterContentChecked() {
-    // this.checkToSelectSingle(this.pSelectValue);
-    // this.checkToSelectMultiple(this.pSelectValue);
   }
 
   setToBody(): void {
@@ -177,10 +185,10 @@ export class SelectComponent
     this.menuOpen = true;
     this.setBackdrop();
     this.scrollOptToView();
-    console.log(this.optionButtons);
     setTimeout(() => {
       this.setPositions();
     }, 0);
+    console.log(this.optionButtons);
   }
 
   closeMenu(): void {
@@ -203,7 +211,6 @@ export class SelectComponent
   }
 
   setSingleValue(value: any) {
-    console.log(value);
     this.checkToSelectSingle(value);
     this.pSelectValueChange.emit(value);
     this.change(value);
@@ -220,13 +227,14 @@ export class SelectComponent
     this.optionButtons.forEach((x) => {
       x.selected = false;
     });
+    console.log('object');
     const component = this.optionButtons.find((x) => x.value === value);
     this.selectedOption = component;
-    console.log(this.selectedOption);
     if (component && value.length > 0) {
       const elementComp = component.el.nativeElement
         .firstChild as HTMLButtonElement;
-      this.selectInput.nativeElement.value = elementComp.textContent;
+      const text = elementComp.textContent.trim();
+      this.selectInput.nativeElement.value = text;
       component.selected = true;
     } else {
       this.selectInput.nativeElement.value = '';
@@ -250,7 +258,8 @@ export class SelectComponent
     const allSelected = this.optionButtons.filter((x) => x.selected);
     if (allSelected.length > 0) {
       this.selectedOption = allSelected[0];
-      input.value = allSelected[0].el.nativeElement.firstChild.textContent;
+      input.value =
+        allSelected[0].el.nativeElement.firstChild.textContent.trim();
       this.selectedTotal = this.selectedOptions.length - 1;
     } else {
       this.selectedOption = undefined;
@@ -384,11 +393,11 @@ export class SelectComponent
     let leftPos = inputPositions.left - inputDifferece / 2;
 
     if (this.pSelectMultiple) {
-      leftPos = inputPositions.left - 52;
+      leftPos = inputPositions.left - 60;
       if (leftPos < 0) {
         leftPos = 0;
       }
-      inputWidth = fieldset.width + 52;
+      inputWidth = fieldset.width + 60;
     }
 
     styleStr =

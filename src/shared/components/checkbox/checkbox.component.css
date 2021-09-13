@@ -63,6 +63,7 @@
 .p-checkbox-mark {
   stroke-width: 2.33px;
   transform-origin: center;
+  stroke: var(--appBackgroundColor);
 }
 
 .p-checkbox-indeterminate {
@@ -73,7 +74,7 @@
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  background-color: white;
+  background-color: var(--appBackgroundColor);
   opacity: 0;
   transform-origin: left center;
 }

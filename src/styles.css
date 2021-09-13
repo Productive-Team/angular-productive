@@ -4,9 +4,14 @@
   --primaryLowOpacity: #3f51b51e;
   --secondaryLowOpacity: #e91e631e;
   --appBackgroundColor: white;
+  --menuPanelColor: rgb(250, 250, 250);
   --textColor: #262626;
+  --rippleDefaultColor: rgba(0,0,0,0.13);
+  --fieldsetColor: #f2f2f2;
+  --fieldsetUnderlineColor: rgb(179, 179, 179);
+  --snackbarDefaultColor: rgb(24, 24, 24)
+  --snackbarTextColor: white;
 }
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); */
 
 * {
   font-family: "Roboto", Arial, sans-serif;
@@ -419,7 +424,7 @@ label {
   font-weight: 400;
   display: inline-block;
   position: relative;
-  background-color: #e4e4e4;
+  background-color: var(--menuPanelColor);
   border: 0;
   outline: none;
   font-size: 15px;
@@ -555,7 +560,7 @@ a.btn-large {
   transition: transform cubic-bezier(0, 0, 0.2, 1),
     opacity cubic-bezier(0, 0, 0.2, 1);
   transform: scale(0);
-  background-color: #00000013;
+  background-color: var(--rippleDefaultColor);
   will-change: transform;
 }
 .p-ripple-container:not(:empty),
@@ -648,7 +653,7 @@ a.btn-large {
   padding: 0 5px;
   height: 46px;
   line-height: 46px;
-  color: #262626;
+  color: var(--textColor);
   font-size: 16px;
   font-weight: 400;
   text-align: start;
@@ -731,10 +736,10 @@ a.btn-large {
   align-items: baseline;
   width: 100%;
   padding: 0.75em 0.75em 0 0.75em;
-  background-color: #f2f2f2;
+  background-color: var(--fieldsetColor);
   border-radius: 5px 5px 0 0;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--fieldsetUnderlineColor);
   transition: box-shadow 100ms ease-in;
 }
 
@@ -746,7 +751,7 @@ a.btn-large {
 }
 
 .disabled .input-wrapper.classic {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+  border-bottom: 1px dotted var(--fieldsetUnderlineColor);
   pointer-events: none;
 }
 
@@ -759,7 +764,7 @@ a.btn-large {
   border: none;
 }
 .readonly .input-wrapper.classic {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+  border-bottom: 1px dotted var(--fieldsetUnderlineColor);
 }
 .readonly .input-wrapper .form-field {
   pointer-events: none;
@@ -773,14 +778,14 @@ a.btn-large {
 
 .input-wrapper.outlined {
   background-color: transparent;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 0 1px var(--fieldsetUnderlineColor);
   padding: 0.75em 0.75em 5px 0.75em;
   border: none;
   border-radius: 5px;
 }
 
 .input-wrapper:hover.outlined {
-  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 0 2px var(--fieldsetUnderlineColor);
 }
 
 .input-wrapper.focused ~ .p-input-bar,
@@ -808,7 +813,7 @@ a.btn-large {
   bottom: 0;
   padding: 25px 0 0 0;
   box-sizing: content-box;
-  color: rgb(92, 92, 92);
+  color: var(--textColor);
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -1014,8 +1019,8 @@ a.btn-large {
   border-radius: 5px;
   min-height: 20px;
   width: 344px;
-  color: white;
-  background-color: rgb(44, 44, 44);
+  color: var(--snackbarTextColor);
+  background-color: var(--snackbarDefaultColor);
   z-index: 1004;
   line-height: 20px;
   max-height: 250px;
@@ -1152,7 +1157,7 @@ a.btn-large {
   border-radius: 5px;
   outline: none;
   border: none;
-  background-color: var(--appBackgroundColor);
+  background-color: var(--menuPanelColor);
   min-height: 64px;
 }
 
@@ -1180,7 +1185,7 @@ a.btn-large {
   text-overflow: ellipsis;
   user-select: none;
   line-height: 46px;
-  color: #262626;
+  color: var(--textColor);
   text-decoration: none;
 }
 
@@ -1216,7 +1221,7 @@ a.btn-large {
   display: inline-block;
   padding: 0 5px;
   background-color: #e4e4e4;
-  color: #262626;
+  color: var(--textColor);
   border-radius: 5px;
   height: 25px;
   max-width: 100px;
@@ -1287,7 +1292,7 @@ a.btn-large {
 
 /* #region Card */
 .card {
-  background-color: white;
+  background-color: var(--menuPanelColor);
   border-radius: 5px;
   border: 0.5px solid rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -1367,10 +1372,10 @@ a.btn-large {
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
-  color: #262626;
+  color: var(--textColor);
 }
 .tab i {
-  color: #262626;
+  color: var(--textColor);
 }
 .tab.disabled {
   opacity: 0.4;
@@ -1695,17 +1700,17 @@ a.btn-large {
   user-select: none !important;
 }
 .p-select button:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .p-select button:disabled {
   opacity: 0.5;
   pointer-events: none;
-  background-color: rgb(241, 241, 241);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .p-select-content {
-  background-color: var(--appBackgroundColor);
+  background-color: var(--menuPanelColor);
   border-radius: 5px;
   max-height: 300px;
   overflow: auto;
@@ -1759,7 +1764,7 @@ a.btn-large {
 }
 
 .p-datepicker-wrapper {
-  background-color: var(--appBackgroundColor);
+  background-color: var(--menuPanelColor);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -1837,8 +1842,8 @@ a.btn-large {
 .p-day:disabled {
   cursor: default;
   pointer-events: none;
-  opacity: 0.5;
-  color: #afafaf;
+  opacity: 0.3;
+  color: var(--textColor);
 }
 
 .p-year,
