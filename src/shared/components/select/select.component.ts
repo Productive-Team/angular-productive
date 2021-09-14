@@ -455,30 +455,9 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     return element.getBoundingClientRect();
   }
 
-  public updateSearch(): void {
-    const value = this.pSelectValue;
-    if (this.pSelectMultiple) {
-      const isArray = Array.isArray(value);
-      if (isArray) {
-        value.map((c) => {
-          console.log(c);
-          const idx = this.optionButtons.findIndex((x) => x.value === c);
-          if (idx >= 0) {
-            console.log(this.optionButtons[idx]);
-            this.optionButtons[idx].selected = true;
-          }
-        });
-        console.log(this.optionButtons);
-      } else {
-        const idx = this.optionButtons.findIndex((x) => x.value === value);
-        if (idx >= 0) {
-          this.optionButtons[idx].selected = true;
-        }
-      }
-    }
-  }
-
   searchOptions(): void {
+    // TODO: Implement Search with inside html itself. It can be done in multiple ways
+    // Ex: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_list
     const value = this.searchText;
   }
 
