@@ -1686,6 +1686,8 @@ a.btn-large {
 }
 
 .p-select button {
+  display: flex;
+  align-items: center;
   background-color: transparent;
   width: 100%;
   border: none;

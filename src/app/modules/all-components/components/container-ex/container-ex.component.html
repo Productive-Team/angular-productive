@@ -38,15 +38,16 @@
       <p-option>!!</p-option>
     </p-select>
   </p-fieldset> -->
-  <!-- <p-fieldset pFieldsetLabelText="Select ngFor">
-    <p-select multiple search [(pSelectValue)]="variab">
+  <p-fieldset pFieldsetLabelText="Select ngFor">
+    <p-select multiple search [(pSelectValue)]="variab" multiple [pSelectAllInput]="true">
       <p-option *ngFor="let item of optionArr" [value]="item.id" [disabled]="item.disabled">{{item.name}}</p-option>
     </p-select>
-  </p-fieldset> -->
-  <p-fieldset pFieldsetLabelText="Select Array Input">
-    <p-select [pSelectData]="optionArr" [(pSelectValue)]="variab" multiple>
-    </p-select>
   </p-fieldset>
+  <!-- <p-fieldset pFieldsetLabelText="Select Array Input" pFieldsetAppearence="classic">
+    <p-select [pSelectData]="optionArr" [(pSelectValue)]="variab" search>
+    </p-select>
+  </p-fieldset> -->
+
   <!-- <p-fieldset pFieldsetLabelText="Text Field">
     <input type="text" pInput>
   </p-fieldset> -->

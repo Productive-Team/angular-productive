@@ -194,6 +194,11 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
     return this.pCheckboxDisabled;
   }
 
+  @HostBinding('class.dFlex')
+  get defaultClass() {
+    return true;
+  }
+
   @HostBinding('attr.indeterminate')
   get isIndeterminate() {
     const check = this.el.nativeElement.querySelector(

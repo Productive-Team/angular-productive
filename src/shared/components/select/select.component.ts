@@ -106,8 +106,18 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     setTimeout(() => {
       this.setToBody();
       if (this.pSelectData.length === 0) {
-        this.checkToSelectSingle(this.pSelectValue);
-        this.checkToSelectMultiple(this.pSelectValue);
+        if (!this.pSelectMultiple) {
+          this.checkToSelectSingle(this.pSelectValue);
+        } else {
+          const array = Array.isArray(this.pSelectValue);
+          if (array) {
+            this.pSelectValue.forEach((x) => {
+              this.checkToSelectMultiple(x);
+            });
+          } else {
+            this.checkToSelectMultiple(this.pSelectValue);
+          }
+        }
       } else {
         const text = this.pSelectData.find((x) => x.id === this.pSelectValue);
         if (text !== undefined) {
@@ -125,8 +135,10 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
         const idx = this.optionButtons.findIndex(
           (x) => x.value === this.arrayGeneratedButtons._results[i].value
         );
+
         if (idx >= 0) {
           this.optionButtons.splice(idx, 1);
+
           if (this.selectedOption !== undefined) {
             if (
               this.arrayGeneratedButtons._results[i].value ===
@@ -136,12 +148,29 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
               this.selectedOption = this.arrayGeneratedButtons._results[i];
             }
           }
+
+          if (this.pSelectMultiple) {
+            const isArray = Array.isArray(this.pSelectValue);
+            if (isArray) {
+              this.pSelectValue.forEach((c) => {
+                if (this.arrayGeneratedButtons._results[i].value === c) {
+                  this.arrayGeneratedButtons._results[i].selected = true;
+                }
+              });
+            } else {
+              if (
+                this.arrayGeneratedButtons._results[i].value ===
+                this.pSelectValue
+              ) {
+                this.arrayGeneratedButtons._results[i].selected = true;
+              }
+            }
+          }
+
           this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
         } else {
           this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
         }
-        this.checkToSelectSingle(this.pSelectValue);
-        this.checkToSelectMultiple(this.pSelectValue);
       }
     }
     if (this.contentProjectionButtons !== undefined) {
@@ -167,15 +196,22 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
 
   writeValue(obj: any): void {
     this.pSelectValue = obj;
-    setTimeout(() => {
-      if (obj) {
-        if (!this.pSelectMultiple) {
-          this.checkToSelectSingle(obj);
-        } else {
-          this.checkToSelectMultiple(obj);
-        }
-      }
-    }, 0);
+    // setTimeout(() => {
+    //   if (obj) {
+    //     if (!this.pSelectMultiple) {
+    //       this.checkToSelectSingle(obj);
+    //     } else {
+    //       const isArr = Array.isArray(obj);
+    //       if (isArr) {
+    //         obj.forEach((x) => {
+    //           this.checkToSelectMultiple(x);
+    //         });
+    //       } else {
+    //         this.checkToSelectMultiple(obj);
+    //       }
+    //     }
+    //   }
+    // }, 1);
   }
 
   registerOnChange(fn: any): void {
@@ -193,7 +229,6 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     setTimeout(() => {
       this.setPositions();
     }, 0);
-    console.log(this.optionButtons);
   }
 
   closeMenu(): void {
@@ -245,21 +280,21 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     }
   }
 
-  checkToSelectMultiple(value: any): void {
-    // TODO: SELECT CONST IS RETURNING UNDEFINED
-    // TODO: FIX SET VALUE FOR MULTIPLE TO ALLOW ARRAY OF VALUES
+  checkToSelectMultiple(value: any): any[] {
     const input = this.selectInput.nativeElement as HTMLInputElement;
-    const select = this.optionButtons.find((o) => o.value === value);
-    const opt = this.selectedOptions.find((v) => v.value === select.value);
-    if (!opt) {
-      if (select !== undefined) {
-        select.selected = true;
-        this.selectedOptions.push(select);
+    const select = this.optionButtons.findIndex((o) => o.value === value);
+    const opt = this.selectedOptions.find(
+      (v) => v.value === this.optionButtons[select].value
+    );
+    if (opt === undefined) {
+      if (select >= 0) {
+        this.optionButtons[select].selected = true;
+        this.selectedOptions.push(this.optionButtons[select]);
       }
     } else {
       const index = this.selectedOptions.indexOf(opt);
       this.selectedOptions.splice(index, 1);
-      select.selected = false;
+      this.optionButtons[select].selected = false;
     }
     const allSelected = this.optionButtons.filter((x) => x.selected);
     if (allSelected.length > 0) {
@@ -281,18 +316,21 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     } else {
       this.multipleValues = [];
     }
-    this.setMultipleValue(this.multipleValues);
+    return this.multipleValues;
   }
 
   selectAll(event): void {
     this.optionButtons.forEach((x) => {
       if (event === true) {
         if (x.selected) {
-          const idx = this.selectedOptions.indexOf(x);
+          const idx = this.selectedOptions.findIndex(
+            (c) => x.value === c.value
+          );
           this.selectedOptions.splice(idx, 1);
         }
       }
-      this.checkToSelectMultiple(x.value);
+      const selected = this.checkToSelectMultiple(x.value);
+      this.setMultipleValue(selected);
     });
     this.allSelected = event;
   }
@@ -340,10 +378,6 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     }
 
     const selectedOptHeight = selectedOpt.offsetHeight;
-
-    // if (selectedOptHeight === 0) {
-    //   selectedOptHeight = 48;
-    // }
 
     // Gets the select content
     // <div class="p-select-content"></div>
@@ -422,24 +456,26 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   public updateSearch(): void {
+    const value = this.pSelectValue;
     if (this.pSelectMultiple) {
-      const currentValue = this.pSelectValue;
-      currentValue.forEach((x) => {
-        const component = this.optionButtons.find((v) => v.value === x);
-        if (component) {
-          component.selected = true;
+      const isArray = Array.isArray(value);
+      if (isArray) {
+        value.map((c) => {
+          console.log(c);
+          const idx = this.optionButtons.findIndex((x) => x.value === c);
+          if (idx >= 0) {
+            console.log(this.optionButtons[idx]);
+            this.optionButtons[idx].selected = true;
+          }
+        });
+        console.log(this.optionButtons);
+      } else {
+        const idx = this.optionButtons.findIndex((x) => x.value === value);
+        if (idx >= 0) {
+          this.optionButtons[idx].selected = true;
         }
-      });
-    } else {
-      const currentValue = this.pSelectValue;
-      const component = this.optionButtons.find(
-        (x) => x.value === currentValue
-      );
-      if (component) {
-        component.selected = true;
       }
     }
-    this.isEverySelected();
   }
 
   searchOptions(): void {
@@ -501,7 +537,8 @@ export class SelectOptionComponent implements OnInit {
 
   selectMultiple(value: any): void {
     this.selected = !this.selected;
-    this.parent.checkToSelectMultiple(value);
+    const values = this.parent.checkToSelectMultiple(value);
+    this.parent.setMultipleValue(values);
     this.parent.isEverySelected();
   }
 }
@@ -535,4 +572,5 @@ export class SelectDataModel {
   id: any;
   name: string;
   disabled?: boolean;
+  selected?: boolean;
 }

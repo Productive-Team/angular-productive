@@ -98,6 +98,7 @@ export class ContainerExComponent implements OnInit {
     {
       id: 'opt1',
       name: 'Option 1',
+      selected: true,
     },
     {
       id: 'opt2',
@@ -122,7 +123,7 @@ export class ContainerExComponent implements OnInit {
     },
   ];
 
-  variab = '';
+  variab;
   // variab: Date;
   vev = new Date();
 
