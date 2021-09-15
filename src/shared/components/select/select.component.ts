@@ -81,7 +81,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild('menu') selectMenu: ElementRef;
   @ViewChild('input') selectInput: ElementRef;
 
-  @ViewChild('optionContain') contain: ElementRef;
+  @ViewChild('optionContent') optionContent: ElementRef;
 
   @ViewChildren(forwardRef(() => SelectOptionComponent))
   arrayGeneratedButtons: any;
@@ -456,9 +456,30 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   searchOptions(): void {
-    // TODO: Implement Search with inside html itself. It can be done in multiple ways
-    // Ex: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_list
-    const value = this.searchText;
+    const value = this.searchText.toUpperCase();
+    const li = this.optionContent.nativeElement as HTMLElement;
+    const buttons = li.getElementsByTagName('p-option');
+
+    let b = 0;
+    for (; b < buttons.length; b++) {
+      const opt = buttons[b] as HTMLElement;
+      const buttonInsideOpt = opt.firstChild as HTMLButtonElement;
+      const buttonValue = buttonInsideOpt.value.trim().toUpperCase();
+      const textContent = buttonInsideOpt.innerText.trim().toUpperCase();
+
+      if (value.length === 0) {
+        opt.removeAttribute('style');
+      } else {
+        if (
+          buttonValue.indexOf(value) >= 0 ||
+          textContent.indexOf(value) >= 0
+        ) {
+          opt.style.display = '';
+        } else {
+          opt.style.display = 'none';
+        }
+      }
+    }
   }
 
   ngOnDestroy(): void {

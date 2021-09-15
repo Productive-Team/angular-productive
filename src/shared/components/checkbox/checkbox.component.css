@@ -64,6 +64,7 @@
   stroke-width: 2.33px;
   transform-origin: center;
   stroke: var(--appBackgroundColor);
+  opacity: 0;
 }
 
 .p-checkbox-indeterminate {
@@ -79,7 +80,8 @@
   transform-origin: left center;
 }
 
-input:checked ~ .p-checkbox-background {
+input:checked ~ .p-checkbox-background,
+input:checked ~ .p-checkbox-background .p-checkbox-mark {
   opacity: 1;
 }
 

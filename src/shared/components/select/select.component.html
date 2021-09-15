@@ -21,7 +21,7 @@
             </p-checkbox>
           </div>
         </div>
-        <div class="p-select-content-options">
+        <div class="p-select-content-options" #optionContent>
           <ng-content></ng-content>
           <ng-container>
             <p-option *ngFor="let option of pSelectData" [value]="option.id" [disabled]="option.disabled">

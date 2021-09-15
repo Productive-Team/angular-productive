@@ -1841,7 +1841,9 @@ a.btn-large {
   background-color: transparent;
 }
 
-.p-day:disabled {
+.p-day:disabled,
+.p-month:disabled,
+.p-year:disabled {
   cursor: default;
   pointer-events: none;
   opacity: 0.3;
