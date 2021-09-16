@@ -105,11 +105,6 @@ export class DatepickerComponent implements OnInit, OnChanges {
    */
   @Input() dateInput: HTMLInputElement;
 
-  // FUTURE FEATURES THAT WILL BE IMPLEMENTED
-
-  // @Input() dateRange: boolean;
-  // @Input() modalDatePicker: boolean;
-
   /**
    * Sets a minimum date, disabling all previous dates to be selected
    */
@@ -118,6 +113,18 @@ export class DatepickerComponent implements OnInit, OnChanges {
    * Sets a maximum date, disabling all later dates to be selected
    */
   @Input() maxDate: Date;
+
+  /**
+   * Disables specific dates that are passed through the array
+   */
+  @Input() disabledDates: Date[] = [];
+
+  /**
+   * Disables specific days of the week in every month
+   *
+   * The number go from 0 to 6;
+   */
+  @Input() disabledDaysOfTheWeek: number[] = [];
 
   /**
    * Selected date value
@@ -132,6 +139,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
   change = (_) => {};
   blur = (_) => {};
+
+  // TODO: Implement a range picker and modal option
 
   constructor(private el: ElementRef) {}
 
@@ -196,6 +205,9 @@ export class DatepickerComponent implements OnInit, OnChanges {
     const currentYear = year;
     const currentMonth = month;
 
+    this.monthPage = currentMonth;
+    this.yearMonthPage = currentYear;
+
     let d = 1;
     for (; d <= daysOfCurrentMonth; d++) {
       const days: DayObject = {
@@ -204,36 +216,40 @@ export class DatepickerComponent implements OnInit, OnChanges {
         year: currentYear,
         month: currentMonth,
       };
-      this.monthPage = currentMonth;
-      this.yearMonthPage = currentYear;
 
       const dateConversion = new Date(days.year, days.month - 1, days.day);
       if (this.minDate !== undefined) {
         if (dateConversion < this.minDate) {
           days.disabled = true;
         }
-        if (
-          this.minDate.getMonth() === dateConversion.getMonth() &&
-          this.minDate.getFullYear() === this.date.getFullYear()
-        ) {
-          this.leftChevronDisabled = true;
-        } else {
-          this.leftChevronDisabled = false;
-        }
       }
       if (this.maxDate !== undefined) {
         if (dateConversion > this.maxDate) {
           days.disabled = true;
         }
+      }
 
+      this.disabledDates.forEach((y) => {
         if (
-          this.maxDate.getMonth() === dateConversion.getMonth() &&
-          this.maxDate.getFullYear() === this.date.getFullYear()
+          y.getFullYear() === dateConversion.getFullYear() &&
+          y.getMonth() === dateConversion.getMonth() &&
+          y.getDate() === dateConversion.getDate()
         ) {
-          this.rightChevronDisabled = true;
-        } else {
-          this.rightChevronDisabled = false;
+          days.disabled = true;
         }
+      });
+
+      this.disabledDaysOfTheWeek.forEach((x) => {
+        if (dateConversion.getDay() === x) {
+          days.disabled = true;
+        }
+      });
+
+      if (this.minDate) {
+        this.checkMinDays(currentYear, currentMonth);
+      }
+      if (this.maxDate) {
+        this.checkMaxDays(currentYear, currentMonth);
       }
 
       this.daysOfMonth.push(days);
@@ -271,14 +287,27 @@ export class DatepickerComponent implements OnInit, OnChanges {
 
       const dateConversion = new Date(obj.yearMonth, obj.monthNumber);
       if (this.minDate !== undefined) {
-        if (dateConversion < this.minDate) {
+        if (
+          dateConversion.getFullYear() <= this.minDate.getFullYear() &&
+          dateConversion.getMonth() < this.minDate.getMonth()
+        ) {
           obj.disabled = true;
         }
       }
       if (this.maxDate !== undefined) {
-        if (dateConversion > this.maxDate) {
+        if (
+          dateConversion.getFullYear() >= this.maxDate.getFullYear() &&
+          dateConversion.getMonth() > this.maxDate.getMonth()
+        ) {
           obj.disabled = true;
         }
+      }
+
+      if (this.minDate) {
+        this.checkMinMonths();
+      }
+      if (this.maxDate) {
+        this.checkMaxMonths();
       }
 
       this.monthsOfYear.push(obj);
@@ -438,6 +467,14 @@ export class DatepickerComponent implements OnInit, OnChanges {
       this.selectedYearIndex = this.years.indexOf(idx);
     }
     this.setDaysOfMonth(this.yearMonthPage, this.monthPage);
+
+    if (this.minDate) {
+      this.checkMinDays(this.yearMonthPage, this.monthPage);
+    }
+    if (this.maxDate) {
+      this.checkMaxDays(this.yearMonthPage, this.monthPage);
+    }
+
     if (this.selectedDate) {
       const dateObj = {
         day: this.selectedDate.getDate(),
@@ -466,6 +503,13 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
     this.setDaysOfMonth(this.yearMonthPage, this.monthPage);
 
+    if (this.minDate) {
+      this.checkMinDays(this.yearMonthPage, this.monthPage);
+    }
+    if (this.maxDate) {
+      this.checkMaxDays(this.yearMonthPage, this.monthPage);
+    }
+
     if (this.selectedDate) {
       const dateObj = {
         day: this.selectedDate.getDate(),
@@ -481,7 +525,12 @@ export class DatepickerComponent implements OnInit, OnChanges {
   nextYear(): void {
     const lastYear = this.years[this.years.length - 1].yearNumber + 10;
     this.setYears(lastYear);
-    this.checkYear();
+    if (this.minDate) {
+      this.checkMinYear();
+    }
+    if (this.maxDate) {
+      this.checkMaxYear();
+    }
   }
 
   // Advance to the next 20 years when showing the year list
@@ -490,7 +539,12 @@ export class DatepickerComponent implements OnInit, OnChanges {
     if (firstYear > 100) {
       this.setYears(firstYear);
     }
-    this.checkYear();
+    if (this.minDate) {
+      this.checkMinYear();
+    }
+    if (this.maxDate) {
+      this.checkMaxYear();
+    }
   }
 
   // Advance to previous year when showing the months
@@ -503,6 +557,12 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
     this.selectedYearIndex = this.years.indexOf(idx);
     this.setMonths(this.yearMonthPage);
+    if (this.minDate) {
+      this.checkMinMonths();
+    }
+    if (this.maxDate) {
+      this.checkMaxMonths();
+    }
   }
 
   // Advance to next year when showing the months
@@ -515,6 +575,12 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
     this.selectedYearIndex = this.years.indexOf(idx);
     this.setMonths(this.yearMonthPage);
+    if (this.minDate) {
+      this.checkMinMonths();
+    }
+    if (this.maxDate) {
+      this.checkMaxMonths();
+    }
   }
 
   // Function to execute when pressing the right chevron button
@@ -545,16 +611,16 @@ export class DatepickerComponent implements OnInit, OnChanges {
     this.showMonths = false;
     this.setDaysOfMonth(this.yearMonthPage, this.monthPage);
     if (this.showYears) {
-      this.checkYear();
+      if (this.minDate) {
+        this.checkMinYear();
+      }
+      if (this.maxDate) {
+        this.checkMaxYear();
+      }
     }
   }
 
-  checkYear(): void {
-    if (this.years[0].yearNumber < this.minDate.getFullYear()) {
-      this.leftChevronDisabled = true;
-    } else {
-      this.leftChevronDisabled = false;
-    }
+  checkMaxYear(): void {
     if (
       this.years[this.years.length - 1].yearNumber > this.maxDate.getFullYear()
     ) {
@@ -564,11 +630,52 @@ export class DatepickerComponent implements OnInit, OnChanges {
     }
   }
 
-  // TODO: Add checks to disable chevron buttons for both months and days properly
-  //
-  // checkMonths(): void {
-  //   const year = this.yearMonthPage;
-  // }
+  checkMinYear(): void {
+    if (this.years[0].yearNumber < this.minDate.getFullYear()) {
+      this.leftChevronDisabled = true;
+    } else {
+      this.leftChevronDisabled = false;
+    }
+  }
+
+  checkMaxMonths(): void {
+    const year = this.yearMonthPage;
+    if (year === this.maxDate.getFullYear()) {
+      this.rightChevronDisabled = true;
+    } else {
+      this.rightChevronDisabled = false;
+    }
+  }
+
+  checkMinMonths(): void {
+    const year = this.yearMonthPage;
+    if (year === this.minDate.getFullYear()) {
+      this.leftChevronDisabled = true;
+    } else {
+      this.leftChevronDisabled = false;
+    }
+  }
+
+  checkMaxDays(year: number, month: number): void {
+    const maxYear = this.maxDate.getFullYear();
+    const maxMonth = this.maxDate.getMonth() + 1;
+
+    if (maxYear === year && maxMonth === month) {
+      this.rightChevronDisabled = true;
+    } else {
+      this.rightChevronDisabled = false;
+    }
+  }
+
+  checkMinDays(year: number, month: number): void {
+    const minYear = this.minDate.getFullYear();
+    const minMonth = this.minDate.getMonth() + 1;
+    if (year === minYear && month === minMonth) {
+      this.leftChevronDisabled = true;
+    } else {
+      this.leftChevronDisabled = false;
+    }
+  }
 
   // Emits the date for ngModel, formControl and two-way value binding
   emitDate(date: Date): void {
@@ -660,6 +767,11 @@ export class DatepickerComponent implements OnInit, OnChanges {
         }
         wrap.style.top = pos + 'px';
       }
+
+      if (inputPos.left + wrap.offsetLeft > window.innerWidth) {
+        wrap.style.left = null;
+        wrap.style.right = '0px';
+      }
     }, 0);
 
     this.setBackdrop();
@@ -713,4 +825,9 @@ export class MonthObject {
   monthNumber?: number;
   selected?: boolean;
   disabled?: boolean;
+}
+
+export class DateRange {
+  initialDate: Date;
+  endDate: Date;
 }

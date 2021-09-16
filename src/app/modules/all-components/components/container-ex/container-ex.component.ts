@@ -90,8 +90,12 @@ export class ContainerExComponent implements OnInit {
     sel: 50,
   };
 
-  min = new Date(99, 8, 13);
-  max = new Date(2022, 11, 31);
+  min = new Date(2021, 7, 10);
+  max = new Date(2021, 8, 25);
+
+  disDayWeek = [0, 6];
+
+  disDates = [new Date(2021, 8, 7), new Date(2021, 0, 26)];
 
   optionArr: SelectDataModel[] = [
     {
@@ -140,7 +144,6 @@ export class ContainerExComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.min);
     this.fotmini(this.ts);
   }
 

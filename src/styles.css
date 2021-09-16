@@ -628,6 +628,26 @@ a.btn-large {
   display: contents;
 }
 
+.sidenav {
+  background-color: var(--appBackgroundColor);
+  position: sticky;
+  height: 100vh;
+  width: 250px;
+  top: 0;
+  border-right: 2px solid rgb(233, 233, 233);
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transition: 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 0.25rem 0.5rem;
+}
+
+.floating .sidenav {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
 .p-sidenav-full-wrap {
   display: flex;
 }
@@ -647,6 +667,16 @@ a.btn-large {
   list-style-type: none;
 }
 
+.closed .sidenav {
+  width: 0;
+  transform: translateX(-250px);
+}
+
+.closed.floating .sidenav {
+  width: 250px;
+  transform: translateX(-250px);
+}
+
 .sidenav a,
 .sidenav button {
   display: inline-block;
@@ -659,18 +689,15 @@ a.btn-large {
   text-align: start;
   text-decoration: none;
   border: 0;
+  border-radius: 5px;
   outline: none;
   cursor: pointer;
   transition: 0.1s ease-in;
   user-select: none;
   background-color: transparent;
   -webkit-tap-highlight-color: transparent;
-}
-.sidenav a {
-  width: 96%;
-}
-.sidenav button {
   width: 100%;
+  box-sizing: border-box;
 }
 .sidenav a i,
 .sidenav button i {
@@ -679,16 +706,6 @@ a.btn-large {
 .sidenav a:hover,
 .sidenav button:hover {
   background-color: #00000013;
-}
-.sidenav .img-container {
-  position: relative;
-  width: 100%;
-}
-.sidenav .img-container img.dim {
-  filter: brightness(50%);
-}
-.sidenav .img-container img.light {
-  filter: brightness(150%);
 }
 /* #endregion SidebarStyles */
 
@@ -702,7 +719,7 @@ a.btn-large {
   height: 100vh;
   top: 0;
   opacity: 0;
-  transition: opacity 0.15s linear;
+  transition: opacity 250ms cubic-bezier(0,.04,.42,1);
   -webkit-tap-highlight-color: transparent;
 }
 /* #endregion BackdropStyle*/

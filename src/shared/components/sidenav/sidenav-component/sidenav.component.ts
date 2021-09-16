@@ -1,196 +1,67 @@
-import { trigger, transition, style, animate } from '@angular/animations';
 import {
   AfterViewInit,
   Component,
-  Directive,
   ElementRef,
   HostBinding,
-  HostListener,
   Input,
   OnInit,
 } from '@angular/core';
-
-const animations = trigger('sidenavTransitions', [
-  transition(':enter', [
-    style({ transform: 'translateX(-100%)', width: 0 }),
-    animate(
-      '0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      style({ transform: 'translateX(0)', width: 250 })
-    ),
-  ]),
-  transition(':leave', [
-    animate(
-      '0.4s cubic-bezier(0.25, 0.8, 0.25, 1)',
-      style({ transform: 'translateX(-100%)', width: 0 })
-    ),
-  ]),
-]);
 
 @Component({
   selector: 'app-sidenav, p-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
-  animations: [animations],
 })
-export class SidenavComponent implements OnInit, AfterViewInit {
+export class SidenavComponent implements OnInit {
   @Input() elevated: boolean;
   @Input() hidden = false;
   @Input() pushContent = true;
   @Input() backdrop = false;
-  @Input() sidenavId: string;
-  @Input() backgroundColor: string;
 
-  sidenavOpen = true;
-
-  @HostListener('window:resize', ['$event']) onResize(event) {
-    if (window.innerWidth < 1000) {
-      this.sidenavOpen = false;
-    } else if (window.innerHeight >= 1000) {
-      this.sidenavOpen = true;
-    }
-  }
+  sidenavOpen = false;
 
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
-    if (this.hidden) {
+    if (this.hidden || !this.pushContent) {
       this.sidenavOpen = false;
+    } else {
+      this.sidenavOpen = true;
     }
-  }
-
-  ngAfterViewInit(): void {
-    // if (!this.pushContent || window.innerWidth <= 600) {
-    //   this.hidden = true;
-    //   this.backdrop = true;
-    //   this.elevated = true;
-    //   this.pushContent = false;
-    //   this.setNavFixed();
-    // } else {
-    //   this.setHeight();
-    // }
-    // if (this.hidden) {
-    //   this.hideNav(this.sidenavId);
-    // }
-    // this.backgroundColorApply();
-    // pushContent = this.pushContent;
-    // hasBack = this.backdrop;
-  }
-
-  hideNav(id: string): void {
-    // isOpen = false;
-    // const sidenavElement = document.getElementById(id);
-    // sidenavElement.style.transform = 'translateX(-150%)';
-    // sidenavElement.style.width = '0';
-    // if (hasBack) {
-    //   const backdrop = document.querySelector('.backdrop') as HTMLElement;
-    //   if (pushContent) {
-    //     const body = document.querySelector(
-    //       '.content-contain'
-    //     ) as HTMLDivElement;
-    //     body.style.overflow = 'auto';
-    //   }
-    //   this.removeBackdrop(backdrop);
-    // }
-  }
-
-  showNav(id: string): void {
-    // isOpen = true;
-    // const sidenavElement = document.getElementById(id);
-    // sidenavElement.style.transform = 'translateX(0)';
-    // sidenavElement.style.width = '250px';
-    // if (hasBack) {
-    //   if (pushContent) {
-    //     const body = document.querySelector(
-    //       '.content-contain'
-    //     ) as HTMLDivElement;
-    //     body.style.overflow = 'hidden';
-    //   }
-    //   this.setBackdrop(id);
-    // }
-  }
-
-  private setNavFixed(): void {
-    const sidenav = this.el.nativeElement.firstChild as HTMLDivElement;
-    sidenav.style.position = 'fixed';
-    sidenav.style.height = '100vh';
-    sidenav.style.zIndex = '1000';
-  }
-
-  private setBackdrop(id: string): void {
-    const body = document.querySelector('body');
-    const backdrop = document.createElement('div');
-    backdrop.classList.add('backdrop');
-    // if (!pushContent) {
-    //   backdrop.style.zIndex = '999';
-    // }
-    body.insertAdjacentElement('beforeend', backdrop);
-    setTimeout(() => {
-      backdrop.style.opacity = '0.5';
-      backdrop.addEventListener('click', () => {
-        this.hideNav(id);
-        this.removeBackdrop(backdrop);
-      });
-    }, 10);
-  }
-
-  private removeBackdrop(backdrop: HTMLElement): void {
-    if (backdrop !== null) {
-      backdrop.style.opacity = '0';
-      backdrop.addEventListener('transitionend', () => {
-        backdrop.remove();
-      });
-    }
-  }
-
-  private backgroundColorApply(): void {
-    const sidenavElement = document.querySelector('.sidenav') as HTMLDivElement;
-    const buttons = sidenavElement.getElementsByTagName('button');
-    const hrefTags = sidenavElement.getElementsByTagName('a');
-    switch (this.backgroundColor) {
-      case 'bg-primary':
-        sidenavElement.classList.add('bg-primary');
-        this.backgroundColor = getComputedStyle(document.body).getPropertyValue(
-          '--primary'
-        );
-        break;
-      case 'bg-secondary':
-        sidenavElement.classList.add('bg-secondary');
-        this.backgroundColor = getComputedStyle(document.body).getPropertyValue(
-          '--secondary'
-        );
-        break;
-      case undefined:
-        break;
-      default:
-        sidenavElement.style.backgroundColor = this.backgroundColor;
-        break;
-    }
-    if (this.backgroundColor !== undefined) {
-      this.backgroundColor.trim();
-      const textColor = this.getContrastYIQ(this.backgroundColor);
-      let b = 0;
-      for (; b < buttons.length; b++) {
-        buttons[b].style.color = textColor;
+    window.addEventListener('resize', (ev) => {
+      if (window.innerWidth < 1000) {
+        this.sidenavOpen = false;
+      } else if (window.innerWidth >= 1000) {
+        this.sidenavOpen = true;
+      } else if (window.innerWidth < 600) {
+        this.pushContent = false;
+        this.backdrop = true;
       }
-      let a = 0;
-      for (; a < hrefTags.length; a++) {
-        hrefTags[a].style.color = textColor;
-      }
-      sidenavElement.style.color = textColor;
-    }
-  }
-
-  private getContrastYIQ(hexcolor): string {
-    hexcolor = hexcolor.replace('#', '');
-    const r = parseInt(hexcolor.substr(0, 2), 16);
-    const g = parseInt(hexcolor.substr(2, 2), 16);
-    const b = parseInt(hexcolor.substr(4, 2), 16);
-    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    return yiq >= 145 ? '#262626' : 'white';
+    });
   }
 
   toggle(): void {
     this.sidenavOpen = !this.sidenavOpen;
+    if (this.backdrop && this.sidenavOpen && !this.pushContent) {
+      this.setBackDrop();
+    }
+  }
+
+  setBackDrop(): void {
+    const backdrop = document.createElement('div');
+    backdrop.classList.add('backdrop');
+    document.body.insertAdjacentElement('beforeend', backdrop);
+    setTimeout(() => {
+      backdrop.style.zIndex = '998';
+      backdrop.style.opacity = '0.4';
+      backdrop.addEventListener('click', (x) => {
+        backdrop.style.opacity = '0';
+        this.sidenavOpen = false;
+        setTimeout(() => {
+          backdrop.remove();
+        }, 250);
+      });
+    }, 0);
   }
 
   @HostBinding('class.closed')
@@ -201,5 +72,10 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   @HostBinding('class.elevation-p8')
   get elevationValue() {
     return this.elevated;
+  }
+
+  @HostBinding('class.floating')
+  get floatingSidenav() {
+    return !this.pushContent;
   }
 }
