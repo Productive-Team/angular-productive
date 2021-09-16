@@ -7,7 +7,7 @@
   <h5 style="display: inline-block;">{{sectionName}}</h5>
 </div>
 <p-sidenav-container>
-  <p-sidenav #sideEx [backdrop]="true" [pushContent]="false">
+  <p-sidenav #sideEx [backdrop]="true" [pushContent]="true">
     <a pRipple *ngFor="let route of routes" [routerLink]="[route.route]">{{route.name}}</a>
   </p-sidenav>
   <p-sidenav-content [sidenav]="sideEx">

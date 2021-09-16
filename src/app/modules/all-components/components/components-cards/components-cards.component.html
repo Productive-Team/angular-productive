@@ -1,7 +1,5 @@
-<div class="row">
-  <div class="col l4 m6 s12" *ngFor="let comp of routes">
-    <button class="card-btn" pRipple [routerLink]="[comp.route]">
-      <h5>{{comp.name}}</h5>
-    </button>
-  </div>
+<div class="flex-row justify-center">
+  <button class="card-btn" *ngFor="let comp of routes" pRipple [routerLink]="[comp.route]">
+    <h5>{{comp.name}}</h5>
+  </button>
 </div>

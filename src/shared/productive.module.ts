@@ -8,7 +8,6 @@ import {
   DatepickerComponent,
   DatepickerTriggerDirective,
 } from './components/datepicker/datepicker.component';
-import { CollapsibleGroupComponent } from './components/collapsible/collapsible-group/collapsible-group.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { TabsService } from './services/tabs.service';
 import { TabsComponent } from './components/tabs/tab/tabs.component';
@@ -76,7 +75,6 @@ const components = [
   SliderComponent,
   CollapsibleComponent,
   CollapsibleContentComponent,
-  CollapsibleGroupComponent,
   DatepickerComponent,
   SidenavContainerComponent,
   SidenavContentComponent,

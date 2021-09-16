@@ -22,8 +22,7 @@
 <div style="width: 300px;">
   <p-fieldset pFieldsetLabelText="Date">
     <input type="text" pInput pDatepickerTrigger [pTriggerFor]="date">
-    <p-datepicker [(date)]="vev" #date locale="{{locale}}" [disabledDaysOfTheWeek]="disDayWeek"
-      [disabledDates]="disDates"></p-datepicker>
+    <p-datepicker [(date)]="vev" #date locale="{{locale}}" [minDate]="min" [maxDate]="max"></p-datepicker>
   </p-fieldset>
   <p-fieldset pFieldsetLabelText="Select Normal">
     <p-select>
@@ -32,7 +31,7 @@
       <p-option>!!</p-option>
     </p-select>
   </p-fieldset>
-  <!-- <p-fieldset pFieldsetLabelText="Select ngFor">
+  <p-fieldset pFieldsetLabelText="Select ngFor">
     <p-select multiple search [(pSelectValue)]="variab" multiple [pSelectAllInput]="true">
       <p-option *ngFor="let item of optionArr" [value]="item.id" [disabled]="item.disabled">{{item.name}}</p-option>
     </p-select>
@@ -40,7 +39,7 @@
   <p-fieldset pFieldsetLabelText="Select Array Input" pFieldsetAppearence="classic">
     <p-select [pSelectData]="optionArr" [(pSelectValue)]="variab" search>
     </p-select>
-  </p-fieldset> -->
+  </p-fieldset>
 </div>
 
 {{variab}}

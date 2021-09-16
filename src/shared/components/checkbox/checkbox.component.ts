@@ -221,7 +221,7 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
     return this.pCheckboxDisabled;
   }
 
-  @HostBinding('class.dFlex')
+  @HostBinding('class.dInlineF')
   get defaultClass() {
     return true;
   }

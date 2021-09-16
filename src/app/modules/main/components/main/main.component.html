@@ -8,11 +8,18 @@
         <button class="btn-small flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26">
           Get Started
         </button>
+        <button class="btn-small flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26">
+          Features
+        </button>
         <button class="btn-small flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26"
           [routerLink]="['/Components']">
           Components
         </button>
         <div class="spacer"></div>
+        <button class="btn fab flat" pRipple [pRippleCentered]="true" pRippleColor="#ffffff26"
+          (click)="toggleDarkMode()">
+          <i class="material-icons">nightlight_round</i>
+        </button>
         <button class="btn flat" pRipple pRippleColor="#ffffff26" pTooltip
           pTooltipText="Angular Productive Version">v1.0</button>
         <a class="btn flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26"

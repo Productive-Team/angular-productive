@@ -670,6 +670,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
   checkMinDays(year: number, month: number): void {
     const minYear = this.minDate.getFullYear();
     const minMonth = this.minDate.getMonth() + 1;
+
+    console.log(year === minYear, month === minMonth);
     if (year === minYear && month === minMonth) {
       this.leftChevronDisabled = true;
     } else {

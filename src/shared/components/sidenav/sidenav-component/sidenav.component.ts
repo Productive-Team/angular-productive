@@ -20,24 +20,40 @@ export class SidenavComponent implements OnInit {
 
   sidenavOpen = false;
 
+  initialPushValue: boolean;
+
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
+    this.initialPushValue = this.pushContent;
     if (this.hidden || !this.pushContent) {
       this.sidenavOpen = false;
     } else {
       this.sidenavOpen = true;
     }
-    window.addEventListener('resize', (ev) => {
-      if (window.innerWidth < 1000) {
-        this.sidenavOpen = false;
-      } else if (window.innerWidth >= 1000) {
+    this.checkWindowSize();
+    window.addEventListener('resize', (e) => {
+      this.checkWindowSize();
+    });
+  }
+
+  checkWindowSize(): any {
+    if (window.innerWidth < 1000) {
+      this.sidenavOpen = false;
+    } else if (window.innerWidth >= 1000) {
+      if (this.pushContent && !this.hidden) {
         this.sidenavOpen = true;
-      } else if (window.innerWidth < 600) {
+      }
+    }
+    if (this.initialPushValue) {
+      if (window.innerWidth < 600) {
         this.pushContent = false;
         this.backdrop = true;
+      } else {
+        this.pushContent = true;
+        this.backdrop = false;
       }
-    });
+    }
   }
 
   toggle(): void {
