@@ -1181,7 +1181,7 @@ a.btn-large {
 .p-divider {
   display: block;
   margin: 0;
-  border-top: 1px solid rgb(0 0 0 / 10%);
+  border-top: 1px solid rgba(141, 141, 141, 0.25);
 }
 /* #endregion Divider */
 
