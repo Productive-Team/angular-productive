@@ -874,7 +874,7 @@ a.btn-large {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  transition: 0.2s cubic-bezier(0, 0, 0.2, 1);
+  transition: 400ms cubic-bezier(.31,1.13,.34,.99);
   transform-origin: left top;
 }
 .label-text.active,
