@@ -2,234 +2,214 @@
   <p-tab pTabLabel="Documentation">
     <h5 class="t-700">Usage</h5>
     <br>
-    <span style="word-wrap: break-word;">Buttons are used to perform actions through the application.<br>The styling on
-      buttons are used through adding classes to the <code>&lt;button&gt;</code> element.</span>
+    <p>Buttons are used to perform actions through the application.</p>
+    <br>
+    <h5 class="t-700">Behaviour</h5>
+    <br>
+    <p>The buttons behave like a normal HTML <code>&lt;button&gt;</code> element, and accepts all of angular bindings.
+    </p>
+    <br>
+    <h5 class="t-700">Styling</h5>
+    <br>
+    <p>The Productive custom button stylings are achieved by simple css classes. You can just add the classes listed in
+      the references tab to a regular <code>&lt;button&gt;</code> element, and it will automatically
+      replicate the style.
+    </p>
+    <br>
+    <p>To replicate some of the behaviours shown in the example above, such as raising the button trough shadows, you
+      need to add the respective classes or directives, like the <a
+        [routerLink]="['/Components/Ripple']">RippleDirective.</a></p>
+    <br>
+    <br>
+    <h5 class="t-700">Customization</h5>
+    <br>
+    <p>You can freely customize the button's appeareance by simply creating a separate class in CSS and adding in the
+      button.</p>
+    <br>
+    <h5 class="t-700">Example</h5>
+    <br>
+    <p>In the example bellow, you can see some of the types of styles that a button can have.</p>
     <p-section>
       <ng-container section-content>
         <div>
           <div class="label-row">
             <span class="t-600">
-              Small Buttons
+              Regular buttons
             </span>
           </div>
           <div class="btn-row">
-            <button class="btn-small">Button</button>
-            <button class="btn-small bg-primary">Button</button>
-            <button class="btn-small bg-secondary">Button</button>
-            <button class="btn-small flat">Button</button>
-            <button class="btn-small flat primary">Button</button>
-            <button class="btn-small flat secondary">Button</button>
-            <a class="btn-small" href="https://google.com/" target="_blank">Link</a>
-            <button class="btn-small" disabled>Button</button>
+            <button class="btn" pRipple>Button</button>
+            <button class="btn bg-primary text-white" pRipple>Button</button>
+            <button class="btn bg-secondary text-white" pRipple>Button</button>
+            <a class="btn" href="https://google.com/" target="_blank" pRipple>Link</a>
+            <button class="btn" disabled pRipple>Button</button>
           </div>
         </div>
         <div class="p-divider"></div>
         <div>
           <div class="label-row">
-            <span class="t-600">Regular Buttons</span>
+            <span class="t-600">Elevated Buttons</span>
           </div>
           <div class="btn-row">
-            <button class="btn">Button</button>
-            <button class="btn bg-primary">Button</button>
-            <button class="btn bg-secondary">Button</button>
-            <button class="btn flat">Button</button>
-            <button class="btn flat primary">Button</button>
-            <button class="btn flat secondary">Button</button>
-            <a class="btn" href="https://google.com/" target="_blank">Link</a>
-            <button class="btn" disabled>Button</button>
+            <button class="btn elevation" pRipple>Button</button>
+            <button class="btn bg-primary elevation text-white" pRipple>Button</button>
+            <button class="btn bg-secondary elevation text-white" pRipple>Button</button>
+            <a class="btn elevation" href="https://google.com/" target="_blank" pRipple>Link</a>
+            <button class="btn elevation" disabled pRipple>Button</button>
           </div>
         </div>
         <div class="p-divider"></div>
         <div>
           <div class="label-row">
-            <span class="t-600">Large Buttons</span>
+            <span class="t-600">Flat buttons</span>
           </div>
           <div class="btn-row">
-            <button class="btn-large">Button</button>
-            <button class="btn-large bg-primary">Button</button>
-            <button class="btn-large bg-secondary">Button</button>
-            <button class="btn-large flat">Button</button>
-            <button class="btn-large flat primary">Button</button>
-            <button class="btn-large flat secondary">Button</button>
-            <a class="btn-large" href="https://google.com.br" target="_blank">Button</a>
-            <button class="btn-large" disabled>Button</button>
-          </div>
-        </div>
-      </ng-container>
-    </p-section>
-    <span>You can also combine the buttons with the ripple directive to create a ripple effect when the button is
-      clicked.
-      <br><br>See more about ripples <a [routerLink]="['/Components/Ripple']" style="margin: 0;">here</a>.
-    </span>
-    <p-section>
-      <ng-container section-content>
-        <button class="btn bg-primary" pRipple pRippleColor="#ffffff26">Ripple Effect</button>
-        <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)">Ripple Effect</button>
-        <button class="btn" pRipple>Ripple Effect</button>
-      </ng-container>
-    </p-section>
-    <span>Buttons also have the option to be elevated. When a button is elevated, it will cast a shadow. The density of
-      the
-      shadow will change when hovered and clicked.</span>
-    <p-section>
-      <ng-container section-content>
-        <button class="btn elevation">Elevated Button</button>
-        <button class="btn bg-primary elevation">Elevated Button</button>
-        <button class="btn bg-secondary elevation" pRipple pRippleColor="#ffffff26">Elevated Button</button>
-      </ng-container>
-    </p-section>
-    <span>FAB buttons are completely rounded buttons, which generally represent the main action of a page.</span>
-    <br>
-    <br>
-    <span>An FAB has a fixed width and height, so their actions are best representend by a single icon without any text.
-    </span>
-    <p-section>
-      <ng-container section-content>
-        <div>
-          <div class="label-row">
-            <span class="t-600">Small FAB</span>
-          </div>
-          <div class="btn-row">
-            <button class="btn-small fab">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn-small fab bg-primary">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn-small fab bg-secondary">
-              <i class="material-icons">add</i>
-            </button>
-            <a href="https://google.com" target="_blank" class="btn-small fab">
-              <i class="material-icons">link</i>
-            </a>
-            <button class="btn-small fab" disabled>
-              <i class="material-icons">add</i>
-            </button>
+            <button class="btn flat" pRipple>Button</button>
+            <button class="btn flat primary" pRipple pRippleColor="var(--primaryLowOpacity)">Button</button>
+            <button class="btn flat secondary" pRipple pRippleColor="var(--secondaryLowOpacity)">Button</button>
+            <a class="btn flat" pRipple href="https://google.com.br" target="_blank">Button</a>
+            <button class="btn flat" pRipple disabled>Button</button>
           </div>
         </div>
         <div class="p-divider"></div>
         <div>
           <div class="label-row">
-            <span class="t-600">Regular FAB</span>
+            <span class="t-600">FAB buttons</span>
           </div>
           <div class="btn-row">
-            <button class="btn fab">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn fab bg-primary">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn fab bg-secondary">
-              <i class="material-icons">add</i>
-            </button>
-            <a href="https://google.com" target="_blank" class="btn fab">
-              <i class="material-icons">link</i>
-            </a>
-            <button class="btn fab" disabled>
-              <i class="material-icons">add</i>
-            </button>
-          </div>
-        </div>
-        <div class="p-divider"></div>
-        <div>
-          <div class="label-row">
-            <span class="t-600">Large FAB</span>
-          </div>
-          <div class="btn-row">
-            <button class="btn-large fab">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn-large fab bg-primary">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn-large fab bg-secondary">
-              <i class="material-icons">add</i>
-            </button>
-            <a href="https://google.com" target="_blank" class="btn-large fab">
-              <i class="material-icons">link</i>
-            </a>
-            <button class="btn-large fab" disabled>
-              <i class="material-icons">add</i>
-            </button>
-          </div>
-        </div>
-      </ng-container>
-    </p-section>
-    <span>FABs can also be combined with the Ripple effect and be elevated. They work the exact same as regular buttons
-      above.
-    </span>
-    <p-section>
-      <ng-container section-content>
-        <div>
-          <div class="label-row">
-            <span class="t-600">Ripple FAB</span>
-          </div>
-          <div class="btn-row">
-            <button class="btn fab bg-primary" pRipple pRippleColor="#ffffff26">
-              <i class="material-icons">add</i>
-            </button>
-            <button class="btn fab bg-secondary" pRipple pRippleColor="#ffffff26">
-              <i class="material-icons">add</i>
-            </button>
             <button class="btn fab" pRipple>
-              <i class="material-icons">add</i>
+              <p-icon>add</p-icon>
+            </button>
+            <button class="btn fab bg-primary" pRipple>
+              <p-icon class="text-white">home</p-icon>
+            </button>
+            <button class="btn fab bg-secondary" pRipple>
+              <p-icon class="text-white">more_vert</p-icon>
+            </button>
+            <a class="btn fab" pRipple href="https://google.com.br" target="_blank">
+              <p-icon>link</p-icon>
+            </a>
+            <button class="btn fab" pRipple disabled>
+              <p-icon>delete</p-icon>
             </button>
           </div>
         </div>
         <div class="p-divider"></div>
         <div>
           <div class="label-row">
-            <span class="t-600">Elevated FAB</span>
+            <span class="t-600">FAB elevated buttons</span>
           </div>
           <div class="btn-row">
-            <button class="btn elevation fab bg-primary" pRipple pRippleColor="#ffffff26">
-              <i class="material-icons">add</i>
+            <button class="btn fab elevation" pRipple>
+              <p-icon>add</p-icon>
             </button>
-            <button class="btn elevation fab bg-secondary">
-              <i class="material-icons">add</i>
+            <button class="btn fab bg-primary elevation" pRipple>
+              <p-icon class="text-white">home</p-icon>
             </button>
-            <button class="btn elevation fab">
-              <i class="material-icons">add</i>
+            <button class="btn fab bg-secondary elevation" pRipple>
+              <p-icon class="text-white">more_vert</p-icon>
+            </button>
+            <a class="btn fab elevation" pRipple href="https://google.com.br" target="_blank">
+              <p-icon>link</p-icon>
+            </a>
+            <button class="btn fab elevation" pRipple disabled>
+              <p-icon>delete</p-icon>
+            </button>
+          </div>
+        </div>
+        <div class="p-divider"></div>
+        <div>
+          <div class="label-row">
+            <span class="t-600">FAB flat buttons</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn fab flat" pRipple [pRippleCentered]="true">
+              <p-icon>add</p-icon>
+            </button>
+            <button class="btn fab primary flat" pRipple [pRippleCentered]="true"
+              pRippleColor="var(--primaryLowOpacity)">
+              <p-icon>home</p-icon>
+            </button>
+            <button class="btn fab secondary flat" pRipple [pRippleCentered]="true"
+              pRippleColor="var(--secondaryLowOpacity)">
+              <p-icon>more_vert</p-icon>
+            </button>
+            <a class="btn fab flat" pRipple [pRippleCentered]="true" href="https://google.com.br" target="_blank">
+              <p-icon>link</p-icon>
+            </a>
+            <button class="btn fab flat" pRipple [pRippleCentered]="true" disabled>
+              <p-icon>delete</p-icon>
             </button>
           </div>
         </div>
       </ng-container>
     </p-section>
-    <span>FABs also have a flat variant, however it is recommended to use it together with a ripple, since hover and
-      active effects are removed.</span>
+    <br>
+    <p>Each type of button also has a small and large variant, and it can be applied by just adding the
+      <code>btn-small</code> or <code>btn-large</code> classes.
+    </p>
+    <br>
     <p-section>
       <ng-container section-content>
         <div>
           <div class="label-row">
-            <span class="t-600">Flat FAB</span>
+            <span class="t-600">
+              Large buttons
+            </span>
           </div>
           <div class="btn-row">
-            <button class="btn fab flat" pRipple pRippleCentered="true">
-              <i class="material-icons">add</i>
+            <button class="btn-large" pRipple>Button</button>
+            <button class="btn-large bg-primary elevation text-white" pRipple>Button</button>
+            <button class="btn-large secondary flat" pRipple pRippleColor="var(--secondaryLowOpacity)">Button</button>
+            <a class="btn-large" href="https://google.com/" target="_blank" pRipple>Link</a>
+            <button class="btn-large" disabled pRipple>Button</button>
+            <button class="btn-large fab" pRipple>
+              <p-icon>add</p-icon>
             </button>
-            <button class="btn fab flat primary" pRipple pRippleCentered="true" pRippleColor="var(--primaryLowOpacity)">
-              <i class="material-icons">add</i>
+            <button class="btn-large bg-primary elevation fab" pRipple>
+              <p-icon class="text-white">add</p-icon>
             </button>
-            <button class="btn fab flat secondary" pRipple pRippleCentered="true"
+            <button class="btn-large fab flat secondary" pRipple [pRippleCentered]="true"
               pRippleColor="var(--secondaryLowOpacity)">
-              <i class="material-icons">add</i>
+              <p-icon>add</p-icon>
             </button>
-            <a href="https://google.com" target="_blank" class="btn fab flat" pRipple pRippleCentered="true">
-              <i class="material-icons">link</i>
-            </a>
+          </div>
+        </div>
+        <div class="p-divider"></div>
+        <div>
+          <div class="label-row">
+            <span class="t-600">
+              Small buttons
+            </span>
+          </div>
+          <div class="btn-row">
+            <button class="btn-small" pRipple>Button</button>
+            <button class="btn-small bg-primary elevation text-white" pRipple>Button</button>
+            <button class="btn-small secondary flat" pRipple pRippleColor="var(--secondaryLowOpacity)">Button</button>
+            <a class="btn-small" href="https://google.com/" target="_blank" pRipple>Link</a>
+            <button class="btn-small" disabled pRipple>Button</button>
+            <button class="btn-small fab" pRipple>
+              <p-icon>add</p-icon>
+            </button>
+            <button class="btn-small bg-primary elevation fab" pRipple>
+              <p-icon class="text-white">add</p-icon>
+            </button>
+            <button class="btn-small fab flat secondary" pRipple [pRippleCentered]="true"
+              pRippleColor="var(--secondaryLowOpacity)">
+              <p-icon>add</p-icon>
+            </button>
           </div>
         </div>
       </ng-container>
     </p-section>
   </p-tab>
   <p-tab pTabLabel="References">
+    <h4 class="t-700">List of References</h4>
     <br>
-    <p>List of References for buttons:</p>
+    <p>Bellow there is a table with a list with references to all classes that are specific to the
+      <code>&lt;button&gt;</code> element.
+    </p>
     <br>
-    <ul>
-      <li>
-        <b>.btn</b>
-      </li>
-    </ul>
+    <p-table></p-table>
   </p-tab>
 </p-tab-group>

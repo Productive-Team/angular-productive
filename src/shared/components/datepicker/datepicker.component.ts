@@ -183,10 +183,10 @@ export class DatepickerComponent implements OnInit, OnChanges {
     if (!date) {
       currentDate = this.currentDate;
     }
-    this.setDaysOfMonth(currentDate.getFullYear(), currentDate.getMonth() + 1);
     this.setWeekdays();
     this.setMonths(currentDate.getFullYear());
     this.setYears(currentDate.getFullYear());
+    this.setDaysOfMonth(currentDate.getFullYear(), currentDate.getMonth() + 1);
   }
 
   private setDaysOfMonth(year: number, month: number): void {

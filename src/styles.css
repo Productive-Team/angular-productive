@@ -107,6 +107,10 @@ p {
   letter-spacing: 0.15px;
 }
 
+p {
+  line-height: 28px;
+}
+
 label {
   font-size: 14px !important;
   font-weight: normal;
@@ -474,7 +478,7 @@ label {
 .btn-small:disabled,
 .btn-large:disabled {
   pointer-events: none;
-  box-shadow: none;
+  box-shadow: none !important;
   opacity: 0.5;
 }
 a.disabled,
@@ -1432,7 +1436,9 @@ a.btn-large {
 }
 
 .tab-body {
+  padding: 1rem 0;
   display: none;
+  box-sizing: border-box;
 }
 .tab-ink-bar {
   position: absolute;
