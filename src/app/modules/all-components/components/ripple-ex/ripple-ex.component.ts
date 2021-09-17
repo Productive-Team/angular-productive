@@ -11,6 +11,9 @@ export class RippleExComponent implements OnInit {
   disabled = false;
   color: string;
   radius: number;
+  duration: number;
+
+  showCodeSection2: boolean;
 
   constructor() {}
 

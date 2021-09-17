@@ -13,88 +13,41 @@ import {
 })
 export class RippleDirective implements OnInit, AfterViewInit {
   /**
-   * Recieves a string value with either a hexadecimal or rgba value.
-   * It's default value is #00000013, so there's no need to use it if you don't want to customize it;
-   *
-   * The color needs to have a reduced opacity otherwise it can hide the element's content;
-   *
-   * Example:
-   *  <div pRipple pRippleColor="rgba(255,0,0,0.15)"></div>
-   *  <div pRipple pRippleColor="#ff000026"></div>
+   * Changes the color of the ripple. The color needs to have a reduced opacity otherwise it can hide content;
    */
   @Input('pRippleColor') color: string;
   /**
-   * Recieves a boolean value beign either true or false, however it's default state is always false
-   * so there's no need to use it if you don't want this option;
-   *
-   * This option centers the ripple in the element, and no matter where you click, it will always
+   * Centers the ripple in the element, and no matter where you click, it will always
    * generate from the center;
-   *
-   * Example:
-   *  <div pRipple [pRippleCentered]="true"></div>
    */
   @Input('pRippleCentered') centered: boolean;
   /**
-   * Recieves a boolean value beign either true or false, however it's default state is always false
-   * so there's no need to use it if you don't want this option;
-   *
-   * This option removes the overflow: hidden property from the ripple container, allowing for the
+   * Removes the overflow: hidden property from the ripple container, allowing for the
    * entire ripple to appear on screen, not only inside the element;
-   *
-   * Example:
-   *  <div pRipple [pRippleUnbounded]="true"></div>
    */
   @Input('pRippleUnbounded') unbounded: boolean;
 
   /**
-   * Recieves a number, and it's default is always 500 so there's no need to use it if you don't want this option;
-   *
-   * This option makes the ripple effect duration higher or lower, depending on the value you put, always beign in
-   * ms;
-   *
-   * Example:
-   *  <!-- Makes ripple transition duration be 1 second -->
-   *  <div pRipple [pRippleDuration]="1000"></div>
+   * This option makes the ripple effect duration slower of faster, depending on the value in milliseconds;
    */
   @Input('pRippleDuration')
   duration = 500;
   /**
-   * Recieves a number, and it's default is always 0 because it is calculated in the createRippleEffect function;
-   *
-   * This option makes the ripple effect radius bigger or smaller, and always consistent independent of the element;
-   *
-   * Example:
-   *  <div pRipple [pRippleRadius]="50"></div>
+   * Changes the size of the ripple, and mantains it consistent independent of host element size;
    */
   @Input('pRippleRadius') radius = 0;
   /**
-   * Recieves a string, and it's default is undefined;
+   * Reference an HTMLElement, and pass the element through this Input;
    *
-   * This option makes the element with the directive of pRipple be a trigger to a ripple effect in another element;
-   *
-   * For it to work you will need two element, one with the directive and all the configurations you want,
-   * and the other with a custom id;
-   *
-   * You then set the pRippleTriggerId value as the custom id on the second element you created, and that's it.
-   * Ripples will be generated in the element with an id, with the trigger beign the element with the directive;
-   *
-   * Example:
-   * <!-- Trigger Element -->
-   *  <div pRipple [pRippleTriggerId]="'myCustomId'"></div>
-   * <!-- Element where ripples will appear -->
-   *  <div id="myCustomId"></div>
-   *
-   * -Note-
-   *   The ripple will always be centered if you're using this type of trigger.
-   */
-  @Input() pRippleTriggerFor: any;
-  /**
-   * pRippleDisabled is a boolean value.
-   *
-   * If it's set to false it disabled the ability for ripples to be created.
+   * The ripple will always be centered if you're using this type of trigger;
    *
    * Ex:
-   * <div pRipple [pRippleDisabled]="true"></div>
+   *  <div pRipple [pRippleTriggerFor]="trigger"></div>
+   *  <div #trigger></div>
+   */
+  @Input() pRippleTriggerFor: HTMLElement;
+  /**
+   * Disables the ripple effect on an element
    */
   @Input('pRippleDisabled') disabled = false;
 

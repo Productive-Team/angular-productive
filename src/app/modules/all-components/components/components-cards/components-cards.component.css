@@ -4,15 +4,16 @@ a {
 }
 
 .card-btn {
-  width: 100%;
+  width: 250px;
+  height: 150px;
   box-sizing: border-box;
-  background-color: white;
+  background-color: var(--appBackgroundColor);
   outline: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(122, 122, 122, 0.5);  
   border-radius: 5px;
   padding: 20px;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 20px 20px 20px 0;
 
 }
 

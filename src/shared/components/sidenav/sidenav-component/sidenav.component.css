@@ -1,12 +1,1 @@
-.sidenav {
-  background-color: var(--appBackgroundColor);
-  position: sticky;
-  height: 100vh;
-  width: 250px;
-  top: 0;
-  border-right: 2px solid rgb(233, 233, 233);
-  overflow-x: hidden;
-  overflow-y: auto;
-  box-sizing: border-box;
-}
 

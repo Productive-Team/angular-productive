@@ -1,6 +1,8 @@
 <p-tab-group>
   <p-tab pTabLabel="Documentation">
     <br>
+    <h4>Usage</h4>
+    <br>
     <span>The Ripple Effect is used to represent when the user has clicked something, sending a visual feedback to the
       user.
     </span>
@@ -10,32 +12,26 @@
     <br>
     <p-section>
       <ng-container section-content>
-        <div class="row">
-          <div class="col m6 s12">
-            <div class="fieldset">
-              <p-checkbox pCheckboxLabel="Ripple Centered" [(ngModel)]="center">
-              </p-checkbox>
-              <p-checkbox pCheckboxLabel="Ripple Unbounded" [(ngModel)]="unbound">
-              </p-checkbox>
-              <p-checkbox pCheckboxLabel="Ripple Disabled" [(ngModel)]="disabled">
-              </p-checkbox>
-            </div>
-          </div>
-          <div class="col m3 s6">
-            <p-fieldset pFieldsetLabelText="Ripple Color">
-              <!-- [pFieldsetInput]="colorRip" -->
-              <input type="text" pInput [(ngModel)]="color" #colorRip>
-            </p-fieldset>
-          </div>
-          <div class="col m3 s6">
-            <p-fieldset pFieldsetLabelText="Ripple Radius">
-              <!-- [pFieldsetInput]="radiusRip" -->
-              <input type="number" pInput [(ngModel)]="radius" #radiusRip>
-            </p-fieldset>
-          </div>
+        <div class="flex-row align-items-center">
+          <p-checkbox label="Ripple Centered" [(ngModel)]="center">
+          </p-checkbox>
+          <p-checkbox label="Ripple Unbounded" [(ngModel)]="unbound">
+          </p-checkbox>
+          <p-checkbox label="Ripple Disabled" [(ngModel)]="disabled">
+          </p-checkbox>
+          <p-fieldset pFieldsetLabelText="Ripple Color" class="ripple-opt">
+            <input type="text" pInput [(ngModel)]="color">
+          </p-fieldset>
+          <p-fieldset pFieldsetLabelText="Ripple Radius" class="ripple-opt">
+            <input type="number" pInput [(ngModel)]="radius">
+          </p-fieldset>
+          <p-fieldset pFieldsetLabelText="Ripple Duration" class="ripple-opt">
+            <input type="number" pInput [(ngModel)]="duration">
+          </p-fieldset>
         </div>
-        <div class="ripple-example elevation" pRipple [pRippleCentered]="center" [pRippleColor]="color"
-          [pRippleUnbounded]="unbound" [pRippleRadius]="radius" [pRippleDisabled]="disabled" id="rip-ex-1">Click Me!
+        <div class="ripple-example elevation-p8" pRipple [pRippleCentered]="center" [pRippleColor]="color"
+          [pRippleUnbounded]="unbound" [pRippleRadius]="radius" [pRippleDisabled]="disabled"
+          [pRippleDuration]="duration" id="rip-ex-1">Click Me!
         </div>
       </ng-container>
     </p-section>
@@ -48,15 +44,26 @@
     <br>
     <span>Here's an example:</span>
     <p-section>
+      <ng-container section-buttons>
+        <button class="btn fab flat" pRipple [pRippleCentered]="true" (click)="showCodeSection2 = !showCodeSection2">
+          <p-icon>code</p-icon>
+        </button>
+      </ng-container>
+      <ng-container section-before-content *ngIf="showCodeSection2">
+        <div class="code-container">
+          <pre>
+            <code>
+              &lt;div class="ripple-example elevation-p8" pRipple [pRippleTriggerFor]="rippleTrigger"&gt;&lt;/div&gt;
+              &lt;div class="ripple-example elevation-p8" #rippleTrigger&gt;&lt;/div&gt;
+            </code>
+          </pre>
+        </div>
+      </ng-container>
       <ng-container section-content>
-        <div class="row">
-          <div class="col m6 s12">
-            <div class="ripple-example elevation" pRipple [pRippleTriggerFor]="rippleTrigger">
-              Click Me!</div>
-          </div>
-          <div class="col m6 s12">
-            <div class="ripple-example elevation" #rippleTrigger></div>
-          </div>
+        <div class="flex-row justify-center">
+          <div class="ripple-example elevation-p8" pRipple [pRippleTriggerFor]="rippleTrigger">
+            Click Me!</div>
+          <div class="ripple-example elevation-p8" #rippleTrigger></div>
         </div>
       </ng-container>
     </p-section>

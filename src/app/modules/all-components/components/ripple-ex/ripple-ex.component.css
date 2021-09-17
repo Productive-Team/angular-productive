@@ -1,5 +1,5 @@
 .ripple-example {
-  margin: 15px auto;
+  margin: 15px 1rem;
   width: 250px;
   height: 250px;
   line-height: 250px;
@@ -7,4 +7,8 @@
   cursor: pointer;
   text-align: center;
   -webkit-tap-highlight-color: transparent;
+}
+
+.ripple-opt {
+  margin: 0 1rem 0 0;
 }

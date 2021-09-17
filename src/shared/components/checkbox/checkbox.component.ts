@@ -14,6 +14,9 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
+/**
+ * @title Checkbox Component
+ */
 @Component({
   selector: 'app-checkbox, p-checkbox',
   templateUrl: './checkbox.component.html',
@@ -27,15 +30,39 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class CheckboxComponent implements AfterContentInit, OnChanges {
+  /**
+   * Sets the text that goes along the Checkbox
+   */
   @Input('label') pCheckboxLabel: string;
+  /**
+   * Changes the position of the checkbox label
+   */
   @Input('labelPosition') pCheckboxLabelPosition = 'right' || 'left';
+  /**
+   * Disabled the checkbox
+   */
   @Input('disabled') pCheckboxDisabled: boolean;
+  /**
+   * Changes the checkbox color
+   */
   @Input('color') pCheckboxColor: string;
 
+  /**
+   * Checks the checkbox
+   */
   @Input('checked') pCheckboxChecked: boolean;
+  /**
+   * Change event for when the checkbox is checked
+   */
   @Output('checkedChange') pCheckboxCheckedChange = new EventEmitter<boolean>();
 
+  /**
+   * Sets the checkbox to a indeterminate state
+   */
   @Input('indeterminate') pCheckboxIndeterminate: boolean;
+  /**
+   * Change event for the indeterminate state
+   */
   @Output('indeterminateChange') pCheckboxIndeterminateChange =
     new EventEmitter<boolean>();
 
@@ -192,6 +219,11 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
   @HostBinding('class.checkbox-disabled')
   get isDisabled() {
     return this.pCheckboxDisabled;
+  }
+
+  @HostBinding('class.dInlineF')
+  get defaultClass() {
+    return true;
   }
 
   @HostBinding('attr.indeterminate')

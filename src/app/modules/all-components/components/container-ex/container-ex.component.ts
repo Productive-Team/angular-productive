@@ -1,3 +1,4 @@
+import { SelectDataModel } from './../../../../../shared/components/select/select.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
@@ -89,40 +90,49 @@ export class ContainerExComponent implements OnInit {
     sel: 50,
   };
 
-  optionArr = [
-    // {
-    //   value: null,
-    //   name: '--none--',
-    // },
+  min = new Date(2021, 7, 10);
+  max = new Date(2021, 8, 25);
+
+  disDayWeek = [0, 6];
+
+  disDates = [new Date(2021, 8, 7), new Date(2021, 0, 26)];
+
+  optionArr: SelectDataModel[] = [
     {
-      value: 'opt1',
-      name: 'Option 1',
+      id: null,
+      name: '--none--',
     },
     {
-      value: 'opt2',
+      id: 'opt1',
+      name: 'Option 1',
+      selected: true,
+    },
+    {
+      id: 'opt2',
       name: 'Option 2',
     },
     {
-      value: 'opt3',
+      id: 'opt3',
       name: 'Option 3',
     },
     {
-      value: 'opt4',
+      id: 'opt4',
       name: 'Option 4',
+      disabled: true,
     },
     {
-      value: 'opt5',
+      id: 'opt5',
       name: 'Option 5',
     },
     {
-      value: 'opt6',
+      id: 'opt6',
       name: 'Option 6',
     },
   ];
 
-  variab = new Date(2004, 0, 26);
+  variab;
   // variab: Date;
-  vev = '';
+  vev = new Date();
 
   indet = true;
   checked = false;

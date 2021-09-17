@@ -56,13 +56,26 @@ export class InputDirective {
   templateUrl: './fieldset.component.html',
 })
 export class FieldsetComponent implements OnInit, AfterContentInit {
+  /**
+   * Sets the label text with the fieldset
+   */
   @Input('pFieldsetLabelText') labelText: string;
+  /**
+   * Sets the label to always be floating
+   */
   @Input('pFieldsetLabelActive') labelActive = false;
   @Input() hasHelperText = false;
   @Input() helperText: string;
   @Input() helperState: string;
+  /**
+   * Allow for input validation
+   */
   @Input('pFieldsetValidate') inputValidate = false;
-  @Input() disabled = false;
+  /**
+   * Changes the appearence of the fieldset;
+   *
+   * The values are 'filled', 'classic' or 'outlined';
+   */
   @Input('pFieldsetAppearence') appearence: string;
 
   private required = 'required';

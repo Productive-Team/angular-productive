@@ -4,9 +4,15 @@
   --primaryLowOpacity: #3f51b51e;
   --secondaryLowOpacity: #e91e631e;
   --appBackgroundColor: white;
+  --menuPanelColor: rgb(250, 250, 250);
   --textColor: #262626;
+  --contrastTextColor: #fdfdfd;
+  --rippleDefaultColor: rgba(0,0,0,0.13);
+  --fieldsetColor: hsla(0,0%,94%,1);
+  --fieldsetUnderlineColor: rgb(179, 179, 179);
+  --snackbarDefaultColor: rgb(24, 24, 24)
+  --snackbarTextColor: white;
 }
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); */
 
 * {
   font-family: "Roboto", Arial, sans-serif;
@@ -58,6 +64,10 @@ hr {
   background-color: #a3a3a3;
   color: #a3a3a3;
   margin: 5px 0;
+}
+
+code {
+  font-family: monospace;
 }
 
 /* #region Typography */
@@ -166,6 +176,12 @@ label {
   .container-sidenav {
     padding: 10px 15px;
   }
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .row {
@@ -365,10 +381,30 @@ label {
 /* #endregion DisplayHelpers */
 
 /* #region AlignHelpers */
+.justify-start {
+  justify-content: start;
+}
+.justify-baselne {
+  justify-content: baseline;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-end {
+  justify-content: end;
+}
 
-.content-center {
-  display: block;
-  margin: 0 auto;
+.align-items-center {
+  align-items: center;
+}
+.align-items-baseline {
+  align-items: baseline;
+}
+.align-items-flex-end {
+  align-items: flex-end;
+}
+.align-items-flex-start {
+  align-items: flex-start;
 }
 
 .left {
@@ -391,7 +427,7 @@ label {
   padding: 0 6px;
   height: 36px;
   line-height: 36px;
-  font-size: 13px !important;
+  font-size: 14px !important;
 }
 .btn {
   padding: 0 12px;
@@ -416,10 +452,10 @@ label {
 .btn,
 .btn-small,
 .btn-large {
-  font-weight: 400;
+  font-weight: 500;
   display: inline-block;
   position: relative;
-  background-color: #e4e4e4;
+  background-color: var(--menuPanelColor);
   border: 0;
   outline: none;
   font-size: 15px;
@@ -555,7 +591,7 @@ a.btn-large {
   transition: transform cubic-bezier(0, 0, 0.2, 1),
     opacity cubic-bezier(0, 0, 0.2, 1);
   transform: scale(0);
-  background-color: #00000013;
+  background-color: var(--rippleDefaultColor);
   will-change: transform;
 }
 .p-ripple-container:not(:empty),
@@ -567,11 +603,9 @@ a.btn-large {
 /*#region BackColors*/
 .bg-primary {
   background-color: var(--primary) !important;
-  color: white !important;
 }
 .bg-secondary {
   background-color: var(--secondary) !important;
-  color: white !important;
 }
 /*#endregion BackColors*/
 
@@ -623,6 +657,26 @@ a.btn-large {
   display: contents;
 }
 
+.sidenav {
+  background-color: var(--appBackgroundColor);
+  position: sticky;
+  height: 100vh;
+  width: 250px;
+  top: 0;
+  border-right: 2px solid rgba(141, 141, 141, 0.3);
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transition: 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 0.25rem 0.5rem;
+}
+
+.floating .sidenav {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
 .p-sidenav-full-wrap {
   display: flex;
 }
@@ -642,30 +696,37 @@ a.btn-large {
   list-style-type: none;
 }
 
+.closed .sidenav {
+  width: 0;
+  transform: translateX(-250px);
+}
+
+.closed.floating .sidenav {
+  width: 250px;
+  transform: translateX(-250px);
+}
+
 .sidenav a,
 .sidenav button {
   display: inline-block;
   padding: 0 5px;
   height: 46px;
   line-height: 46px;
-  color: #262626;
+  color: var(--textColor);
   font-size: 16px;
   font-weight: 400;
   text-align: start;
   text-decoration: none;
   border: 0;
+  border-radius: 5px;
   outline: none;
   cursor: pointer;
   transition: 0.1s ease-in;
   user-select: none;
   background-color: transparent;
   -webkit-tap-highlight-color: transparent;
-}
-.sidenav a {
-  width: 96%;
-}
-.sidenav button {
   width: 100%;
+  box-sizing: border-box;
 }
 .sidenav a i,
 .sidenav button i {
@@ -674,16 +735,6 @@ a.btn-large {
 .sidenav a:hover,
 .sidenav button:hover {
   background-color: #00000013;
-}
-.sidenav .img-container {
-  position: relative;
-  width: 100%;
-}
-.sidenav .img-container img.dim {
-  filter: brightness(50%);
-}
-.sidenav .img-container img.light {
-  filter: brightness(150%);
 }
 /* #endregion SidebarStyles */
 
@@ -697,7 +748,7 @@ a.btn-large {
   height: 100vh;
   top: 0;
   opacity: 0;
-  transition: opacity 0.15s linear;
+  transition: opacity 250ms cubic-bezier(0,.04,.42,1);
   -webkit-tap-highlight-color: transparent;
 }
 /* #endregion BackdropStyle*/
@@ -731,10 +782,10 @@ a.btn-large {
   align-items: baseline;
   width: 100%;
   padding: 0.75em 0.75em 0 0.75em;
-  background-color: #f2f2f2;
+  background-color: var(--fieldsetColor);
   border-radius: 5px 5px 0 0;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--fieldsetUnderlineColor);
   transition: box-shadow 100ms ease-in;
 }
 
@@ -746,7 +797,7 @@ a.btn-large {
 }
 
 .disabled .input-wrapper.classic {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+  border-bottom: 1px dotted var(--fieldsetUnderlineColor);
   pointer-events: none;
 }
 
@@ -759,7 +810,7 @@ a.btn-large {
   border: none;
 }
 .readonly .input-wrapper.classic {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+  border-bottom: 1px dotted var(--fieldsetUnderlineColor);
 }
 .readonly .input-wrapper .form-field {
   pointer-events: none;
@@ -773,14 +824,14 @@ a.btn-large {
 
 .input-wrapper.outlined {
   background-color: transparent;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
-  padding: 10px 10px 5px 10px;
+  box-shadow: inset 0 0 0 1px var(--fieldsetUnderlineColor);
+  padding: 0.75em 0.75em 5px 0.75em;
   border: none;
   border-radius: 5px;
 }
 
 .input-wrapper:hover.outlined {
-  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 0 2px var(--fieldsetUnderlineColor);
 }
 
 .input-wrapper.focused ~ .p-input-bar,
@@ -808,7 +859,7 @@ a.btn-large {
   bottom: 0;
   padding: 25px 0 0 0;
   box-sizing: content-box;
-  color: rgb(92, 92, 92);
+  color: var(--textColor);
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -823,7 +874,7 @@ a.btn-large {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  transition: 0.2s cubic-bezier(0, 0, 0.2, 1);
+  transition: 400ms cubic-bezier(.31,1.13,.34,.99);
   transform-origin: left top;
 }
 .label-text.active,
@@ -1014,8 +1065,8 @@ a.btn-large {
   border-radius: 5px;
   min-height: 20px;
   width: 344px;
-  color: white;
-  background-color: rgb(44, 44, 44);
+  color: var(--snackbarTextColor);
+  background-color: var(--snackbarDefaultColor);
   z-index: 1004;
   line-height: 20px;
   max-height: 250px;
@@ -1152,7 +1203,7 @@ a.btn-large {
   border-radius: 5px;
   outline: none;
   border: none;
-  background-color: var(--appBackgroundColor);
+  background-color: var(--menuPanelColor);
   min-height: 64px;
 }
 
@@ -1180,7 +1231,7 @@ a.btn-large {
   text-overflow: ellipsis;
   user-select: none;
   line-height: 46px;
-  color: #262626;
+  color: var(--textColor);
   text-decoration: none;
 }
 
@@ -1216,7 +1267,7 @@ a.btn-large {
   display: inline-block;
   padding: 0 5px;
   background-color: #e4e4e4;
-  color: #262626;
+  color: var(--textColor);
   border-radius: 5px;
   height: 25px;
   max-width: 100px;
@@ -1287,8 +1338,8 @@ a.btn-large {
 
 /* #region Card */
 .card {
-  background-color: white;
-  border-radius: 5px;
+  background-color: var(--menuPanelColor);
+  border-radius: 8px;
   border: 0.5px solid rgba(0, 0, 0, 0.1);
   width: 100%;
   margin: 10px 0;
@@ -1300,12 +1351,10 @@ a.btn-large {
 
 .card .header {
   padding: 15px;
-  border-bottom: 0.8px solid rgba(0, 0, 0, 0.1);
 }
 
 .card .footer {
   padding: 5px 10px;
-  border-top: 0.8px solid rgba(0, 0, 0, 0.1);
 }
 /* #endregion Card */
 
@@ -1367,10 +1416,10 @@ a.btn-large {
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
-  color: #262626;
+  color: var(--textColor);
 }
 .tab i {
-  color: #262626;
+  color: var(--textColor);
 }
 .tab.disabled {
   opacity: 0.4;
@@ -1449,92 +1498,7 @@ a.btn-large {
 .collapsible.active i {
   transform: rotate(180deg);
 }
-
 /* #endregion Collapsible */
-
-/* #region Datepicker */
-.picker {
-  position: fixed;
-  background-color: white;
-  display: flex;
-  width: 300px;
-  height: 275px;
-  border-radius: 5px;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 999;
-}
-
-.picker .header {
-  padding: 5px 10px;
-  border-bottom: 1px solid rgb(0 0 0 / 10%);
-  display: flex;
-  /* flex-direction: column; */
-}
-
-.picker-trigger {
-  cursor: pointer;
-  user-select: none;
-}
-
-.picker .header span {
-  flex: 1;
-  line-height: 46px;
-  text-align: center;
-  user-select: none;
-}
-
-.picker .content {
-  padding: 5px 20px;
-  height: 100%;
-}
-
-.picker .content .day {
-  display: inline-block;
-  min-width: 36px;
-  height: 36px;
-  text-align: center;
-  line-height: 37px;
-  user-select: none;
-  cursor: pointer;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
-
-.picker .content .year {
-  display: inline-block;
-  min-width: 56px;
-  height: 36px;
-  user-select: none;
-  text-align: center;
-  line-height: 36px;
-  cursor: pointer;
-  box-sizing: border-box;
-  border-radius: 999px;
-  font-size: 14px;
-}
-
-.picker .content .month {
-  display: inline-block;
-  min-width: 56px;
-  height: 36px;
-  user-select: none;
-  text-align: center;
-  line-height: 36px;
-  cursor: pointer;
-  box-sizing: border-box;
-  border-radius: 999px;
-  font-size: 14px;
-}
-
-.picker .content .day.selected,
-.picker .content .month.selected,
-.picker .content .year.selected {
-  box-shadow: 0 0 0 1px inset var(--primary);
-  color: var(--primary);
-  background-color: var(--primaryLowOpacity);
-}
-/* #endregion Datepicker */
 
 /* #region Table */
 .p-table {
@@ -1681,6 +1645,8 @@ a.btn-large {
 }
 
 .p-select button {
+  display: flex;
+  align-items: center;
   background-color: transparent;
   width: 100%;
   border: none;
@@ -1695,17 +1661,17 @@ a.btn-large {
   user-select: none !important;
 }
 .p-select button:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .p-select button:disabled {
   opacity: 0.5;
   pointer-events: none;
-  background-color: rgb(241, 241, 241);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .p-select-content {
-  background-color: var(--appBackgroundColor);
+  background-color: var(--menuPanelColor);
   border-radius: 5px;
   max-height: 300px;
   overflow: auto;
@@ -1759,7 +1725,7 @@ a.btn-large {
 }
 
 .p-datepicker-wrapper {
-  background-color: var(--appBackgroundColor);
+  background-color: var(--menuPanelColor);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -1834,11 +1800,13 @@ a.btn-large {
   background-color: transparent;
 }
 
-.p-day:disabled {
+.p-day:disabled,
+.p-month:disabled,
+.p-year:disabled {
   cursor: default;
   pointer-events: none;
-  opacity: 0.5;
-  color: #afafaf;
+  opacity: 0.3;
+  color: var(--textColor);
 }
 
 .p-year,
