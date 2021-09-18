@@ -7,13 +7,11 @@ import { Component, OnInit } from '@angular/core';
       <ng-content></ng-content>
     </div>
   `,
-  // tslint:disable-next-line: no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'sidenav-container',
   },
 })
-export class SidenavContainerComponent implements OnInit {
+export class SidenavContainerComponent {
   constructor() {}
-
-  ngOnInit() {}
 }

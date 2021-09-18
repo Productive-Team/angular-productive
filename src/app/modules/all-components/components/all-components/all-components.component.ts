@@ -131,7 +131,6 @@ export class AllComponentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // tslint:disable-next-line: no-shadowed-variable
     this.routes.sort((a, b) => {
       return a.name.localeCompare(b.name);
     });

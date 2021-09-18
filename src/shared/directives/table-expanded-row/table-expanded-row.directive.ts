@@ -9,7 +9,7 @@ import {
 
 @Directive({
   selector: '[appTableExpandedRowTrigger], [pTableExpandedRowTrigger]',
-  // tslint:disable-next-line: no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'table-expanded-row-trigger',
   },
@@ -40,7 +40,7 @@ export class TableExpandedRowTriggerDirective {
 
 @Directive({
   selector: '[appTableExpandedRow], [pTableExpandedRow]',
-  // tslint:disable-next-line: no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'table-expanded-row hidden',
   },
@@ -64,7 +64,7 @@ export class TableExpandedRowDirective implements OnInit {
 
 @Directive({
   selector: '[appTableExpandedRowContent], [pTableExpandedRowContent]',
-  // tslint:disable-next-line: no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'table-expanded-content hidden',
   },

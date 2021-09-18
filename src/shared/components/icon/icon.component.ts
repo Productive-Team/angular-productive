@@ -9,15 +9,13 @@ import { Component, Input, OnInit } from '@angular/core';
   >
     <ng-content></ng-content>
   </i>`,
-  // tslint:disable-next-line: no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'p-icon',
   },
 })
-export class IconComponent implements OnInit {
+export class IconComponent {
   @Input() pIconType =
     'filled' || 'outlined' || 'round' || 'sharp' || 'two-tone';
   constructor() {}
-
-  ngOnInit() {}
 }
