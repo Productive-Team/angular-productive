@@ -1,4 +1,4 @@
-<p-tab-group>
+<p-tab-group [pTabSelectedIndex]="1">
   <p-tab pTabLabel="Documentation">
     <h5 class="t-700">Usage</h5>
     <br>
@@ -11,24 +11,18 @@
     <br>
     <h5 class="t-700">Styling</h5>
     <br>
-    <p>The Productive custom button stylings are achieved by simple css classes. You can just add the classes listed in
-      the references tab to a regular <code>&lt;button&gt;</code> element, and it will automatically
-      replicate the style.
+    <p>The Productive custom button stylings are achieved by simple css classes. You just need to add the classes listed
+      in
+      the references tab to a regular <code>&lt;button&gt;</code> element to achieve the styling.
     </p>
-    <br>
-    <p>To replicate some of the behaviours shown in the example above, such as raising the button trough shadows, you
-      need to add the respective classes or directives, like the <a
-        [routerLink]="['/Components/Ripple']">RippleDirective.</a></p>
-    <br>
-    <br>
-    <h5 class="t-700">Customization</h5>
-    <br>
-    <p>You can freely customize the button's appeareance by simply creating a separate class in CSS and adding in the
-      button.</p>
     <br>
     <h5 class="t-700">Example</h5>
     <br>
     <p>In the example bellow, you can see some of the types of styles that a button can have.</p>
+    <br>
+    <p>To replicate some of the behaviours, such as raising the button trough shadows, you
+      need to add the respective classes or directives, like the <a
+        [routerLink]="['/Components/Ripple']">RippleDirective.</a></p>
     <p-section>
       <ng-container section-content>
         <div>
@@ -202,6 +196,12 @@
         </div>
       </ng-container>
     </p-section>
+    <br>
+    <h5 class="t-700">Customization</h5>
+    <br>
+    <p>You can freely customize the button's appeareance by simply creating a separate class in CSS and adding in the
+      button.</p>
+    <br>
   </p-tab>
   <p-tab pTabLabel="References">
     <h4 class="t-700">List of References</h4>
@@ -210,6 +210,10 @@
       <code>&lt;button&gt;</code> element.
     </p>
     <br>
-    <p-table></p-table>
+    <p-table [pTableData]="buttonClasses">
+      <p-table-column columnName="Class" columnProp="class"></p-table-column>
+      <p-table-column columnName="Description" columnProp="description"></p-table-column>
+      <p-table-column columnName="Ativo" columnProp="active"></p-table-column>
+    </p-table>
   </p-tab>
 </p-tab-group>

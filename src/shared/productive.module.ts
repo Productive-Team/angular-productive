@@ -1,5 +1,8 @@
 import { RadioGroupComponent } from './components/radio-btn/radio-group/radio-group.component';
-import { TableComponent } from './components/table/table.component';
+import {
+  TableColumnComponent,
+  TableComponent,
+} from './components/table/table.component';
 import { IconComponent } from './components/icon/icon.component';
 import { ContainerComponent } from './components/container/container.component';
 import { SidenavContentComponent } from './components/sidenav/sidenav-content/sidenav-content.component';
@@ -85,6 +88,7 @@ const components = [
   RadioGroupComponent,
   SelectComponent,
   SelectOptionComponent,
+  TableColumnComponent,
 ];
 const directives = [
   RippleDirective,

@@ -331,6 +331,9 @@ label {
 .dInlineF {
   display: inline-flex;
 }
+.dContents {
+  display: contents;
+}
 
 @media only screen and (min-width: 1000px) {
   .display-on-medium-and-bellow {
@@ -1515,7 +1518,7 @@ a.btn-large {
 }
 
 .p-table thead {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(138, 138, 138, 0.15);
 }
 
 .p-table .p-table-header th {
@@ -1528,12 +1531,12 @@ a.btn-large {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 500;
-  color: #363636;
+  font-weight: 600;
+  color: var(--textColor);
 }
 
 .p-table .p-table-body tr {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(138, 138, 138, 0.15);
 }
 
 .p-table .p-table-body td {
@@ -1542,7 +1545,7 @@ a.btn-large {
   font-weight: 400;
   font-size: 15px;
   white-space: nowrap;
-  color: #363636;
+  color: var(--textColor);
 }
 .p-table .p-table-body td button,
 .p-table .p-table-body td a {
@@ -1555,7 +1558,7 @@ a.btn-large {
   transition: height 0.2s cubic-bezier(0.07, 0.43, 0.38, 1.01);
   overflow: hidden;
   height: var(--scrollHeightForTable);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(138, 138, 138, 0.15);
 }
 
 .p-table .table-expanded-row td {

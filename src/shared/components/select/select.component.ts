@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-input-rename */
 import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
