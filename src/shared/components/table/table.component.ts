@@ -3,8 +3,11 @@ import {
   ContentChildren,
   forwardRef,
   HostBinding,
+  HostListener,
   Input,
+  OnChanges,
   OnInit,
+  TemplateRef,
 } from '@angular/core';
 
 @Component({
@@ -21,13 +24,17 @@ import {
         <ng-content select="[table-header]"></ng-content>
         <tr>
           <ng-content></ng-content>
-          <!-- <th *ngFor="let item of actualTableData.header">{{ item.label }}</th> -->
         </tr>
       </thead>
       <tbody class="p-table-body">
         <tr *ngFor="let items of actualTableData.content">
           <td *ngFor="let hdr of actualTableData.header">
-            {{ items[hdr.prop] }}
+            <ng-container
+              *ngIf="hdr.template !== undefined"
+              [ngTemplateOutlet]="hdr.template"
+              [ngTemplateOutletContext]="{ $implicit: items }"
+            ></ng-container>
+            {{ hdr.template !== undefined ? '' : items[hdr.prop] }}
           </td>
         </tr>
         <ng-content select="[table-body]"></ng-content>
@@ -44,7 +51,7 @@ import {
     </table>
   `,
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
   @Input() pTableElevated = true;
   @Input() pTableExpands = false;
   @Input() pTableHeaderFixed = false;
@@ -67,16 +74,24 @@ export class TableComponent implements OnInit {
     }
   }
 
+  ngOnChanges() {
+    this.configureTable();
+  }
+
   configureTable(): void {
     if (this.tableColumns !== undefined) {
+      const hdrArr = [];
       this.tableColumns._results.forEach((v) => {
         const obj: TableDataHeader = {
           name: v.columnName,
+          template: v.columnTemplate,
           prop: v.columnProp,
         };
-        this.actualTableData.header.push(obj);
+        hdrArr.push(obj);
       });
+      this.actualTableData.header = hdrArr;
     }
+    const contArr = [];
     let i = 0;
     for (; i < this.pTableData.length; i++) {
       const keys = Object.keys(this.pTableData[i]);
@@ -84,9 +99,12 @@ export class TableComponent implements OnInit {
       keys.forEach((v) => {
         obj[v] = this.pTableData[i][v];
       });
-      this.actualTableData.content.push(obj);
+      contArr.push(obj);
     }
+    this.actualTableData.content = contArr;
   }
+
+  sortTable(state: TableSortState = 'normal') {}
 
   @HostBinding('class.table-expanded')
   get isEx() {
@@ -96,11 +114,28 @@ export class TableComponent implements OnInit {
 
 @Component({
   selector: 'app-table-column, p-table-column',
-  template: ` <th>{{ columnName }}</th> `,
+  template: `
+    <th *ngIf="!columnSort">{{ columnName }}</th>
+    <th
+      *ngIf="columnSort"
+      pTableSort
+      [pTableColumnForSort]="columnProp"
+      [pTableData]="parentComponent.pTableData"
+    >
+      {{ columnName }}
+    </th>
+  `,
 })
 export class TableColumnComponent {
   @Input() columnName: string;
   @Input() columnProp: string;
+  @Input() columnSort: boolean;
+  @Input() columnTemplate: TemplateRef<any>;
+
+  sortingState: TableSortState;
+
+  constructor(public parentComponent: TableComponent) {}
+
   @HostBinding('class.dContents')
   get DefaultClass() {
     return true;
@@ -114,5 +149,8 @@ export class TableData {
 
 export class TableDataHeader {
   name: string;
+  template: TemplateRef<any>;
   prop: string;
 }
+
+type TableSortState = 'normal' | 'asc' | 'dsc';

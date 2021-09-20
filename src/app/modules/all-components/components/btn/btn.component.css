@@ -11,3 +11,16 @@ button, a {
   display: table-cell;
   width: 100%;
 }
+
+.table-container {
+  width: calc(100% - 50%);
+  border: 1px solid rgba(138, 138, 138, 0.5);
+  border-radius: 8px;
+  overflow: auto;
+}
+
+@media screen and (max-width: 1000px) {
+  .table-container {
+    width: 100%;
+  }
+}

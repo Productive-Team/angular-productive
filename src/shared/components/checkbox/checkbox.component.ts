@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/no-output-rename */
+/* eslint-disable @angular-eslint/no-input-rename */
 import {
   AfterContentInit,
   Component,
@@ -162,7 +164,7 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
 
     if (checkEvent && !indeterminateEvent && !this.previousIndeterminateState) {
       check.style.animation =
-        'checkmarkCheck 600ms cubic-bezier(0.07, 0.24, 0.65, 0.99)';
+        'checkmarkCheck 450ms cubic-bezier(.21,.71,.99,1)';
       check.addEventListener('animationend', () => {
         check.removeAttribute('style');
       });
@@ -222,6 +224,7 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
   }
 
   @HostBinding('class.dInlineF')
+  @HostBinding('class.v-alingMiddle')
   get defaultClass() {
     return true;
   }

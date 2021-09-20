@@ -68,6 +68,7 @@ hr {
 
 code {
   font-family: monospace;
+  background-color: rgba(150,150,150,0.15)
 }
 
 /* #region Typography */
@@ -424,7 +425,14 @@ label {
   margin-left: 15px;
 }
 
-.v-align {
+.pAbsolute {
+  position: absolute;
+}
+.pRelative {
+  position: relative;
+}
+
+.v-alingMiddle {
   vertical-align: middle;
 }
 /* #endregion AlignHelpers */
@@ -1535,7 +1543,7 @@ a.btn-large {
   color: var(--textColor);
 }
 
-.p-table .p-table-body tr {
+.p-table .p-table-body tr:not(:last-child) {
   border-bottom: 1px solid rgba(138, 138, 138, 0.15);
 }
 
@@ -1546,6 +1554,7 @@ a.btn-large {
   font-size: 15px;
   white-space: nowrap;
   color: var(--textColor);
+  vertical-align: middle !important;
 }
 .p-table .p-table-body td button,
 .p-table .p-table-body td a {
