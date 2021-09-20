@@ -137,9 +137,9 @@ export class TabsComponent implements OnInit, AfterViewInit {
     const rect = activeElement.getBoundingClientRect();
     const parent = this.el.nativeElement.parentElement.getBoundingClientRect();
     if (!activeElement.classList.contains('disabled')) {
-      const width = rect.width * 0.5;
+      const width = rect.width - rect.width / 4;
       ink.style.width = width + 'px';
-      ink.style.left = rect.left - parent.left + width - width / 2 + 'px';
+      ink.style.left = rect.left - parent.left + rect.width / 4 / 2 + 'px';
     } else {
       ink.style.width = '0';
     }

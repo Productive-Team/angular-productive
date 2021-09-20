@@ -1431,6 +1431,7 @@ a.btn-large {
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
+  font-weight: 600;
   color: var(--textColor);
 }
 .tab i {
@@ -1590,6 +1591,13 @@ a.btn-large {
   border: 0 !important;
 }
 
+.p-column-sortable i {
+  font-size: 18px;
+}
+.sorting i {
+  opacity: 1;
+}
+
 .p-table .p-table-header-sort {
   cursor: pointer;
 }
@@ -1601,6 +1609,10 @@ a.btn-large {
   top: 50%;
   transition: 0.3s cubic-bezier(0, 0.48, 0.36, 1);
   transition-property: opacity, transform;
+}
+
+.p-column-sortable {
+  cursor: pointer;
 }
 
 .p-table .p-table-header-sort:hover i {

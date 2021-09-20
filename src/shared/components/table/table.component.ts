@@ -1,14 +1,16 @@
 import {
   Component,
   ContentChildren,
+  ElementRef,
   forwardRef,
   HostBinding,
-  HostListener,
   Input,
   OnChanges,
   OnInit,
   TemplateRef,
 } from '@angular/core';
+
+let columnSortable = [];
 
 @Component({
   selector: 'app-table, p-table',
@@ -104,7 +106,33 @@ export class TableComponent implements OnInit, OnChanges {
     this.actualTableData.content = contArr;
   }
 
-  sortTable(state: TableSortState = 'normal') {}
+  sortTable(state: TableSortState, columnName: string) {
+    switch (state) {
+      case 'asc':
+        this.sortAsc(columnName);
+        break;
+      case 'dsc':
+        this.sortDsc(columnName);
+        break;
+      case 'normal':
+        this.configureTable();
+        break;
+    }
+  }
+
+  sortAsc(column: string): void {
+    const content = this.actualTableData.content;
+    content.sort((a, b) => {
+      return a[column].localeCompare(b[column]);
+    });
+  }
+
+  sortDsc(column: string): void {
+    const content = this.actualTableData.content;
+    content.sort((a, b) => {
+      return b[column].localeCompare(a[column]);
+    });
+  }
 
   @HostBinding('class.table-expanded')
   get isEx() {
@@ -116,13 +144,18 @@ export class TableComponent implements OnInit, OnChanges {
   selector: 'app-table-column, p-table-column',
   template: `
     <th *ngIf="!columnSort">{{ columnName }}</th>
-    <th
-      *ngIf="columnSort"
-      pTableSort
-      [pTableColumnForSort]="columnProp"
-      [pTableData]="parentComponent.pTableData"
-    >
-      {{ columnName }}
+    <th *ngIf="columnSort" (click)="sort()" class="p-column-sortable">
+      <div class="dFlex align-items-center">
+        {{ columnName }}
+        <div class="spacer"></div>
+        <i class="material-icons">{{
+          sortingState === 'normal'
+            ? ''
+            : sortingState === 'asc'
+            ? 'arrow_upward'
+            : 'arrow_downward'
+        }}</i>
+      </div>
     </th>
   `,
 })
@@ -131,10 +164,42 @@ export class TableColumnComponent {
   @Input() columnProp: string;
   @Input() columnSort: boolean;
   @Input() columnTemplate: TemplateRef<any>;
+  @Input() customSortFunction: any;
 
-  sortingState: TableSortState;
+  sortingState: TableSortState = 'normal';
 
-  constructor(public parentComponent: TableComponent) {}
+  constructor(
+    public parentComponent: TableComponent,
+    public elementRef: ElementRef
+  ) {}
+
+  sort(): void {
+    this.checkClasses();
+    switch (this.sortingState) {
+      case 'normal':
+        this.sortingState = 'asc';
+        columnSortable.push(this.elementRef.nativeElement);
+        break;
+      case 'asc':
+        this.sortingState = 'dsc';
+        break;
+      case 'dsc':
+        this.sortingState = 'normal';
+        columnSortable.splice(0, 1);
+        break;
+    }
+    if (this.customSortFunction === undefined) {
+      this.parentComponent.sortTable(this.sortingState, this.columnProp);
+    } else {
+      this.customSortFunction();
+    }
+  }
+
+  checkClasses(): void {
+    if (columnSortable.length > 1) {
+      columnSortable.splice(0, 1);
+    }
+  }
 
   @HostBinding('class.dContents')
   get DefaultClass() {
