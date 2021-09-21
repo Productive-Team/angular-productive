@@ -11,7 +11,7 @@ import {
 @Directive({
   selector: '[app-ripple], [p-ripple], [pRipple]',
 })
-export class RippleDirective implements OnInit, AfterViewInit {
+export class RippleDirective implements AfterViewInit {
   /**
    * Changes the color of the ripple. The color needs to have a reduced opacity otherwise it can hide content;
    */
@@ -53,8 +53,6 @@ export class RippleDirective implements OnInit, AfterViewInit {
 
   isPointerDown?: boolean;
   constructor(private el: ElementRef) {}
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     // Checks if pRippleTriggerId is different from undefined

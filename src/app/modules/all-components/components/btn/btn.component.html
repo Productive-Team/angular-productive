@@ -211,15 +211,34 @@
     </p>
     <br>
     <div class="table-container">
-      <p-table [pTableData]="buttonClasses">
+      <p-table [pTableData]="buttonClasses" [pTableExpands]="true">
+        <ng-container>
+          <p-table-expanded-row [expandedRowTemplate]="templateRow" #row>
+            <ng-template #templateRow let-data>
+              {{data.description}}
+            </ng-template>
+          </p-table-expanded-row>
+        </ng-container>
+        <p-table-column [columnTemplate]="triggerOpen">
+          <ng-template #triggerOpen>
+            <button class="btn fab" pRipple [pRippleCentered]="true" pTableExpandRowTrigger [triggerFor]="row">
+              <p-icon>chevron_left</p-icon>
+            </button>
+          </ng-template>
+        </p-table-column>
         <p-table-column columnName="Class" columnProp="class" [columnTemplate]="template" [columnSort]="true">
           <ng-template #template let-data>
             <code>{{data.class}}</code>
           </ng-template>
         </p-table-column>
-        <p-table-column columnName="Description" columnProp="description" [columnSort]="true">
-        </p-table-column>
+        <!-- <p-table-column columnName="Description" columnProp="description" [columnSort]="true">
+        </p-table-column> -->
       </p-table>
     </div>
+    <span *ngIf="selectedData !== undefined">
+      <span *ngFor="let i of selectedData">
+        {{i.class}}
+      </span>
+    </span>
   </p-tab>
 </p-tab-group>

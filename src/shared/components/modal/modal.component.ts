@@ -81,60 +81,39 @@ export class ModalCloseDirective {
     // ]),
   ],
 })
-export class ModalComponent implements OnInit, AfterViewInit {
+export class ModalComponent implements AfterViewInit {
   /**
-   * This option, if set to true, makes the modal open whenever the component is initialized.
-   *
-   * It's default value is false.
+   * Makes the modal open whenever the component is initialized.
    */
   @Input() pModalShow = false;
   /**
-   * This option, if set to true, makes the backdrop of the modal not perform the action of closing it
-   * when clicked, making so the only way to dismiss the modal is using the pModalClose Directive.
-   *
-   * It's default value is false.
+   * Does not perform the action of closing the modal
+   * when clicked, making so the only way to dismiss the modal is using the pModalClose Directive in an element.
    */
   @Input() pModalStatic = false;
   /**
-   * This option accepts the following strings:
-   *  ||small||
-   *  ||medium||
-   *  ||large||
-   * It changes the max-width size of the modal.
-   *
-   * It's default value is ||medium||.
+   * Changes the max-width size of the modal.
    */
-  @Input() pModalSize: string;
+  @Input() pModalSize: ModalSize = 'medium';
   /**
-   * This option sets an Id to the modal element in itself, it can be anything, and you can call this value
-   * with getElementById(), however it may return null since this component uses *ngIf;
-   *
-   * It's default value is undefined.
+   * Sets an Id to the modal element in itself.
    */
-  @Input() pModalId: string;
+  @Input() pModalId: any;
   /**
-   * This option, if set to false, hides the modal footer.
-   *
-   * It's default value is true.
+   * Toggles modal footer visibility.
    */
   @Input() hasModalFooter = true;
   /**
-   * This option, if set to false, hides the modal header.
-   *
-   * It's default value is true.
+   * Toggles modal header visibility.
    */
   @Input() hasModalHeader = true;
   /**
-   * This option, if set to true, adds a class to the modal element that makes it look like a bottom sheet element.
-   *
-   * It's default value is false.
+   * Adds a class to the modal element that makes it look like a bottom sheet element.
    */
   @Input() pBottomSheet = false;
 
   isOpen = false;
   constructor(private el: ElementRef) {}
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.pModalShow) {
@@ -181,3 +160,5 @@ export class ModalComponent implements OnInit, AfterViewInit {
     });
   }
 }
+
+type ModalSize = 'small' | 'medium' | 'large';

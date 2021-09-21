@@ -2,6 +2,8 @@ import { RadioGroupComponent } from './components/radio-btn/radio-group/radio-gr
 import {
   TableColumnComponent,
   TableComponent,
+  TableExpandedRowComponent,
+  TableExpandedTriggerDirective,
 } from './components/table/table.component';
 import { IconComponent } from './components/icon/icon.component';
 import { ContainerComponent } from './components/container/container.component';
@@ -51,7 +53,6 @@ import {
   TableExpandedRowDirective,
   TableExpandedRowTriggerDirective,
 } from './directives/table-expanded-row/table-expanded-row.directive';
-import { TableSortDirective } from './directives/table-sort/table-sort.directive';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import {
@@ -89,6 +90,7 @@ const components = [
   SelectComponent,
   SelectOptionComponent,
   TableColumnComponent,
+  TableExpandedRowComponent,
 ];
 const directives = [
   RippleDirective,
@@ -101,9 +103,7 @@ const directives = [
   CollapsibleTriggerDirective,
   DatepickerTriggerDirective,
   TableExpandedRowDirective,
-  TableExpandedRowTriggerDirective,
-  TableExpandedRowContentDirective,
-  TableSortDirective,
+  TableExpandedTriggerDirective,
   SelectMultipleDirective,
   SelectSearchDirective,
 ];

@@ -1,12 +1,17 @@
 import {
   Component,
+  ContentChild,
   ContentChildren,
+  Directive,
   ElementRef,
+  EventEmitter,
   forwardRef,
   HostBinding,
+  HostListener,
   Input,
   OnChanges,
   OnInit,
+  Output,
   TemplateRef,
 } from '@angular/core';
 
@@ -15,7 +20,7 @@ let columnSortable = [];
 @Component({
   selector: 'app-table, p-table',
   template: `
-    <table [class]="pTableElevated ? 'p-table elevation' : 'p-table'">
+    <table class="p-table">
       <thead
         [class]="
           pTableHeaderFixed
@@ -23,23 +28,54 @@ let columnSortable = [];
             : 'p-table-header'
         "
       >
-        <ng-content select="[table-header]"></ng-content>
         <tr>
+          <th *ngIf="pTableSelect">
+            <p-checkbox
+              *ngIf="pTableSelectMode === 'multiple'"
+              [checked]="areAllSelected"
+              (checkedChange)="selectAll($event)"
+              [indeterminate]="checkIfSomeAreSelected()"
+            ></p-checkbox>
+          </th>
           <ng-content></ng-content>
         </tr>
       </thead>
       <tbody class="p-table-body">
-        <tr *ngFor="let items of actualTableData.content">
-          <td *ngFor="let hdr of actualTableData.header">
-            <ng-container
-              *ngIf="hdr.template !== undefined"
-              [ngTemplateOutlet]="hdr.template"
-              [ngTemplateOutletContext]="{ $implicit: items }"
-            ></ng-container>
-            {{ hdr.template !== undefined ? '' : items[hdr.prop] }}
-          </td>
-        </tr>
-        <ng-content select="[table-body]"></ng-content>
+        <ng-container *ngFor="let items of actualTableData.content">
+          <tr (click)="pTableSelect ? selectInTable(items) : false">
+            <td *ngIf="pTableSelect">
+              <p-checkbox
+                [checked]="items.selected"
+                (click)="(false)"
+              ></p-checkbox>
+            </td>
+            <td *ngFor="let hdr of actualTableData.header">
+              <ng-container
+                *ngIf="hdr.template !== undefined"
+                [ngTemplateOutlet]="hdr.template"
+                [ngTemplateOutletContext]="{ $implicit: items }"
+              ></ng-container>
+              {{ hdr.template !== undefined ? '' : items[hdr.prop] }}
+            </td>
+          </tr>
+          <tr class="table-expanded-row" *ngIf="pTableExpands">
+            <td [colSpan]="colSpanSet()">
+              <div
+                [class]="
+                  tableExpandRow.isOpen
+                    ? 'table-expanded-content'
+                    : 'table-expanded-content hidden'
+                "
+              >
+                <ng-container
+                  *ngIf="tableExpandRow"
+                  [ngTemplateOutlet]="tableExpandRow.expandedRowTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: items }"
+                ></ng-container>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
       <tfoot
         [class]="
@@ -54,17 +90,27 @@ let columnSortable = [];
   `,
 })
 export class TableComponent implements OnInit, OnChanges {
-  @Input() pTableElevated = true;
-  @Input() pTableExpands = false;
-  @Input() pTableHeaderFixed = false;
-  @Input() pTableFooterFixed = false;
+  @Input() pTableExpands: boolean;
+  @Input() pTableSelect: boolean;
+  @Input() pTableSelectMode: TableSelectMode = 'single';
+  @Input() pTableHeaderFixed: boolean;
+  @Input() pTableFooterFixed: boolean;
 
   @Input() pTableData: any[] = [];
+
+  @Output() selectData: EventEmitter<any> = new EventEmitter<any>();
 
   actualTableData: TableData = new TableData();
 
   @ContentChildren(forwardRef(() => TableColumnComponent))
   tableColumns: any;
+
+  @ContentChild(forwardRef(() => TableExpandedRowComponent))
+  tableExpandRow: any;
+
+  selectedItemsMultiple: any[] = [];
+
+  areAllSelected: boolean;
 
   constructor() {}
 
@@ -101,6 +147,9 @@ export class TableComponent implements OnInit, OnChanges {
       keys.forEach((v) => {
         obj[v] = this.pTableData[i][v];
       });
+      if (this.pTableSelect) {
+        obj['selected'] = false;
+      }
       contArr.push(obj);
     }
     this.actualTableData.content = contArr;
@@ -118,6 +167,12 @@ export class TableComponent implements OnInit, OnChanges {
         this.configureTable();
         break;
     }
+    if (columnSortable.length > 1) {
+      let columnSort = this.tableColumns._results.find(
+        (x) => x.columnProp === columnSortable[0]
+      );
+      columnSort.sortingState = 'normal';
+    }
   }
 
   sortAsc(column: string): void {
@@ -134,8 +189,63 @@ export class TableComponent implements OnInit, OnChanges {
     });
   }
 
+  colSpanSet(): number {
+    const columns = this.tableColumns;
+    if (columns !== undefined) {
+      return columns._results.length;
+    }
+  }
+
+  selectInTable(data: any) {
+    if (this.pTableSelectMode === 'single') {
+      const isSelected = this.actualTableData.content.findIndex(
+        (c) => c.selected
+      );
+      data.selected = !data.selected;
+      if (isSelected > -1) {
+        this.actualTableData.content[isSelected].selected = false;
+      }
+      if (data.selected) {
+        this.selectData.emit(data);
+      } else {
+        this.selectData.emit(undefined);
+      }
+    } else {
+      data.selected = !data.selected;
+      const selectedItems = this.actualTableData.content.filter(
+        (c) => c.selected
+      );
+      this.selectedItemsMultiple = selectedItems;
+      this.checkIfAllAreSelected();
+      this.selectData.emit(this.selectedItemsMultiple);
+    }
+  }
+
+  checkIfAllAreSelected(): void {
+    this.areAllSelected = this.actualTableData.content.every((t) => t.selected);
+  }
+
+  checkIfSomeAreSelected(): boolean {
+    return (
+      this.actualTableData.content.filter((x) => x.selected).length > 0 &&
+      !this.areAllSelected
+    );
+  }
+
+  selectAll(event: boolean): void {
+    this.areAllSelected = event;
+    this.actualTableData.content.forEach((x) => {
+      x.selected = event;
+    });
+    const selectedItems = this.actualTableData.content.filter(
+      (c) => c.selected
+    );
+    this.selectedItemsMultiple = selectedItems;
+    this.selectData.emit(this.selectedItemsMultiple);
+  }
+
   @HostBinding('class.table-expanded')
-  get isEx() {
+  get isExpanded() {
     return this.pTableExpands;
   }
 }
@@ -174,11 +284,10 @@ export class TableColumnComponent {
   ) {}
 
   sort(): void {
-    this.checkClasses();
     switch (this.sortingState) {
       case 'normal':
         this.sortingState = 'asc';
-        columnSortable.push(this.elementRef.nativeElement);
+        columnSortable.push(this.columnProp);
         break;
       case 'asc':
         this.sortingState = 'dsc';
@@ -193,6 +302,7 @@ export class TableColumnComponent {
     } else {
       this.customSortFunction();
     }
+    this.checkClasses();
   }
 
   checkClasses(): void {
@@ -204,6 +314,37 @@ export class TableColumnComponent {
   @HostBinding('class.dContents')
   get DefaultClass() {
     return true;
+  }
+}
+
+@Component({
+  selector: 'app-table-expanded-row, p-table-expanded-row',
+  template: ``,
+})
+export class TableExpandedRowComponent {
+  @Input() expandedRowTemplate: TemplateRef<any>;
+
+  isOpen: boolean;
+
+  toggleExpandedContent(): void {
+    this.isOpen = !this.isOpen;
+  }
+
+  @HostBinding('class.dContents')
+  get DefaultClasses() {
+    return true;
+  }
+}
+
+@Directive({
+  selector: '[appTableExpandedTrigger], [pTableExpandRowTrigger]',
+})
+export class TableExpandedTriggerDirective {
+  @Input() triggerFor: TableExpandedRowComponent;
+
+  @HostListener('click', ['$event'])
+  toggleExpandedRow(): void {
+    this.triggerFor.toggleExpandedContent();
   }
 }
 
@@ -219,3 +360,4 @@ export class TableDataHeader {
 }
 
 type TableSortState = 'normal' | 'asc' | 'dsc';
+type TableSelectMode = 'single' | 'multiple';

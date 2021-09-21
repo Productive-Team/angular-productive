@@ -6,10 +6,8 @@ import { DarkModeService } from 'src/shared/services/dark-mode.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
   constructor(private darkModeService: DarkModeService) {}
-
-  ngOnInit() {}
 
   toggleDarkMode(): void {
     this.darkModeService.darkModeToggle();

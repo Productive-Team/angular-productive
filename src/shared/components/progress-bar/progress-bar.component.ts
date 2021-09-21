@@ -5,10 +5,9 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.css'],
 })
-export class ProgressBarComponent implements OnInit {
-  @Input() pProgressBarMode = 'determinate' || 'indeterminate' || 'query';
+export class ProgressBarComponent {
+  @Input() pProgressBarMode: ProgressBarMode = 'determinate';
   @Input() pProgressBarValue = 50;
-  constructor() {}
-
-  ngOnInit() {}
 }
+
+type ProgressBarMode = 'determinate' | 'indeterminate' | 'query';

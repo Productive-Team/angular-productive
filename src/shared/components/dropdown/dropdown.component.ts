@@ -129,7 +129,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
       positioning === 'right top'
     ) {
       actualPanel.style.transformOrigin = 'right top';
-      wrapper.style.left = elRect.left + 'px';
+      wrapper.style.left = elRect.right - menuPanel.offsetWidth + 'px';
     } else if (
       (posY > innerHeight && posX < innerWidth) ||
       positioning === 'left bottom'
@@ -142,7 +142,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
     ) {
       actualPanel.style.transformOrigin = 'right bottom';
       wrapper.style.top = elRect.top - menuPanelRect.height + 'px';
-      wrapper.style.left = elRect.left - 25 + 'px';
+      wrapper.style.left = elRect.right - menuPanel.offsetWidth + 'px';
     }
   }
 

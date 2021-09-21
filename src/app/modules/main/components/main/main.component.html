@@ -37,12 +37,16 @@
     </app-navbar>
     <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="display-on-small-only">
       <ng-container navbarContent>
-        <button class="btn-small bg-secondary" style="width: 50%;" pRipple pRippleColor="#ffffff26"
-          [routerLink]="['/Components']">
-          Components
-        </button>
-        <button class="btn-small flat" pRipple pRippleColor="#ffffff26" style="width: 50%;">
+        <button class="btn-small flat" pRipple pRippleColor="#ffffff26" style="width: 100%;">
           Get Started
+        </button>
+        <button class="btn-small flat" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']"
+          style="width: 100%;">
+          Features
+        </button>
+        <button class="btn-small flat" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']"
+          style="width: 100%;">
+          Components
         </button>
       </ng-container>
     </app-navbar>

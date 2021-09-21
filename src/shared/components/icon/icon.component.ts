@@ -15,7 +15,8 @@ import { Component, Input, OnInit } from '@angular/core';
   },
 })
 export class IconComponent {
-  @Input() pIconType =
-    'filled' || 'outlined' || 'round' || 'sharp' || 'two-tone';
+  @Input() pIconType: IconType = 'filled';
   constructor() {}
 }
+
+type IconType = 'filled' | 'outlined' | 'round' | 'sharp' | 'two-tone';
