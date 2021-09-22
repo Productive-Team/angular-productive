@@ -1,40 +1,52 @@
 import { TabsService } from './../../../services/tabs.service';
 import { TabsComponent } from './../tab/tabs.component';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostBinding,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-tab-group, p-tab-group',
   templateUrl: './tab-group.component.html',
   styleUrls: ['./tab-group.component.css'],
 })
-export class TabGroupComponent implements OnInit {
+export class TabGroupComponent implements AfterViewInit, OnChanges {
   @Input() pTabSelectedIndex: number;
 
   @ViewChild('backButton') backButton: ElementRef;
   @ViewChild('forwardButton') forwardButton: ElementRef;
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
+  @ViewChild('tabsContainer') tabsContainer: ElementRef;
 
   constructor(private el: ElementRef, private tabsService: TabsService) {}
 
-  ngOnInit() {
-    this.tabsService.setTabIndex(this.pTabSelectedIndex);
-    this.el.nativeElement.classList.add('tab-group-container');
+  ngAfterViewInit() {
     this.setButtons();
   }
 
   setButtons(): void {
-    const cont = this.el.nativeElement.firstChild.firstChild
-      .nextSibling as HTMLDivElement;
-    const contTab = this.el.nativeElement.firstChild.firstChild.nextSibling
-      .firstChild as HTMLDivElement;
+    const containerElement = this.scrollContainer
+      .nativeElement as HTMLDivElement;
+    const containerTabs = this.tabsContainer.nativeElement as HTMLDivElement;
     const backBtn = this.backButton.nativeElement as HTMLElement;
-    const forwardBtn = this.backButton.nativeElement as HTMLElement;
-    if (cont.offsetWidth < contTab.offsetWidth) {
-      if (cont.scrollLeft === 0) {
+    const forwardBtn = this.forwardButton.nativeElement as HTMLElement;
+    if (containerElement.offsetWidth < containerTabs.offsetWidth) {
+      if (containerElement.scrollLeft === 0) {
         backBtn.setAttribute('disabled', 'disabled');
-      } else if (cont.scrollLeft > 0) {
+      } else if (containerElement.scrollLeft > 0) {
         backBtn.removeAttribute('disabled');
       }
-      if (cont.scrollLeft === cont.scrollWidth - cont.offsetWidth) {
+      if (
+        containerElement.scrollLeft ===
+        containerElement.scrollWidth - containerElement.offsetWidth
+      ) {
         forwardBtn.setAttribute('disabled', 'disabled');
       } else {
         forwardBtn.removeAttribute('disabled');
@@ -45,29 +57,37 @@ export class TabGroupComponent implements OnInit {
     }
   }
 
-  scroll(event): void {
-    const el = this.el.nativeElement.firstChild.firstChild
-      .nextSibling as HTMLDivElement;
-    const button = event.target;
-    const buttonBack = this.el.nativeElement.firstChild
-      .firstChild as HTMLDivElement;
-    const buttonForward = this.el.nativeElement.firstChild.lastChild;
-    if (button.id === 'goForward') {
-      el.scrollLeft += 200;
-    } else if (button.id === 'goBack') {
-      el.scrollLeft -= 200;
+  scrollBackward(event): void {
+    const containerScrollable = this.scrollContainer
+      .nativeElement as HTMLElement;
+    const button = event.target as HTMLButtonElement;
+    containerScrollable.scrollLeft -= 200;
+    if (containerScrollable.scrollLeft === 0) {
+      button.setAttribute('disabled', 'disabled');
     }
-    setTimeout(() => {
-      if (el.scrollLeft === 0) {
-        buttonBack.classList.add('disabled');
-      } else if (el.scrollLeft > 0) {
-        buttonBack.classList.remove('disabled');
-      }
-      if (el.scrollLeft === el.scrollWidth - el.offsetWidth) {
-        buttonForward.classList.add('disabled');
-      } else {
-        buttonForward.classList.remove('disabled');
-      }
-    }, 50);
+  }
+
+  scrollForward(event): void {
+    const containerScrollable = this.scrollContainer
+      .nativeElement as HTMLElement;
+    const button = event.target as HTMLButtonElement;
+    containerScrollable.scrollLeft += 200;
+    if (
+      containerScrollable.scrollLeft ===
+      containerScrollable.scrollWidth - containerScrollable.offsetWidth
+    ) {
+      button.setAttribute('disabled', 'disabled');
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.pTabSelectedIndex !== undefined) {
+      this.tabsService.setTabIndex(this.pTabSelectedIndex);
+    }
+  }
+
+  @HostBinding('class.tab-group-container')
+  get DefaultClass() {
+    return true;
   }
 }
