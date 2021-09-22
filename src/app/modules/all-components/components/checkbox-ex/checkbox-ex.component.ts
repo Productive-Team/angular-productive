@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './checkbox-ex.component.html',
   styleUrls: ['./checkbox-ex.component.css'],
 })
-export class CheckboxExComponent implements OnInit {
+export class CheckboxExComponent {
   dis = false;
   indet = false;
   chck = false;
@@ -33,8 +33,6 @@ export class CheckboxExComponent implements OnInit {
   comp = false;
 
   constructor() {}
-
-  ngOnInit() {}
 
   areComp(): void {
     this.comp = this.child.every((t) => t.selected);

@@ -1,5 +1,5 @@
 <div class="tab-group-header">
-  <button pRipple [pRippleCentered]="true" id="goBack" (click)="scroll($event)">
+  <button pRipple [pRippleCentered]="true" id="goBack" #backButton (click)="scroll($event)">
     <i class="material-icons">chevron_left</i>
   </button>
   <div class="tab-header-container">
@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <button pRipple [pRippleCentered]="true" id="goForward" (click)="scroll($event)">
+  <button pRipple [pRippleCentered]="true" id="goForward" #forwardButton (click)="scroll($event)">
     <i class="material-icons">navigate_next</i>
   </button>
 </div>

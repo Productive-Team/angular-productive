@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 
 import { AllComponentsRoutingModule } from './all-components-routing.module';
 import { GridComponent } from './components/grid/grid.component';
+import { AllExComponent } from './components/all-ex/all-ex.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { GridComponent } from './components/grid/grid.component';
     DropdownExComponent,
     ContainerExComponent,
     CheckboxExComponent,
+    AllExComponent,
   ],
   imports: [
     CommonModule,

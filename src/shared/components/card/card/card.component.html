@@ -1,0 +1,6 @@
+<div class="card">
+  <div class="header" *ngIf="hasHeader">
+    <ng-content select="[card-header]"></ng-content>
+  </div>
+  <ng-content></ng-content>
+</div>

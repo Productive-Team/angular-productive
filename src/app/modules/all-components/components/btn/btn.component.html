@@ -1,4 +1,4 @@
-<p-tab-group [pTabSelectedIndex]="1">
+<p-tab-group>
   <p-tab pTabLabel="Documentation">
     <h5 class="t-700">Usage</h5>
     <br>
@@ -140,7 +140,7 @@
     </p-section>
     <br>
     <p>Each type of button also has a small and large variant, and it can be applied by just adding the
-      <code>btn-small</code> or <code>btn-large</code> classes.
+      <code>btn small</code> or <code>btn large</code> classes.
     </p>
     <br>
     <p-section>
@@ -152,18 +152,18 @@
             </span>
           </div>
           <div class="btn-row">
-            <button class="btn-large" pRipple>Button</button>
-            <button class="btn-large bg-primary elevation text-white" pRipple>Button</button>
-            <button class="btn-large secondary flat" pRipple pRippleColor="var(--secondaryLowOpacity)">Button</button>
-            <a class="btn-large" href="https://google.com/" target="_blank" pRipple>Link</a>
-            <button class="btn-large" disabled pRipple>Button</button>
-            <button class="btn-large fab" pRipple>
+            <button class="btn large" pRipple>Button</button>
+            <button class="btn large bg-primary elevation text-white" pRipple>Button</button>
+            <button class="btn large secondary flat" pRipple pRippleColor="var(--secondaryLowOpacity)">Button</button>
+            <a class="btn large" href="https://google.com/" target="_blank" pRipple>Link</a>
+            <button class="btn large" disabled pRipple>Button</button>
+            <button class="btn large fab" pRipple>
               <p-icon>add</p-icon>
             </button>
-            <button class="btn-large bg-primary elevation fab" pRipple>
+            <button class="btn large bg-primary elevation fab" pRipple>
               <p-icon class="text-white">add</p-icon>
             </button>
-            <button class="btn-large fab flat secondary" pRipple [pRippleCentered]="true"
+            <button class="btn large fab flat secondary" pRipple [pRippleCentered]="true"
               pRippleColor="var(--secondaryLowOpacity)">
               <p-icon>add</p-icon>
             </button>
@@ -177,18 +177,18 @@
             </span>
           </div>
           <div class="btn-row">
-            <button class="btn-small" pRipple>Button</button>
-            <button class="btn-small bg-primary elevation text-white" pRipple>Button</button>
-            <button class="btn-small secondary flat" pRipple pRippleColor="var(--secondaryLowOpacity)">Button</button>
-            <a class="btn-small" href="https://google.com/" target="_blank" pRipple>Link</a>
-            <button class="btn-small" disabled pRipple>Button</button>
-            <button class="btn-small fab" pRipple>
+            <button class="btn small" pRipple>Button</button>
+            <button class="btn small bg-primary elevation text-white" pRipple>Button</button>
+            <button class="btn small secondary flat" pRipple pRippleColor="var(--secondaryLowOpacity)">Button</button>
+            <a class="btn small" href="https://google.com/" target="_blank" pRipple>Link</a>
+            <button class="btn small" disabled pRipple>Button</button>
+            <button class="btn small fab" pRipple>
               <p-icon>add</p-icon>
             </button>
-            <button class="btn-small bg-primary elevation fab" pRipple>
+            <button class="btn small bg-primary elevation fab" pRipple>
               <p-icon class="text-white">add</p-icon>
             </button>
-            <button class="btn-small fab flat secondary" pRipple [pRippleCentered]="true"
+            <button class="btn small fab flat secondary" pRipple [pRippleCentered]="true"
               pRippleColor="var(--secondaryLowOpacity)">
               <p-icon>add</p-icon>
             </button>
@@ -211,34 +211,15 @@
     </p>
     <br>
     <div class="table-container">
-      <p-table [pTableData]="buttonClasses" [pTableExpands]="true">
-        <ng-container>
-          <p-table-expanded-row [expandedRowTemplate]="templateRow" #row>
-            <ng-template #templateRow let-data>
-              {{data.description}}
-            </ng-template>
-          </p-table-expanded-row>
-        </ng-container>
-        <p-table-column [columnTemplate]="triggerOpen">
-          <ng-template #triggerOpen>
-            <button class="btn fab" pRipple [pRippleCentered]="true" pTableExpandRowTrigger [triggerFor]="row">
-              <p-icon>chevron_left</p-icon>
-            </button>
-          </ng-template>
-        </p-table-column>
-        <p-table-column columnName="Class" columnProp="class" [columnTemplate]="template" [columnSort]="true">
+      <p-table [pTableData]="buttonClasses">
+        <p-table-column columnName="Class" columnProp="class" [columnTemplate]="template">
           <ng-template #template let-data>
             <code>{{data.class}}</code>
           </ng-template>
         </p-table-column>
-        <!-- <p-table-column columnName="Description" columnProp="description" [columnSort]="true">
-        </p-table-column> -->
+        <p-table-column columnName="Description" columnProp="description">
+        </p-table-column>
       </p-table>
     </div>
-    <span *ngIf="selectedData !== undefined">
-      <span *ngFor="let i of selectedData">
-        {{i.class}}
-      </span>
-    </span>
   </p-tab>
 </p-tab-group>

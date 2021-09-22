@@ -1,4 +1,11 @@
 import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
   Component,
   ContentChild,
   ContentChildren,
@@ -12,13 +19,31 @@ import {
   OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   TemplateRef,
 } from '@angular/core';
 
 let columnSortable = [];
 
+const expandAnimation = trigger('expandAnimation', [
+  state(
+    'true',
+    style({
+      height: '*',
+    })
+  ),
+  state(
+    '*',
+    style({
+      height: '0px',
+    })
+  ),
+  transition('* <=> true', animate('300ms cubic-bezier(0.07, 0.43, 0.38, 1)')),
+]);
+
 @Component({
   selector: 'app-table, p-table',
+  animations: [expandAnimation],
   template: `
     <table class="p-table">
       <thead
@@ -61,11 +86,8 @@ let columnSortable = [];
           <tr class="table-expanded-row" *ngIf="pTableExpands">
             <td [colSpan]="colSpanSet()">
               <div
-                [class]="
-                  tableExpandRow.isOpen
-                    ? 'table-expanded-content'
-                    : 'table-expanded-content hidden'
-                "
+                class="table-expanded-content"
+                [@expandAnimation]="items.expanded"
               >
                 <ng-container
                   *ngIf="tableExpandRow"
@@ -98,7 +120,8 @@ export class TableComponent implements OnInit, OnChanges {
 
   @Input() pTableData: any[] = [];
 
-  @Output() selectData: EventEmitter<any> = new EventEmitter<any>();
+  @Input() selectedData: any | any[];
+  @Output() selectedDataChange: EventEmitter<any> = new EventEmitter<any>();
 
   actualTableData: TableData = new TableData();
 
@@ -108,9 +131,9 @@ export class TableComponent implements OnInit, OnChanges {
   @ContentChild(forwardRef(() => TableExpandedRowComponent))
   tableExpandRow: any;
 
-  selectedItemsMultiple: any[] = [];
-
   areAllSelected: boolean;
+
+  selectedOptions: any[] = [];
 
   constructor() {}
 
@@ -122,8 +145,12 @@ export class TableComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges() {
-    this.configureTable();
+  ngOnChanges(event: SimpleChanges) {
+    if (event.pTableData !== undefined) {
+      if (!event.pTableData.firstChange) {
+        this.configureTable();
+      }
+    }
   }
 
   configureTable(): void {
@@ -150,9 +177,47 @@ export class TableComponent implements OnInit, OnChanges {
       if (this.pTableSelect) {
         obj['selected'] = false;
       }
+      if (this.pTableExpands) {
+        obj['expanded'] = false;
+      }
       contArr.push(obj);
     }
+    if (this.pTableSelect) {
+      const isArray = Array.isArray(this.selectedData);
+      if (isArray) {
+        this.selectedData.forEach((c) => {
+          c['selected'] = false;
+          contArr.forEach((x) => {
+            const t = this.deepEqual(c, x);
+            if (t && !x.selected) {
+              x.selected = true;
+            } else if (!x.selected && !t) {
+              x.selected = false;
+            }
+          });
+        });
+      } else {
+        contArr.forEach((x) => {
+          const eq = this.deepEqual(this.selectedData, x);
+          if (eq) {
+            x.selected = true;
+          } else {
+            x.selected = false;
+          }
+        });
+      }
+    }
     this.actualTableData.content = contArr;
+  }
+
+  deepEqual(x, y) {
+    const ok = Object.keys,
+      tx = typeof x,
+      ty = typeof y;
+    return x && y && tx === 'object' && tx === ty
+      ? ok(x).length === ok(y).length &&
+          ok(x).every((key) => this.deepEqual(x[key], y[key]))
+      : x === y;
   }
 
   sortTable(state: TableSortState, columnName: string) {
@@ -202,22 +267,24 @@ export class TableComponent implements OnInit, OnChanges {
         (c) => c.selected
       );
       data.selected = !data.selected;
+      this.selectedData = data;
       if (isSelected > -1) {
         this.actualTableData.content[isSelected].selected = false;
       }
       if (data.selected) {
-        this.selectData.emit(data);
+        this.selectedDataChange.emit(data);
       } else {
-        this.selectData.emit(undefined);
+        this.selectedDataChange.emit(undefined);
       }
     } else {
       data.selected = !data.selected;
       const selectedItems = this.actualTableData.content.filter(
         (c) => c.selected
       );
-      this.selectedItemsMultiple = selectedItems;
+
+      this.selectedData = selectedItems;
       this.checkIfAllAreSelected();
-      this.selectData.emit(this.selectedItemsMultiple);
+      this.selectedDataChange.emit(this.selectedData);
     }
   }
 
@@ -240,8 +307,8 @@ export class TableComponent implements OnInit, OnChanges {
     const selectedItems = this.actualTableData.content.filter(
       (c) => c.selected
     );
-    this.selectedItemsMultiple = selectedItems;
-    this.selectData.emit(this.selectedItemsMultiple);
+    this.selectedData = selectedItems;
+    this.selectedDataChange.emit(this.selectedData);
   }
 
   @HostBinding('class.table-expanded')
@@ -253,8 +320,13 @@ export class TableComponent implements OnInit, OnChanges {
 @Component({
   selector: 'app-table-column, p-table-column',
   template: `
-    <th *ngIf="!columnSort">{{ columnName }}</th>
-    <th *ngIf="columnSort" (click)="sort()" class="p-column-sortable">
+    <th *ngIf="!columnSort" [width]="columnWidth">{{ columnName }}</th>
+    <th
+      *ngIf="columnSort"
+      (click)="sort()"
+      class="p-column-sortable"
+      [width]="columnWidth"
+    >
       <div class="dFlex align-items-center">
         {{ columnName }}
         <div class="spacer"></div>
@@ -274,6 +346,7 @@ export class TableColumnComponent {
   @Input() columnProp: string;
   @Input() columnSort: boolean;
   @Input() columnTemplate: TemplateRef<any>;
+  @Input() columnWidth: number;
   @Input() customSortFunction: any;
 
   sortingState: TableSortState = 'normal';
@@ -324,12 +397,6 @@ export class TableColumnComponent {
 export class TableExpandedRowComponent {
   @Input() expandedRowTemplate: TemplateRef<any>;
 
-  isOpen: boolean;
-
-  toggleExpandedContent(): void {
-    this.isOpen = !this.isOpen;
-  }
-
   @HostBinding('class.dContents')
   get DefaultClasses() {
     return true;
@@ -340,11 +407,11 @@ export class TableExpandedRowComponent {
   selector: '[appTableExpandedTrigger], [pTableExpandRowTrigger]',
 })
 export class TableExpandedTriggerDirective {
-  @Input() triggerFor: TableExpandedRowComponent;
+  @Input() triggerFor: any;
 
   @HostListener('click', ['$event'])
   toggleExpandedRow(): void {
-    this.triggerFor.toggleExpandedContent();
+    this.triggerFor.expanded = !this.triggerFor.expanded;
   }
 }
 

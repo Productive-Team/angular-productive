@@ -10,6 +10,9 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 export class TabGroupComponent implements OnInit {
   @Input() pTabSelectedIndex: number;
 
+  @ViewChild('backButton') backButton: ElementRef;
+  @ViewChild('forwardButton') forwardButton: ElementRef;
+
   constructor(private el: ElementRef, private tabsService: TabsService) {}
 
   ngOnInit() {
@@ -23,19 +26,18 @@ export class TabGroupComponent implements OnInit {
       .nextSibling as HTMLDivElement;
     const contTab = this.el.nativeElement.firstChild.firstChild.nextSibling
       .firstChild as HTMLDivElement;
-    const backBtn = this.el.nativeElement.firstChild
-      .firstChild as HTMLDivElement;
-    const forwardBtn = this.el.nativeElement.firstChild.lastChild;
+    const backBtn = this.backButton.nativeElement as HTMLElement;
+    const forwardBtn = this.backButton.nativeElement as HTMLElement;
     if (cont.offsetWidth < contTab.offsetWidth) {
       if (cont.scrollLeft === 0) {
-        backBtn.classList.add('disabled');
+        backBtn.setAttribute('disabled', 'disabled');
       } else if (cont.scrollLeft > 0) {
-        backBtn.classList.remove('disabled');
+        backBtn.removeAttribute('disabled');
       }
       if (cont.scrollLeft === cont.scrollWidth - cont.offsetWidth) {
-        forwardBtn.classList.add('disabled');
+        forwardBtn.setAttribute('disabled', 'disabled');
       } else {
-        forwardBtn.classList.remove('disabled');
+        forwardBtn.removeAttribute('disabled');
       }
     } else {
       backBtn.style.display = 'none';
@@ -49,7 +51,6 @@ export class TabGroupComponent implements OnInit {
     const button = event.target;
     const buttonBack = this.el.nativeElement.firstChild
       .firstChild as HTMLDivElement;
-    console.log(buttonBack);
     const buttonForward = this.el.nativeElement.firstChild.lastChild;
     if (button.id === 'goForward') {
       el.scrollLeft += 200;
@@ -67,6 +68,6 @@ export class TabGroupComponent implements OnInit {
       } else {
         buttonForward.classList.remove('disabled');
       }
-    }, 300);
+    }, 50);
   }
 }

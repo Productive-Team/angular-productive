@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './ripple-ex.component.html',
   styleUrls: ['./ripple-ex.component.css'],
 })
-export class RippleExComponent implements OnInit {
+export class RippleExComponent {
   center = false;
   unbound = false;
   disabled = false;
@@ -16,6 +16,4 @@ export class RippleExComponent implements OnInit {
   showCodeSection2: boolean;
 
   constructor() {}
-
-  ngOnInit() {}
 }

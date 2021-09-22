@@ -12,11 +12,11 @@ export class BtnComponent {
       description: 'Gives the default style to the button',
     },
     {
-      class: '.btn-small',
+      class: '.small',
       description: 'Gives the default small style to the button',
     },
     {
-      class: '.btn-large',
+      class: '.large',
       description: 'Gives the default large style to the button',
     },
     {
@@ -37,8 +37,6 @@ export class BtnComponent {
         'Disables a button through styles. Made to be used with hyperlinks',
     },
   ];
-
-  selectedData: ButtonDto[];
 
   constructor() {}
 }

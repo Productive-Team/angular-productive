@@ -1,47 +1,66 @@
 import {
-  Component,
-  OnInit,
-  Directive,
-  ElementRef,
-  HostListener,
-} from '@angular/core';
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
-@Directive({
-  selector: '[appCollapsibleTriggerDirective], [pCollapsibleTrigger]',
-})
-export class CollapsibleTriggerDirective {
-  isOpen = false;
-  constructor(private el: ElementRef) {}
-
-  @HostListener('click', ['$event'])
-  openTrigger(event) {
-    const collapse = this.el.nativeElement.nextSibling
-      .firstChild as HTMLDivElement;
-    const trig = this.el.nativeElement.parentElement as HTMLDivElement;
-    if (!this.isOpen) {
-      trig.classList.add('active');
-      collapse.style.setProperty(
-        '--scrollHeight',
-        collapse.scrollHeight + 'px'
-      );
-      this.isOpen = true;
-    } else {
-      collapse.style.setProperty('--scrollHeight', 0 + 'px');
-      setTimeout(() => {
-        trig.classList.remove('active');
-        this.isOpen = false;
-      }, 250);
-    }
-  }
-}
+const collapseAnimation = trigger('collapseAnimation', [
+  state(
+    'open',
+    style({
+      height: '*',
+    })
+  ),
+  state(
+    'closed',
+    style({
+      height: '0px',
+      padding: '0 1rem',
+    })
+  ),
+  transition(
+    'closed <=> open',
+    animate('150ms cubic-bezier(0.07, 0.43, 0.38, 1)')
+  ),
+]);
 
 @Component({
   selector: 'app-collapsible, p-collapsible',
   templateUrl: './collapsible.component.html',
-  styleUrls: ['./collapsible.component.css'],
+  animations: [collapseAnimation],
 })
 export class CollapsibleComponent implements OnInit {
+  @Input() CollapsibleOpen: boolean;
+  @Input() CollapisbleIcon: boolean = true;
+
+  state: CollapsibleState = 'closed';
+
+  isOpen: boolean = false;
+
+  ngOnInit(): void {
+    if (this.CollapsibleOpen) {
+      this.toggleVisibility();
+    }
+  }
+
   constructor() {}
 
-  ngOnInit() {}
+  toggleVisibility(): void {
+    this.isOpen = !this.isOpen;
+    if (this.isOpen) {
+      this.state = 'open';
+    } else {
+      this.state = 'closed';
+    }
+  }
+
+  @HostBinding('class.collapsible')
+  get DefaultClass() {
+    return true;
+  }
 }
+
+type CollapsibleState = 'closed' | 'open';

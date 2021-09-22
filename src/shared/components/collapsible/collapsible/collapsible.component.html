@@ -1,7 +1,10 @@
-<div class="collapsible">
-  <div class="collapsible-header" pRipple pCollapsibleTrigger>
-    <ng-content select="[collapsible-header]"></ng-content>
-    <i class="material-icons right">expand_more</i>
-  </div>
+<div class="collapsible-header" pRipple (click)="toggleVisibility()">
+  <ng-content select="[collapsible-header]"></ng-content>
+  <ng-container *ngIf="CollapisbleIcon">
+    <div class="spacer"></div>
+    <p-icon>{{state === 'open' ? 'unfold_less' : 'unfold_more'}}</p-icon>
+  </ng-container>
+</div>
+<div class="collapsible-content" [@collapseAnimation]="state">
   <ng-content></ng-content>
 </div>

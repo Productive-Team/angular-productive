@@ -28,7 +28,7 @@ import { RippleDirective } from './directives/ripple/ripple.directive';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidenavComponent } from './components/sidenav/sidenav-component/sidenav.component';
-import { CardComponent } from './components/card/card.component';
+import { CardComponent } from './components/card/card/card.component';
 import {
   FieldsetComponent,
   InputDirective,
@@ -43,16 +43,7 @@ import {
   DropdownTriggerDirective,
 } from './components/dropdown/dropdown.component';
 import { FormsModule } from '@angular/forms';
-import {
-  CollapsibleComponent,
-  CollapsibleTriggerDirective,
-} from './components/collapsible/collapsible/collapsible.component';
-import { CollapsibleContentComponent } from './components/collapsible/collapsible-content/collapsible-content.component';
-import {
-  TableExpandedRowContentDirective,
-  TableExpandedRowDirective,
-  TableExpandedRowTriggerDirective,
-} from './directives/table-expanded-row/table-expanded-row.directive';
+import { CollapsibleComponent } from './components/collapsible/collapsible/collapsible.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import {
@@ -61,12 +52,19 @@ import {
   SelectMultipleDirective,
   SelectSearchDirective,
 } from './components/select/select.component';
+import { CollapsibleGroupComponent } from './components/collapsible/collapsible-group/collapsible-group.component';
+import { CardFooterComponent } from './components/card/card-footer/card-footer.component';
+import { CardContentComponent } from './components/card/card-content/card-content.component';
+import { CardHeaderComponent } from './components/card/card-header/card-header.component';
 
 const components = [
   TableComponent,
   NavbarComponent,
   SidenavComponent,
   CardComponent,
+  CardHeaderComponent,
+  CardContentComponent,
+  CardFooterComponent,
   FieldsetComponent,
   CheckboxComponent,
   ModalComponent,
@@ -78,7 +76,7 @@ const components = [
   TabsComponent,
   SliderComponent,
   CollapsibleComponent,
-  CollapsibleContentComponent,
+  CollapsibleGroupComponent,
   DatepickerComponent,
   SidenavContainerComponent,
   SidenavContentComponent,
@@ -100,9 +98,7 @@ const directives = [
   DropdownTriggerDirective,
   BadgesDirective,
   TooltipsDirective,
-  CollapsibleTriggerDirective,
   DatepickerTriggerDirective,
-  TableExpandedRowDirective,
   TableExpandedTriggerDirective,
   SelectMultipleDirective,
   SelectSearchDirective,

@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class ComponentsCardsComponent implements OnInit {
   routes = [
     {
+      route: 'AllEx',
+      name: 'Example All',
+    },
+    {
       route: 'Buttons',
       name: 'Buttons',
     },

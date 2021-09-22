@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GridComponent } from './components/grid/grid.component';
 import { CheckboxExComponent } from './components/checkbox-ex/checkbox-ex.component';
+import { AllExComponent } from './components/all-ex/all-ex.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'Checkbox',
         component: CheckboxExComponent,
+      },
+      {
+        path: 'AllEx',
+        component: AllExComponent,
       },
     ],
   },
