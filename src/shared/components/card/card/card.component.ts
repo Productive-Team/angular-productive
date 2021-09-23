@@ -7,8 +7,6 @@ import { Component, Input, OnInit, ElementRef } from '@angular/core';
 })
 export class CardComponent implements OnInit {
   @Input() elevated = true;
-  @Input() hasHeader = true;
-  @Input() hasFooter = false;
   @Input() width: number;
   @Input() height: number;
   constructor(private el: ElementRef) {}

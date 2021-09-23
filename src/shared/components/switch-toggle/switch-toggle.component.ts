@@ -41,10 +41,8 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     setTimeout(() => {
-      if (this.checkRequiredFields(this.pSwitchId)) {
-        this.backgroundColorSwitchThumb();
-        this.backgroundColorSwitch();
-      }
+      this.backgroundColorSwitchThumb();
+      this.backgroundColorSwitch();
     }, 0);
   }
 
@@ -63,10 +61,10 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
         this.rippleColor = this.pSwitchColor + '26';
       }
     } else {
-      const primary = getComputedStyle(document.body).getPropertyValue(
-        '--primary'
+      const color = getComputedStyle(document.body).getPropertyValue(
+        '--secondary'
       );
-      this.rippleColor = primary + '26';
+      this.rippleColor = color + '26';
     }
   }
 
@@ -93,7 +91,7 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
       }
     } else {
       const mainColorVar = getComputedStyle(document.documentElement)
-        .getPropertyValue('--primary')
+        .getPropertyValue('--secondary')
         .trim();
       this.pSwitchColor = mainColorVar;
       if (
@@ -132,17 +130,5 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
   onCheck($event) {
     this.switchVal = $event && $event.target && $event.target.checked;
     this.change(this.switchVal);
-  }
-
-  // checks if required input is not undefined or null
-  // if it's either, it throws an error
-  checkRequiredFields(input): boolean {
-    if (input === null || input === undefined) {
-      throw new Error(
-        'Atributo "pSwitchId" é obrigatório.  Exemplo:    <p-switch-toggle pSwitchId="switchId"></p-switch-toggle>'
-      );
-    } else {
-      return true;
-    }
   }
 }

@@ -167,7 +167,7 @@ label {
   height: 100%;
   overflow-y: auto;
 }
-.container {
+.container-content {
   box-sizing: border-box;
   width: 100%;
   padding: 15px 30px;
@@ -335,6 +335,20 @@ label {
 }
 .dContents {
   display: contents;
+}
+
+.fDirectionRow {
+  flex-direction: row;
+}
+.fDirectionColumn {
+  flex-direction: column;
+}
+
+.fDirectionRowReverse {
+  flex-direction: row-reverse;
+}
+.fDirectionColumnReverse {
+  flex-direction: column-reverse;
 }
 
 @media only screen and (min-width: 1000px) {
@@ -668,12 +682,12 @@ label {
 
 .closed .sidenav {
   width: 0;
-  transform: translateX(-250px);
+  transform: translateX(-100%);
 }
 
 .closed.floating .sidenav {
   width: 250px;
-  transform: translateX(-250px);
+  transform: translateX(-100%);
 }
 
 .sidenav a,
@@ -1316,14 +1330,16 @@ label {
   width: 100%;
   margin: 10px 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .card .card-content {
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   padding: 0.75rem;
   box-sizing: border-box;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .card .card-header,

@@ -1,17 +1,16 @@
-<div class="bg-primary"
-  style="height: 50px; line-height: 50px; padding: 0 15px; box-sizing:border-box; width: 100%; color: white;">
-  <button (click)="sideEx.toggle()" class="btn flat" pRipple [pRippleCentered]="true" pRippleColor="#ffffff26"
-    style="top: 2px; position: relative; display: inline-block;">
+<div class="bg-primary dFlex align-items-center text-white section-head">
+  <button (click)="sideEx.toggle()" class="btn flat text-white fab" pRipple [pRippleCentered]="true"
+    pRippleColor="#ffffff26">
     <i class="material-icons">menu</i>
   </button>
-  <h5 style="display: inline-block;">{{sectionName}}</h5>
+  <h5>{{sectionName}}</h5>
 </div>
 <p-sidenav-container>
   <p-sidenav #sideEx [backdrop]="true" [pushContent]="true">
     <a pRipple *ngFor="let route of routes" [routerLink]="[route.route]">{{route.name}}</a>
   </p-sidenav>
   <p-sidenav-content [sidenav]="sideEx">
-    <div class="container">
+    <div class="container-content">
       <router-outlet></router-outlet>
     </div>
   </p-sidenav-content>

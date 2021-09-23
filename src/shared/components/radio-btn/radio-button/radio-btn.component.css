@@ -1,5 +1,5 @@
 .p-radio-wrapper {
-  --radio-selected-color: var(--primary);
+  --radio-selected-color: var(--secondary);
   cursor: pointer;
   display: inline-block;
   position: relative;

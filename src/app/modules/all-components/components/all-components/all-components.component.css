@@ -3,3 +3,8 @@
   width: 100%;
   /* width: calc(100% - 250px); */
 }
+
+.section-head {
+  box-sizing: border-box;
+  padding: 10px 5px;
+}

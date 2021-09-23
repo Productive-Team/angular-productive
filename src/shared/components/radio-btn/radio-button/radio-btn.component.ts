@@ -46,7 +46,7 @@ export class RadioBtnComponent implements OnInit {
 
   @ViewChild('input') radioBtn: any;
 
-  pRadioRippleColor = 'var(--primaryLowOpacity)';
+  pRadioRippleColor = 'var(--secondaryLowOpacity)';
 
   contents: any;
 

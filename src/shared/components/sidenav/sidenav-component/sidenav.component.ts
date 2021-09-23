@@ -10,7 +10,6 @@ import {
 @Component({
   selector: 'app-sidenav, p-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent implements OnInit {
   @Input() elevated: boolean;

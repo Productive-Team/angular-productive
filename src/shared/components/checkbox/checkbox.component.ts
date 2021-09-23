@@ -68,7 +68,7 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
   @Output('indeterminateChange') pCheckboxIndeterminateChange =
     new EventEmitter<boolean>();
 
-  rippleColor = 'var(--primaryLowOpacity)';
+  rippleColor = 'var(--secondaryLowOpacity)';
 
   @ViewChild('checkMark') checkMark: ElementRef;
   @ViewChild('indetMark') indetMark: ElementRef;
