@@ -1,11 +1,15 @@
+/* eslint-disable @angular-eslint/no-input-rename */
+/* eslint-disable @angular-eslint/no-output-rename */
 import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   forwardRef,
-  HostListener,
+  HostBinding,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -21,30 +25,21 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class SwitchToggleComponent implements OnInit, AfterViewInit {
+export class SwitchToggleComponent implements AfterViewInit {
   @Input() pSwitchId: string;
-  @Input() pSwitchDisabled = false;
-  @Input() pSwitchLabelLeft: string;
-  @Input() pSwitchLabelRight: string;
-  @Input() pSwitchIconLeft: string;
-  @Input() pSwitchIconRight: string;
-  @Input() pSwitchColor: string;
-  @Input() pSwitchHasRipple = true;
+  @Input('checked') pSwitchChecked: boolean;
+  @Output('checkedChange') pSwitchCheckedChange: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
+  @Input('disabled') pSwitchDisabled: boolean;
+  @Input('color') pSwitchColor: string;
+  @Input('hasRipple') pSwitchHasRipple: boolean = true;
 
   rippleColor: string;
   switchBackgroundColor: string;
-  switchVal: boolean;
   constructor(private el: ElementRef) {}
 
   change = (_) => {};
   blur = (_) => {};
-
-  ngOnInit() {
-    setTimeout(() => {
-      this.backgroundColorSwitchThumb();
-      this.backgroundColorSwitch();
-    }, 0);
-  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -68,67 +63,27 @@ export class SwitchToggleComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // sets the background color of the switch thumb
-  private backgroundColorSwitchThumb(): any {
-    const switchThumb = document.getElementById('switch-thumb');
-    if (this.pSwitchColor) {
-      switchThumb.style.setProperty('--switch-thumb', this.pSwitchColor);
-    }
-  }
-
-  // sets the background color of the SwitchBackground
-  private backgroundColorSwitch(): any {
-    const SwitchBack = document.getElementById('switch-cont');
-    if (this.pSwitchColor) {
-      if (
-        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.pSwitchColor) ||
-        /([A-Fa-f0-9]{3}){1,2}$/.test(this.pSwitchColor)
-      ) {
-        SwitchBack.style.setProperty(
-          '--container-background',
-          this.pSwitchColor + '99'
-        );
-      }
-    } else {
-      const mainColorVar = getComputedStyle(document.documentElement)
-        .getPropertyValue('--secondary')
-        .trim();
-      this.pSwitchColor = mainColorVar;
-      if (
-        /#([A-Fa-f0-9]{3}){1,2}$/.test(this.pSwitchColor) ||
-        /([A-Fa-f0-9]{3}){1,2}$/.test(this.pSwitchColor)
-      ) {
-        SwitchBack.style.setProperty(
-          '--container-background',
-          this.pSwitchColor + '99'
-        );
-      }
-    }
-  }
-
-  // writes the checkbox value
   writeValue(obj: boolean): void {
-    this.switchVal = obj;
+    this.pSwitchChecked = obj;
   }
 
-  // register the changes
   registerOnChange(fn: any): void {
     this.change = fn;
   }
 
-  // blurs the component
   registerOnTouched(fn: any): void {
     this.blur = fn;
   }
 
-  // sets the checkbox to a disabled state
-  setDisabledState?(isDisabled: boolean): void {
-    this.pSwitchDisabled = isDisabled;
+  registerChecked(event): boolean {
+    this.pSwitchChecked = event && event.target && event.target.checked;
+    this.change(this.pSwitchChecked);
+    this.pSwitchCheckedChange.emit(this.pSwitchChecked);
+    return event;
   }
 
-  // changes the value of the checkbox
-  onCheck($event) {
-    this.switchVal = $event && $event.target && $event.target.checked;
-    this.change(this.switchVal);
+  @HostBinding('class.switch-disabled')
+  get isDisabled() {
+    return this.pSwitchDisabled;
   }
 }

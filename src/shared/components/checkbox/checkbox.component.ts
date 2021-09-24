@@ -33,13 +33,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class CheckboxComponent implements AfterContentInit, OnChanges {
   /**
-   * Sets the text that goes along the Checkbox
-   */
-  @Input('label') pCheckboxLabel: string;
-  /**
    * Changes the position of the checkbox label
    */
-  @Input('labelPosition') pCheckboxLabelPosition = 'right' || 'left';
+  @Input('labelPosition') pCheckboxLabelPosition: CheckboxLabelPostion;
   /**
    * Disabled the checkbox
    */
@@ -238,3 +234,5 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
     return check.indeterminate;
   }
 }
+
+type CheckboxLabelPostion = 'right' | 'left';

@@ -1,114 +1,57 @@
-/*#region CheckSwitch*/
-/* checkbox switch container */
-.switch-layout {
-  display: inline-block;
-  height: 24px;
-  max-width: 100%;
-  line-height: 24px;
-  white-space: nowrap;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
+.p-switch-container {
+  position: relative;
+  display: inline-flex;
   user-select: none;
-  transition: 0.1s linear;
 }
 
-.switch-layout.switch-layout-disabled {
-  opacity: 0.5;
-  pointer-events: none;
-  cursor: default;
-}
-
-/* hides default browser checkbox */
-.switch-layout input {
-  opacity: 0;
-  bottom: -5px;
-  transform: scale(0);
-  position: absolute;
-}
-
-.switch-ripple {
-  position: absolute;
-  left: calc(50% - 21px);
-  top: calc(50% - 21px);
-  height: 42px;
-  width: 42px;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-/* checkbox body */
-.switch-toggle {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
-  height: inherit;
+.p-switch-wrapper {
+  --activeColor: var(--secondary);
+  position: relative;
+  display: inherit;
+  margin: 10px;
   cursor: pointer;
 }
 
-/* switch container */
-.switch-container {
-  position: relative;
+.p-switch-wrapper input {
+  opacity: 0;
+  position: absolute;
+  transform: scale(0);
+}
+
+.p-switch {
   width: 36px;
-  height: 14px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  margin: auto 8px;
-  background-color: rgba(0, 0, 0, 0.38);
-  transition: all 0.08s linear !important;
-  transition-property: background-color;
-  transition-delay: 50ms;
+  height: 15px;
+  border-radius: 50px;
+  background-color: var(--SwitchesBorders);
+  opacity: 0.5;
+  transition: background-color 150ms cubic-bezier(.08,.41,.14,1);
 }
 
-.switch-container.active {
-  background-color: var(--container-background) !important;
-  --container-background: ;
-}
-
-.switch-layout
-  input:checked:disabled
-  ~ .switch-thumb-container
-  .switch-ripple,
-.switch-layout
-  input:disabled
-  ~ .switch-thumb-container
-  .switch-ripple {
-  display: none;
-}
-
-/* switch thumb container */
-.switch-thumb-container {
+.p-switch-thumb {
   position: absolute;
   width: 20px;
   height: 20px;
-  top: -3px;
-  transition: all 0.3s linear;
-  transition-property: transform;
-}
-
-/* switch thumb */
-.switch-thumb {
-  position: relative;
-  height: 20px;
-  width: 20px;
-  white-space: nowrap;
-  background-color: white;
+  top: calc(50% - 10px);
+  left: -5px;
   border-radius: 50%;
-  transition: 0.08s linear;
-  --switch-thumb: var(--secondary);
+  background-color: var(--menuPanelColor);
+  transition: all 200ms cubic-bezier(0,.91,.18,1);
 }
 
-/* thumb transformation */
-.switch-layout input:checked + .switch-thumb-container .switch-thumb {
-  transform: translate3d(16px, 0, 0);
-  background-color: var(--switch-thumb);
+.p-switch-ripple {
+  position:absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: calc(-50%);
+  left: calc(-50%);
 }
 
-span i.left {
-  margin-right: 5px !important;
+.p-switch-wrapper input:checked ~ .p-switch {
+  background-color: var(--activeColor);
 }
 
-span i.right {
-  margin-left: 5px !important;
+.p-switch-wrapper input:checked ~ .p-switch-thumb {
+  transform: translateX(calc(100% + 5px));
+  background-color: var(--activeColor);
 }
-/*#endregion CheckSwitch*/

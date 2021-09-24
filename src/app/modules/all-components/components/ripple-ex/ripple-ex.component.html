@@ -11,29 +11,31 @@
     <span>Here's an interactive example of the Ripple Effect:</span>
     <br>
     <p-section>
-      <ng-container section-content>
-        <div class="flex-row align-items-center">
-          <p-checkbox label="Ripple Centered" [(ngModel)]="center">
-          </p-checkbox>
-          <p-checkbox label="Ripple Unbounded" [(ngModel)]="unbound">
-          </p-checkbox>
-          <p-checkbox label="Ripple Disabled" [(ngModel)]="disabled">
-          </p-checkbox>
-          <p-fieldset pFieldsetLabelText="Ripple Color" class="ripple-opt">
-            <input type="text" pInput [(ngModel)]="color">
-          </p-fieldset>
-          <p-fieldset pFieldsetLabelText="Ripple Radius" class="ripple-opt">
-            <input type="number" pInput [(ngModel)]="radius">
-          </p-fieldset>
-          <p-fieldset pFieldsetLabelText="Ripple Duration" class="ripple-opt">
-            <input type="number" pInput [(ngModel)]="duration">
-          </p-fieldset>
-        </div>
-        <div class="ripple-example elevation-p8" pRipple [pRippleCentered]="center" [pRippleColor]="color"
-          [pRippleUnbounded]="unbound" [pRippleRadius]="radius" [pRippleDisabled]="disabled"
-          [pRippleDuration]="duration" id="rip-ex-1">Click Me!
-        </div>
-      </ng-container>
+      <p-section-header>
+        <span>Ripple Example</span>
+      </p-section-header>
+      <p-section-content>
+        <ng-container>
+          <div class="flex-row align-items-center">
+            <p-checkbox [(ngModel)]="center">Ripple Centered</p-checkbox>
+            <p-checkbox [(ngModel)]="unbound">Ripple Unbounded</p-checkbox>
+            <p-checkbox [(ngModel)]="disabled">Riple Disabled</p-checkbox>
+            <p-fieldset pFieldsetLabelText="Ripple Color" class="ripple-opt">
+              <input type="text" pInput [(ngModel)]="color">
+            </p-fieldset>
+            <p-fieldset pFieldsetLabelText="Ripple Radius" class="ripple-opt">
+              <input type="number" pInput [(ngModel)]="radius">
+            </p-fieldset>
+            <p-fieldset pFieldsetLabelText="Ripple Duration" class="ripple-opt">
+              <input type="number" pInput [(ngModel)]="duration">
+            </p-fieldset>
+          </div>
+          <div class="ripple-example elevation-p8" pRipple [pRippleCentered]="center" [pRippleColor]="color"
+            [pRippleUnbounded]="unbound" [pRippleRadius]="radius" [pRippleDisabled]="disabled"
+            [pRippleDuration]="duration" id="rip-ex-1">Click Me!
+          </div>
+        </ng-container>
+      </p-section-content>
     </p-section>
     <br>
     <span>You can also set up an element to be a trigger of a ripple on another element.<br><br> When doing so, the
@@ -44,28 +46,36 @@
     <br>
     <span>Here's an example:</span>
     <p-section>
-      <ng-container section-buttons>
-        <button class="btn fab flat" pRipple [pRippleCentered]="true" (click)="showCodeSection2 = !showCodeSection2">
+      <p-section-header>
+        <span>
+          Ripple Trigger Example
+        </span>
+        <div class="spacer"></div>
+        <button class="btn fab flat" pRipple [pRippleCentered]="true" (click)="showCodeSection2 = !showCodeSection2"
+          pTooltip pTooltipText="{{showCodeSection2 ? 'Hide Code' :'Show Code'}}">
           <p-icon>code</p-icon>
         </button>
-      </ng-container>
-      <ng-container section-before-content *ngIf="showCodeSection2">
-        <div class="code-container">
-          <pre>
-            <code>
-              &lt;div class="ripple-example elevation-p8" pRipple [pRippleTriggerFor]="rippleTrigger"&gt;&lt;/div&gt;
-              &lt;div class="ripple-example elevation-p8" #rippleTrigger&gt;&lt;/div&gt;
-            </code>
-          </pre>
-        </div>
-      </ng-container>
-      <ng-container section-content>
+      </p-section-header>
+      <p-section-code [isShowing]="showCodeSection2" [hasHeader]="true">
+        <ng-container code-header>
+          Code Example
+          <div class="spacer"></div>
+          <button class="btn fab flat" pRipple [pRippleCentered]="true" pClipboard [contentToCopy]="code" pTooltip
+            pTooltipText="Copy Code">
+            <p-icon>content_copy</p-icon>
+          </button>
+        </ng-container>
+        <pre #code>
+&lt;div class="ripple-example elevation-p8" pRipple [pRippleTriggerFor]="rippleTrigger"&gt;Click Me!&lt;/div&gt;
+&lt;div class="ripple-example elevation-p8" #rippleTrigger&gt;&lt;/div&gt;</pre>
+      </p-section-code>
+      <p-section-content>
         <div class="flex-row justify-center">
           <div class="ripple-example elevation-p8" pRipple [pRippleTriggerFor]="rippleTrigger">
             Click Me!</div>
           <div class="ripple-example elevation-p8" #rippleTrigger></div>
         </div>
-      </ng-container>
+      </p-section-content>
     </p-section>
   </p-tab>
   <p-tab pTabLabel="References">

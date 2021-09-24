@@ -1,14 +1,15 @@
+/* eslint-disable @angular-eslint/no-output-rename */
+/* eslint-disable @angular-eslint/no-input-rename */
 import { RadioBtnComponent } from './../radio-button/radio-btn.component';
 import {
   Component,
   forwardRef,
   Input,
-  ElementRef,
   ContentChildren,
-  QueryList,
-  OnInit,
   AfterViewInit,
-  AfterContentInit,
+  Output,
+  QueryList,
+  EventEmitter,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -29,14 +30,18 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
   `,
 })
 export class RadioGroupComponent implements AfterViewInit {
-  @Input() pRadioCollectionName: string;
+  @Input('collection') pRadioCollectionName: string;
+
+  @Input('selectedValue') pCollectionSelectedValue: any;
+  @Output('selectedValueChange')
+  pCollectionSelectedValueChange: EventEmitter<any> = new EventEmitter();
 
   @ContentChildren(forwardRef(() => RadioBtnComponent), { descendants: true })
-  radioButtons: any;
+  radioButtons: QueryList<RadioBtnComponent>;
 
-  radioArr = [];
+  radioArrayCollection = [];
 
-  constructor(private el: ElementRef) {}
+  constructor() {}
 
   value: any;
 
@@ -62,23 +67,26 @@ export class RadioGroupComponent implements AfterViewInit {
   }
 
   watchValue(): void {
-    const radioChecked = this.radioArr.find((x) => x.checked);
+    const radioChecked = this.radioArrayCollection.find((x) => x.checked);
     this.value = radioChecked.value;
     this.change(this.value);
+    this.pCollectionSelectedValueChange.emit(this.value);
   }
 
   checkSelected(): void {
-    const rad = this.radioArr.find((x) => x.value === this.value);
-    if (rad) {
-      rad.checked = true;
+    const radioButton = this.radioArrayCollection.find(
+      (x) => x.value === this.value
+    );
+    if (radioButton) {
+      radioButton.checked = true;
     }
   }
 
   initRadGroup(): void {
-    this.radioButtons._results.forEach((x) => {
+    this.radioButtons.forEach((x) => {
       x.pRadioCollectionName = this.pRadioCollectionName;
-      const btn = x.radioBtn.nativeElement;
-      this.radioArr.push(btn);
+      const radioButton = x.radioBtn.nativeElement;
+      this.radioArrayCollection.push(radioButton);
     });
     this.checkSelected();
   }

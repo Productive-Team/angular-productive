@@ -1,8 +1,6 @@
-<label class="p-checkbox-wrapper" pRipple [pRippleCentered]="true" [pRippleTriggerFor]="ripple"
-  [pRippleColor]="pCheckboxChecked ?  '' : rippleColor" [pRippleDuration]="300">
-  <span class="p-checkbox-text-left" *ngIf="pCheckboxLabelPosition === 'left'">
-    {{pCheckboxLabel}}
-  </span>
+<label [class]="pCheckboxLabelPosition === 'left' ?  'p-checkbox-wrapper reverse' : 'p-checkbox-wrapper'" pRipple
+  [pRippleCentered]="true" [pRippleTriggerFor]="ripple" [pRippleColor]="pCheckboxChecked ?  '' : rippleColor"
+  [pRippleDuration]="300">
   <span class="p-checkbox-container">
     <input type="checkbox" [checked]="pCheckboxChecked" [indeterminate]="pCheckboxIndeterminate"
       [disabled]="pCheckboxDisabled" (change)="registerChecked($event)" (blur)="blur($event)" #checkbox>
@@ -15,7 +13,7 @@
       <div class="p-checkbox-indeterminate" #indetMark></div>
     </span>
   </span>
-  <span class="p-checkbox-text-right" *ngIf="pCheckboxLabelPosition === 'right'">
-    {{pCheckboxLabel}}
+  <span class="p-checkbox-text">
+    <ng-content></ng-content>
   </span>
 </label>

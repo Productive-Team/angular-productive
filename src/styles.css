@@ -6,6 +6,7 @@
   --appBackgroundColor: white;
   --menuPanelColor: rgb(250, 250, 250);
   --defaultDividerColor: rgba(161, 161, 161, 0.25);
+  --SwitchesBorders: rgb(134,134,134);
   --textColor: #262626;
   --contrastTextColor: #fdfdfd;
   --rippleDefaultColor: rgba(0,0,0,0.13);
@@ -67,7 +68,8 @@ hr {
   margin: 5px 0;
 }
 
-code {
+code,
+pre {
   font-family: monospace;
   background-color: var(--menuPanelColor)
 }
@@ -1326,7 +1328,6 @@ label {
   flex-direction: column;
   background-color: var(--menuPanelColor);
   border-radius: 8px;
-  border: 0.5px solid var(--defaultDividerColor);
   width: 100%;
   margin: 10px 0;
   box-sizing: border-box;
@@ -1829,3 +1830,55 @@ label {
   }
 }
 /* #endregion DatePicker */
+
+/* #region SwitchToggle */
+.switch-disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.25;
+}
+/* #endregion SwitchToggle */
+
+/* #region Section */
+.p-section {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--defaultDividerColor);
+  border-radius: 5px;
+  margin: 1.5rem 0;
+}
+
+.p-section-content {
+  display: block;
+  position: relative;
+  padding: 0.5rem 2rem;
+  box-sizing: border-box;
+}
+
+.p-section-header,
+.p-section-footer {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+
+.p-section-code-header {
+  display: flex;
+  padding: 0.75rem 1rem;
+  align-items: center;
+  border-top: 1px solid var(--defaultDividerColor);
+}
+.p-section-code-footer {
+  display: flex;
+  padding: 0.75rem 1rem;
+  align-items: center;
+  border-bottom: 1px solid var(--defaultDividerColor);
+}
+.p-section-code {
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: var(--menuPanelColor);
+  border-top: 1px solid var(--defaultDividerColor);
+  border-bottom: 1px solid var(--defaultDividerColor);
+}
+/* #endregion Section */

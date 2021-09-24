@@ -6,9 +6,13 @@
   cursor: pointer;
 }
 
-.p-checkbox-text-left,
-.p-checkbox-text-right {
+.p-checkbox-wrapper.reverse {
+  flex-direction: row-reverse;
+}
+
+.p-checkbox-text {
   margin: 0 1rem 0 1rem;
+  vertical-align: middle;
 }
 
 .p-checkbox-container input {

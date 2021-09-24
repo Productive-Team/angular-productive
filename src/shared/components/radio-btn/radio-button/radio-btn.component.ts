@@ -1,11 +1,5 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
-  ViewChild,
-} from '@angular/core';
+/* eslint-disable @angular-eslint/no-input-rename */
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-radio-button, p-radio-button',
@@ -14,33 +8,17 @@ import {
 })
 export class RadioBtnComponent implements OnInit {
   /**
-   * radioValue is the value that the Radio Button will have, it can be anything;
-   *
-   * This property is mandatory, if it's not filled, an error will be thrown;
-   *
-   * Example:
-   *    <p-radio-button radioValue="YourValue"></p-radio-button>
+   * Value for the radio button.
    */
-  @Input() pRadioValue: any;
+  @Input('value') pRadioValue: any;
   /**
-   * radioId is an Id given to a Radio Button
-   *
-   * This property is mandatory, if it's not filled, an error will be thrown;
-   *
-   * Example:
-   *    <p-radio-button radioId="YourId"></p-radio-button>
+   * Custom Id given to the radio button.
    */
   @Input() pRadioId: string;
   /**
-   * radioColor is the hex value for a custom color to the radio button outer and inner circle
-   *
-   * This property is optional, if it's not filled, it will automatically assume the value of the css variable --main
-   * in ngx-productive.css
-   *
-   * Example:
-   *    <p-radio-button radioColor="#3f51b5"></p-radio-button>
+   * Custom color to radio button.
    */
-  @Input() pRadioColor: string;
+  @Input('color') pRadioColor: string;
 
   pRadioCollectionName: string;
 
@@ -53,7 +31,6 @@ export class RadioBtnComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.checkRequiredFields(this.pRadioValue);
     setTimeout(() => {
       this.checkCustomColor();
     }, 5);
@@ -102,16 +79,5 @@ export class RadioBtnComponent implements OnInit {
       color = rgb;
     }
     return color;
-  }
-
-  // Checks if radioId, radioCollectionName and radioValue are filled
-  checkRequiredFields(inputValue): boolean {
-    if (!inputValue) {
-      throw new Error(
-        'Attribute "pRadioValue" is mandatory.  Example:    <p-radio-button pRadioValue="YourValue"></p-radio-button>'
-      );
-    } else {
-      return true;
-    }
   }
 }

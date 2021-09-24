@@ -1,4 +1,4 @@
-<label [class]="pSwitchDisabled ? 'switch-layout switch-layout-disabled':'switch-layout'" pRipple
+<!-- <label [class]="pSwitchDisabled ? 'switch-layout switch-layout-disabled':'switch-layout'" pRipple
   [pRippleTriggerFor]="switchRipple" [pRippleDisabled]="pSwitchHasRipple"
   [pRippleColor]="switchVal ? undefined : this.rippleColor">
   <span class="switch-toggle">
@@ -10,7 +10,8 @@
       <input type="checkbox" id="{{pSwitchId}}" [disabled]="pSwitchDisabled" [checked]="switchVal"
         (change)="onCheck($event)" (blur)="blur($event)">
       <div class="switch-thumb-container">
-        <div class="switch-thumb elevation-p1" id="switch-thumb">
+        <div class="switch-thumb elevation-p1" id="switch-thumb"
+          [style]="this.pSwitchColor ? 'background-color:' + this.pSwitchColor : ''">
           <div class="switch-ripple" #switchRipple></div>
         </div>
       </div>
@@ -18,6 +19,27 @@
     <span class="checkbox-text right">
       <i class="material-icons right" *ngIf="pSwitchIconRight">{{pSwitchIconRight}}</i>
       {{pSwitchLabelRight}}
+    </span>
+  </span>
+</label> -->
+
+<label class="p-switch-container" pRipple [pRippleDuration]="250" [pRippleCentered]="true" [pRippleTriggerFor]="ripple"
+  [pRippleColor]="pSwitchChecked ? '' : rippleColor">
+  <span class="dInlineF align-items-center">
+    <span>
+      <ng-content select="[switch-content-left]"></ng-content>
+    </span>
+    <div class="p-switch-wrapper" [style]="pSwitchColor ? '--activeColor:' + pSwitchColor : ''">
+      <input type="checkbox" [checked]="pSwitchChecked" [disabled]="pSwitchDisabled" (change)="registerChecked($event)"
+        (blur)="blur($event)">
+      <div class="p-switch">
+      </div>
+      <div class="p-switch-thumb elevation-p1">
+        <div class="p-switch-ripple" #ripple></div>
+      </div>
+    </div>
+    <span>
+      <ng-content select="[switch-content-right]"></ng-content>
     </span>
   </span>
 </label>

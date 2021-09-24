@@ -1,3 +1,4 @@
+import { SectionCodeComponent } from './components/section/section-code/section-code.component';
 import { RadioGroupComponent } from './components/radio-btn/radio-group/radio-group.component';
 import {
   TableColumnComponent,
@@ -56,6 +57,10 @@ import { CollapsibleGroupComponent } from './components/collapsible/collapsible-
 import { CardFooterComponent } from './components/card/card-footer/card-footer.component';
 import { CardContentComponent } from './components/card/card-content/card-content.component';
 import { CardHeaderComponent } from './components/card/card-header/card-header.component';
+import { SectionFooterComponent } from './components/section/section-footer/section-footer.component';
+import { SectionHeaderComponent } from './components/section/section-header/section-header.component';
+import { SectionContentComponent } from './components/section/section-content/section-content.component';
+import { ClipboardDirective } from './directives/clipboard/clipboard.directive';
 
 const components = [
   TableComponent,
@@ -71,6 +76,10 @@ const components = [
   DropdownComponent,
   RadioBtnComponent,
   SectionComponent,
+  SectionFooterComponent,
+  SectionHeaderComponent,
+  SectionCodeComponent,
+  SectionContentComponent,
   SwitchToggleComponent,
   TabGroupComponent,
   TabsComponent,
@@ -102,6 +111,7 @@ const directives = [
   TableExpandedTriggerDirective,
   SelectMultipleDirective,
   SelectSearchDirective,
+  ClipboardDirective,
 ];
 
 @NgModule({

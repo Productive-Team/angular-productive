@@ -6,5 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all-ex.component.css'],
 })
 export class AllExComponent {
+  bolltest: boolean = true;
+  otherCheck: boolean = true;
   constructor() {}
 }

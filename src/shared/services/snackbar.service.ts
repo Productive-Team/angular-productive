@@ -9,9 +9,9 @@ export class SnackbarService {
   constructor() {}
 
   openSnackbar(
-    positionY?: string,
-    positionX?: string,
     snackbarText?: string,
+    positionY?: SnackbarVerticalPosition,
+    positionX?: SnackbarHorizontalPosition,
     snackbarDuration?: number,
     snackbarHasButton?: boolean,
     snackbarButtonText?: string
@@ -159,3 +159,6 @@ export class SnackbarService {
     });
   }
 }
+
+type SnackbarVerticalPosition = 'top' | 'bottom';
+type SnackbarHorizontalPosition = 'left' | 'center' | 'right';
