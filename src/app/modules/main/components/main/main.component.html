@@ -16,21 +16,17 @@
           Components
         </button>
         <div class="spacer"></div>
-        <button class="btn fab flat" pRipple [pRippleCentered]="true" pRippleColor="#ffffff26"
-          (click)="toggleDarkMode()">
-          <i class="material-icons">nightlight_round</i>
-        </button>
         <button class="btn flat" pRipple pRippleColor="#ffffff26" pTooltip
           pTooltipText="Angular Productive Version">v1.0</button>
-        <a class="btn flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26"
-          href="https://github.com/Productive-Team/angular-productive" target="_blank">
-          <img src="../../../../../assets/img/github-white-transparent.svg">
-          Source Code
-        </a>
-        <a class="btn-small flat fab display-on-small-only" pRipple pRippleColor="#ffffff26" [pRippleCentered]="true"
-          href="https://github.com/Productive-Team/angular-productive" target="_blank">
-          <img src="../../../../../assets/img/github-white-transparent.svg" class="left"
-            style="position: relative; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); pointer-events: none;">
+        <button class="btn fab flat" pRipple [pRippleCentered]="true" pRippleColor="#ffffff26"
+          (click)="toggleDarkMode()" pTooltip pTooltipText="Toggle application theme">
+          <p-icon>{{darkActive === 'true' ? 'light_mode' : 'dark_mode'}}</p-icon>
+        </button>
+        <a class="btn flat fab" pRipple pRippleColor="#ffffff26" [pRippleCentered]="true"
+          href="https://github.com/Productive-Team/angular-productive" target="_blank" pTooltip
+          pTooltipText="Source Code">
+          <img src="../../../../../assets/img/github-white-transparent.svg"
+            style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); pointer-events: none;">
         </a>
       </ng-container>
     </app-navbar>

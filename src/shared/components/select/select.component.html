@@ -15,8 +15,9 @@
             <input type="text" placeholder="Search" [(ngModel)]="searchText" (ngModelChange)="searchOptions()">
           </div>
           <div class="p-select-all-multiple" *ngIf="pSelectMultiple && pSelectAllInput">
-            <p-checkbox [label]="allSelected ? 'Deselect All' : 'Select All'" [checked]="allSelected"
-              [indeterminate]="indeterminateSelected()" (change)="selectAll($event.target.checked)">
+            <p-checkbox [checked]="allSelected" [indeterminate]="indeterminateSelected()"
+              (change)="selectAll($event.target.checked)">
+              {{allSelected? 'Deselect All':'Select All'}}
             </p-checkbox>
           </div>
         </div>

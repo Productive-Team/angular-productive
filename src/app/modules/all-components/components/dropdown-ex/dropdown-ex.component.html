@@ -1,89 +1,109 @@
-<p>A dropdown menu is a hidden menu that contains actions triggers, and is separated from the normal page
-  flow.</p>
-<br>
-<p>The menu component will automatically be placed outisde of any container, since it needs to be outside of any
-  parent
-  elements with the property position relative.</p>
-<br>
-<p-section>
-  <ng-container section-content>
-    <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="menu">Menu</button>
-    <p-dropdown #menu>
-      <button pRipple>Option 1</button>
-      <button pRipple>Option 2</button>
-      <button pRipple>Option 3</button>
-    </p-dropdown>
-  </ng-container>
-</p-section>
-<p>Menu buttons can also have icons, to better illustrate the action it will perform.</p>
-<br>
-<p>Additionally, the menu's width will adjust automatically depending of the content's size.</p>
-<br>
-<p-section>
-  <ng-container section-content>
-    <button class="btn flat fab" style="vertical-align: middle;" pRipple pRippleCentered="true" pDropdownTrigger
-      [pDropdownTriggerFor]="menuIcons">
-      <i class="material-icons">more_vert</i>
-    </button>
-    <p-dropdown #menuIcons>
-      <button pRipple>
-        <i class="material-icons left">done</i>
-        Option 1
-      </button>
-      <button pRipple>
-        <i class="material-icons left">info</i>
-        Option 2
-      </button>
-      <button pRipple>
-        <i class="material-icons left">watch_later</i>
-        Option 3
-      </button>
-    </p-dropdown>
-  </ng-container>
-</p-section>
-<br>
-<p>Menus automatically adjust their positioning, however you can set a fixed position for the menu to trigger.</p>
-<br>
-<p-section>
-  <ng-container section-content>
-    <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="topLeft">Top Left</button>
-    <p-dropdown #topLeft pDropdownXPosition="left" pDropdownYPosition="bottom">
-      <button pRipple>Option 1</button>
-      <button pRipple>Option 2</button>
-    </p-dropdown>
-    <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="topRight">Top Right</button>
-    <p-dropdown #topRight pDropdownXPosition="right" pDropdownYPosition="bottom">
-      <button pRipple>Option 1</button>
-      <button pRipple>Option 2</button>
-    </p-dropdown>
-    <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="bottomLeft">Bottom Left</button>
-    <p-dropdown #bottomLeft>
-      <button pRipple>Option 1</button>
-      <button pRipple>Option 2</button>
-    </p-dropdown>
-    <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="bottomRight">Bottom Right</button>
-    <p-dropdown #bottomRight pDropdownXPosition="right" pDropdownYPosition="top">
-      <button pRipple>Option 1</button>
-      <button pRipple>Option 2</button>
-    </p-dropdown>
-  </ng-container>
-</p-section>
-<p>There's also an option to those that do not want the menu to close when a button inside it is clicked, and also an
-  option to open the menu by just hovering over the trigger element.</p>
-<p-section>
-  <ng-container section-content>
-    <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="noCloseClick">No Close On Click</button>
-    <p-dropdown #noCloseClick [pDropdownCloseOnClick]="false">
-      <button pRipple>Option 1</button>
-      <button pRipple>Option 2</button>
-      <button pRipple>Option 3</button>
-    </p-dropdown>
-    <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="openHover"
-      [pDropdownOpenHover]="true">Hover</button>
-    <p-dropdown #openHover>
-      <button pRipple>Option 1</button>
-      <button pRipple>Option 2</button>
-      <button pRipple>Option 3</button>
-    </p-dropdown>
-  </ng-container>
-</p-section>
+<p-tab-group>
+  <p-tab pTabLabel="Documentation">
+    <h5 class="t-700">Usage</h5>
+    <br>
+    <p>A dropdown menu is a hidden menu that contains actions triggers, and is separated from the normal page
+      flow.</p>
+    <br>
+    <h5 class="t-700">Examples</h5>
+    <br>
+    <p-section>
+      <p-section-header>
+        <span>Basic Menu</span>
+        <div class="spacer"></div>
+      </p-section-header>
+      <p-section-content>
+        <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="menu">Menu</button>
+        <p-dropdown #menu>
+          <button pRipple>Option 1</button>
+          <button pRipple>Option 2</button>
+          <button pRipple>Option 3</button>
+        </p-dropdown>
+      </p-section-content>
+    </p-section>
+    <p>Menu buttons can also have icons, to better illustrate the action it will perform.</p>
+    <br>
+    <p>Additionally, the menu's width will adjust automatically depending of the content's size.</p>
+    <br>
+    <p-section>
+      <p-section-header>
+        <span>Basic Menu with Icon Button</span>
+      </p-section-header>
+      <p-section-content>
+        <button class="btn flat fab" style="vertical-align: middle;" pRipple pRippleCentered="true" pDropdownTrigger
+          [pDropdownTriggerFor]="menuIcons">
+          <i class="material-icons">more_vert</i>
+        </button>
+        <p-dropdown #menuIcons>
+          <button pRipple>
+            <i class="material-icons left">done</i>
+            Option 1
+          </button>
+          <button pRipple>
+            <i class="material-icons left">info</i>
+            Option 2
+          </button>
+          <button pRipple>
+            <i class="material-icons left">watch_later</i>
+            Option 3
+          </button>
+        </p-dropdown>
+      </p-section-content>
+    </p-section>
+    <br>
+    <p>Menus automatically adjust their positioning, however you can set a fixed position for the menu to trigger.</p>
+    <br>
+    <p-section>
+      <p-section-header>
+        <span>Basic Menus with custom positioning</span>
+      </p-section-header>
+      <p-section-content>
+        <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="topLeft">Top Left</button>
+        <p-dropdown #topLeft pDropdownXPosition="left" pDropdownYPosition="bottom">
+          <button pRipple>Option 1</button>
+          <button pRipple>Option 2</button>
+        </p-dropdown>
+        <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="topRight">Top Right</button>
+        <p-dropdown #topRight pDropdownXPosition="right" pDropdownYPosition="bottom">
+          <button pRipple>Option 1</button>
+          <button pRipple>Option 2</button>
+        </p-dropdown>
+        <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="bottomLeft">Bottom Left</button>
+        <p-dropdown #bottomLeft>
+          <button pRipple>Option 1</button>
+          <button pRipple>Option 2</button>
+        </p-dropdown>
+        <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="bottomRight">Bottom Right</button>
+        <p-dropdown #bottomRight pDropdownXPosition="right" pDropdownYPosition="top">
+          <button pRipple>Option 1</button>
+          <button pRipple>Option 2</button>
+        </p-dropdown>
+      </p-section-content>
+    </p-section>
+    <p>There's also an option to those that do not want the menu to close when a button inside it is clicked, and also
+      an
+      option to open the menu by just hovering over the trigger element.</p>
+    <p-section>
+      <p-section-header>
+        <span>Miscellaneous Menu Options</span>
+      </p-section-header>
+      <p-section-content>
+        <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="noCloseClick">No Close On
+          Click</button>
+        <p-dropdown #noCloseClick [pDropdownCloseOnClick]="false">
+          <button pRipple>Option 1</button>
+          <button pRipple>Option 2</button>
+          <button pRipple>Option 3</button>
+        </p-dropdown>
+        <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="openHover"
+          [pDropdownOpenHover]="true">Open on Hover</button>
+        <p-dropdown #openHover>
+          <button pRipple>Option 1</button>
+          <button pRipple>Option 2</button>
+          <button pRipple>Option 3</button>
+        </p-dropdown>
+      </p-section-content>
+    </p-section>
+  </p-tab>
+  <p-tab pTabLabel="References"></p-tab>
+</p-tab-group>

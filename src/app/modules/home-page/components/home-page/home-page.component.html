@@ -9,13 +9,13 @@
     <button class="btn elevation" pRipple [routerLink]="['/Components']">
       All Components
     </button>
-    <button class="btn flat text-white" pRipple pRippleColor="#ffffff26">
-      Get Started
-    </button>
   </div>
 </div>
-<div class="container-content dFlex justify-center">
-  <div>
-    <h2>Framework</h2>
+<div class="container-content">
+  <div class="dFlex justify-center">
+    <div class="exp-item" *ngFor="let item of infoData">
+      <h5>{{item.header}}</h5>
+      <p>{{item.description}}</p>
+    </div>
   </div>
 </div>

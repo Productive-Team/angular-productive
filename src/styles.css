@@ -12,7 +12,7 @@
   --rippleDefaultColor: rgba(0,0,0,0.13);
   --fieldsetColor: hsla(0,0%,94%,1);
   --fieldsetUnderlineColor: rgb(179, 179, 179);
-  --snackbarDefaultColor: rgb(24, 24, 24)
+  --snackbarDefaultColor: rgb(24, 24, 24);
   --snackbarTextColor: white;
 }
 
@@ -513,10 +513,11 @@ label {
 }
 
 .btn:disabled,
-.disabled {
+.btn.disabled {
   cursor: default;
   opacity: 0.25;
   pointer-events: none;
+  filter: grayscale(100%);
   box-shadow: none !important;
 }
 
@@ -776,9 +777,9 @@ label {
 }
 
 .disabled .input-wrapper {
-  background-color: #e0e0e0;
-  opacity: 0.8;
+  opacity: 0.5;
   border: none;
+  filter: brightness(75%);
   pointer-events: none;
 }
 
@@ -1224,6 +1225,7 @@ label {
 .menu-panel-wrapper .menu-panel .menu-content button:disabled,
 .menu-panel-wrapper .menu-panel .menu-content a:disabled {
   opacity: 0.3;
+  filter: grayscale(100%);
   pointer-events: none;
 }
 
@@ -1645,6 +1647,7 @@ label {
 .p-select button:disabled {
   opacity: 0.5;
   pointer-events: none;
+  filter: grayscale(100%);
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -1690,7 +1693,8 @@ label {
 /* #region Checkbox */
 .checkbox-disabled {
   pointer-events: none;
-  opacity: 0.5;
+  filter: grayscale(100%);
+  opacity: 0.25;
 }
 /* #endregion Checkbox */
 
@@ -1836,6 +1840,7 @@ label {
   pointer-events: none;
   cursor: default;
   opacity: 0.25;
+  filter: grayscale(100%);
 }
 /* #endregion SwitchToggle */
 

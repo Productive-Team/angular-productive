@@ -30,20 +30,20 @@ export class CheckboxExComponent {
     },
   ];
 
-  comp = false;
+  allComplete = false;
 
   constructor() {}
 
-  areComp(): void {
-    this.comp = this.child.every((t) => t.selected);
+  areCompleted(): void {
+    this.allComplete = this.child.every((t) => t.selected);
   }
 
-  someComp(): boolean {
-    return this.child.filter((x) => x.selected).length > 0 && !this.comp;
+  someCompleted(): boolean {
+    return this.child.filter((x) => x.selected).length > 0 && !this.allComplete;
   }
 
   setAll(event): void {
-    this.comp = event;
+    this.allComplete = event;
     this.child.forEach((x) => {
       x.selected = event;
     });

@@ -1,4 +1,4 @@
-<p-card [width]="450">
+<p-card>
   <div class="dFlex fDirectionRow">
     <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" width="200">
     <div>
@@ -17,3 +17,6 @@
     </div>
   </div>
 </p-card>
+
+<p-slider [(ngModel)]="numb" [pSliderMinValue]="50" [pSliderMaxValue]="250"></p-slider>
+{{numb}}

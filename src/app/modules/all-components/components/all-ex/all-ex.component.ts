@@ -8,5 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AllExComponent {
   bolltest: boolean = true;
   otherCheck: boolean = true;
+
+  numb: number = 50;
   constructor() {}
 }

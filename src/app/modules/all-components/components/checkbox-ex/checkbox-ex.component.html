@@ -4,7 +4,7 @@
       <br>
       <h5>Checkboxes are check</h5>
       <p-section>
-        <ng-container section-content>
+        <p-section-content>
           <p-checkbox [(ngModel)]="chck">
             Checked
           </p-checkbox>
@@ -18,32 +18,50 @@
           <br>
           <h6>Label Direction</h6>
           <p-radio-group [(ngModel)]="labelDir" collection="dir">
-            <p-radio-button pRadioValue="left">Left</p-radio-button>
-            <p-radio-button pRadioValue="right">Right</p-radio-button>
+            <p-radio-button value="left">Left</p-radio-button>
+            <p-radio-button value="right">Right</p-radio-button>
           </p-radio-group>
           <br>
           <br>
-          <p-checkbox [(ngModel)]="chck" [disabled]="dis" [(indeterminate)]="indet" [labelPosition]="labelDir">
+          <p-checkbox [(ngModel)]="chck" [disabled]="dis" [(indeterminate)]="indet" labelPosition="{{labelDir}}">
             Checkbox
           </p-checkbox>
-        </ng-container>
+        </p-section-content>
       </p-section>
       <p>Some Some</p>
       <p-section>
-        <ng-container section-content>
+        <p-section-header>
+          <span>Checkbox Tree Example</span>
+          <div class="spacer"></div>
+          <button class="btn fab flat" pRipple [pRippleCentered]="true">
+            <p-icon>code</p-icon>
+          </button>
+        </p-section-header>
+        <p-section-code>
+          <ng-container code-content>
+            <pre>
+&lt;p-checkbox [checked]="comp" [indeterminate]="someCompleted()"(change)="setAll($event.target.checked)"&gt;&lt;/p-checkbox&gt;
+&lt;div *ngFor="let check of child"&gt;
+    &lt;p-checkbox (ngModelChange)="areCompleted()"&gt;check.label&lt;/p-checkbox&gt;
+&lt;/div&gt;
+</pre>
+          </ng-container>
+        </p-section-code>
+        <p-section-content>
           <div>
-            <p-checkbox [checked]="comp" [indeterminate]="someComp()" (change)="setAll($event.target.checked)">
-              {{comp ? 'Deselect All' : 'Select All'}}
+            <p-checkbox [checked]="allComplete" [indeterminate]="someCompleted()"
+              (change)="setAll($event.target.checked)">
+              {{allComplete ? 'Deselect All' : 'Select All'}}
             </p-checkbox>
             <div style="margin-left: 30px;">
               <div *ngFor="let check of child">
-                <p-checkbox [(ngModel)]="check.selected" color="{{check.color}}" (ngModelChange)="areComp()">
+                <p-checkbox [(ngModel)]="check.selected" color="{{check.color}}" (ngModelChange)="areCompleted()">
                   {{check.label}}
                 </p-checkbox>
               </div>
             </div>
           </div>
-        </ng-container>
+        </p-section-content>
       </p-section>
     </p-tab>
     <p-tab pTabLabel="References">

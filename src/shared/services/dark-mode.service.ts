@@ -34,7 +34,7 @@ export class DarkModeService {
     r.style.setProperty('--appBackgroundColor', '#303030');
     r.style.setProperty('--textColor', 'rgb(250,250,250)');
     r.style.setProperty('--primary', '#e91e63');
-    r.style.setProperty('--secondary', '#465754');
+    r.style.setProperty('--secondary', '#90a4ae');
     r.style.setProperty('--fieldsetColor', 'hsla(0,0%,100%,0.15)');
     r.style.setProperty('--menuPanelColor', '#424242');
     r.style.setProperty('--rippleDefaultColor', '#ffffff26');

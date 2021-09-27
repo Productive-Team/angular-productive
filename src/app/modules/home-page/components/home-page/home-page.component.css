@@ -4,3 +4,11 @@
 .content-home {
   margin-bottom: 2rem;
 }
+
+.exp-item {
+  margin: 0 1rem 1rem 0;
+}
+
+.exp-item h5 {
+  margin-bottom: 1rem;
+}
