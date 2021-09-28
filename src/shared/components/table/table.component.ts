@@ -66,33 +66,37 @@ const expandAnimation = trigger('expandAnimation', [
         </tr>
       </thead>
       <tbody class="p-table-body">
-        <ng-container *ngFor="let items of actualTableData.content">
-          <tr (click)="pTableSelect ? selectInTable(items) : false">
+        <ng-container *ngFor="let item of actualTableData.content">
+          <tr (click)="pTableSelect ? selectInTable(item) : false">
             <td *ngIf="pTableSelect">
               <p-checkbox
-                [checked]="items.selected"
+                [checked]="item.selected"
                 (click)="(false)"
               ></p-checkbox>
             </td>
-            <td *ngFor="let hdr of actualTableData.header">
+            <td *ngFor="let header of actualTableData.header">
               <ng-container
-                *ngIf="hdr.template !== undefined"
-                [ngTemplateOutlet]="hdr.template"
-                [ngTemplateOutletContext]="{ $implicit: items }"
+                *ngIf="header.template !== undefined"
+                [ngTemplateOutlet]="header.template"
+                [ngTemplateOutletContext]="{ $implicit: item }"
               ></ng-container>
-              {{ hdr.template !== undefined ? '' : items[hdr.prop] }}
+              {{
+                header.template !== undefined
+                  ? ''
+                  : getPropByString(item, header.prop)
+              }}
             </td>
           </tr>
           <tr class="table-expanded-row" *ngIf="pTableExpands">
             <td [colSpan]="colSpanSet()">
               <div
                 class="table-expanded-content"
-                [@expandAnimation]="items.expanded"
+                [@expandAnimation]="item.expanded"
               >
                 <ng-container
                   *ngIf="tableExpandRow"
                   [ngTemplateOutlet]="tableExpandRow.expandedRowTemplate"
-                  [ngTemplateOutletContext]="{ $implicit: items }"
+                  [ngTemplateOutletContext]="{ $implicit: item }"
                 ></ng-container>
               </div>
             </td>
@@ -210,6 +214,25 @@ export class TableComponent implements OnInit, OnChanges {
     this.actualTableData.content = contArr;
   }
 
+  getPropByString(obj, propString): any {
+    if (!propString) return obj;
+
+    let prop;
+    let props = propString.split('.');
+
+    for (var i = 0, iLen = props.length - 1; i < iLen; i++) {
+      prop = props[i];
+
+      let candidate = obj[prop];
+      if (candidate !== undefined) {
+        obj = candidate;
+      } else {
+        break;
+      }
+    }
+    return obj[props[i]];
+  }
+
   deepEqual(x, y) {
     const ok = Object.keys,
       tx = typeof x,
@@ -243,14 +266,18 @@ export class TableComponent implements OnInit, OnChanges {
   sortAsc(column: string): void {
     const content = this.actualTableData.content;
     content.sort((a, b) => {
-      return a[column].localeCompare(b[column]);
+      return this.getPropByString(a, column).localeCompare(
+        this.getPropByString(b, column)
+      );
     });
   }
 
   sortDsc(column: string): void {
     const content = this.actualTableData.content;
     content.sort((a, b) => {
-      return b[column].localeCompare(a[column]);
+      return this.getPropByString(b, column).localeCompare(
+        this.getPropByString(a, column)
+      );
     });
   }
 

@@ -6,11 +6,11 @@
   --appBackgroundColor: white;
   --menuPanelColor: rgb(250, 250, 250);
   --defaultDividerColor: rgba(161, 161, 161, 0.25);
-  --SwitchesBorders: rgb(134,134,134);
+  --SwitchesBorders: rgb(134, 134, 134);
   --textColor: #262626;
   --contrastTextColor: #fdfdfd;
-  --rippleDefaultColor: rgba(0,0,0,0.13);
-  --fieldsetColor: hsla(0,0%,94%,1);
+  --rippleDefaultColor: rgba(0, 0, 0, 0.13);
+  --fieldsetColor: hsla(0, 0%, 94%, 1);
   --fieldsetUnderlineColor: rgb(179, 179, 179);
   --snackbarDefaultColor: rgb(24, 24, 24);
   --snackbarTextColor: white;
@@ -71,7 +71,8 @@ hr {
 code,
 pre {
   font-family: monospace;
-  background-color: var(--menuPanelColor)
+  background-color: var(--menuPanelColor);
+  white-space: pre-wrap;
 }
 
 /* #region Typography */
@@ -470,7 +471,7 @@ label {
   border-radius: 5px;
   padding: 0 1rem;
   font-size: 0.95rem;
-  transition: 200ms cubic-bezier(.14,.35,.71,1);
+  transition: 200ms cubic-bezier(0.14, 0.35, 0.71, 1);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
@@ -735,7 +736,7 @@ label {
   height: 100vh;
   top: 0;
   opacity: 0;
-  transition: opacity 250ms cubic-bezier(0,.04,.42,1);
+  transition: opacity 250ms cubic-bezier(0, 0.04, 0.42, 1);
   -webkit-tap-highlight-color: transparent;
 }
 /* #endregion BackdropStyle*/
@@ -861,7 +862,7 @@ label {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  transition: 400ms cubic-bezier(.31,1.13,.34,.99);
+  transition: 400ms cubic-bezier(0.31, 1.13, 0.34, 0.99);
   transform-origin: left top;
 }
 .label-text.active,
@@ -1348,7 +1349,7 @@ label {
 .card .card-header,
 .card .card-footer {
   display: flex;
-  padding: .5rem;
+  padding: 0.5rem;
   box-sizing: border-box;
 }
 /* #endregion Card */
@@ -1439,7 +1440,7 @@ label {
   height: 2.6px;
   background-color: var(--primary);
   border-radius: 5px 5px 0 0;
-  transition: 400ms cubic-bezier(.54,0,.61,1);
+  transition: 400ms cubic-bezier(0.54, 0, 0.61, 1);
 }
 /*#endregion Tabs */
 
@@ -1470,8 +1471,8 @@ label {
   align-items: center;
 }
 
-.collapsible-wrap .collapsible:not(:last-child) .collapsible-content{
-  border-bottom: 1px solid var(--defaultDividerColor); 
+.collapsible-wrap .collapsible:not(:last-child) .collapsible-content {
+  border-bottom: 1px solid var(--defaultDividerColor);
 }
 
 .collapsible-content {
@@ -1694,7 +1695,7 @@ label {
 .checkbox-disabled {
   pointer-events: none;
   filter: grayscale(100%);
-  opacity: 0.25;
+  opacity: 0.5;
 }
 /* #endregion Checkbox */
 

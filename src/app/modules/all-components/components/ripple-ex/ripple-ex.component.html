@@ -52,7 +52,7 @@
         </span>
         <div class="spacer"></div>
         <button class="btn fab flat" pRipple [pRippleCentered]="true" (click)="showCodeSection2 = !showCodeSection2"
-          pTooltip pTooltipText="{{showCodeSection2 ? 'Hide Code' :'Show Code'}}">
+          pTooltip="{{showCodeSection2 ? 'Hide Code' :'Show Code'}}">
           <p-icon>code</p-icon>
         </button>
       </p-section-header>
@@ -60,14 +60,13 @@
         <ng-container code-header>
           Code Example
           <div class="spacer"></div>
-          <button class="btn fab flat" pRipple [pRippleCentered]="true" pClipboard [contentToCopy]="code" pTooltip
-            pTooltipText="Copy Code">
+          <button class="btn fab flat" pRipple [pRippleCentered]="true" pClipboard [contentToCopy]="code"
+            pTooltip="Copy Code">
             <p-icon>content_copy</p-icon>
           </button>
         </ng-container>
-        <pre #code>
-&lt;div class="ripple-example elevation-p8" pRipple [pRippleTriggerFor]="rippleTrigger"&gt;Click Me!&lt;/div&gt;
-&lt;div class="ripple-example elevation-p8" #rippleTrigger&gt;&lt;/div&gt;</pre>
+        <ng-container #code>
+          {{codeSection1}}</ng-container>
       </p-section-code>
       <p-section-content>
         <div class="flex-row justify-center">

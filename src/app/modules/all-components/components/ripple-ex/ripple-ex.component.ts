@@ -15,5 +15,10 @@ export class RippleExComponent {
 
   showCodeSection2: boolean;
 
+  codeSection1 = `
+  <div class="ripple-example elevation-p8" pRipple [pRippleTriggerFor]="rippleTrigger">Click Me!</div>
+  <div class="ripple-example elevation-p8" #rippleTrigger></div>
+  `;
+
   constructor() {}
 }

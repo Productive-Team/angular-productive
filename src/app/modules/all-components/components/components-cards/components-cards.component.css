@@ -9,12 +9,11 @@ a {
   box-sizing: border-box;
   background-color: var(--appBackgroundColor);
   outline: none;
-  border: 1px solid rgba(122, 122, 122, 0.5);  
+  border: 1px solid rgba(122, 122, 122, 0.5);
   border-radius: 5px;
   padding: 20px;
   cursor: pointer;
   margin: 20px 20px 20px 0;
-
 }
 
 .card-btn:hover {

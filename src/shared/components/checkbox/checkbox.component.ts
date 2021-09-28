@@ -16,6 +16,14 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
+export const enum CheckboxAnimationStates {
+  Initial,
+  Checked,
+  Unchecked,
+  Indeterminate,
+  Disabled,
+}
+
 /**
  * @title Checkbox Component
  */
@@ -69,9 +77,11 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
   @ViewChild('checkMark') checkMark: ElementRef;
   @ViewChild('indetMark') indetMark: ElementRef;
   @ViewChild('background') background: ElementRef;
-  @ViewChild('checkbox') checkbox: ElementRef;
+  @ViewChild('input') input: ElementRef<HTMLInputElement>;
 
   private previousIndeterminateState: boolean;
+
+  _currentCheckboxState: CheckboxAnimationStates = 0;
 
   constructor(private el: ElementRef) {}
 
@@ -107,14 +117,19 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
     this.blur = fn;
   }
 
-  registerChecked(event): boolean {
-    this.pCheckboxChecked = event && event.target && event.target.checked;
+  setDisabledState(isDisabled: boolean) {
+    this.pCheckboxDisabled = isDisabled;
+  }
+
+  registerChecked(event: Event): void {
+    this.pCheckboxChecked =
+      event && event.target && (event.target as HTMLInputElement).checked;
     this.change(this.pCheckboxChecked);
     this.pCheckboxCheckedChange.emit(this.pCheckboxChecked);
     if (this.pCheckboxIndeterminate) {
       this.pCheckboxIndeterminateChange.emit(false);
     }
-    return event;
+    this.syncCheckbox();
   }
 
   private insertAnimations(
@@ -175,6 +190,10 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
     return hex;
   }
 
+  handleClick(event: Event) {
+    event.stopPropagation();
+  }
+
   ngOnChanges(event): void {
     const indeterminate = event.pCheckboxIndeterminate as SimpleChange;
     const checked = event.pCheckboxChecked as SimpleChange;
@@ -214,6 +233,13 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
     }, 0);
   }
 
+  syncCheckbox(): void {
+    const checkbox = this.input.nativeElement;
+    checkbox.checked = this.pCheckboxChecked;
+    checkbox.indeterminate = this.pCheckboxIndeterminate;
+    console.log(this.pCheckboxIndeterminate);
+  }
+
   @HostBinding('class.checkbox-disabled')
   get isDisabled() {
     return this.pCheckboxDisabled;
@@ -225,13 +251,9 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
     return true;
   }
 
-  @HostBinding('attr.indeterminate')
+  @HostBinding('class.indeterminate')
   get isIndeterminate() {
-    const check = this.el.nativeElement.querySelector(
-      'input'
-    ) as HTMLInputElement;
-    check.indeterminate = this.pCheckboxIndeterminate ? true : false;
-    return check.indeterminate;
+    return this.pCheckboxIndeterminate;
   }
 }
 

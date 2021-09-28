@@ -4,6 +4,7 @@
   user-select: none;
   align-items: center;
   cursor: pointer;
+  margin: 0.25rem;
 }
 
 .p-checkbox-wrapper.reverse {
@@ -11,8 +12,12 @@
 }
 
 .p-checkbox-text {
-  margin: 0 1rem 0 1rem;
+  margin: 0 0 0 1rem;
   vertical-align: middle;
+}
+
+.p-checkbox-wrapper.reverse .p-checkbox-text {
+  margin: 0 1rem 0 0;
 }
 
 .p-checkbox-container input {

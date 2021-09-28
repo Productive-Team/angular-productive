@@ -1,10 +1,10 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appTolltips], [p-tooltip], [pTooltip]',
+  selector: '[appTooltips], [p-tooltip], [pTooltip]',
 })
 export class TooltipsDirective {
-  @Input() pTooltipText: string;
+  @Input('pTooltip') pTooltipText: string;
   @Input() pTooltipPosition: string;
   @Input() pTooltipClickOpen = false;
   @Input() pTooltipClickDuration = 2500;

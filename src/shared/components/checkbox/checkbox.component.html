@@ -3,7 +3,8 @@
   [pRippleDuration]="300">
   <span class="p-checkbox-container">
     <input type="checkbox" [checked]="pCheckboxChecked" [indeterminate]="pCheckboxIndeterminate"
-      [disabled]="pCheckboxDisabled" (change)="registerChecked($event)" (blur)="blur($event)" #checkbox>
+      [disabled]="pCheckboxDisabled" (change)="registerChecked($event)" (blur)="blur($event)" #input
+      (click)="handleClick($event)">
     <span class="p-checkbox-ripple" #ripple></span>
     <span class="p-checkbox-frame"></span>
     <span class="p-checkbox-background" #background>
