@@ -43,7 +43,6 @@ export class CheckboxExComponent {
   }
 
   setAll(event): void {
-    console.log(event);
     this.allComplete = event;
     this.child.forEach((x) => {
       x.selected = event;

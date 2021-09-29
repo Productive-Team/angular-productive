@@ -30,12 +30,14 @@ export class SliderComponent implements OnInit, AfterViewInit {
   @Input() pSliderMaxValue = 100;
   @Input() pSliderDisabled?: boolean;
   @Input() pSliderColor?: string;
-  @Input() pSliderInverted: boolean;
-  @Input() pSliderVertical: boolean;
+  // @Input() pSliderInverted: boolean;
+  // @Input() pSliderVertical: boolean;
 
   isMDragging = false;
 
-  pSliderValue = 0;
+  @Input() pSliderValue: number;
+  @Output() pSliderValueChange: EventEmitter<number> =
+    new EventEmitter<number>();
 
   percentage: number;
   constructor(private el: ElementRef) {}
@@ -45,6 +47,15 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.setEventListeners();
+    if (this.pSliderValue !== undefined) {
+      this.calculatePositions(
+        (this.pSliderValue - this.pSliderMinValue) /
+          (this.pSliderMaxValue - this.pSliderMinValue)
+      );
+      this.percentage = Math.round(
+        this.calcClamp(this.pSliderValue / this.pSliderMaxValue)
+      );
+    }
   }
 
   ngAfterViewInit(): void {
@@ -75,7 +86,9 @@ export class SliderComponent implements OnInit, AfterViewInit {
       (this.pSliderValue - this.pSliderMinValue) /
         (this.pSliderMaxValue - this.pSliderMinValue)
     );
-    this.percentage = this.calcClamp(this.pSliderValue / this.pSliderMaxValue);
+    this.percentage = this.calcClamp(
+      (this.pSliderValue - this.pSliderMinValue) / this.pSliderMaxValue
+    );
   }
 
   registerOnChange(fn: any): void {
@@ -104,13 +117,15 @@ export class SliderComponent implements OnInit, AfterViewInit {
     const leftOffset = positions.left;
     const sliderSize = positions.width;
 
-    const percentage = this.calcClamp((xPos - leftOffset) / sliderSize);
+    let percentage = this.calcClamp((xPos - leftOffset) / sliderSize);
     this.percentage = percentage;
-    const actualValue = Math.round(
+    let actualValue = Math.round(
       this.pSliderMinValue +
         percentage * (this.pSliderMaxValue - this.pSliderMinValue)
     );
+
     this.pSliderValue = actualValue;
+    this.pSliderValueChange.emit(actualValue);
     this.change(this.pSliderValue);
     this.calculatePositions(percentage);
   }
@@ -128,14 +143,12 @@ export class SliderComponent implements OnInit, AfterViewInit {
     }
 
     // if (this.pSliderInverted) {
-    //   slider.style.transform = `translateX(${100 - pctg}%)`;
-    //   thumb.style.transform = `translateX(${100 - pctg}%)`;
-    // } else if (!this.pSliderInverted) {
+    //   slider.style.transform = `translateX(${pctg}%)`;
+    //   thumb.style.transform = `translateX(${pctg - 100}%)`;
+    // } else {
     slider.style.transform = `translateX(-${100 - pctg}%)`;
     thumb.style.transform = `translateX(-${100 - pctg}%)`;
     // }
-    // calculate px position
-    // positions.width * pctg / 100;
   }
 
   calcClamp(val: number, min = 0, max = 1) {
@@ -145,8 +158,8 @@ export class SliderComponent implements OnInit, AfterViewInit {
     return this.el.nativeElement.firstChild.getBoundingClientRect();
   }
 
-  @HostBinding('class.inverted')
-  get invertedValue() {
-    return this.pSliderInverted;
-  }
+  // @HostBinding('class.inverted')
+  // get invertedValue() {
+  //   return this.pSliderInverted;
+  // }
 }

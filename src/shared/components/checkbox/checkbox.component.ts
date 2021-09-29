@@ -1,17 +1,14 @@
-/* eslint-disable @angular-eslint/no-output-rename */
-/* eslint-disable @angular-eslint/no-input-rename */
 import {
   AfterContentInit,
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   forwardRef,
   HostBinding,
-  HostListener,
   Input,
-  OnChanges,
   Output,
-  SimpleChange,
   ViewChild,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -21,11 +18,10 @@ export const enum CheckboxAnimationStates {
   Checked,
   Unchecked,
   Indeterminate,
-  Disabled,
 }
 
 /**
- * @title Checkbox Component
+ * A Checkbox component that contains all the functionality of a regular <input type="checkbox">
  */
 @Component({
   selector: 'app-checkbox, p-checkbox',
@@ -39,74 +35,111 @@ export const enum CheckboxAnimationStates {
     },
   ],
 })
-export class CheckboxComponent implements AfterContentInit, OnChanges {
+export class CheckboxComponent implements AfterViewInit {
+  constructor(
+    private el: ElementRef,
+    private changeDetector: ChangeDetectorRef
+  ) {}
   /**
    * Changes the position of the checkbox label
    */
-  @Input('labelPosition') pCheckboxLabelPosition: CheckboxLabelPostion;
+  @Input() labelPosition: CheckboxLabelPostion;
   /**
    * Disabled the checkbox
    */
-  @Input('disabled') pCheckboxDisabled: boolean;
+  @Input() disabled: boolean;
   /**
    * Changes the checkbox color
    */
-  @Input('color') pCheckboxColor: string;
+  @Input() color: string;
 
   /**
    * Checks the checkbox
    */
-  @Input('checked') pCheckboxChecked: boolean;
+  @Input()
+  get checked(): boolean {
+    return this._checked;
+  }
+  set checked(value: boolean) {
+    if (value != this.checked) {
+      this._checked = value;
+      this.changeDetector.markForCheck();
+    }
+  }
+  private _checked: boolean = false;
   /**
    * Change event for when the checkbox is checked
    */
-  @Output('checkedChange') pCheckboxCheckedChange = new EventEmitter<boolean>();
+  @Output() checkedChange = new EventEmitter<boolean>();
 
   /**
    * Sets the checkbox to a indeterminate state
    */
-  @Input('indeterminate') pCheckboxIndeterminate: boolean;
+  @Input()
+  get indeterminate(): boolean {
+    return this._indeterminate;
+  }
+  set indeterminate(value: boolean) {
+    const changed = value != this._indeterminate;
+    this._indeterminate = value != null && `${value}` !== 'false';
+
+    if (changed) {
+      if (this._indeterminate) {
+        this.checkAnimations(CheckboxAnimationStates.Indeterminate);
+      } else {
+        this.checkAnimations(
+          this.checked
+            ? CheckboxAnimationStates.Checked
+            : CheckboxAnimationStates.Unchecked
+        );
+      }
+      this.indeterminateChange.emit(this._indeterminate);
+    }
+
+    this.syncCheckbox(this._indeterminate);
+  }
+  private _indeterminate: boolean = false;
+
   /**
    * Change event for the indeterminate state
    */
-  @Output('indeterminateChange') pCheckboxIndeterminateChange =
-    new EventEmitter<boolean>();
+  @Output() indeterminateChange = new EventEmitter<boolean>();
 
   rippleColor = 'var(--secondaryLowOpacity)';
 
-  @ViewChild('checkMark') checkMark: ElementRef;
-  @ViewChild('indetMark') indetMark: ElementRef;
+  @ViewChild('checkMark') checkMark: ElementRef<HTMLElement>;
+  @ViewChild('indetMark') mixedMark: ElementRef<HTMLElement>;
   @ViewChild('background') background: ElementRef;
   @ViewChild('input') input: ElementRef<HTMLInputElement>;
 
-  private previousIndeterminateState: boolean;
-
-  _currentCheckboxState: CheckboxAnimationStates = 0;
-
-  constructor(private el: ElementRef) {}
+  currentCheckboxState: CheckboxAnimationStates = 0;
 
   change = (_) => {};
   blur = (_) => {};
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     setTimeout(() => {
-      if (this.pCheckboxColor !== undefined) {
-        if (
-          !/#([A-Fa-f0-9]{3}){1,2}$/.test(this.pCheckboxColor) ||
-          !/([A-Fa-f0-9]{3}){1,2}$/.test(this.pCheckboxColor)
-        ) {
-          this.rippleColor = this.rgbToHex(this.pCheckboxColor) + '26';
-        } else {
-          this.rippleColor = this.pCheckboxColor + '26';
-        }
-        const back = this.background.nativeElement as HTMLElement;
-        back.style.backgroundColor = this.pCheckboxColor;
-      }
+      this.setColor();
     }, 0);
   }
 
-  writeValue(obj: boolean): void {
-    this.pCheckboxChecked = obj;
+  setColor(): void {
+    if (this.color !== undefined) {
+      if (
+        !/#([A-Fa-f0-9]{3}){1,2}$/.test(this.color) ||
+        !/([A-Fa-f0-9]{3}){1,2}$/.test(this.color)
+      ) {
+        this.rippleColor = this.rgbToHex(this.color) + '26';
+      } else {
+        this.rippleColor = this.color + '26';
+      }
+      const back = this.background.nativeElement as HTMLElement;
+      back.style.backgroundColor = this.color;
+    }
+  }
+
+  writeValue(obj: any): void {
+    this.checked = !!obj;
   }
 
   registerOnChange(fn: any): void {
@@ -118,67 +151,26 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
   }
 
   setDisabledState(isDisabled: boolean) {
-    this.pCheckboxDisabled = isDisabled;
+    this.disabled = isDisabled;
   }
 
   registerChecked(event: Event): void {
-    this.pCheckboxChecked =
-      event && event.target && (event.target as HTMLInputElement).checked;
-    this.change(this.pCheckboxChecked);
-    this.pCheckboxCheckedChange.emit(this.pCheckboxChecked);
-    if (this.pCheckboxIndeterminate) {
-      this.pCheckboxIndeterminateChange.emit(false);
-    }
-    this.syncCheckbox();
-  }
-
-  private insertAnimations(
-    checkEvent: boolean,
-    indeterminateEvent: boolean
-  ): void {
-    const mixed = this.indetMark.nativeElement as HTMLElement;
-    const check = this.checkMark.nativeElement as HTMLElement;
-
-    if (!checkEvent && indeterminateEvent) {
-      mixed.style.animation =
-        'notCheckedToIndeterminate 150ms cubic-bezier(.14,.65,.61,.78)';
-      mixed.addEventListener('animationend', () => {
-        mixed.removeAttribute('style');
-      });
-    }
-
-    if (checkEvent && indeterminateEvent) {
-      mixed.style.animation =
-        'checkedToIndeterminate 150ms cubic-bezier(.14,.65,.61,.78)';
-      mixed.addEventListener('animationend', () => {
-        mixed.removeAttribute('style');
-      });
-      check.style.animation =
-        'checkmarkCheckToIndeterminate 150ms cubic-bezier(.14,.65,.61,.78)';
-      check.addEventListener('animationend', () => {
-        check.removeAttribute('style');
-      });
-    }
-
-    if (checkEvent && !indeterminateEvent && this.previousIndeterminateState) {
-      mixed.style.animation =
-        'mixedIndeterminateToChecked 200ms cubic-bezier(.29,.01,.73,.99)';
-      mixed.addEventListener('animationend', () => {
-        mixed.removeAttribute('style');
-      });
-      check.style.animation =
-        'checkmarkIndeterminateToChecked 350ms cubic-bezier(.29,.01,.73,.99)';
-      check.addEventListener('animationend', () => {
-        check.removeAttribute('style');
-      });
-    }
-
-    if (checkEvent && !indeterminateEvent && !this.previousIndeterminateState) {
-      check.style.animation =
-        'checkmarkCheck 450ms cubic-bezier(.21,.71,.99,1)';
-      check.addEventListener('animationend', () => {
-        check.removeAttribute('style');
-      });
+    event.stopPropagation();
+    if (!this.disabled) {
+      this.checked = !this.checked;
+      if (this.indeterminate) {
+        Promise.resolve().then(() => {
+          this._indeterminate = false;
+          this.indeterminateChange.emit(this._indeterminate);
+        });
+      }
+      this.checkAnimations(
+        this._checked
+          ? CheckboxAnimationStates.Checked
+          : CheckboxAnimationStates.Unchecked
+      );
+      this.change(this.checked);
+      this.checkedChange.emit(this.checked);
     }
   }
 
@@ -190,70 +182,83 @@ export class CheckboxComponent implements AfterContentInit, OnChanges {
     return hex;
   }
 
-  handleClick(event: Event) {
-    event.stopPropagation();
+  checkAnimations(newState: CheckboxAnimationStates): any {
+    const lastState = this.currentCheckboxState;
+
+    if (lastState !== newState) {
+      this.currentCheckboxState = newState;
+
+      this.setAnimations(lastState, newState);
+    }
   }
 
-  ngOnChanges(event): void {
-    const indeterminate = event.pCheckboxIndeterminate as SimpleChange;
-    const checked = event.pCheckboxChecked as SimpleChange;
-    if (indeterminate !== undefined) {
-      this.previousIndeterminateState = indeterminate.previousValue;
+  setAnimations(
+    lastState: CheckboxAnimationStates,
+    newState: CheckboxAnimationStates
+  ) {
+    const checkMark = this.checkMark.nativeElement;
+    const mixedMark = this.mixedMark.nativeElement;
+
+    switch (lastState) {
+      case 1:
+        if (newState === 3) {
+          checkMark.classList.add('checkmark-checked-indeterminate');
+          mixedMark.classList.add('mixedmark-checked-indeterminate');
+        }
+        break;
+      case 2:
+        if (newState === 1) {
+          checkMark.classList.add('unchecked-checked');
+        }
+        if (newState === 3) {
+          mixedMark.classList.add('unchecked-indeterminate');
+        }
+        break;
+      case 3:
+        if (newState === 1) {
+          checkMark.classList.add('checkmark-indeterminate-checked');
+          mixedMark.classList.add('mixedmark-indeterminate-checked');
+        }
+        break;
+      default:
+        if (newState === 1) {
+          checkMark.classList.add('unchecked-checked');
+        }
+        if (newState === 3) {
+          mixedMark.classList.add('unchecked-indeterminate');
+        }
     }
-    if (checked !== undefined) {
-      if (!checked.currentValue && !this.pCheckboxIndeterminate) {
-        this.previousIndeterminateState = false;
-      }
-    }
-    setTimeout(() => {
-      if (!event.pCheckboxDisabled) {
-        this.insertAnimations(
-          this.pCheckboxChecked,
-          this.pCheckboxIndeterminate
-        );
-      }
-    }, 0);
+
+    checkMark.addEventListener('animationend', () => {
+      checkMark.removeAttribute('class');
+    });
+    checkMark.addEventListener('animationcancel', () => {
+      checkMark.removeAttribute('class');
+    });
+    mixedMark.addEventListener('animationend', () => {
+      mixedMark.removeAttribute('class');
+    });
+    mixedMark.addEventListener('animationcancel', () => {
+      mixedMark.removeAttribute('class');
+    });
   }
 
-  @HostListener('change', ['$event'])
-  changeSome(event) {
-    const checkbox = event.target;
-
-    if (!checkbox.checked && !checkbox.indeterminate) {
-      this.previousIndeterminateState = false;
+  syncCheckbox(value: boolean): void {
+    const checkbox = this.input;
+    if (checkbox) {
+      checkbox.nativeElement.indeterminate = value;
     }
-
-    setTimeout(() => {
-      if (!checkbox.disabled) {
-        this.insertAnimations(
-          this.pCheckboxChecked,
-          this.pCheckboxIndeterminate
-        );
-      }
-    }, 0);
-  }
-
-  syncCheckbox(): void {
-    const checkbox = this.input.nativeElement;
-    checkbox.checked = this.pCheckboxChecked;
-    checkbox.indeterminate = this.pCheckboxIndeterminate;
-    console.log(this.pCheckboxIndeterminate);
   }
 
   @HostBinding('class.checkbox-disabled')
   get isDisabled() {
-    return this.pCheckboxDisabled;
+    return this.disabled;
   }
 
   @HostBinding('class.dInlineF')
   @HostBinding('class.v-alingMiddle')
   get defaultClass() {
     return true;
-  }
-
-  @HostBinding('class.indeterminate')
-  get isIndeterminate() {
-    return this.pCheckboxIndeterminate;
   }
 }
 

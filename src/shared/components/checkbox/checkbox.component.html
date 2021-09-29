@@ -1,17 +1,18 @@
-<label [class]="pCheckboxLabelPosition === 'left' ?  'p-checkbox-wrapper reverse' : 'p-checkbox-wrapper'" pRipple
-  [pRippleCentered]="true" [pRippleTriggerFor]="ripple" [pRippleColor]="pCheckboxChecked ?  '' : rippleColor"
+<label [class]="labelPosition === 'left' ?  'p-checkbox-wrapper reverse' : 'p-checkbox-wrapper'" pRipple
+  [pRippleCentered]="true" [pRippleTriggerFor]="ripple" [pRippleColor]="checked ?  '' : rippleColor"
   [pRippleDuration]="300">
   <span class="p-checkbox-container">
-    <input type="checkbox" [checked]="pCheckboxChecked" [indeterminate]="pCheckboxIndeterminate"
-      [disabled]="pCheckboxDisabled" (change)="registerChecked($event)" (blur)="blur($event)" #input
-      (click)="handleClick($event)">
+    <input type="checkbox" [checked]="checked" [indeterminate]="indeterminate" [disabled]="disabled"
+      (blur)="blur($event)" #input (click)="registerChecked($event)">
     <span class="p-checkbox-ripple" #ripple></span>
     <span class="p-checkbox-frame"></span>
     <span class="p-checkbox-background" #background>
-      <svg version="1.1" focusable="false" viewBox="0 0 24 24" xml:space="preserve" class="pAbsolute">
-        <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3 " class="p-checkbox-mark" #checkMark></path>
+      <svg version="1.1" focusable="false" viewBox="0 0 24 24" xml:space="preserve" class="pAbsolute p-checkbox-mark">
+        <path fill="none" stroke="white" d="M4.1,12.7 9,17.6 20.3,6.3 " #checkMark></path>
       </svg>
-      <div class="p-checkbox-indeterminate" #indetMark></div>
+      <div class="p-checkbox-indeterminate dContents">
+        <div #indetMark></div>
+      </div>
     </span>
   </span>
   <span class="p-checkbox-text">

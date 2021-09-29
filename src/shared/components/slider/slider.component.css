@@ -5,7 +5,7 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  margin: 10px 0;
+  padding: 1rem 0;
   -webkit-user-drag: none;
   user-select: none;
 }
@@ -15,7 +15,7 @@
   height: 2px;
   width: 100%;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--menuPanelColor);
 }
 
 .p-slider-progress {
@@ -55,6 +55,6 @@
 }
 
 .p-slider-thumb.zero-value {
-  background-color: var(--appBackgroundColor) !important;
+  background-color: var(--menuPanelColor);
   box-shadow: inset 0px 0px 0px 1px rgb(180, 180, 180);
 }

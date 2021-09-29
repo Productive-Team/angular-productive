@@ -43,8 +43,6 @@ export class RadioGroupComponent implements AfterViewInit {
 
   constructor() {}
 
-  value: any;
-
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.initRadGroup();
@@ -55,7 +53,7 @@ export class RadioGroupComponent implements AfterViewInit {
   blur = (_) => {};
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this.pCollectionSelectedValue = obj;
   }
 
   registerOnChange(fn: any): void {
@@ -68,14 +66,14 @@ export class RadioGroupComponent implements AfterViewInit {
 
   watchValue(): void {
     const radioChecked = this.radioArrayCollection.find((x) => x.checked);
-    this.value = radioChecked.value;
-    this.change(this.value);
-    this.pCollectionSelectedValueChange.emit(this.value);
+    this.pCollectionSelectedValue = radioChecked.value;
+    this.change(this.pCollectionSelectedValue);
+    this.pCollectionSelectedValueChange.emit(this.pCollectionSelectedValue);
   }
 
   checkSelected(): void {
     const radioButton = this.radioArrayCollection.find(
-      (x) => x.value === this.value
+      (x) => x.value === this.pCollectionSelectedValue
     );
     if (radioButton) {
       radioButton.checked = true;

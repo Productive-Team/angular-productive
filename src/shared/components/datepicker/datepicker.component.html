@@ -7,7 +7,7 @@
           <p-icon>chevron_left</p-icon>
         </button>
         <div class="spacer"></div>
-        <button class="btn-small flat t-600 year-button" pRipple (click)="toggleVisibility()">
+        <button class="btn small flat t-600 year-button" pRipple (click)="toggleVisibility()">
           <ng-container *ngIf="!showYears && !showMonths">
             {{monthsOfYear[monthPage - 1].monthName}} {{years[selectedYearIndex].year}}
           </ng-container>

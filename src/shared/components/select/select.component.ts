@@ -434,11 +434,11 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     let leftPos = inputPositions.left - inputDifferece / 2;
 
     if (this.pSelectMultiple) {
-      leftPos = inputPositions.left - 60;
+      leftPos = inputPositions.left - 52;
       if (leftPos < 0) {
         leftPos = 0;
       }
-      inputWidth = fieldset.width + 60;
+      inputWidth = fieldset.width + 52;
     }
 
     styleStr =
@@ -513,6 +513,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     <p-checkbox
       class="p-select-no-pointer-events"
       [(checked)]="selected"
+      color="var(--primary)"
       *ngIf="parent.pSelectMultiple"
     ></p-checkbox>
     <ng-content></ng-content>

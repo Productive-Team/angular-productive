@@ -49,8 +49,7 @@
         </p-section-code>
         <p-section-content>
           <div>
-            <p-checkbox [checked]="allComplete" [indeterminate]="someCompleted()"
-              (change)="setAll($event.target.checked)">
+            <p-checkbox [checked]="allComplete" [indeterminate]="someCompleted()" (checkedChange)="setAll($event)">
               {{allComplete ? 'Deselect All' : 'Select All'}}
             </p-checkbox>
             <div style="margin-left: 30px;">

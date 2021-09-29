@@ -16,7 +16,7 @@
           </div>
           <div class="p-select-all-multiple" *ngIf="pSelectMultiple && pSelectAllInput">
             <p-checkbox [checked]="allSelected" [indeterminate]="indeterminateSelected()"
-              (change)="selectAll($event.target.checked)">
+              (change)="selectAll($event.target.checked)" color="var(--primary)">
               {{allSelected? 'Deselect All':'Select All'}}
             </p-checkbox>
           </div>

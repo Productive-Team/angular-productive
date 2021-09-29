@@ -122,7 +122,7 @@ const expandAnimation = trigger('expandAnimation', [
 export class TableComponent implements OnInit, OnChanges {
   @Input() pTableExpands: boolean;
   @Input() pTableSelect: boolean;
-  @Input() pTableSelectMode: TableSelectMode;
+  @Input() pTableSelectMode: TableSelectMode = 'single';
   @Input() pTableHeaderFixed: boolean;
   @Input() pTableFooterFixed: boolean;
 

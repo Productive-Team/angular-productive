@@ -18,9 +18,23 @@
   </div>
 </p-card>
 
-<p-slider [(ngModel)]="numb" [pSliderMinValue]="50" [pSliderMaxValue]="250"></p-slider>
+<p-slider [(pSliderValue)]="numb" [pSliderMinValue]="50" [pSliderMaxValue]="250"></p-slider>
 {{numb}}
 
 <button pModalTrigger [pModalTriggerFor]="modal">Modal</button>
 
 <p-modal #modal></p-modal>
+
+<br>
+<br>
+<div class="dFlex">
+  <p-checkbox [(checked)]="otherCheck">
+    Hello
+  </p-checkbox>
+  <p-checkbox [(checked)]="bolltest">
+    World
+  </p-checkbox>
+</div>
+<p-checkbox [(indeterminate)]="bolltest" [(checked)]="otherCheck">
+  Shite
+</p-checkbox>

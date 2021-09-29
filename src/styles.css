@@ -1895,3 +1895,29 @@ label {
   border-bottom: 1px solid var(--defaultDividerColor);
 }
 /* #endregion Section */
+
+/* #region Modal */
+.p-modal {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: 1005;
+  top: 50%;
+  left: 50%;
+  border-radius: 8px;
+  background-color: var(--menuPanelColor);
+  transform: translateY(-50%) translateX(-50%);
+  max-width: 60%;
+}
+
+.p-modal.modal-header,
+.p-modal.modal-footer {
+  display: flex;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+.p-modal.modal-content {
+  padding: 1rem 0.75rem;
+}
+/* #endregion Modal */

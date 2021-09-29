@@ -47,6 +47,9 @@
 
 .p-checkbox-background {
   background-color: var(--secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
   right: 0;
@@ -55,7 +58,7 @@
   position: absolute;
   box-sizing: border-box;
   pointer-events: none;
-  transition: 150ms cubic-bezier(0, 0.99, 0.86, 0.99);
+  transition: 100ms linear;
   opacity: 0;
 }
 
@@ -69,64 +72,86 @@
   pointer-events: none;
 }
 
-.p-checkbox-mark {
+.p-checkbox-mark path {
   stroke-width: 2.33px;
   transform-origin: center;
   stroke: var(--appBackgroundColor);
   opacity: 0;
 }
 
-.p-checkbox-indeterminate {
-  position: absolute;
+.p-checkbox-indeterminate div {
   width: calc(40% + 4px);
   height: 2px;
   border-radius: 6px;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
   background-color: var(--appBackgroundColor);
   opacity: 0;
-  transform-origin: left center;
+  transform-origin: center;
 }
 
 input:checked ~ .p-checkbox-background,
-input:checked ~ .p-checkbox-background .p-checkbox-mark {
+input:checked ~ .p-checkbox-background .p-checkbox-mark path {
   opacity: 1;
 }
 
 input:indeterminate ~ .p-checkbox-background,
-input:indeterminate ~ .p-checkbox-background .p-checkbox-indeterminate {
+input:indeterminate ~ .p-checkbox-background .p-checkbox-indeterminate div {
   opacity: 1;
 }
 
-input:indeterminate ~ .p-checkbox-background .p-checkbox-mark {
+input:indeterminate ~ .p-checkbox-background .p-checkbox-mark path {
   opacity: 0;
 }
 
+.unchecked-checked {
+  animation: checkmarkCheck 600ms cubic-bezier(.28,.75,.68,1);
+}
+
+.unchecked-indeterminate {
+  animation: notCheckedToIndeterminate 150ms cubic-bezier(0, 0, 0, 1);
+}
+
+.checkmark-checked-indeterminate {
+  animation: checkmarkCheckToIndeterminate 200ms cubic-bezier(0.14, 0, 0, 1);
+}
+
+.mixedmark-checked-indeterminate {
+  animation: checkedToIndeterminate 150ms cubic-bezier(0.14, 0, 0, 1); 
+}
+
+.mixedmark-indeterminate-checked {
+  animation: mixedIndeterminateToChecked 200ms cubic-bezier(0.14, 0, 0, 1);
+}
+
+.checkmark-indeterminate-checked {
+  animation: checkmarkIndeterminateToChecked 250ms cubic-bezier(0.14, 0, 0, 1);
+}
+
 @keyframes notCheckedToIndeterminate {
-  0% {
-    width: 10%;
+  0%, 50% {
+    transform: scaleX(0);
   }
   100% {
-    width: calc(40% + 4px);
+    transform: scaleX(1);
   }
 }
 
 @keyframes checkedToIndeterminate {
   0% {
-    transform: rotateZ(-45deg) translateX(-50%) translateY(-50%);
+    opacity: 0;
+    transform: rotate(-45deg);
   }
   100% {
-    transform: rotateZ(0) translateX(-50%) translateY(-50%);
+    opacity: 1;
+    transform: rotate(0);
   }
 }
 
 @keyframes checkmarkCheckToIndeterminate {
-  0% {
+  from {
     opacity: 1;
     transform: rotate(0);
   }
-  100% {
+  to {
     opacity: 0;
     transform: rotate(45deg);
   }
@@ -135,18 +160,18 @@ input:indeterminate ~ .p-checkbox-background .p-checkbox-mark {
 @keyframes mixedIndeterminateToChecked {
   0% {
     opacity: 1;
-    transform: rotate(0) translateX(-50%) translateY(-50%);
+    transform: rotate(0);
   }
   100% {
     opacity: 0;
-    transform: rotate(180deg) translateX(-50%) translateY(-50%);
+    transform: rotate(180deg);
   }
 }
 
 @keyframes checkmarkIndeterminateToChecked {
   0% {
     opacity: 0;
-    transform: rotate(-45deg);
+    transform: rotate(45deg);
   }
   100% {
     opacity: 1;
@@ -155,11 +180,11 @@ input:indeterminate ~ .p-checkbox-background .p-checkbox-mark {
 }
 
 @keyframes checkmarkCheck {
-  0% {
+  from {
     stroke-dasharray: 70;
     stroke-dashoffset: 100;
   }
-  100% {
+  to {
     stroke-dasharray: 70;
     stroke-dashoffset: 0;
   }
