@@ -5,11 +5,10 @@
   transform: translateY(-50%) translateX(-50%);
   margin: auto;
   transition: transform 0.15s, opacity 0.15s;
-  background-color: white;
+  background-color: var(--menuPanelColor);
   border-radius: 5px;
   max-width: 60%;
   width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.05);
   z-index: 1004;
 }
 
@@ -23,7 +22,7 @@
 
 .modal .modal-header {
   padding: 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--defaultDividerColor);
 }
 
 .modal .modal-content {
@@ -61,5 +60,5 @@
 
 .modal .modal-footer {
   padding: 10px 8px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid var(--defaultDividerColor);
 }

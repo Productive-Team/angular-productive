@@ -42,6 +42,7 @@ export class DarkModeService {
     r.style.setProperty('--secondaryLowOpacity', '#46575426');
     r.style.setProperty('--snackbarDefaultColor', 'rgb(255,255,255)');
     r.style.setProperty('--snackbarTextColor', '#262626');
+    r.style.setProperty('--backdropColor', 'rgba(117, 114, 114,1)');
     r.style.setProperty('color-scheme', 'dark');
   }
 

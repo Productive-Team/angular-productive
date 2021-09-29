@@ -87,16 +87,15 @@ export class ModalComponent implements AfterViewInit {
    */
   @Input() pModalShow = false;
   /**
-   * Does not perform the action of closing the modal
-   * when clicked, making so the only way to dismiss the modal is using the pModalClose Directive in an element.
+   * Does not perform the action of closing the modal when clicking the backdrop.
    */
   @Input() pModalStatic = false;
   /**
-   * Changes the max-width size of the modal.
+   * Changes the size of the modal.
    */
   @Input() pModalSize: ModalSize = 'medium';
   /**
-   * Sets an Id to the modal element in itself.
+   * Sets an Id to the modal element.
    */
   @Input() pModalId: any;
   /**
@@ -108,7 +107,7 @@ export class ModalComponent implements AfterViewInit {
    */
   @Input() hasModalHeader = true;
   /**
-   * Adds a class to the modal element that makes it look like a bottom sheet element.
+   * Toggles the visual style of the modal to be more like a bottom sheet.
    */
   @Input() pBottomSheet = false;
 

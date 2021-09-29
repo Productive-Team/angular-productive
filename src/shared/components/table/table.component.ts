@@ -67,7 +67,11 @@ const expandAnimation = trigger('expandAnimation', [
       </thead>
       <tbody class="p-table-body">
         <ng-container *ngFor="let item of actualTableData.content">
-          <tr (click)="pTableSelect ? selectInTable(item) : false">
+          <tr
+            (click)="
+              pTableSelect ? selectInTable(item) : false; onRowClick(item)
+            "
+          >
             <td *ngIf="pTableSelect">
               <p-checkbox
                 [checked]="item.selected"
@@ -118,7 +122,7 @@ const expandAnimation = trigger('expandAnimation', [
 export class TableComponent implements OnInit, OnChanges {
   @Input() pTableExpands: boolean;
   @Input() pTableSelect: boolean;
-  @Input() pTableSelectMode: TableSelectMode = 'single';
+  @Input() pTableSelectMode: TableSelectMode;
   @Input() pTableHeaderFixed: boolean;
   @Input() pTableFooterFixed: boolean;
 
@@ -126,6 +130,8 @@ export class TableComponent implements OnInit, OnChanges {
 
   @Input() selectedData: any | any[];
   @Output() selectedDataChange: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output() rowClick: EventEmitter<any> = new EventEmitter<any>();
 
   actualTableData: TableData = new TableData();
 
@@ -155,6 +161,10 @@ export class TableComponent implements OnInit, OnChanges {
         this.configureTable();
       }
     }
+  }
+
+  onRowClick(rowItem: any): void {
+    this.rowClick.emit(rowItem);
   }
 
   configureTable(): void {
@@ -266,19 +276,41 @@ export class TableComponent implements OnInit, OnChanges {
   sortAsc(column: string): void {
     const content = this.actualTableData.content;
     content.sort((a, b) => {
-      return this.getPropByString(a, column).localeCompare(
-        this.getPropByString(b, column)
-      );
+      let firstValue = this.getPropByString(a, column);
+      if (!firstValue) {
+        firstValue = '';
+      }
+      let lastValue = this.getPropByString(b, column);
+      if (!lastValue) {
+        lastValue = '';
+      }
+
+      const sorted = this.compare(firstValue, lastValue, true);
+
+      return sorted;
     });
   }
 
   sortDsc(column: string): void {
     const content = this.actualTableData.content;
     content.sort((a, b) => {
-      return this.getPropByString(b, column).localeCompare(
-        this.getPropByString(a, column)
-      );
+      let firstValue = this.getPropByString(a, column);
+      if (!firstValue) {
+        firstValue = '';
+      }
+      let lastValue = this.getPropByString(b, column);
+      if (!lastValue) {
+        lastValue = '';
+      }
+
+      const sorted = this.compare(firstValue, lastValue, false);
+
+      return sorted;
     });
+  }
+
+  private compare(a: any, b: any, isAsc: boolean): number {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
   colSpanSet(): number {
