@@ -13,12 +13,12 @@
         <div class="spacer"></div>
       </p-section-header>
       <p-section-content>
-        <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="menu">Menu</button>
-        <p-dropdown #menu>
+        <button class="btn flat" pRipple [pMenuTrigger]="menu">Menu</button>
+        <p-menu #menu>
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
           <button pRipple>Option 3</button>
-        </p-dropdown>
+        </p-menu>
       </p-section-content>
     </p-section>
     <p>Menu buttons can also have icons, to better illustrate the action it will perform.</p>
@@ -30,11 +30,11 @@
         <span>Basic Menu with Icon Button</span>
       </p-section-header>
       <p-section-content>
-        <button class="btn flat fab" style="vertical-align: middle;" pRipple pRippleCentered="true" pDropdownTrigger
-          [pDropdownTriggerFor]="menuIcons">
+        <button class="btn flat fab" style="vertical-align: middle;" pRipple pRippleCentered="true"
+          [pMenuTrigger]="menuIcons">
           <i class="material-icons">more_vert</i>
         </button>
-        <p-dropdown #menuIcons>
+        <p-menu #menuIcons>
           <button pRipple>
             <i class="material-icons left">done</i>
             Option 1
@@ -47,7 +47,7 @@
             <i class="material-icons left">watch_later</i>
             Option 3
           </button>
-        </p-dropdown>
+        </p-menu>
       </p-section-content>
     </p-section>
     <br>
@@ -58,26 +58,26 @@
         <span>Basic Menus with custom positioning</span>
       </p-section-header>
       <p-section-content>
-        <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="topLeft">Top Left</button>
-        <p-dropdown #topLeft pDropdownXPosition="left" pDropdownYPosition="bottom">
+        <button class="flat btn" pRipple [pMenuTrigger]="topLeft">Top Left</button>
+        <p-menu #topLeft pDropdownXPosition="left" pDropdownYPosition="bottom">
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
-        </p-dropdown>
-        <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="topRight">Top Right</button>
-        <p-dropdown #topRight pDropdownXPosition="right" pDropdownYPosition="bottom">
+        </p-menu>
+        <button class="flat btn" pRipple [pMenuTrigger]="topRight">Top Right</button>
+        <p-menu #topRight pDropdownXPosition="right" pDropdownYPosition="bottom">
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
-        </p-dropdown>
-        <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="bottomLeft">Bottom Left</button>
-        <p-dropdown #bottomLeft>
+        </p-menu>
+        <button class="flat btn" pRipple [pMenuTrigger]="bottomLeft">Bottom Left</button>
+        <p-menu #bottomLeft>
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
-        </p-dropdown>
-        <button class="flat btn" pRipple pDropdownTrigger [pDropdownTriggerFor]="bottomRight">Bottom Right</button>
-        <p-dropdown #bottomRight pDropdownXPosition="right" pDropdownYPosition="top">
+        </p-menu>
+        <button class="flat btn" pRipple [pMenuTrigger]="bottomRight">Bottom Right</button>
+        <p-menu #bottomRight pDropdownXPosition="right" pDropdownYPosition="top">
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
-        </p-dropdown>
+        </p-menu>
       </p-section-content>
     </p-section>
     <p>There's also an option to those that do not want the menu to close when a button inside it is clicked, and also
@@ -88,20 +88,19 @@
         <span>Miscellaneous Menu Options</span>
       </p-section-header>
       <p-section-content>
-        <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="noCloseClick">No Close On
+        <button class="btn flat" pRipple [pMenuTrigger]="noCloseClick">No Close On
           Click</button>
-        <p-dropdown #noCloseClick [pDropdownCloseOnClick]="false">
+        <p-menu #noCloseClick [pMenuCloseOnClick]="false">
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
           <button pRipple>Option 3</button>
-        </p-dropdown>
-        <button class="btn flat" pRipple pDropdownTrigger [pDropdownTriggerFor]="openHover"
-          [pDropdownOpenHover]="true">Open on Hover</button>
-        <p-dropdown #openHover>
+        </p-menu>
+        <button class="btn flat" pRipple [pMenuTrigger]="openHover" [pMenuOpenHover]="true">Open on Hover</button>
+        <p-menu #openHover>
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
           <button pRipple>Option 3</button>
-        </p-dropdown>
+        </p-menu>
       </p-section-content>
     </p-section>
   </p-tab>

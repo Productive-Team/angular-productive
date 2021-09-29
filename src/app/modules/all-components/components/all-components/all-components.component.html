@@ -9,7 +9,7 @@
   <p-sidenav #sideEx [backdrop]="true" [pushContent]="true">
     <a pRipple *ngFor="let route of routes" [routerLink]="[route.route]">{{route.name}}</a>
   </p-sidenav>
-  <p-sidenav-content [sidenav]="sideEx">
+  <p-sidenav-content>
     <div class="container-content">
       <router-outlet></router-outlet>
     </div>

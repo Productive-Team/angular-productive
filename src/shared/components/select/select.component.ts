@@ -240,6 +240,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   setBackdrop(): void {
     const backdrop = document.createElement('div');
     backdrop.classList.add('backdrop');
+    backdrop.style.zIndex = '1005';
     backdrop.addEventListener('click', () => {
       this.closeMenu();
     });

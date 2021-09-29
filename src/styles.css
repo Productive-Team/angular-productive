@@ -1629,7 +1629,7 @@ label {
   padding: 0;
   box-sizing: border-box;
   background-color: transparent;
-  z-index: 999;
+  z-index: 1006;
 }
 
 .p-select button {
@@ -1711,7 +1711,7 @@ label {
   position: fixed;
   top: 0;
   display: block;
-  z-index: 999;
+  z-index: 1002;
 }
 
 .p-datepicker-wrapper {
@@ -1901,23 +1901,64 @@ label {
   position: fixed;
   display: flex;
   flex-direction: column;
-  z-index: 1005;
+  z-index: 1000;
   top: 50%;
   left: 50%;
+  max-height: 100vh;
   border-radius: 8px;
   background-color: var(--menuPanelColor);
   transform: translateY(-50%) translateX(-50%);
+  box-sizing: border-box;
   max-width: 60%;
 }
 
-.p-modal.modal-header,
-.p-modal.modal-footer {
+.p-modal .modal-header,
+.p-modal .modal-footer {
   display: flex;
   padding: 0.5rem 1rem;
+  box-sizing: border-box;
   width: 100%;
 }
 
-.p-modal.modal-content {
+.p-modal .modal-content {
   padding: 1rem 0.75rem;
+  box-sizing: border-box;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.p-modal.large {
+  max-width: 90%;
+}
+
+.p-modal.small {
+  max-width: 30%;
+}
+
+.modal.bottom-sheet {
+  top: 100%;
+  transform: translateY(-100%) translateX(-50%) scale(1);
+  border-radius: 5px 5px 0 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  .modal {
+    max-width: 80%;
+  }
+  .modal.small {
+    max-width: 60%;
+  }
+}
+
+@media only screen and (max-height: 800px) {
+  .modal .modal-content {
+    max-height: 60vh;
+  }
+}
+
+@media only screen and (max-height: 325px) {
+  .modal .modal-content {
+    max-height: 35vh;
+  }
 }
 /* #endregion Modal */

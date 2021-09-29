@@ -1,4 +1,3 @@
-import { style } from '@angular/animations';
 import { Component, Input, OnInit, ElementRef } from '@angular/core';
 
 @Component({
@@ -12,6 +11,5 @@ import { Component, Input, OnInit, ElementRef } from '@angular/core';
   },
 })
 export class SidenavContentComponent {
-  @Input() sidenav: any;
-  constructor(private el: ElementRef) {}
+  constructor() {}
 }

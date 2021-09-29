@@ -21,21 +21,21 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     '[p-datepicker-trigger], [appDatepickerTriggerDirective], [pDatepickerTrigger]',
 })
 export class DatepickerTriggerDirective implements OnInit {
-  @Input() pTriggerFor: DatepickerComponent;
+  @Input() pDatepickerTrigger: DatepickerComponent;
 
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
     const isInputText = this.el.nativeElement instanceof HTMLInputElement;
     if (isInputText) {
-      this.pTriggerFor.dateInput = this.el.nativeElement;
+      this.pDatepickerTrigger.dateInput = this.el.nativeElement;
     }
   }
 
   @HostListener('click', ['$event'])
   openPicker(): void {
-    this.pTriggerFor.triggerOrigin = this.el.nativeElement;
-    this.pTriggerFor.openPicker();
+    this.pDatepickerTrigger.triggerOrigin = this.el.nativeElement;
+    this.pDatepickerTrigger.openPicker();
   }
 
   @HostBinding('class.calendar-trigger')
@@ -782,6 +782,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
   private setBackdrop(): void {
     const backdrop = document.createElement('div');
     backdrop.classList.add('backdrop');
+    backdrop.style.zIndex = '1001';
     document.body.insertAdjacentElement('beforeend', backdrop);
     backdrop.addEventListener('click', (v) => {
       this.closePicker();

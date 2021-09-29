@@ -21,20 +21,37 @@
 <p-slider [(pSliderValue)]="numb" [pSliderMinValue]="50" [pSliderMaxValue]="250"></p-slider>
 {{numb}}
 
-<button pModalTrigger [pModalTriggerFor]="modal">Modal</button>
+<button [pModalTrigger]="modal">Modal</button>
 
-<p-modal #modal></p-modal>
+<p-checkbox [(ngModel)]="bolltest">Modal Static</p-checkbox>
 
-<br>
-<br>
-<div class="dFlex">
-  <p-checkbox [(checked)]="otherCheck">
-    Hello
-  </p-checkbox>
-  <p-checkbox [(checked)]="bolltest">
-    World
-  </p-checkbox>
-</div>
-<p-checkbox [(indeterminate)]="bolltest" [(checked)]="otherCheck">
-  Shite
-</p-checkbox>
+<p-modal #modal [pModalStatic]="bolltest">
+  <p-modal-header>
+    <h3>Header</h3>
+  </p-modal-header>
+  <img src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+  <p-modal-content>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis venenatis arcu et feugiat. Pellentesque
+      lorem
+      nulla, malesuada ac est eu, imperdiet condimentum leo. Pellentesque vel rhoncus purus. Vestibulum pharetra, dui
+      feugiat
+      rutrum condimentum, neque risus facilisis arcu, et venenatis tellus eros quis quam. Pellentesque euismod eros non
+      est
+      laoreet, vel aliquam risus porta. Suspendisse id lacinia purus, nec tempus sapien. Phasellus id est commodo,
+      sagittis
+      urna vitae, finibus neque. Maecenas interdum metus id pellentesque pharetra. Pellentesque luctus, velit quis
+      imperdiet
+      sodales, purus mauris tincidunt felis, id vestibulum odio elit ut ligula. Sed at pretium augue, elementum tempor
+      risus.
+      Praesent cursus gravida faucibus. In est odio, sollicitudin ut fermentum vitae, placerat sed eros.
+    </p>
+  </p-modal-content>
+  <p-modal-footer>
+    <div class="spacer"></div>
+    <button class="btn flat" (click)="refuse(modal)">Refuse</button>
+    <button class="btn flat" (click)="accept(modal)">Accept</button>
+  </p-modal-footer>
+</p-modal>
+
+{{accepText}}

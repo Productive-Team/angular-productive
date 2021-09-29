@@ -19,24 +19,24 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[app-dropdown-trigger], [p-dropdown-trigger], [pDropdownTrigger]',
-  exportAs: 'pDropdownTrigger',
+  selector: '[app-menu-trigger], [p-menu-trigger], [pMenuTrigger]',
+  exportAs: 'pMenuTrigger',
 })
-export class DropdownTriggerDirective {
-  @Input() pDropdownTriggerFor: any;
-  @Input() pDropdownOpenHover = false;
+export class MenuTriggerDirective {
+  @Input() pMenuTrigger: MenuComponent;
+  @Input() pMenuOpenHover: boolean;
 
   constructor() {}
 
   @HostListener('click', ['$event']) openMenu(event) {
-    if (!this.pDropdownOpenHover) {
-      this.pDropdownTriggerFor.openDropdown(event);
+    if (!this.pMenuOpenHover) {
+      this.pMenuTrigger.openDropdown(event);
     }
   }
   @HostListener('mouseover', ['$event']) openMenuHover(event) {
-    if (this.pDropdownOpenHover) {
+    if (this.pMenuOpenHover) {
       setTimeout(() => {
-        this.pDropdownTriggerFor.openDropdown(event);
+        this.pMenuTrigger.openDropdown(event);
       }, 150);
     }
   }
@@ -55,16 +55,15 @@ const childElementAnim = trigger('dropdownAnim', [
 ]);
 
 @Component({
-  selector: 'app-dropdown, p-dropdown',
-  templateUrl: './dropdown.component.html',
+  selector: 'app-menu, p-menu',
+  templateUrl: './menu.component.html',
   animations: [childElementAnim, parentElementAnim],
 })
-export class DropdownComponent implements OnInit, OnDestroy {
-  @Input() pDropdownId: string;
-  @Input() pDropdownWidth: number;
-  @Input() pDropdownCloseOnClick = true;
-  @Input() pDropdownXPosition: string;
-  @Input() pDropdownYPosition: string;
+export class MenuComponent implements OnInit, OnDestroy {
+  @Input() pMenuId: string;
+  @Input() pMenuCloseOnClick = true;
+  @Input() pMenuXPosition: string;
+  @Input() pMenuYPosition: string;
 
   isMenuOpen = false;
 
@@ -72,12 +71,14 @@ export class DropdownComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     document
-      .querySelector('body')
+      .querySelector('.p-components-container')
       .insertAdjacentElement('beforeend', this.el.nativeElement);
   }
 
   ngOnDestroy(): void {
-    document.querySelector('body').removeChild(this.el.nativeElement);
+    document
+      .querySelector('.p-components-container')
+      .removeChild(this.el.nativeElement);
   }
 
   openDropdown(event: any): void {
@@ -122,7 +123,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
 
     const actualPanel = menuPanel.firstChild as HTMLDivElement;
 
-    const positioning = `${this.pDropdownXPosition} ${this.pDropdownYPosition}`;
+    const positioning = `${this.pMenuXPosition} ${this.pMenuYPosition}`;
 
     if (
       (posX > innerWidth && posY < innerHeight) ||

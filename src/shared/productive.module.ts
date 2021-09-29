@@ -40,9 +40,9 @@ import {
   ModalTriggerDirective,
 } from './components/modal/modal.component';
 import {
-  DropdownComponent,
-  DropdownTriggerDirective,
-} from './components/dropdown/dropdown.component';
+  MenuComponent,
+  MenuTriggerDirective,
+} from './components/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { CollapsibleComponent } from './components/collapsible/collapsible/collapsible.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -61,6 +61,9 @@ import { SectionFooterComponent } from './components/section/section-footer/sect
 import { SectionHeaderComponent } from './components/section/section-header/section-header.component';
 import { SectionContentComponent } from './components/section/section-content/section-content.component';
 import { ClipboardDirective } from './directives/clipboard/clipboard.directive';
+import { ModalContentComponent } from './components/modal/modal-content/modal-content.component';
+import { ModalFooterComponent } from './components/modal/modal-footer/modal-footer.component';
+import { ModalHeaderComponent } from './components/modal/modal-header/modal-header.component';
 
 const components = [
   TableComponent,
@@ -73,7 +76,10 @@ const components = [
   FieldsetComponent,
   CheckboxComponent,
   ModalComponent,
-  DropdownComponent,
+  ModalContentComponent,
+  ModalFooterComponent,
+  ModalHeaderComponent,
+  MenuComponent,
   RadioBtnComponent,
   SectionComponent,
   SectionFooterComponent,
@@ -104,7 +110,7 @@ const directives = [
   InputDirective,
   ModalTriggerDirective,
   ModalCloseDirective,
-  DropdownTriggerDirective,
+  MenuTriggerDirective,
   BadgesDirective,
   TooltipsDirective,
   DatepickerTriggerDirective,
@@ -120,11 +126,6 @@ const directives = [
   exports: [components, directives],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
-  providers: [
-    SidenavComponent,
-    DropdownComponent,
-    TabsService,
-    SelectComponent,
-  ],
+  providers: [TabsService, SelectComponent],
 })
 export class ProductiveModule {}

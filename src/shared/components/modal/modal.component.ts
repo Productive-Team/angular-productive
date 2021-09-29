@@ -13,10 +13,10 @@ import {
   selector: '[appModalTrigger], [pModalTrigger], [p-modal-trigger]',
 })
 export class ModalTriggerDirective {
-  @Input() pModalTriggerFor: any;
+  @Input() pModalTrigger: ModalComponent;
   @HostListener('click', ['$event'])
   openModal(): void {
-    this.pModalTriggerFor.openModal();
+    this.pModalTrigger.openModal();
   }
 }
 
@@ -24,17 +24,16 @@ export class ModalTriggerDirective {
   selector: '[appModalClose], [pModalClose], [p-modal-close]',
 })
 export class ModalCloseDirective {
-  @Input() pModalCloseFor: any;
+  @Input() pModalClose: ModalComponent;
   @HostListener('click', ['$event'])
   openModal(): void {
-    this.pModalCloseFor.closeModal();
+    this.pModalClose.closeModal();
   }
 }
 
 @Component({
   selector: 'app-modal, p-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css'],
   animations: [
     trigger('modalRegular', [
       transition(':enter', [
@@ -73,14 +72,6 @@ export class ModalComponent implements AfterViewInit {
    * Sets an Id to the modal element.
    */
   @Input() pModalId: any;
-  /**
-   * Toggles modal footer visibility.
-   */
-  @Input() hasModalFooter = true;
-  /**
-   * Toggles modal header visibility.
-   */
-  @Input() hasModalHeader = true;
   /**
    * Toggles the visual style of the modal to be more like a bottom sheet.
    */

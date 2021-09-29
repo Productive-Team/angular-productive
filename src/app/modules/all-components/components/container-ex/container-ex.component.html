@@ -21,7 +21,7 @@
 <br>
 <div style="width: 300px;">
   <p-fieldset pFieldsetLabelText="Date">
-    <input type="text" pInput pDatepickerTrigger [pTriggerFor]="date">
+    <input type="text" pInput [pDatepickerTrigger]="date">
     <p-datepicker [(date)]="vev" #date locale="{{locale}}"></p-datepicker>
   </p-fieldset>
   <p-fieldset pFieldsetLabelText="Select Normal">
