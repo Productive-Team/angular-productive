@@ -517,7 +517,7 @@ label {
 }
 .btn.outlined {
   background-color: transparent;
-  border: 1px solid #000;
+  border: 1px solid var(--defaultDividerColor);
 }
 
 .btn:disabled,
