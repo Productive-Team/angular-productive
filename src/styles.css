@@ -1962,3 +1962,82 @@ label {
   }
 }
 /* #endregion Modal */
+
+/* #region NewTab */
+.p-tab-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-tab-header {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.p-tab-header button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.p-tabs-container {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.p-tabs-list {
+  position: relative;
+  display: flex;
+}
+
+.p-tab-ink-bar {
+  height: 2px;
+  background-color: var(--primary);
+  position: absolute;
+  bottom: 0;
+  transition: 400ms cubic-bezier(0,0,.5,1);
+}
+
+.p-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  max-width: 250px;
+  height: 46px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.p-tab.active {
+  color: var(--primary);
+  background-color: var(--primaryLowOpacity)
+}
+
+.tab-disabled .p-tab {
+  opacity: 0.5;
+  filter: grayscale(100%);
+  cursor: default;
+  pointer-events: none;
+}
+
+.p-tab span {
+  user-select: none;
+  pointer-events: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+/* #endregion NewTab */

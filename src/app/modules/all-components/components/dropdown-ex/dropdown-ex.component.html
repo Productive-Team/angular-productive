@@ -59,12 +59,12 @@
       </p-section-header>
       <p-section-content>
         <button class="flat btn" pRipple [pMenuTrigger]="topLeft">Top Left</button>
-        <p-menu #topLeft pDropdownXPosition="left" pDropdownYPosition="bottom">
+        <p-menu #topLeft pMenuXPosition="left" pMenuYPosition="top">
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
         </p-menu>
         <button class="flat btn" pRipple [pMenuTrigger]="topRight">Top Right</button>
-        <p-menu #topRight pDropdownXPosition="right" pDropdownYPosition="bottom">
+        <p-menu #topRight pMenuXPosition="right" pMenuYPosition="top">
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
         </p-menu>
@@ -74,7 +74,7 @@
           <button pRipple>Option 2</button>
         </p-menu>
         <button class="flat btn" pRipple [pMenuTrigger]="bottomRight">Bottom Right</button>
-        <p-menu #bottomRight pDropdownXPosition="right" pDropdownYPosition="top">
+        <p-menu #bottomRight pMenuXPosition="right" pMenuYPosition="bottom">
           <button pRipple>Option 1</button>
           <button pRipple>Option 2</button>
         </p-menu>

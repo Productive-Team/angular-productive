@@ -64,6 +64,11 @@ import { ClipboardDirective } from './directives/clipboard/clipboard.directive';
 import { ModalContentComponent } from './components/modal/modal-content/modal-content.component';
 import { ModalFooterComponent } from './components/modal/modal-footer/modal-footer.component';
 import { ModalHeaderComponent } from './components/modal/modal-header/modal-header.component';
+import { SectionCodeFooterComponent } from './components/section/section-code/section-code-footer/section-code-footer.component';
+import { SectionCodeHeaderComponent } from './components/section/section-code/section-code-header/section-code-header.component';
+import { SectionCodeContentComponent } from './components/section/section-code/section-code-content/section-code-content.component';
+import { NewTabComponent } from './components/newtabs/newtab-group/newtab-group.component';
+import { NewtabGroupComponent } from './components/newtabs/newtab-group/newtab-group.component';
 
 const components = [
   TableComponent,
@@ -101,9 +106,14 @@ const components = [
   ProgressBarComponent,
   RadioGroupComponent,
   SelectComponent,
+  SectionCodeContentComponent,
   SelectOptionComponent,
+  SectionCodeHeaderComponent,
+  NewTabComponent,
+  SectionCodeFooterComponent,
   TableColumnComponent,
   TableExpandedRowComponent,
+  NewtabGroupComponent,
 ];
 const directives = [
   RippleDirective,

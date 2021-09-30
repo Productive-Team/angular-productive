@@ -7,7 +7,7 @@ import { Component, Input, OnInit, ElementRef } from '@angular/core';
   </div>`,
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
-    style: 'width: 100%; box-sizing: border-box;',
+    style: 'width: calc(100% - 250px); box-sizing: border-box;',
   },
 })
 export class SidenavContentComponent {

@@ -30,6 +30,36 @@ export class CheckboxExComponent {
     },
   ];
 
+  checkboxTreeHTMLCode = `
+      <p-checkbox [checked]="allComplete" [indeterminate]="someCompleted()" (checkedChange)="setAll($event)">
+        {{allComplete ? 'Deselect All' : 'Select All'}}
+      </p-checkbox>
+      <div style="margin-left: 30px;">
+        <div *ngFor="let check of child">
+          <p-checkbox [(ngModel)]="check.selected" color="{{check.color}}" (ngModelChange)="areCompleted()">
+            {{check.label}}
+          </p-checkbox>
+        </div>
+      </div>
+  `;
+
+  checkboxTreeTSCode = `
+  areCompleted(): void {
+    this.allComplete = this.child.every((t) => t.selected);
+  }
+
+  someCompleted(): boolean {
+    return this.child.filter((x) => x.selected).length > 0 && !this.allComplete;
+  }
+
+  setAll(event): void {
+    this.allComplete = event;
+    this.child.forEach((x) => {
+      x.selected = event;
+    });
+  }
+  `;
+
   allComplete = false;
 
   constructor() {}

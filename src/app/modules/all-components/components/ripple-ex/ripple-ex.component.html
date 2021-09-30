@@ -56,15 +56,15 @@
           <p-icon>code</p-icon>
         </button>
       </p-section-header>
-      <p-section-code [isShowing]="showCodeSection2" [hasHeader]="true">
-        <ng-container code-header>
+      <p-section-code [isShowing]="showCodeSection2">
+        <p-section-code-header>
           Code Example
           <div class="spacer"></div>
           <button class="btn fab flat" pRipple [pRippleCentered]="true" pClipboard [contentToCopy]="code"
             pTooltip="Copy Code">
             <p-icon>content_copy</p-icon>
           </button>
-        </ng-container>
+        </p-section-code-header>
         <ng-container #code>
           {{codeSection1}}</ng-container>
       </p-section-code>

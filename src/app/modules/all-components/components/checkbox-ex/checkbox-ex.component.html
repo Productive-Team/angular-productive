@@ -38,14 +38,21 @@
           </button>
         </p-section-header>
         <p-section-code>
-          <ng-container code-content>
-            <pre>
-&lt;p-checkbox [checked]="comp" [indeterminate]="someCompleted()"(change)="setAll($event.target.checked)"&gt;&lt;/p-checkbox&gt;
-&lt;div *ngFor="let check of child"&gt;
-    &lt;p-checkbox (ngModelChange)="areCompleted()"&gt;check.label&lt;/p-checkbox&gt;
-&lt;/div&gt;
-</pre>
-          </ng-container>
+          <p-section-code-header>
+            Code Example
+          </p-section-code-header>
+          <p-tab-group>
+            <p-tab pTabLabel="HTML">
+              <p-section-code-content>
+                {{checkboxTreeHTMLCode}}
+              </p-section-code-content>
+            </p-tab>
+            <p-tab pTabLabel="TS">
+              <p-section-code-content>
+                {{checkboxTreeTSCode}}
+              </p-section-code-content>
+            </p-tab>
+          </p-tab-group>
         </p-section-code>
         <p-section-content>
           <div>

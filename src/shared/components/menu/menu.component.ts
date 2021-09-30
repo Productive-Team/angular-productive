@@ -62,8 +62,8 @@ const childElementAnim = trigger('dropdownAnim', [
 export class MenuComponent implements OnInit, OnDestroy {
   @Input() pMenuId: string;
   @Input() pMenuCloseOnClick = true;
-  @Input() pMenuXPosition: string;
-  @Input() pMenuYPosition: string;
+  @Input() pMenuXPosition: MenuXPosition;
+  @Input() pMenuYPosition: MenuYPosition;
 
   isMenuOpen = false;
 
@@ -127,19 +127,19 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     if (
       (posX > innerWidth && posY < innerHeight) ||
-      positioning === 'right top'
+      positioning === 'right bottom'
     ) {
       actualPanel.style.transformOrigin = 'right top';
       wrapper.style.left = elRect.right - menuPanel.offsetWidth + 'px';
     } else if (
       (posY > innerHeight && posX < innerWidth) ||
-      positioning === 'left bottom'
+      positioning === 'left top'
     ) {
       actualPanel.style.transformOrigin = 'left bottom';
       wrapper.style.top = elRect.top - menuPanelRect.height + 'px';
     } else if (
       (posY > innerHeight && posX > innerWidth) ||
-      positioning === 'right bottom'
+      positioning === 'right top'
     ) {
       actualPanel.style.transformOrigin = 'right bottom';
       wrapper.style.top = elRect.top - menuPanelRect.height + 'px';
@@ -152,3 +152,6 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.removeBackdrop();
   }
 }
+
+type MenuXPosition = 'right' | 'left';
+type MenuYPosition = 'top' | 'bottom';

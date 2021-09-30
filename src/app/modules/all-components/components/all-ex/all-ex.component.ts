@@ -13,6 +13,8 @@ export class AllExComponent {
   accepText = 'Please open the dialog and select an option';
 
   numb: number = 255;
+
+  otherIdx: number;
   constructor() {}
 
   accept(modalInstance: ModalComponent) {

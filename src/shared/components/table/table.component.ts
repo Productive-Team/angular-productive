@@ -148,7 +148,7 @@ export class TableComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    if (this.pTableData.length > 0) {
+    if (this.pTableData !== undefined && this.pTableData.length > 0) {
       setTimeout(() => {
         this.configureTable();
       }, 0);
