@@ -22,7 +22,7 @@ export class NewtabGroupComponent implements AfterContentInit {
   @Output() selectedIndexChange: EventEmitter<number> =
     new EventEmitter<number>();
 
-  @ContentChildren(forwardRef(() => NewTabComponent), { descendants: true })
+  @ContentChildren(forwardRef(() => NewTabComponent))
   allTabs: QueryList<NewTabComponent>;
 
   @ViewChild('inkBar') tabInkBar: ElementRef<HTMLElement>;
@@ -30,7 +30,9 @@ export class NewtabGroupComponent implements AfterContentInit {
   constructor() {}
 
   ngAfterContentInit() {
-    this.selectDefault();
+    setTimeout(() => {
+      this.selectDefault();
+    }, 0);
   }
 
   selectDefault(): void {
@@ -122,9 +124,9 @@ export class NewTabComponent implements AfterContentInit {
 
   ngAfterContentInit() {
     // setTimeout(() => {
-    const content = this.content;
+    const content = this.elementRef.nativeElement.lastChild as HTMLElement;
     if (content) {
-      this.setInGroup();
+      document.body.insertAdjacentElement('beforeend', content);
     }
     // }, 0);
   }
