@@ -331,6 +331,10 @@ label {
 /* #endregion GridStyles */
 
 /* #region DisplayHelpers */
+.dNone {
+  display: none;
+}
+
 .dFlex {
   display: flex;
 }
@@ -1974,6 +1978,7 @@ label {
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
+  border-bottom: 1px solid var(--defaultDividerColor);
 }
 
 .p-tab-header button {

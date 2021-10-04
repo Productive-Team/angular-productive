@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  AfterViewInit,
   Component,
   ContentChildren,
   ElementRef,
@@ -27,6 +28,7 @@ export class NewtabGroupComponent implements AfterContentInit {
 
   @ViewChild('inkBar') tabInkBar: ElementRef<HTMLElement>;
   @ViewChild('activeTabContent') activeTabContent: ElementRef<HTMLElement>;
+
   constructor() {}
 
   ngAfterContentInit() {
@@ -104,8 +106,10 @@ export class NewtabGroupComponent implements AfterContentInit {
         {{ tabLabel }}
       </span>
     </div>
-    <div class="dContents" #content>
-      <ng-content></ng-content>
+    <div #content hidden>
+      <div class="dContents">
+        <ng-content></ng-content>
+      </div>
     </div>
   `,
 })
@@ -117,41 +121,36 @@ export class NewTabComponent implements AfterContentInit {
   @Input() disabled: boolean;
 
   @ViewChild('content') content: ElementRef<HTMLElement>;
+
+  previousTab: NewTabComponent;
+
   constructor(
     public elementRef: ElementRef<HTMLElement>,
     public tabGroup: NewtabGroupComponent
   ) {}
 
-  ngAfterContentInit() {
-    // setTimeout(() => {
-    const content = this.elementRef.nativeElement.lastChild as HTMLElement;
-    if (content) {
-      document.body.insertAdjacentElement('beforeend', content);
-    }
-    // }, 0);
+  ngAfterContentInit(): void {
+    setTimeout(() => {
+      this.setInGroup();
+    }, 0);
   }
 
   selectTab(): void {
     const previousActiveTab = this.tabGroup.allTabs.find((x) => x.tabActive);
     if (previousActiveTab) {
       previousActiveTab.tabActive = false;
+      previousActiveTab.content.nativeElement.hidden = true;
     }
     this.tabActive = true;
     this.tabGroup.setInkBar();
     this.tabGroup.setTabIndex();
-    this.setInGroup();
+    this.content.nativeElement.hidden = false;
   }
 
   setInGroup(): void {
     const tabGroupContent = this.tabGroup.activeTabContent.nativeElement;
-    const firstTabChild = tabGroupContent.firstChild as HTMLElement;
-    if (firstTabChild && firstTabChild !== this.content.nativeElement) {
-      tabGroupContent.removeChild(firstTabChild);
-    }
-    tabGroupContent.insertAdjacentElement(
-      'beforeend',
-      this.content.nativeElement
-    );
+    const content = this.content.nativeElement.firstChild as HTMLElement;
+    tabGroupContent.insertAdjacentElement('beforeend', content);
   }
 
   @HostBinding('class.tab-disabled')
