@@ -27,12 +27,15 @@ export class NewtabGroupComponent implements AfterContentInit {
   allTabs: QueryList<NewTabComponent>;
 
   @ViewChild('inkBar') tabInkBar: ElementRef<HTMLElement>;
-  @ViewChild('activeTabContent') activeTabContent: ElementRef<HTMLElement>;
+  @ViewChild('tabContent') tabContent: ElementRef<HTMLElement>;
 
-  constructor() {}
+  tabContentsInPage: HTMLElement[] = [];
+
+  constructor(private elementRef: ElementRef) {}
 
   ngAfterContentInit() {
     setTimeout(() => {
+      this.generateUniqueIds();
       this.selectDefault();
     }, 0);
   }
@@ -90,6 +93,27 @@ export class NewtabGroupComponent implements AfterContentInit {
         'px';
     }
   }
+
+  generateUniqueIds(): void {
+    const tabGroups = document.querySelectorAll('.group-tab');
+    tabGroups.forEach((x) => {
+      this.tabContentsInPage.push(x as HTMLElement);
+    });
+
+    const tabIndex = this.tabContentsInPage.findIndex(
+      (x) => x === (this.elementRef.nativeElement as HTMLElement)
+    );
+    const tabs = this.allTabs.toArray();
+    let i = 0;
+    for (; i < tabs.length; i++) {
+      tabs[i].uniqueId = `${tabIndex}-${i}`;
+    }
+  }
+
+  @HostBinding('class.group-tab')
+  get DefaultClass() {
+    return true;
+  }
 }
 
 @Component({
@@ -97,6 +121,7 @@ export class NewtabGroupComponent implements AfterContentInit {
   template: `
     <div
       [class]="tabActive ? 'p-tab active' : 'p-tab'"
+      [id]="'tab-head-' + uniqueId"
       pRipple
       pRippleColor="var(--primaryLowOpacity)"
       (click)="selectTab()"
@@ -106,7 +131,7 @@ export class NewtabGroupComponent implements AfterContentInit {
         {{ tabLabel }}
       </span>
     </div>
-    <div #content hidden>
+    <div #content hidden [id]="'tab-content-' + uniqueId">
       <div class="dContents">
         <ng-content></ng-content>
       </div>
@@ -124,6 +149,8 @@ export class NewTabComponent implements AfterContentInit {
 
   previousTab: NewTabComponent;
 
+  uniqueId: string;
+
   constructor(
     public elementRef: ElementRef<HTMLElement>,
     public tabGroup: NewtabGroupComponent
@@ -131,7 +158,7 @@ export class NewTabComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     setTimeout(() => {
-      this.setInGroup();
+      this.setInBody();
     }, 0);
   }
 
@@ -141,16 +168,29 @@ export class NewTabComponent implements AfterContentInit {
       previousActiveTab.tabActive = false;
       previousActiveTab.content.nativeElement.hidden = true;
     }
+    const content = document.getElementById('tab-content-' + this.uniqueId);
     this.tabActive = true;
     this.tabGroup.setInkBar();
     this.tabGroup.setTabIndex();
-    this.content.nativeElement.hidden = false;
+    content.hidden = false;
   }
 
   setInGroup(): void {
-    const tabGroupContent = this.tabGroup.activeTabContent.nativeElement;
+    const tabGroupContent = this.tabGroup.tabContent.nativeElement;
     const content = this.content.nativeElement.firstChild as HTMLElement;
     tabGroupContent.insertAdjacentElement('beforeend', content);
+  }
+
+  setInBody(): void {
+    const elementRef = this.elementRef.nativeElement as HTMLElement;
+    const content = elementRef.lastChild as HTMLElement;
+    const contentContainer = this.tabGroup.tabContent;
+    if (contentContainer) {
+      contentContainer.nativeElement.insertAdjacentElement(
+        'beforeend',
+        content
+      );
+    }
   }
 
   @HostBinding('class.tab-disabled')
