@@ -1892,6 +1892,7 @@ label {
   border-bottom: 1px solid var(--defaultDividerColor);
 }
 .p-section-code {
+  display: block;
   padding: 1rem;
   box-sizing: border-box;
   background-color: var(--menuPanelColor);

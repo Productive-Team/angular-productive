@@ -62,11 +62,27 @@
   <p-new-tab tabLabel="some2">TOW</p-new-tab>
   <p-new-tab tabLabel="some">THREE</p-new-tab>
   <p-new-tab tabLabel="some">GOR</p-new-tab>
-  <p-new-tab tabLabel="some" [tabActive]="true">
-    <p-newtab-group>
-      <p-new-tab tabLabel="HTML">HTML</p-new-tab>
-      <p-new-tab tabLabel="CSS">CSS</p-new-tab>
-    </p-newtab-group>
+  <p-new-tab tabLabel="some">
+    <p-section>
+      <p-section-code>
+        <p-newtab-group>
+          <p-new-tab tabLabel="HTML">
+            <p-section-code-content>
+              &lt;html&gt;
+
+              &lt;head&gt;
+
+              &lt;/head&gt;
+
+              &lt;body&gt;
+              &lt;/body&gt;
+              &lt;/html&gt;
+            </p-section-code-content>
+          </p-new-tab>
+          <p-new-tab tabLabel="CSS">CSS</p-new-tab>
+        </p-newtab-group>
+      </p-section-code>
+    </p-section>
   </p-new-tab>
   <p-new-tab tabLabel="some"></p-new-tab>
   <p-new-tab tabLabel="some"></p-new-tab>

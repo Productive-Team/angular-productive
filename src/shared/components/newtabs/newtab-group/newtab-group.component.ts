@@ -43,7 +43,11 @@ export class NewtabGroupComponent implements AfterContentInit {
   selectDefault(): void {
     let activeElement = this.allTabs.find((x) => x.tabActive);
     if (!activeElement) {
-      activeElement = this.allTabs.first;
+      if (this.selectedIndex) {
+        activeElement = this.allTabs.toArray()[this.selectedIndex];
+      } else {
+        activeElement = this.allTabs.first;
+      }
       if (!activeElement.disabled) {
         activeElement.tabActive = true;
       }
