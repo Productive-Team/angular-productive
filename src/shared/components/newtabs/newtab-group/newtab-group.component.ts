@@ -26,6 +26,11 @@ export class NewtabGroupComponent implements AfterContentInit {
   @ContentChildren(forwardRef(() => NewTabComponent))
   allTabs: QueryList<NewTabComponent>;
 
+  @ContentChildren(forwardRef(() => NewtabGroupComponent), {
+    descendants: true,
+  })
+  tabGroups: QueryList<NewtabGroupComponent>;
+
   @ViewChild('inkBar') tabInkBar: ElementRef<HTMLElement>;
   @ViewChild('tabContent') tabContent: ElementRef<HTMLElement>;
 
@@ -40,7 +45,7 @@ export class NewtabGroupComponent implements AfterContentInit {
     }, 0);
   }
 
-  selectDefault(): void {
+  selectDefault(): string {
     let activeElement = this.allTabs.find((x) => x.tabActive);
     if (!activeElement) {
       if (this.selectedIndex) {
@@ -49,7 +54,7 @@ export class NewtabGroupComponent implements AfterContentInit {
         activeElement = this.allTabs.first;
       }
       if (!activeElement.disabled) {
-        activeElement.tabActive = true;
+        activeElement.selectTab();
       }
     }
     if (activeElement.disabled) {
@@ -57,14 +62,18 @@ export class NewtabGroupComponent implements AfterContentInit {
       let i = 0;
       for (; i < tabsArray.length; i++) {
         if (!tabsArray[i].disabled) {
-          tabsArray[i].tabActive = true;
+          activeElement = tabsArray[i];
+          activeElement.selectTab();
+          // tabsArray[i].selectTab();
           break;
         }
       }
     }
     this.setTabIndex();
+    return 'garaio';
     setTimeout(() => {
-      this.setInkBar();
+      // this.setInkBar();
+      // activeElement.selectTab();
     }, 0);
   }
 
@@ -167,16 +176,27 @@ export class NewTabComponent implements AfterContentInit {
   }
 
   selectTab(): void {
-    const previousActiveTab = this.tabGroup.allTabs.find((x) => x.tabActive);
-    if (previousActiveTab) {
-      previousActiveTab.tabActive = false;
-      previousActiveTab.content.nativeElement.hidden = true;
-    }
-    const content = document.getElementById('tab-content-' + this.uniqueId);
-    this.tabActive = true;
-    this.tabGroup.setInkBar();
-    this.tabGroup.setTabIndex();
-    content.hidden = false;
+    setTimeout(() => {
+      const previousActiveTab = this.tabGroup.allTabs.find((x) => x.tabActive);
+      if (previousActiveTab) {
+        previousActiveTab.tabActive = false;
+        previousActiveTab.content.nativeElement.hidden = true;
+      }
+      const content = document.getElementById('tab-content-' + this.uniqueId);
+      this.tabActive = true;
+      this.tabGroup.setInkBar();
+      this.tabGroup.setTabIndex();
+      content.hidden = false;
+      const tabGroupChild = this.tabGroup.tabGroups.toArray();
+      if (tabGroupChild.length > 0) {
+        tabGroupChild.forEach((x) => {
+          const inkbarWidth = x.tabInkBar.nativeElement.offsetWidth;
+          if (inkbarWidth === 0) {
+            x.setInkBar();
+          }
+        });
+      }
+    }, 0);
   }
 
   setInGroup(): void {

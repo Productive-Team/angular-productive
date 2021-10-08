@@ -14,7 +14,7 @@ export class AllExComponent {
 
   numb: number = 255;
 
-  otherIdx: number = 1;
+  otherIdx: number = 4;
   constructor() {}
 
   accept(modalInstance: ModalComponent) {
