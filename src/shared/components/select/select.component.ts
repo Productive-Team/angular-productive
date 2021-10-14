@@ -16,6 +16,9 @@ import {
   AfterViewChecked,
   DoCheck,
   AfterContentChecked,
+  QueryList,
+  AfterContentInit,
+  OnChanges,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -64,16 +67,16 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   @Input() pSelectValue: any;
   @Output() pSelectValueChange = new EventEmitter<any>();
 
-  selectedOptions = [];
+  selectedOptions: SelectOptionComponent[] = [];
   multipleValues = [];
 
-  optionButtons = [];
+  optionButtons: SelectOptionComponent[] = [];
 
   allSelected = false;
 
   selectedTotal = 0;
 
-  selectedOption: any;
+  selectedOption: SelectOptionComponent;
 
   menuOpen: boolean;
 
@@ -85,12 +88,12 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild('optionContent') optionContent: ElementRef;
 
   @ViewChildren(forwardRef(() => SelectOptionComponent))
-  arrayGeneratedButtons: any;
+  arrayGeneratedButtons: QueryList<SelectOptionComponent>;
 
   @ContentChildren(forwardRef(() => SelectOptionComponent), {
     descendants: true,
   })
-  contentProjectionButtons: any;
+  contentProjectionButtons: QueryList<SelectOptionComponent>;
 
   selectedOptionText: string;
 
@@ -129,64 +132,118 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.arrayGeneratedButtons !== undefined) {
-      const genLength = this.arrayGeneratedButtons._results.length;
-      let i = 0;
-      for (; i < genLength; i++) {
-        const idx = this.optionButtons.findIndex(
-          (x) => x.value === this.arrayGeneratedButtons._results[i].value
+    if (this.arrayGeneratedButtons) {
+      this.arrayGeneratedButtons.toArray().forEach((x) => {
+        const existsInArray = this.optionButtons.findIndex(
+          (y) => y.value === x.value
         );
-
-        if (idx >= 0) {
-          this.optionButtons.splice(idx, 1);
-
-          if (this.selectedOption !== undefined) {
-            if (
-              this.arrayGeneratedButtons._results[i].value ===
-              this.selectedOption.value
-            ) {
-              this.arrayGeneratedButtons._results[i].selected = true;
-              this.selectedOption = this.arrayGeneratedButtons._results[i];
-            }
-          }
-
-          if (this.pSelectMultiple) {
-            const isArray = Array.isArray(this.pSelectValue);
-            if (isArray) {
-              this.pSelectValue.forEach((c) => {
-                if (this.arrayGeneratedButtons._results[i].value === c) {
-                  this.arrayGeneratedButtons._results[i].selected = true;
-                }
-              });
-            } else {
-              if (
-                this.arrayGeneratedButtons._results[i].value ===
-                this.pSelectValue
-              ) {
-                this.arrayGeneratedButtons._results[i].selected = true;
-              }
-            }
-          }
-
-          this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
-        } else {
-          this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
+        if (existsInArray) {
+          this.optionButtons.splice(existsInArray, 1);
+          this.optionButtons.push(x);
         }
-      }
+        if (existsInArray < 0) {
+          this.optionButtons.push(x);
+        }
+      });
     }
-    if (this.contentProjectionButtons !== undefined) {
-      const genLength = this.contentProjectionButtons._results.length;
-      let i = 0;
-      for (; i < genLength; i++) {
-        const idx = this.optionButtons.findIndex(
-          (x) => x.value === this.contentProjectionButtons._results[i].value
+    if (this.contentProjectionButtons) {
+      this.contentProjectionButtons.toArray().forEach((x) => {
+        const existsInArray = this.optionButtons.find((y) => y === x);
+        if (!existsInArray) {
+          this.optionButtons.push(x);
+        }
+      });
+    }
+
+    if (this.pSelectValue) {
+      if (!this.pSelectMultiple) {
+        const selected = this.optionButtons.find(
+          (x) => x.value === this.pSelectValue
         );
-        if (idx < 0) {
-          this.optionButtons.push(this.contentProjectionButtons._results[i]);
+        selected.selected = true;
+        this.selectedOption = selected;
+      } else {
+        const isArray = Array.isArray(this.pSelectValue);
+        if (isArray) {
+          this.pSelectValue.forEach((x) => {
+            const find = this.optionButtons.find((c) => c.value === x);
+            if (find) {
+              find.selected = true;
+              this.selectedOptions.push(find);
+            }
+          });
+        } else {
+          const find = this.optionButtons.find(
+            (c) => c.value === this.pSelectValue
+          );
+          if (find) {
+            find.selected = true;
+            this.selectedOptions.push(find);
+          }
         }
       }
     }
   }
+
+  // ngDoCheck(): void {
+  //   if (this.arrayGeneratedButtons !== undefined) {
+  //     const genLength = this.arrayGeneratedButtons._results.length;
+  //     let i = 0;
+  //     for (; i < genLength; i++) {
+  //       const idx = this.optionButtons.findIndex(
+  //         (x) => x.value === this.arrayGeneratedButtons._results[i].value
+  //       );
+
+  //       if (idx >= 0) {
+  //         this.optionButtons.splice(idx, 1);
+
+  //         if (this.selectedOption !== undefined) {
+  //           if (
+  //             this.arrayGeneratedButtons._results[i].value ===
+  //             this.selectedOption.value
+  //           ) {
+  //             this.arrayGeneratedButtons._results[i].selected = true;
+  //             this.selectedOption = this.arrayGeneratedButtons._results[i];
+  //           }
+  //         }
+
+  //         if (this.pSelectMultiple) {
+  //           const isArray = Array.isArray(this.pSelectValue);
+  //           if (isArray) {
+  //             this.pSelectValue.forEach((c) => {
+  //               if (this.arrayGeneratedButtons._results[i].value === c) {
+  //                 this.arrayGeneratedButtons._results[i].selected = true;
+  //               }
+  //             });
+  //           } else {
+  //             if (
+  //               this.arrayGeneratedButtons._results[i].value ===
+  //               this.pSelectValue
+  //             ) {
+  //               this.arrayGeneratedButtons._results[i].selected = true;
+  //             }
+  //           }
+  //         }
+
+  //         this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
+  //       } else {
+  //         this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
+  //       }
+  //     }
+  //   }
+  //   if (this.contentProjectionButtons !== undefined) {
+  //     const genLength = this.contentProjectionButtons._results.length;
+  //     let i = 0;
+  //     for (; i < genLength; i++) {
+  //       const idx = this.optionButtons.findIndex(
+  //         (x) => x.value === this.contentProjectionButtons._results[i].value
+  //       );
+  //       if (idx < 0) {
+  //         this.optionButtons.push(this.contentProjectionButtons._results[i]);
+  //       }
+  //     }
+  //   }
+  // }
 
   setToBody(): void {
     const menu = this.selectMenu.nativeElement as HTMLElement;
@@ -197,22 +254,20 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
 
   writeValue(obj: any): void {
     this.pSelectValue = obj;
-    // setTimeout(() => {
-    //   if (obj) {
-    //     if (!this.pSelectMultiple) {
-    //       this.checkToSelectSingle(obj);
-    //     } else {
-    //       const isArr = Array.isArray(obj);
-    //       if (isArr) {
-    //         obj.forEach((x) => {
-    //           this.checkToSelectMultiple(x);
-    //         });
-    //       } else {
-    //         this.checkToSelectMultiple(obj);
-    //       }
-    //     }
-    //   }
-    // }, 1);
+    setTimeout(() => {
+      if (!this.pSelectMultiple) {
+        this.checkToSelectSingle(obj);
+      } else {
+        const isArr = Array.isArray(obj);
+        if (isArr) {
+          obj.forEach((x) => {
+            this.checkToSelectMultiple(x);
+          });
+        } else {
+          this.checkToSelectMultiple(obj);
+        }
+      }
+    }, 0);
   }
 
   registerOnChange(fn: any): void {
@@ -372,6 +427,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     // Gets the selected or first option in the list
     let selectedOpt;
     if (!this.selectedOption) {
+      console.log(this.optionButtons);
       selectedOpt = this.optionButtons[0].el.nativeElement
         .firstChild as HTMLElement;
     } else {
@@ -525,7 +581,7 @@ export class SelectOptionComponent implements OnInit {
   @Input() disabled: boolean;
 
   selected: boolean;
-  constructor(public parent: SelectComponent, private el: ElementRef) {}
+  constructor(public parent: SelectComponent, public el: ElementRef) {}
 
   ngOnInit(): void {
     if (this.value === undefined) {

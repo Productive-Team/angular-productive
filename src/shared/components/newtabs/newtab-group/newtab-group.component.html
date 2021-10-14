@@ -1,15 +1,15 @@
 <div class="p-tab-group">
   <div class="p-tab-header">
-    <button pRipple [pRippleCentered]="true" class="elevation-p3">
+    <button pRipple [pRippleCentered]="true" class="elevation-p3" *ngIf="this.showButtons">
       <p-icon>chevron_left</p-icon>
     </button>
-    <div class="p-tabs-container">
+    <div class="p-tabs-container" #tabListContainer>
       <div class="p-tabs-list">
         <ng-content></ng-content>
         <div class="p-tab-ink-bar" #inkBar></div>
       </div>
     </div>
-    <button pRipple [pRippleCentered]="true" class="elevation-p3">
+    <button pRipple [pRippleCentered]="true" class="elevation-p3" *ngIf="this.showButtons">
       <p-icon>chevron_right</p-icon>
     </button>
   </div>

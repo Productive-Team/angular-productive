@@ -7,6 +7,7 @@ import {
   EventEmitter,
   forwardRef,
   HostBinding,
+  HostListener,
   Input,
   Output,
   QueryList,
@@ -33,19 +34,28 @@ export class NewtabGroupComponent implements AfterContentInit {
 
   @ViewChild('inkBar') tabInkBar: ElementRef<HTMLElement>;
   @ViewChild('tabContent') tabContent: ElementRef<HTMLElement>;
+  @ViewChild('tabListContainer') tabListContainer: ElementRef<HTMLElement>;
 
   tabContentsInPage: HTMLElement[] = [];
 
+  showButtons: boolean = false;
+
   constructor(private elementRef: ElementRef) {}
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event) {
+    this.showButtons = this.isOverflowing();
+  }
 
   ngAfterContentInit() {
     setTimeout(() => {
       this.generateUniqueIds();
       this.selectDefault();
+      this.showButtons = this.isOverflowing();
     }, 0);
   }
 
-  selectDefault(): string {
+  selectDefault(): void {
     let activeElement = this.allTabs.find((x) => x.tabActive);
     if (!activeElement) {
       if (this.selectedIndex) {
@@ -64,17 +74,11 @@ export class NewtabGroupComponent implements AfterContentInit {
         if (!tabsArray[i].disabled) {
           activeElement = tabsArray[i];
           activeElement.selectTab();
-          // tabsArray[i].selectTab();
           break;
         }
       }
     }
     this.setTabIndex();
-    return 'garaio';
-    setTimeout(() => {
-      // this.setInkBar();
-      // activeElement.selectTab();
-    }, 0);
   }
 
   setTabIndex(): void {
@@ -121,6 +125,21 @@ export class NewtabGroupComponent implements AfterContentInit {
     for (; i < tabs.length; i++) {
       tabs[i].uniqueId = `${tabIndex}-${i}`;
     }
+  }
+
+  isOverflowing(): boolean {
+    let result: boolean;
+    const tabsContainer = this.tabListContainer.nativeElement;
+    const tabsList = tabsContainer.firstChild as HTMLElement;
+    if (tabsContainer) {
+      const fullDifference = tabsList.offsetWidth - tabsContainer.offsetWidth;
+      if (fullDifference < 0) {
+        result = false;
+      } else {
+        result = true;
+      }
+    }
+    return result;
   }
 
   @HostBinding('class.group-tab')
