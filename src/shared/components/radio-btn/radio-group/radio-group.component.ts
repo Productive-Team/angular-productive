@@ -36,7 +36,7 @@ export class RadioGroupComponent implements AfterViewInit {
   @Output('selectedValueChange')
   pCollectionSelectedValueChange: EventEmitter<any> = new EventEmitter();
 
-  @ContentChildren(forwardRef(() => RadioBtnComponent), { descendants: true })
+  @ContentChildren(forwardRef(() => RadioBtnComponent))
   radioButtons: QueryList<RadioBtnComponent>;
 
   radioArrayCollection = [];
@@ -81,7 +81,7 @@ export class RadioGroupComponent implements AfterViewInit {
   }
 
   initRadGroup(): void {
-    this.radioButtons.forEach((x) => {
+    this.radioButtons.toArray().forEach((x) => {
       x.pRadioCollectionName = this.pRadioCollectionName;
       const radioButton = x.radioBtn.nativeElement;
       this.radioArrayCollection.push(radioButton);

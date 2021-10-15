@@ -98,10 +98,10 @@ export class ContainerExComponent implements OnInit {
   disDates = [new Date(2021, 8, 7), new Date(2021, 0, 26)];
 
   optionArr: SelectDataModel[] = [
-    {
-      id: null,
-      name: '--none--',
-    },
+    // {
+    //   id: null,
+    //   name: '--none--',
+    // },
     {
       id: 'opt1',
       name: 'Option 1',

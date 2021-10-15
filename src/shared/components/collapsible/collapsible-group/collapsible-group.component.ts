@@ -5,10 +5,7 @@ import {
   forwardRef,
   HostListener,
   Input,
-  OnChanges,
-  OnInit,
   QueryList,
-  SimpleChanges,
 } from '@angular/core';
 import { CollapsibleComponent } from '../collapsible/collapsible.component';
 

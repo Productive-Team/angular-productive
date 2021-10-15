@@ -31,6 +31,7 @@ export class RadioBtnComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    console.log(this.pRadioValue);
     setTimeout(() => {
       this.checkCustomColor();
     }, 5);

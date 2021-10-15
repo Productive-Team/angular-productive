@@ -1,5 +1,11 @@
 /* eslint-disable @angular-eslint/no-input-rename */
-import { animate, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import {
   Component,
   Input,
@@ -23,6 +29,22 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const menuAnim = trigger('menuAnimation', [
+  // state(
+  //   'open',
+  //   style({
+  //     transform: 'scaleY(1)',
+  //     opacity: '1',
+  //   })
+  // ),
+  // state(
+  //   'closed',
+  //   style({
+  //     transform: 'scaleY(0.9)',
+  //     display: 'none',
+  //     opacity: '0',
+  //   })
+  // ),
+  // transition('closed <=> open', animate('150ms cubic-bezier(.1,.5,.65,.99)')),
   transition(':enter', [
     style({
       opacity: 0,
@@ -79,6 +101,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
   selectedOption: SelectOptionComponent;
 
   menuOpen: boolean;
+  menuState: SelectMenuState = 'closed';
 
   searchText: string;
 
@@ -156,7 +179,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     }
 
     if (this.pSelectValue) {
-      if (!this.pSelectMultiple) {
+      if (this.pSelectMultiple === false) {
         const selected = this.optionButtons.find(
           (x) => x.value === this.pSelectValue
         );
@@ -169,7 +192,10 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
             const find = this.optionButtons.find((c) => c.value === x);
             if (find) {
               find.selected = true;
-              this.selectedOptions.push(find);
+              const hasValue = this.selectedOptions.find((x) => find === x);
+              if (!hasValue) {
+                this.selectedOptions.push(find);
+              }
             }
           });
         } else {
@@ -185,66 +211,6 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     }
   }
 
-  // ngDoCheck(): void {
-  //   if (this.arrayGeneratedButtons !== undefined) {
-  //     const genLength = this.arrayGeneratedButtons._results.length;
-  //     let i = 0;
-  //     for (; i < genLength; i++) {
-  //       const idx = this.optionButtons.findIndex(
-  //         (x) => x.value === this.arrayGeneratedButtons._results[i].value
-  //       );
-
-  //       if (idx >= 0) {
-  //         this.optionButtons.splice(idx, 1);
-
-  //         if (this.selectedOption !== undefined) {
-  //           if (
-  //             this.arrayGeneratedButtons._results[i].value ===
-  //             this.selectedOption.value
-  //           ) {
-  //             this.arrayGeneratedButtons._results[i].selected = true;
-  //             this.selectedOption = this.arrayGeneratedButtons._results[i];
-  //           }
-  //         }
-
-  //         if (this.pSelectMultiple) {
-  //           const isArray = Array.isArray(this.pSelectValue);
-  //           if (isArray) {
-  //             this.pSelectValue.forEach((c) => {
-  //               if (this.arrayGeneratedButtons._results[i].value === c) {
-  //                 this.arrayGeneratedButtons._results[i].selected = true;
-  //               }
-  //             });
-  //           } else {
-  //             if (
-  //               this.arrayGeneratedButtons._results[i].value ===
-  //               this.pSelectValue
-  //             ) {
-  //               this.arrayGeneratedButtons._results[i].selected = true;
-  //             }
-  //           }
-  //         }
-
-  //         this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
-  //       } else {
-  //         this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
-  //       }
-  //     }
-  //   }
-  //   if (this.contentProjectionButtons !== undefined) {
-  //     const genLength = this.contentProjectionButtons._results.length;
-  //     let i = 0;
-  //     for (; i < genLength; i++) {
-  //       const idx = this.optionButtons.findIndex(
-  //         (x) => x.value === this.contentProjectionButtons._results[i].value
-  //       );
-  //       if (idx < 0) {
-  //         this.optionButtons.push(this.contentProjectionButtons._results[i]);
-  //       }
-  //     }
-  //   }
-  // }
-
   setToBody(): void {
     const menu = this.selectMenu.nativeElement as HTMLElement;
     document.body
@@ -254,20 +220,18 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
 
   writeValue(obj: any): void {
     this.pSelectValue = obj;
-    setTimeout(() => {
-      if (!this.pSelectMultiple) {
-        this.checkToSelectSingle(obj);
+    if (!this.pSelectMultiple) {
+      this.checkToSelectSingle(obj);
+    } else {
+      const isArr = Array.isArray(obj);
+      if (isArr) {
+        obj.forEach((x) => {
+          this.checkToSelectMultiple(x);
+        });
       } else {
-        const isArr = Array.isArray(obj);
-        if (isArr) {
-          obj.forEach((x) => {
-            this.checkToSelectMultiple(x);
-          });
-        } else {
-          this.checkToSelectMultiple(obj);
-        }
+        this.checkToSelectMultiple(obj);
       }
-    }, 0);
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -280,6 +244,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
 
   openMenu(): void {
     this.menuOpen = true;
+    this.menuState = 'open';
     this.setBackdrop();
     this.scrollOptToView();
     setTimeout(() => {
@@ -289,6 +254,7 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
 
   closeMenu(): void {
     this.menuOpen = false;
+    this.menuState = 'closed';
     this.removeBackdrop();
   }
 
@@ -633,3 +599,5 @@ export class SelectDataModel {
   disabled?: boolean;
   selected?: boolean;
 }
+
+type SelectMenuState = 'open' | 'closed';
