@@ -57,32 +57,22 @@
 
 <br>
 
+<p-checkbox #sel>Select Created</p-checkbox>
+<p-checkbox #dis>Disable Created</p-checkbox>
+<button class="btn elevation" pRipple (click)="addNew(dis.checked, sel.checked)">Add Tab</button>
 <p-newtab-group [(selectedIndex)]="otherIdx">
+  <p-new-tab *ngFor="let tab of newTabs" [tabLabel]="tab.name" [disabled]="tab.disabled">
+    <button class="btn outlined" pRipple (click)="removeNewTab(tab)">Remove Tab</button>
+  </p-new-tab>
+</p-newtab-group>
+
+<!-- <p-newtab-group [(selectedIndex)]="otherIdx">
   <p-new-tab tabIcon="verified">ONE</p-new-tab>
   <p-new-tab tabLabel="some2" [disabled]="true">TOW</p-new-tab>
   <p-new-tab tabLabel="some">THREE</p-new-tab>
   <p-new-tab tabLabel="some">GOR</p-new-tab>
   <p-new-tab tabLabel="some">
-    <p-section>
-      <p-section-code>
-        <p-newtab-group>
-          <p-new-tab tabLabel="HTML">
-            <p-section-code-content>
-              &lt;html&gt;
-
-              &lt;head&gt;
-
-              &lt;/head&gt;
-
-              &lt;body&gt;
-              &lt;/body&gt;
-              &lt;/html&gt;
-            </p-section-code-content>
-          </p-new-tab>
-          <p-new-tab tabLabel="CSS">CSS</p-new-tab>
-        </p-newtab-group>
-      </p-section-code>
-    </p-section>
+    sadasda
   </p-new-tab>
   <p-new-tab tabLabel="some"></p-new-tab>
   <p-new-tab tabLabel="some"></p-new-tab>
@@ -117,6 +107,6 @@
   <p-new-tab tabLabel="some"></p-new-tab>
   <p-new-tab tabLabel="some"></p-new-tab>
   <p-new-tab tabLabel="some"></p-new-tab>
-</p-newtab-group>
+</p-newtab-group> -->
 
 {{otherIdx}}

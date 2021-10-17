@@ -1,6 +1,9 @@
 import {
+  AfterContentChecked,
   AfterContentInit,
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
@@ -9,8 +12,12 @@ import {
   HostBinding,
   HostListener,
   Input,
+  OnChanges,
+  OnDestroy,
   Output,
   QueryList,
+  SimpleChange,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -18,6 +25,7 @@ import {
   selector: 'app-newtab-group, p-newtab-group',
   templateUrl: './newtab-group.component.html',
   styleUrls: ['./newtab-group.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class NewtabGroupComponent implements AfterContentInit {
   @Input() selectedIndex: number;
@@ -40,7 +48,10 @@ export class NewtabGroupComponent implements AfterContentInit {
 
   showButtons: boolean = false;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onWindowResize(event) {
@@ -80,6 +91,12 @@ export class NewtabGroupComponent implements AfterContentInit {
     }
     this.setTabIndex();
   }
+
+  // ngAfterContentChecked() {
+  //   setTimeout(() => {
+  //     this.generateUniqueIds();
+  //   }, 0);
+  // }
 
   setTabIndex(): void {
     const tabsArray = this.allTabs.toArray();
@@ -127,6 +144,10 @@ export class NewtabGroupComponent implements AfterContentInit {
     }
   }
 
+  // ngOnChanges(event: SimpleChanges): void {
+  //   this.generateUniqueIds();
+  // }
+
   isOverflowing(): boolean {
     let result: boolean;
     const tabsContainer = this.tabListContainer.nativeElement;
@@ -170,7 +191,7 @@ export class NewtabGroupComponent implements AfterContentInit {
     </div>
   `,
 })
-export class NewTabComponent implements AfterContentInit {
+export class NewTabComponent implements AfterContentInit, OnDestroy {
   @Input() tabLabel: string;
   @Input() tabIcon: string;
 
@@ -234,6 +255,14 @@ export class NewTabComponent implements AfterContentInit {
         content
       );
     }
+  }
+
+  ngOnDestroy() {
+    const content = document.getElementById('tab-content-' + this.uniqueId);
+    content.remove();
+    this.tabActive = false;
+    this.tabGroup.setInkBar();
+    this.tabGroup.setTabIndex();
   }
 
   @HostBinding('class.tab-disabled')
