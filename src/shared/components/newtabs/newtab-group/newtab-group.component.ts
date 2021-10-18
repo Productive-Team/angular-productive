@@ -60,14 +60,14 @@ export class NewtabGroupComponent implements AfterContentInit {
 
   ngAfterContentInit() {
     setTimeout(() => {
-      this.generateUniqueIds();
+      // this.generateUniqueIds();
       this.selectDefault();
       this.showButtons = this.isOverflowing();
     }, 0);
   }
 
   selectDefault(): void {
-    let activeElement = this.allTabs.find((x) => x.tabActive);
+    let activeElement = this.allTabs.find((x) => x.active);
     if (!activeElement) {
       if (this.selectedIndex) {
         activeElement = this.allTabs.toArray()[this.selectedIndex];
@@ -92,15 +92,9 @@ export class NewtabGroupComponent implements AfterContentInit {
     this.setTabIndex();
   }
 
-  // ngAfterContentChecked() {
-  //   setTimeout(() => {
-  //     this.generateUniqueIds();
-  //   }, 0);
-  // }
-
   setTabIndex(): void {
     const tabsArray = this.allTabs.toArray();
-    const selectedIdx = tabsArray.findIndex((x) => x.tabActive);
+    const selectedIdx = tabsArray.findIndex((x) => x.active);
     if (selectedIdx >= 0) {
       this.selectedIndex = selectedIdx;
       this.selectedIndexChange.emit(this.selectedIndex);
@@ -108,7 +102,7 @@ export class NewtabGroupComponent implements AfterContentInit {
   }
 
   setInkBar(): void {
-    const activeElement = this.allTabs.find((x) => x.tabActive);
+    const activeElement = this.allTabs.find((x) => x.active);
     const inkbar = this.tabInkBar.nativeElement;
 
     const activeElementRect =
@@ -144,10 +138,6 @@ export class NewtabGroupComponent implements AfterContentInit {
     }
   }
 
-  // ngOnChanges(event: SimpleChanges): void {
-  //   this.generateUniqueIds();
-  // }
-
   isOverflowing(): boolean {
     let result: boolean;
     const tabsContainer = this.tabListContainer.nativeElement;
@@ -173,15 +163,15 @@ export class NewtabGroupComponent implements AfterContentInit {
   selector: 'app-new-tab, p-new-tab',
   template: `
     <div
-      [class]="tabActive ? 'p-tab active' : 'p-tab'"
+      [class]="active ? 'p-tab active' : 'p-tab'"
       [id]="'tab-head-' + uniqueId"
       pRipple
       pRippleColor="var(--primaryLowOpacity)"
       (click)="selectTab()"
     >
-      <p-icon>{{ tabIcon }}</p-icon>
+      <p-icon>{{ icon }}</p-icon>
       <span>
-        {{ tabLabel }}
+        {{ label }}
       </span>
     </div>
     <div #content hidden [id]="'tab-content-' + uniqueId">
@@ -192,10 +182,10 @@ export class NewtabGroupComponent implements AfterContentInit {
   `,
 })
 export class NewTabComponent implements AfterContentInit, OnDestroy {
-  @Input() tabLabel: string;
-  @Input() tabIcon: string;
+  @Input() label: string;
+  @Input() icon: string;
 
-  @Input() tabActive: boolean;
+  @Input() active: boolean;
   @Input() disabled: boolean;
 
   @ViewChild('content') content: ElementRef<HTMLElement>;
@@ -212,18 +202,19 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
   ngAfterContentInit(): void {
     setTimeout(() => {
       this.setInBody();
+      this.tabGroup.generateUniqueIds();
     }, 0);
   }
 
   selectTab(): void {
     setTimeout(() => {
-      const previousActiveTab = this.tabGroup.allTabs.find((x) => x.tabActive);
+      const previousActiveTab = this.tabGroup.allTabs.find((x) => x.active);
       if (previousActiveTab) {
-        previousActiveTab.tabActive = false;
+        previousActiveTab.active = false;
         previousActiveTab.content.nativeElement.hidden = true;
       }
       const content = document.getElementById('tab-content-' + this.uniqueId);
-      this.tabActive = true;
+      this.active = true;
       this.tabGroup.setInkBar();
       this.tabGroup.setTabIndex();
       content.hidden = false;
@@ -260,7 +251,8 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
   ngOnDestroy() {
     const content = document.getElementById('tab-content-' + this.uniqueId);
     content.remove();
-    this.tabActive = false;
+    this.active = false;
+    this.tabGroup.selectDefault();
     this.tabGroup.setInkBar();
     this.tabGroup.setTabIndex();
   }

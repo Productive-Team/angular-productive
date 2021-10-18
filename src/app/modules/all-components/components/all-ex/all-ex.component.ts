@@ -21,7 +21,14 @@ export class AllExComponent {
       disabled: false,
     },
   ];
-  constructor() {}
+  constructor() {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) => {
+        console.log(e);
+        // const newColorScheme = e.matches ? 'dark' : 'light';
+      });
+  }
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {
     const obj = {

@@ -61,7 +61,7 @@
 <p-checkbox #dis>Disable Created</p-checkbox>
 <button class="btn elevation" pRipple (click)="addNew(dis.checked, sel.checked)">Add Tab</button>
 <p-newtab-group [(selectedIndex)]="otherIdx">
-  <p-new-tab *ngFor="let tab of newTabs" [tabLabel]="tab.name" [disabled]="tab.disabled">
+  <p-new-tab *ngFor="let tab of newTabs" [label]="tab.name" [disabled]="tab.disabled">
     <button class="btn outlined" pRipple (click)="removeNewTab(tab)">Remove Tab</button>
   </p-new-tab>
 </p-newtab-group>
