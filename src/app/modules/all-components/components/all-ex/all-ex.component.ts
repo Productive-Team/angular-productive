@@ -6,7 +6,7 @@ import { ModalComponent } from 'src/shared/components/modal/modal.component';
   templateUrl: './all-ex.component.html',
   styleUrls: ['./all-ex.component.css'],
 })
-export class AllExComponent {
+export class AllExComponent implements OnInit {
   bolltest: boolean = false;
   otherCheck: boolean = false;
 
@@ -21,14 +21,9 @@ export class AllExComponent {
       disabled: false,
     },
   ];
-  constructor() {
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', (e) => {
-        console.log(e);
-        // const newColorScheme = e.matches ? 'dark' : 'light';
-      });
-  }
+  constructor() {}
+
+  ngOnInit(): void {}
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {
     const obj = {

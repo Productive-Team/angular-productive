@@ -7,14 +7,13 @@ export class DarkModeService {
   darkModeEnabled: boolean;
 
   constructor() {
-    const token = localStorage.getItem('dark_active');
-    this.darkModeEnabled = token === 'true';
-
-    if (token === 'true') {
-      this.setDarkModeColors();
-    } else {
-      this.setLightModeColors();
-    }
+    // const token = localStorage.getItem('dark_active');
+    // this.darkModeEnabled = token === 'true';
+    // if (token === 'true') {
+    //   this.setDarkModeColors();
+    // } else {
+    //   this.setLightModeColors();
+    // }
   }
 
   darkModeToggle(): void {
@@ -27,6 +26,10 @@ export class DarkModeService {
     } else {
       this.setLightModeColors();
     }
+  }
+
+  darkModeSet(): void {
+    // window.media
   }
 
   setDarkModeColors(): void {

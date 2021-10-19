@@ -17,6 +17,28 @@
   --backdropColor: #000;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #e91e63;
+    --secondary: rgb(114, 125, 134);
+    --primaryLowOpacity: #e91e631e;
+    --secondaryLowOpacity: rgba(114, 125, 134, 0.13);
+    --appBackgroundColor: #303030;
+    --menuPanelColor: #424242;
+    --defaultDividerColor: rgba(161, 161, 161, 0.25);
+    --SwitchesBorders: rgb(134, 134, 134);
+    --textColor: rgb(250, 250, 250);
+    --contrastTextColor: #fdfdfd;
+    --rippleDefaultColor: #ffffff26;
+    --fieldsetColor: hsla(0, 0%, 100%, 0.15);
+    --fieldsetUnderlineColor: rgb(179, 179, 179);
+    --snackbarDefaultColor: rgb(255, 255, 255);
+    --snackbarTextColor: #262626;
+    --backdropColor: rgba(117, 114, 114, 1);
+    color-scheme: dark;
+  }
+}
+
 * {
   font-family: "Roboto", Arial, sans-serif;
 }
