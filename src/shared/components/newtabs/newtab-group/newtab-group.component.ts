@@ -196,6 +196,9 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
     }
   }
 
+  // TODO: NEEDS TO FIX SCROLL POSITION ON WINDOW RESIZING, AND WHEN TAB IS DELETED
+  // TODO: NEEDS TO FIX SCROLL FOR CENTER AND RIGHT TAB ALIGNMENT OPTIONS
+
   correctScroll(): void {
     if (this.scrollPosition > this.maxScrollPosition) {
       this.scrollPosition = this.maxScrollPosition;
