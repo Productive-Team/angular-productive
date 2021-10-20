@@ -1,15 +1,17 @@
 <div class="p-tab-group">
   <div class="p-tab-header">
-    <button pRipple [pRippleCentered]="true" class="elevation-p3" *ngIf="this.showButtons">
+    <button pRipple [pRippleCentered]="true" [disabled]="scrollPosition <= minScrollPosition" class="elevation-p3"
+      *ngIf="this.showButtons" (click)="scrollLeft()">
       <p-icon>chevron_left</p-icon>
     </button>
-    <div class="p-tabs-container" #tabListContainer>
-      <div class="p-tabs-list">
+    <div class="p-tabs-container {{tabAlignment}}" #tabListContainer>
+      <div class="p-tabs-list" [style]="'transform: translateX(-' + this.scrollPosition + 'px);'">
         <ng-content></ng-content>
-        <div class="p-tab-ink-bar" #inkBar></div>
+        <div class="p-tab-ink-bar {{inkbarAlignment}}" #inkBar></div>
       </div>
     </div>
-    <button pRipple [pRippleCentered]="true" class="elevation-p3" *ngIf="this.showButtons">
+    <button pRipple [pRippleCentered]="true" [disabled]="scrollPosition >= maxScrollPosition" class="elevation-p3"
+      (click)="scrollRight()" *ngIf="this.showButtons">
       <p-icon>chevron_right</p-icon>
     </button>
   </div>

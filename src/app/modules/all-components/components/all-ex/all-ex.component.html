@@ -1,10 +1,10 @@
-<p-card>
-  <div class="dFlex fDirectionRow">
-    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" width="200">
+<p-card style="width: 20%;">
+  <div class="dFlex fDirectionColumn">
+    <p-card-header>
+      <h2>Header</h2>
+    </p-card-header>
+    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg">
     <div>
-      <p-card-header>
-        <h2>Header</h2>
-      </p-card-header>
       <p-card-content>Hello World, I am a card</p-card-content>
       <p-card-footer>
         <button class="btn flat fab" pRipple [pRippleCentered]="true">
@@ -60,40 +60,61 @@
 <p-checkbox #sel>Select Created</p-checkbox>
 <p-checkbox #dis>Disable Created</p-checkbox>
 <button class="btn elevation" pRipple (click)="addNew(dis.checked, sel.checked)">Add Tab</button>
-<p-newtab-group [(selectedIndex)]="otherIdx">
+<!-- <p-fieldset pFieldsetLabelText="Inkbar Aligment">
+  <p-select [(ngModel)]="inkbarAlign">
+    <p-option value="bottom">
+      Bottom
+    </p-option>
+    <p-option value="top">
+      Top
+    </p-option>
+  </p-select>
+</p-fieldset>
+<p-fieldset pFieldsetLabelText="Tab Alignments">
+  <p-select [(ngModel)]="tabAlign">
+    <p-option value="left">Left</p-option>
+    <p-option value="center">Center</p-option>
+    <p-option value="right">Right</p-option>
+  </p-select>
+</p-fieldset> -->
+<p-radio-group [(ngModel)]="inkbarAlign" collection="ink">
+  <p-radio-button value="top">Top</p-radio-button>
+  <p-radio-button value="bottom">Bottom</p-radio-button>
+</p-radio-group>
+<p-radio-group [(ngModel)]="tabAlign" collection="tab">
+  <p-radio-button value="left">Left</p-radio-button>
+  <p-radio-button value="center">Center</p-radio-button>
+  <p-radio-button value="right">Right</p-radio-button>
+</p-radio-group>
+{{tabAlign | json}}
+<p-newtab-group [(selectedIndex)]="otherIdx" [inkbarAlignment]="inkbarAlign" [tabAlignment]="tabAlign">
   <p-new-tab *ngFor="let tab of newTabs" [label]="tab.name" [disabled]="tab.disabled">
+    {{tab.content}}
     <button class="btn outlined" pRipple (click)="removeNewTab(tab)">Remove Tab</button>
   </p-new-tab>
 </p-newtab-group>
 
-<p-tab-group>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-  <p-tab></p-tab>
-</p-tab-group>
+<!-- <p-newtab-group>
+  <p-new-tab label="Tab 1">
+    Content
+  </p-new-tab>
+  <p-new-tab label="Gaming">
+    <p-newtab-group>
+      <p-new-tab label="Plataformers">
+        Mario
+      </p-new-tab>
+      <p-new-tab label="Fps">
+        FPS
+      </p-new-tab>
+    </p-newtab-group>
+  </p-new-tab>
+</p-newtab-group> -->
+
+<!-- <p-newtab-group inkbarAlignment="top" tabAlignment="center">
+  <p-new-tab label="Books" icon="bookmark"></p-new-tab>
+  <p-new-tab label="Gaming" icon="sports_esports"></p-new-tab>
+  <p-new-tab label="Music" icon="headset"></p-new-tab>
+</p-newtab-group> -->
 
 <!-- <p-newtab-group [(selectedIndex)]="otherIdx">
   <p-new-tab tabIcon="verified">ONE</p-new-tab>

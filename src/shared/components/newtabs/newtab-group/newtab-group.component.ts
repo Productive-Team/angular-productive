@@ -1,9 +1,6 @@
 import {
-  AfterContentChecked,
   AfterContentInit,
-  AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
@@ -16,7 +13,6 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  SimpleChange,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -27,10 +23,14 @@ import {
   styleUrls: ['./newtab-group.component.css'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class NewtabGroupComponent implements AfterContentInit {
+export class NewtabGroupComponent implements AfterContentInit, OnChanges {
   @Input() selectedIndex: number;
+
   @Output() selectedIndexChange: EventEmitter<number> =
     new EventEmitter<number>();
+
+  @Input() inkbarAlignment: InkbarDirection = 'bottom';
+  @Input() tabAlignment: TabAlignmnet = 'left';
 
   @ContentChildren(forwardRef(() => NewTabComponent))
   allTabs: QueryList<NewTabComponent>;
@@ -43,25 +43,27 @@ export class NewtabGroupComponent implements AfterContentInit {
   @ViewChild('inkBar') tabInkBar: ElementRef<HTMLElement>;
   @ViewChild('tabContent') tabContent: ElementRef<HTMLElement>;
   @ViewChild('tabListContainer') tabListContainer: ElementRef<HTMLElement>;
+  @ViewChild('tabList') tabList: ElementRef<HTMLElement>;
 
   tabContentsInPage: HTMLElement[] = [];
 
   showButtons: boolean = false;
 
-  constructor(
-    private elementRef: ElementRef,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  scrollPosition: number = 0;
+  maxScrollPosition: number;
+  minScrollPosition: number = 0;
+
+  constructor(private elementRef: ElementRef) {}
 
   @HostListener('window:resize', ['$event'])
   onWindowResize(event) {
     this.showButtons = this.isOverflowing();
+    this.correctScroll();
   }
 
   ngAfterContentInit() {
     setTimeout(() => {
       this.selectDefault();
-      this.showButtons = this.isOverflowing();
     }, 0);
   }
 
@@ -104,20 +106,18 @@ export class NewtabGroupComponent implements AfterContentInit {
     const activeElement = this.allTabs.find((x) => x.active);
     const inkbar = this.tabInkBar.nativeElement;
 
-    const activeElementRect =
-      activeElement?.elementRef.nativeElement.getBoundingClientRect();
+    const activeElementRect = (
+      activeElement?.elementRef.nativeElement.firstChild
+        .firstChild as HTMLElement
+    )?.getBoundingClientRect();
 
     const parentElement = activeElement?.elementRef.nativeElement.parentElement;
     const parentElementRect = parentElement?.getBoundingClientRect();
 
     if (activeElement && !activeElement.disabled) {
-      const width = activeElementRect.width - activeElementRect.width / 4;
-      inkbar.style.width = width + 'px';
+      inkbar.style.width = activeElementRect.width + 'px';
       inkbar.style.left =
-        activeElementRect.left -
-        parentElementRect.left +
-        activeElementRect.width / 4 / 2 +
-        'px';
+        activeElementRect.left - parentElementRect.left + 'px';
     }
   }
 
@@ -145,16 +145,84 @@ export class NewtabGroupComponent implements AfterContentInit {
       const fullDifference = tabsList.offsetWidth - tabsContainer.offsetWidth;
       if (fullDifference < 0) {
         result = false;
+        this.maxScrollPosition = fullDifference;
+        setTimeout(() => {
+          this.scrollPosition = 0;
+        }, 0);
       } else {
         result = true;
+        setTimeout(() => {
+          this.maxScrollPosition =
+            tabsList.offsetWidth - tabsContainer.offsetWidth;
+        }, 0);
       }
     }
     return result;
   }
 
   @HostBinding('class.group-tab')
-  get DefaultClass() {
+  get DefaultClass(): boolean {
     return true;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes.selectedIndex?.isFirstChange()) {
+      setTimeout(() => {
+        const array = this.allTabs.toArray();
+        if (this.selectedIndex >= 0) {
+          const tab = array[this.selectedIndex];
+          if (!tab.disabled && !tab.active) {
+            array[this.selectedIndex].selectTab();
+          } else {
+            this.selectDefault();
+          }
+        }
+      }, 0);
+    }
+  }
+
+  scrollLeft(): void {
+    this.scrollPosition -= 250;
+    if (this.scrollPosition < this.minScrollPosition) {
+      this.scrollPosition = 0;
+    }
+  }
+
+  scrollRight(): void {
+    this.scrollPosition += 250;
+    if (this.scrollPosition >= this.maxScrollPosition) {
+      this.scrollPosition =
+        this.scrollPosition - (this.scrollPosition - this.maxScrollPosition);
+    }
+  }
+
+  correctScroll(): void {
+    if (this.scrollPosition > this.maxScrollPosition) {
+      this.scrollPosition = this.maxScrollPosition;
+    }
+  }
+
+  scrollTabIntoView(tabElement: HTMLElement): void {
+    const tabsContainer = this.tabListContainer.nativeElement;
+
+    const tabElementRect = tabElement.getBoundingClientRect();
+    const tabsContainerRect = tabsContainer.getBoundingClientRect();
+
+    const tabElementOffsetLeft =
+      tabElementRect.left + tabElement.offsetWidth - tabsContainerRect.left;
+
+    if (tabsContainer.offsetWidth < tabElementOffsetLeft) {
+      this.scrollPosition += tabElement.offsetWidth;
+      if (this.scrollPosition >= this.maxScrollPosition) {
+        this.scrollPosition =
+          this.scrollPosition - (this.scrollPosition - this.maxScrollPosition);
+      }
+    } else if (tabElement.offsetWidth >= tabElementOffsetLeft) {
+      this.scrollPosition -= tabElement.offsetWidth;
+      if (this.scrollPosition <= this.minScrollPosition) {
+        this.scrollPosition = 0;
+      }
+    }
   }
 }
 
@@ -168,10 +236,12 @@ export class NewtabGroupComponent implements AfterContentInit {
       pRippleColor="var(--primaryLowOpacity)"
       (click)="selectTab()"
     >
-      <p-icon>{{ icon }}</p-icon>
-      <span>
-        {{ label }}
-      </span>
+      <div class="dFlex fDirectionColumn tab-header-label">
+        <p-icon>{{ icon }}</p-icon>
+        <span>
+          {{ label }}
+        </span>
+      </div>
     </div>
     <div #content hidden [id]="'tab-content-' + uniqueId">
       <div class="dContents">
@@ -202,6 +272,7 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
     setTimeout(() => {
       this.setInBody();
       this.tabGroup.generateUniqueIds();
+      this.tabGroup.showButtons = this.tabGroup.isOverflowing();
     }, 0);
   }
 
@@ -218,6 +289,7 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
         this.tabGroup.setInkBar();
         this.tabGroup.setTabIndex();
         content.hidden = false;
+        this.tabGroup.scrollTabIntoView(this.elementRef.nativeElement);
         const tabGroupChild = this.tabGroup.tabGroups.toArray();
         if (tabGroupChild.length > 0) {
           tabGroupChild.forEach((x) => {
@@ -254,9 +326,11 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
     if (content) {
       content.remove();
       this.active = false;
+      this.tabGroup.scrollPosition -= this.elementRef.nativeElement.offsetWidth;
       setTimeout(() => {
         this.tabGroup.selectDefault();
         this.tabGroup.setInkBar();
+        this.tabGroup.showButtons = this.tabGroup.isOverflowing();
       }, 0);
     }
   }
@@ -266,3 +340,6 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
     return this.disabled;
   }
 }
+
+type InkbarDirection = 'top' | 'bottom';
+type TabAlignmnet = 'left' | 'center' | 'right';

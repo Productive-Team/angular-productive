@@ -1,34 +1,27 @@
-import { Component, Input, OnInit, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ElementRef,
+  HostBinding,
+} from '@angular/core';
 
 @Component({
   selector: 'app-card, p-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @Input() elevated = true;
-  @Input() width: number;
-  @Input() height: number;
-  constructor(private el: ElementRef) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    if (this.elevated) {
-      this.elevateCard();
-    }
-    this.setWidthHeight(this.width, this.height);
-  }
-  private elevateCard(): void {
-    const card = this.el.nativeElement.firstChild;
-    card.classList.add('elevation-p1');
+  @HostBinding('class.card')
+  get DefaultClasses(): boolean {
+    return true;
   }
 
-  private setWidthHeight(width?: number, height?: number): void {
-    const card = this.el.nativeElement.firstChild as HTMLDivElement;
-    if (width > 0) {
-      card.style.width = width + 'px';
-    }
-    if (height > 0) {
-      card.style.height = height + 'px';
-    }
+  @HostBinding('class.elevation-p1')
+  get Elevated(): boolean {
+    return this.elevated;
   }
 }

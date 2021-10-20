@@ -1,6 +1,6 @@
 <label [class]="labelPosition === 'left' ?  'p-checkbox-wrapper reverse' : 'p-checkbox-wrapper'" pRipple
   [pRippleCentered]="true" [pRippleTriggerFor]="ripple" [pRippleColor]="checked ?  '' : rippleColor"
-  [pRippleDuration]="300">
+  [pRippleDuration]="250">
   <span class="p-checkbox-container">
     <input type="checkbox" [checked]="checked" [indeterminate]="indeterminate" [disabled]="disabled"
       (blur)="blur($event)" #input (click)="registerChecked($event)">

@@ -6,29 +6,32 @@ import { ModalComponent } from 'src/shared/components/modal/modal.component';
   templateUrl: './all-ex.component.html',
   styleUrls: ['./all-ex.component.css'],
 })
-export class AllExComponent implements OnInit {
+export class AllExComponent {
   bolltest: boolean = false;
   otherCheck: boolean = false;
 
   accepText = 'Please open the dialog and select an option';
 
-  numb: number = 75;
+  numb: number = 250;
 
   otherIdx: number;
   newTabs = [
     {
       name: 'Tab 1',
       disabled: false,
+      content: 'Tab content 1',
     },
   ];
-  constructor() {}
 
-  ngOnInit(): void {}
+  tabAlign: string;
+  inkbarAlign: string;
+  constructor() {}
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {
     const obj = {
       name: 'Tab ' + (this.newTabs.length + 1),
       disabled: disabled,
+      content: 'Tab content ' + (this.newTabs.length + 1),
     };
     this.newTabs.push(obj);
     if (selectNewlyCreatedTab) {
