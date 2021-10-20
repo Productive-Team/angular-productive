@@ -60,7 +60,6 @@ export class NewtabGroupComponent implements AfterContentInit {
 
   ngAfterContentInit() {
     setTimeout(() => {
-      // this.generateUniqueIds();
       this.selectDefault();
       this.showButtons = this.isOverflowing();
     }, 0);
@@ -69,7 +68,7 @@ export class NewtabGroupComponent implements AfterContentInit {
   selectDefault(): void {
     let activeElement = this.allTabs.find((x) => x.active);
     if (!activeElement) {
-      if (this.selectedIndex) {
+      if (this.selectedIndex >= 0) {
         activeElement = this.allTabs.toArray()[this.selectedIndex];
       } else {
         activeElement = this.allTabs.first;
@@ -106,10 +105,10 @@ export class NewtabGroupComponent implements AfterContentInit {
     const inkbar = this.tabInkBar.nativeElement;
 
     const activeElementRect =
-      activeElement.elementRef.nativeElement.getBoundingClientRect();
+      activeElement?.elementRef.nativeElement.getBoundingClientRect();
 
-    const parentElement = activeElement.elementRef.nativeElement.parentElement;
-    const parentElementRect = parentElement.getBoundingClientRect();
+    const parentElement = activeElement?.elementRef.nativeElement.parentElement;
+    const parentElementRect = parentElement?.getBoundingClientRect();
 
     if (activeElement && !activeElement.disabled) {
       const width = activeElementRect.width - activeElementRect.width / 4;
@@ -214,18 +213,20 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
         previousActiveTab.content.nativeElement.hidden = true;
       }
       const content = document.getElementById('tab-content-' + this.uniqueId);
-      this.active = true;
-      this.tabGroup.setInkBar();
-      this.tabGroup.setTabIndex();
-      content.hidden = false;
-      const tabGroupChild = this.tabGroup.tabGroups.toArray();
-      if (tabGroupChild.length > 0) {
-        tabGroupChild.forEach((x) => {
-          const inkbarWidth = x.tabInkBar.nativeElement.offsetWidth;
-          if (inkbarWidth === 0) {
-            x.setInkBar();
-          }
-        });
+      if (content) {
+        this.active = true;
+        this.tabGroup.setInkBar();
+        this.tabGroup.setTabIndex();
+        content.hidden = false;
+        const tabGroupChild = this.tabGroup.tabGroups.toArray();
+        if (tabGroupChild.length > 0) {
+          tabGroupChild.forEach((x) => {
+            const inkbarWidth = x.tabInkBar.nativeElement.offsetWidth;
+            if (inkbarWidth === 0) {
+              x.setInkBar();
+            }
+          });
+        }
       }
     }, 0);
   }
@@ -250,11 +251,14 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
 
   ngOnDestroy() {
     const content = document.getElementById('tab-content-' + this.uniqueId);
-    content.remove();
-    this.active = false;
-    this.tabGroup.selectDefault();
-    this.tabGroup.setInkBar();
-    this.tabGroup.setTabIndex();
+    if (content) {
+      content.remove();
+      this.active = false;
+      setTimeout(() => {
+        this.tabGroup.selectDefault();
+        this.tabGroup.setInkBar();
+      }, 0);
+    }
   }
 
   @HostBinding('class.tab-disabled')

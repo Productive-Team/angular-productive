@@ -12,7 +12,7 @@ export class AllExComponent {
 
   accepText = 'Please open the dialog and select an option';
 
-  numb: number = 255;
+  numb: number = 75;
 
   otherIdx: number;
   newTabs = [

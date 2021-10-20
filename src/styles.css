@@ -783,7 +783,7 @@ label {
   background-color: var(--fieldsetColor);
   border-radius: 5px 5px 0 0;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--fieldsetUnderlineColor);
+  /* border-bottom: 1px solid var(--fieldsetUnderlineColor); */
   transition: box-shadow 100ms ease-in;
 }
 
@@ -832,17 +832,10 @@ label {
   box-shadow: inset 0 0 0 2px var(--fieldsetUnderlineColor);
 }
 
-.input-wrapper.focused ~ .p-input-bar,
-.input-wrapper.classic.focused ~ .p-input-bar {
-  opacity: 1;
-  transition: width 0.2s ease-out;
-  width: 100%;
-}
-
 .input-wrapper.outlined.focused {
   box-shadow: inset 0 0 0 2px var(--primary);
 }
-.input-wrapper.outlined ~ .p-input-bar {
+.input-wrapper.outlined ~ .input-ink-bar {
   display: none;
 }
 
@@ -923,6 +916,41 @@ label {
   transform: translateX(-50%);
   left: 50%;
   opacity: 0;
+}
+
+.input-ink-bar {
+  position: absolute;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background-color: var(--fieldsetUnderlineColor);
+  transition: 200ms cubic-bezier(0, 0.5, 0.2, 1);
+  overflow: hidden;
+}
+
+.input-ink-bar-ripple {
+  position: absolute;
+  height: 2px;
+  width: 40%;
+  background-color: var(--primary);
+  opacity: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.input-wrapper.focused ~ .input-ink-bar {
+  height: 2px;
+}
+
+.input-wrapper.focused ~ .input-ink-bar .input-ink-bar-ripple {
+  width: 100%;
+  transition: width 150ms cubic-bezier(0, 0, 0.2, 1);
+  opacity: 1;
+}
+
+.fieldset:hover .input-ink-bar {
+  height: 2px;
 }
 
 .helper-text {
