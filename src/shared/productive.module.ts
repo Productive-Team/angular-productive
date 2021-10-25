@@ -1,6 +1,7 @@
 import { SectionCodeComponent } from './components/section/section-code/section-code.component';
 import { RadioGroupComponent } from './components/radio-btn/radio-group/radio-group.component';
 import {
+  TableCellTemplateDirective,
   TableColumnComponent,
   TableComponent,
   TableExpandedRowComponent,
@@ -127,6 +128,7 @@ const directives = [
   SelectSearchDirective,
   HighlightCodeDirective,
   ClipboardDirective,
+  TableCellTemplateDirective,
 ];
 
 @NgModule({

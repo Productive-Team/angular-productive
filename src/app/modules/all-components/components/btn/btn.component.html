@@ -223,6 +223,11 @@
     <br>
     <div class="table-container">
       <p-table [pTableData]="buttonClasses">
+        <p-table-column columnName="test">
+          <ng-template pTableCellTemplate>
+            hello
+          </ng-template>
+        </p-table-column>
         <p-table-column columnName="Class" columnProp="class" [columnTemplate]="template">
           <ng-template #template let-data>
             <code>{{data.class}}</code>

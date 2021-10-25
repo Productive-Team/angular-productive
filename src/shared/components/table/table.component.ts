@@ -6,6 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import {
+  AfterContentInit,
   Component,
   ContentChild,
   ContentChildren,
@@ -19,6 +20,7 @@ import {
   OnChanges,
   OnInit,
   Output,
+  QueryList,
   SimpleChanges,
   TemplateRef,
 } from '@angular/core';
@@ -125,6 +127,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() pTableSelectMode: TableSelectMode = 'single';
   @Input() pTableHeaderFixed: boolean;
   @Input() pTableFooterFixed: boolean;
+  @Input() hasFooter: boolean;
 
   @Input() pTableData: any[] = [];
 
@@ -133,13 +136,16 @@ export class TableComponent implements OnInit, OnChanges {
 
   @Output() rowClick: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output() selectAllChange: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
+
   actualTableData: TableData = new TableData();
 
   @ContentChildren(forwardRef(() => TableColumnComponent))
-  tableColumns: any;
+  tableColumns: QueryList<TableColumnComponent>;
 
   @ContentChild(forwardRef(() => TableExpandedRowComponent))
-  tableExpandRow: any;
+  tableExpandRow: TableExpandedRowComponent;
 
   areAllSelected: boolean;
 
@@ -161,6 +167,11 @@ export class TableComponent implements OnInit, OnChanges {
         this.configureTable();
       }
     }
+    if (event.selectedData !== undefined) {
+      if (!event.selectedData.firstChange) {
+        this.selectItems();
+      }
+    }
   }
 
   onRowClick(rowItem: any): void {
@@ -170,10 +181,10 @@ export class TableComponent implements OnInit, OnChanges {
   configureTable(): void {
     if (this.tableColumns !== undefined) {
       const hdrArr = [];
-      this.tableColumns._results.forEach((v) => {
+      this.tableColumns.toArray().forEach((v) => {
         const obj: TableDataHeader = {
           name: v.columnName,
-          template: v.columnTemplate,
+          cellTemplate: v.tableCell.templateRef,
           prop: v.columnProp,
         };
         hdrArr.push(obj);
@@ -196,32 +207,40 @@ export class TableComponent implements OnInit, OnChanges {
       }
       contArr.push(obj);
     }
+    contArr.forEach((x, y) => {
+      x['originalIdx'] = y;
+    });
+    this.actualTableData.content = contArr;
     if (this.pTableSelect) {
-      const isArray = Array.isArray(this.selectedData);
-      if (isArray) {
-        this.selectedData.forEach((c) => {
-          c['selected'] = false;
-          contArr.forEach((x) => {
-            const t = this.deepEqual(c, x);
-            if (t && !x.selected) {
-              x.selected = true;
-            } else if (!x.selected && !t) {
-              x.selected = false;
-            }
-          });
-        });
-      } else {
-        contArr.forEach((x) => {
-          const eq = this.deepEqual(this.selectedData, x);
-          if (eq) {
+      this.selectItems();
+    }
+  }
+
+  selectItems(): void {
+    const isArray = Array.isArray(this.selectedData);
+    if (isArray) {
+      this.selectedData.forEach((c) => {
+        c['selected'] = false;
+        this.actualTableData.content.forEach((x) => {
+          const t = this.deepEqual(c, x);
+          if (t && !x.selected) {
             x.selected = true;
-          } else {
+          } else if (!x.selected && !t) {
             x.selected = false;
           }
         });
-      }
+      });
+      this.checkIfAllAreSelected();
+    } else {
+      this.actualTableData.content.forEach((x) => {
+        const eq = this.deepEqual(this.selectedData, x);
+        if (eq) {
+          x.selected = true;
+        } else {
+          x.selected = false;
+        }
+      });
     }
-    this.actualTableData.content = contArr;
   }
 
   getPropByString(obj, propString): any {
@@ -247,10 +266,17 @@ export class TableComponent implements OnInit, OnChanges {
     const ok = Object.keys,
       tx = typeof x,
       ty = typeof y;
-    return x && y && tx === 'object' && tx === ty
-      ? ok(x).length === ok(y).length &&
-          ok(x).every((key) => this.deepEqual(x[key], y[key]))
-      : x === y;
+    const isObj = x && y && tx === 'object' && tx === ty;
+
+    let result: boolean;
+
+    if (isObj) {
+      result = ok(x).every((key) => this.deepEqual(x[key], y[key]));
+    } else {
+      result = x === y;
+    }
+
+    return result;
   }
 
   sortTable(state: TableSortState, columnName: string) {
@@ -262,13 +288,13 @@ export class TableComponent implements OnInit, OnChanges {
         this.sortDsc(columnName);
         break;
       case 'normal':
-        this.configureTable();
+        this.sortNormal();
         break;
     }
     if (columnSortable.length > 1) {
-      let columnSort = this.tableColumns._results.find(
-        (x) => x.columnProp === columnSortable[0]
-      );
+      let columnSort = this.tableColumns
+        .toArray()
+        .find((x) => x.columnProp === columnSortable[0]);
       columnSort.sortingState = 'normal';
     }
   }
@@ -309,6 +335,15 @@ export class TableComponent implements OnInit, OnChanges {
     });
   }
 
+  sortNormal(): void {
+    const content = this.actualTableData.content;
+    content.sort((a, b) => {
+      const sorted = this.compare(a.originalIdx, b.originalIdx, true);
+
+      return sorted;
+    });
+  }
+
   private compare(a: any, b: any, isAsc: boolean): number {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
@@ -316,7 +351,7 @@ export class TableComponent implements OnInit, OnChanges {
   colSpanSet(): number {
     const columns = this.tableColumns;
     if (columns !== undefined) {
-      return columns._results.length;
+      return columns.toArray().length;
     }
   }
 
@@ -376,6 +411,15 @@ export class TableComponent implements OnInit, OnChanges {
   }
 }
 
+@Directive({
+  selector: '[appTableCellTemplate], [pTableCellTemplate]',
+})
+export class TableCellTemplateDirective {
+  constructor(public templateRef: TemplateRef<unknown>) {
+    console.log(templateRef);
+  }
+}
+
 @Component({
   selector: 'app-table-column, p-table-column',
   template: `
@@ -409,6 +453,11 @@ export class TableColumnComponent {
   @Input() customSortFunction: any;
 
   sortingState: TableSortState = 'normal';
+
+  columnCellTemplate: TemplateRef<any>;
+
+  @ContentChild(TableCellTemplateDirective)
+  tableCell!: TableCellTemplateDirective;
 
   constructor(
     public parentComponent: TableComponent,
@@ -481,7 +530,7 @@ export class TableData {
 
 export class TableDataHeader {
   name: string;
-  template: TemplateRef<any>;
+  cellTemplate: TemplateRef<any>;
   prop: string;
 }
 
