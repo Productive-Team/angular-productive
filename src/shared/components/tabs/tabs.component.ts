@@ -18,12 +18,12 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-newtab-group, p-newtab-group',
-  templateUrl: './newtab-group.component.html',
-  styleUrls: ['./newtab-group.component.css'],
+  selector: 'app-tab-group, p-tab-group',
+  templateUrl: './tabs.component.html',
+  styleUrls: ['./tabs.component.css'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class NewtabGroupComponent implements AfterContentInit, OnChanges {
+export class TabGroupComponent implements AfterContentInit, OnChanges {
   @Input() selectedIndex: number;
 
   @Output() selectedIndexChange: EventEmitter<number> =
@@ -33,13 +33,13 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
   @Input() tabAlignment: TabAlignmnet = 'left';
   @Input() inkbarStyle: InkbarStyle = 'short';
 
-  @ContentChildren(forwardRef(() => NewTabComponent))
-  allTabs: QueryList<NewTabComponent>;
+  @ContentChildren(forwardRef(() => TabComponent))
+  allTabs: QueryList<TabComponent>;
 
-  @ContentChildren(forwardRef(() => NewtabGroupComponent), {
+  @ContentChildren(forwardRef(() => TabGroupComponent), {
     descendants: true,
   })
-  tabGroups: QueryList<NewtabGroupComponent>;
+  tabGroups: QueryList<TabGroupComponent>;
 
   @ViewChild('inkBar') tabInkBar: ElementRef<HTMLElement>;
   @ViewChild('tabContent') tabContent: ElementRef<HTMLElement>;
@@ -248,7 +248,7 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
 }
 
 @Component({
-  selector: 'app-new-tab, p-new-tab',
+  selector: 'app-tab, p-tab',
   template: `
     <div
       [class]="active ? 'p-tab active' : 'p-tab'"
@@ -258,7 +258,7 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
       (click)="selectTab()"
     >
       <div class="dFlex fDirectionColumn tab-header-label">
-        <p-icon>{{ icon }}</p-icon>
+        <i class="material-icons">{{ icon }}</i>
         <span>
           {{ label }}
         </span>
@@ -271,7 +271,7 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
     </div>
   `,
 })
-export class NewTabComponent implements AfterContentInit, OnDestroy {
+export class TabComponent implements AfterContentInit, OnDestroy {
   @Input() label: string;
   @Input() icon: string;
 
@@ -280,13 +280,13 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
 
   @ViewChild('content') content: ElementRef<HTMLElement>;
 
-  previousTab: NewTabComponent;
+  previousTab: TabComponent;
 
   uniqueId: string;
 
   constructor(
     public elementRef: ElementRef<HTMLElement>,
-    public tabGroup: NewtabGroupComponent
+    public tabGroup: TabGroupComponent
   ) {}
 
   ngAfterContentInit(): void {
@@ -295,6 +295,7 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
       this.tabGroup.generateUniqueIds();
       this.tabGroup.showButtons = this.tabGroup.isOverflowing();
       this.tabGroup.setInkBar();
+      this.tabGroup.selectDefault();
     }, 0);
   }
 

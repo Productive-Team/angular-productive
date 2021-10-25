@@ -1,5 +1,5 @@
 <p-tab-group>
-  <p-tab pTabLabel="Documentation">
+  <p-tab label="Documentation">
     <br>
     <h4>Usage</h4>
     <br>
@@ -56,17 +56,38 @@
           <p-icon>code</p-icon>
         </button>
       </p-section-header>
-      <p-section-code [isShowing]="showCodeSection2">
+      <p-section-code *ngIf="showCodeSection2">
         <p-section-code-header>
           Code Example
           <div class="spacer"></div>
-          <button class="btn fab flat" pRipple [pRippleCentered]="true" pClipboard [contentToCopy]="code"
-            pTooltip="Copy Code">
-            <p-icon>content_copy</p-icon>
-          </button>
+
         </p-section-code-header>
-        <ng-container #code>
-          {{codeSection1}}</ng-container>
+        <p-tab-group>
+          <p-tab label="HTML">
+            <p-section-code-content>
+              <div class="dFlex">
+                <div class="spacer"></div>
+                <button class="btn fab flat code-button" pRipple [pRippleCentered]="true" pClipboard
+                  [contentToCopy]="code" pTooltip="Copy Code">
+                  <p-icon>content_copy</p-icon>
+                </button>
+              </div>
+              <ng-container #code>
+                {{codeSection1}}</ng-container>
+            </p-section-code-content>
+          </p-tab>
+          <p-tab label="CSS">
+            <p-section-code-content>
+              <button class="btn fab flat code-button" pRipple [pRippleCentered]="true" pClipboard [contentToCopy]="css"
+                pTooltip="Copy Code">
+                <p-icon>content_copy</p-icon>
+              </button>
+              <ng-container #css>
+                {{codeSection2}}
+              </ng-container>
+            </p-section-code-content>
+          </p-tab>
+        </p-tab-group>
       </p-section-code>
       <p-section-content>
         <div class="flex-row justify-center">
@@ -77,7 +98,7 @@
       </p-section-content>
     </p-section>
   </p-tab>
-  <p-tab pTabLabel="References">
+  <p-tab label="References">
 
   </p-tab>
 </p-tab-group>

@@ -16,8 +16,6 @@ import {
 } from './components/datepicker/datepicker.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { TabsService } from './services/tabs.service';
-import { TabsComponent } from './components/tabs/tab/tabs.component';
-import { TabGroupComponent } from './components/tabs/tab-group/tab-group.component';
 import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
 import { SectionComponent } from './components/section/section.component';
 import { RadioBtnComponent } from './components/radio-btn/radio-button/radio-btn.component';
@@ -67,8 +65,10 @@ import { ModalHeaderComponent } from './components/modal/modal-header/modal-head
 import { SectionCodeFooterComponent } from './components/section/section-code/section-code-footer/section-code-footer.component';
 import { SectionCodeHeaderComponent } from './components/section/section-code/section-code-header/section-code-header.component';
 import { SectionCodeContentComponent } from './components/section/section-code/section-code-content/section-code-content.component';
-import { NewTabComponent } from './components/newtabs/newtab-group/newtab-group.component';
-import { NewtabGroupComponent } from './components/newtabs/newtab-group/newtab-group.component';
+import {
+  TabComponent,
+  TabGroupComponent,
+} from './components/tabs/tabs.component';
 
 const components = [
   TableComponent,
@@ -93,7 +93,7 @@ const components = [
   SectionContentComponent,
   SwitchToggleComponent,
   TabGroupComponent,
-  TabsComponent,
+  TabComponent,
   SliderComponent,
   CollapsibleComponent,
   CollapsibleGroupComponent,
@@ -109,11 +109,9 @@ const components = [
   SectionCodeContentComponent,
   SelectOptionComponent,
   SectionCodeHeaderComponent,
-  NewTabComponent,
   SectionCodeFooterComponent,
   TableColumnComponent,
   TableExpandedRowComponent,
-  NewtabGroupComponent,
 ];
 const directives = [
   RippleDirective,
