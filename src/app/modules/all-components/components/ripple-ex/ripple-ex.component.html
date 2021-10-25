@@ -1,5 +1,8 @@
 <p-tab-group>
   <p-tab label="Documentation">
+    <pre><code highlight class="language-html">
+        {{codeSection1}}
+      </code></pre>
     <br>
     <h4>Usage</h4>
     <br>
@@ -59,12 +62,10 @@
       <p-section-code *ngIf="showCodeSection2">
         <p-section-code-header>
           Code Example
-          <div class="spacer"></div>
-
         </p-section-code-header>
         <p-tab-group>
           <p-tab label="HTML">
-            <p-section-code-content>
+            <p-section-code-content language="html">
               <div class="dFlex">
                 <div class="spacer"></div>
                 <button class="btn fab flat code-button" pRipple [pRippleCentered]="true" pClipboard

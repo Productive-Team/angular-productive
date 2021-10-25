@@ -64,7 +64,7 @@ export class TabGroupComponent implements AfterContentInit, OnChanges {
 
   ngAfterContentInit() {
     setTimeout(() => {
-      this.selectDefault();
+      // this.selectDefault();
     }, 0);
   }
 
@@ -76,9 +76,9 @@ export class TabGroupComponent implements AfterContentInit, OnChanges {
       } else {
         activeElement = this.allTabs.first;
       }
-      if (!activeElement.disabled) {
-        activeElement.selectTab();
-      }
+      // if (!activeElement.disabled) {
+      //   activeElement.selectTab();
+      // }
     }
     if (activeElement.disabled) {
       const tabsArray = this.allTabs.toArray();
@@ -86,10 +86,13 @@ export class TabGroupComponent implements AfterContentInit, OnChanges {
       for (; i < tabsArray.length; i++) {
         if (!tabsArray[i].disabled) {
           activeElement = tabsArray[i];
-          activeElement.selectTab();
+          // activeElement.selectTab();
           break;
         }
       }
+    }
+    if (activeElement && !activeElement.disabled) {
+      activeElement.selectTab();
     }
     this.setTabIndex();
   }

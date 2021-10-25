@@ -15,7 +15,6 @@ import {
   DatepickerTriggerDirective,
 } from './components/datepicker/datepicker.component';
 import { SliderComponent } from './components/slider/slider.component';
-import { TabsService } from './services/tabs.service';
 import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
 import { SectionComponent } from './components/section/section.component';
 import { RadioBtnComponent } from './components/radio-btn/radio-button/radio-btn.component';
@@ -69,6 +68,7 @@ import {
   TabComponent,
   TabGroupComponent,
 } from './components/tabs/tabs.component';
+import { HighlightCodeDirective } from './directives/highlight/highlight.directive';
 
 const components = [
   TableComponent,
@@ -125,6 +125,7 @@ const directives = [
   TableExpandedTriggerDirective,
   SelectMultipleDirective,
   SelectSearchDirective,
+  HighlightCodeDirective,
   ClipboardDirective,
 ];
 
@@ -134,6 +135,6 @@ const directives = [
   exports: [components, directives],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
-  providers: [TabsService, SelectComponent],
+  providers: [SelectComponent],
 })
 export class ProductiveModule {}
