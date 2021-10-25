@@ -23,13 +23,14 @@ export class AllExComponent {
     },
   ];
 
-  tabAlign: string;
-  inkbarAlign: string;
+  tabAlign: string = 'left';
+  inkbarAlign: string = 'bottom';
+  inkbarStyle: string = 'short';
   constructor() {}
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {
     const obj = {
-      name: 'Tab ' + (this.newTabs.length + 1),
+      name: 'New Tab',
       disabled: disabled,
       content: 'Tab content ' + (this.newTabs.length + 1),
     };

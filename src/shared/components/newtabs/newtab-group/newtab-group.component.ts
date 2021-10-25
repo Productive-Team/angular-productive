@@ -29,8 +29,9 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
   @Output() selectedIndexChange: EventEmitter<number> =
     new EventEmitter<number>();
 
-  @Input() inkbarAlignment: InkbarDirection = 'bottom';
+  @Input() contentAligment: ContentDirection = 'bottom';
   @Input() tabAlignment: TabAlignmnet = 'left';
+  @Input() inkbarStyle: InkbarStyle = 'short';
 
   @ContentChildren(forwardRef(() => NewTabComponent))
   allTabs: QueryList<NewTabComponent>;
@@ -115,9 +116,18 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
     const parentElementRect = parentElement?.getBoundingClientRect();
 
     if (activeElement && !activeElement.disabled) {
-      inkbar.style.width = activeElementRect.width + 'px';
-      inkbar.style.left =
-        activeElementRect.left - parentElementRect.left + 'px';
+      if (this.inkbarStyle === 'short') {
+        inkbar.style.width = activeElementRect.width + 'px';
+        inkbar.style.left =
+          activeElementRect.left - parentElementRect.left + 'px';
+      } else {
+        inkbar.style.width =
+          activeElement.elementRef.nativeElement.offsetWidth + 'px';
+        inkbar.style.left =
+          activeElement.elementRef.nativeElement.getBoundingClientRect().left -
+          parentElementRect.left +
+          'px';
+      }
     }
   }
 
@@ -140,10 +150,10 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
   isOverflowing(): boolean {
     let result: boolean;
     const tabsContainer = this.tabListContainer.nativeElement;
-    const tabsList = tabsContainer.firstChild as HTMLElement;
+    const tabsList = tabsContainer.firstChild.firstChild as HTMLElement;
     if (tabsContainer) {
       const fullDifference = tabsList.offsetWidth - tabsContainer.offsetWidth;
-      if (fullDifference < 0) {
+      if (fullDifference <= 0) {
         result = false;
         this.maxScrollPosition = fullDifference;
         setTimeout(() => {
@@ -179,6 +189,12 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
         }
       }, 0);
     }
+
+    if (!changes.tabAlignment?.isFirstChange()) {
+      setTimeout(() => {
+        this.setInkBar();
+      }, 0);
+    }
   }
 
   scrollLeft(): void {
@@ -195,9 +211,6 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
         this.scrollPosition - (this.scrollPosition - this.maxScrollPosition);
     }
   }
-
-  // TODO: NEEDS TO FIX SCROLL POSITION ON WINDOW RESIZING, AND WHEN TAB IS DELETED
-  // TODO: NEEDS TO FIX SCROLL FOR CENTER AND RIGHT TAB ALIGNMENT OPTIONS
 
   correctScroll(): void {
     if (this.scrollPosition > this.maxScrollPosition) {
@@ -226,6 +239,11 @@ export class NewtabGroupComponent implements AfterContentInit, OnChanges {
         this.scrollPosition = 0;
       }
     }
+  }
+
+  @HostBinding('class.content-top')
+  get InkbarAlignmentTop() {
+    return this.contentAligment === 'top';
   }
 }
 
@@ -276,6 +294,7 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
       this.setInBody();
       this.tabGroup.generateUniqueIds();
       this.tabGroup.showButtons = this.tabGroup.isOverflowing();
+      this.tabGroup.setInkBar();
     }, 0);
   }
 
@@ -292,7 +311,9 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
         this.tabGroup.setInkBar();
         this.tabGroup.setTabIndex();
         content.hidden = false;
-        this.tabGroup.scrollTabIntoView(this.elementRef.nativeElement);
+        setTimeout(() => {
+          this.tabGroup.scrollTabIntoView(this.elementRef.nativeElement);
+        }, 0);
         const tabGroupChild = this.tabGroup.tabGroups.toArray();
         if (tabGroupChild.length > 0) {
           tabGroupChild.forEach((x) => {
@@ -344,5 +365,6 @@ export class NewTabComponent implements AfterContentInit, OnDestroy {
   }
 }
 
-type InkbarDirection = 'top' | 'bottom';
+type ContentDirection = 'top' | 'bottom';
 type TabAlignmnet = 'left' | 'center' | 'right';
+type InkbarStyle = 'expanded' | 'short';

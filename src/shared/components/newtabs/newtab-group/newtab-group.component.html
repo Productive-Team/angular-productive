@@ -4,10 +4,12 @@
       *ngIf="this.showButtons" (click)="scrollLeft()">
       <p-icon>chevron_left</p-icon>
     </button>
-    <div class="p-tabs-container {{tabAlignment}}" #tabListContainer>
+    <div class="p-tabs-container " #tabListContainer>
       <div class="p-tabs-list" [style]="'transform: translateX(-' + this.scrollPosition + 'px);'">
-        <ng-content></ng-content>
-        <div class="p-tab-ink-bar {{inkbarAlignment}}" #inkBar></div>
+        <div class="dFlex {{tabAlignment}}">
+          <ng-content></ng-content>
+        </div>
+        <div class="p-tab-ink-bar {{contentAligment}}" #inkBar></div>
       </div>
     </div>
     <button pRipple [pRippleCentered]="true" [disabled]="scrollPosition >= maxScrollPosition" class="elevation-p3"

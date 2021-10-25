@@ -77,17 +77,45 @@
     <p-option value="right">Right</p-option>
   </p-select>
 </p-fieldset> -->
-<p-radio-group [(ngModel)]="inkbarAlign" collection="ink">
-  <p-radio-button value="top">Top</p-radio-button>
-  <p-radio-button value="bottom">Bottom</p-radio-button>
-</p-radio-group>
-<p-radio-group [(ngModel)]="tabAlign" collection="tab">
-  <p-radio-button value="left">Left</p-radio-button>
-  <p-radio-button value="center">Center</p-radio-button>
-  <p-radio-button value="right">Right</p-radio-button>
-</p-radio-group>
-{{tabAlign | json}}
-<p-newtab-group [(selectedIndex)]="otherIdx" [inkbarAlignment]="inkbarAlign" [tabAlignment]="tabAlign">
+<div class="dFlex">
+  <p-section>
+    <p-section-header>
+      <span>Content Alignment</span>
+    </p-section-header>
+    <p-section-content>
+      <p-radio-group [(ngModel)]="inkbarAlign" collection="ink">
+        <p-radio-button value="top">Top</p-radio-button>
+        <p-radio-button value="bottom">Bottom</p-radio-button>
+      </p-radio-group>
+    </p-section-content>
+  </p-section>
+  <p-section>
+    <p-section-header>
+      <span>Tabs Alignment</span>
+    </p-section-header>
+    <p-section-content>
+      <p-radio-group [(ngModel)]="tabAlign" collection="tab">
+        <p-radio-button value="left">Left</p-radio-button>
+        <p-radio-button value="center">Center</p-radio-button>
+        <p-radio-button value="right">Right</p-radio-button>
+      </p-radio-group>
+    </p-section-content>
+  </p-section>
+  <p-section>
+    <p-section-header>
+      Inkbar Style
+    </p-section-header>
+    <p-section-content>
+      <p-radio-group [(ngModel)]="inkbarStyle" collection="inkbarst">
+        <p-radio-button value="full">Full</p-radio-button>
+        <p-radio-button value="short">Short</p-radio-button>
+      </p-radio-group>
+    </p-section-content>
+  </p-section>
+</div>
+
+<p-newtab-group [(selectedIndex)]="otherIdx" [contentAligment]="inkbarAlign" [tabAlignment]="tabAlign"
+  [inkbarStyle]="inkbarStyle">
   <p-new-tab *ngFor="let tab of newTabs" [label]="tab.name" [disabled]="tab.disabled">
     {{tab.content}}
     <button class="btn outlined" pRipple (click)="removeNewTab(tab)">Remove Tab</button>
