@@ -6,6 +6,7 @@ import {
   TableComponent,
   TableExpandedRowComponent,
   TableExpandedTriggerDirective,
+  TableHeaderTemplateDirective,
 } from './components/table/table.component';
 import { IconComponent } from './components/icon/icon.component';
 import { ContainerComponent } from './components/container/container.component';
@@ -129,6 +130,7 @@ const directives = [
   HighlightCodeDirective,
   ClipboardDirective,
   TableCellTemplateDirective,
+  TableHeaderTemplateDirective,
 ];
 
 @NgModule({

@@ -19,27 +19,7 @@
   color-scheme: light;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --primary: #e91e63;
-    --secondary: rgb(114, 125, 134);
-    --primaryLowOpacity: #e91e631e;
-    --secondaryLowOpacity: rgba(114, 125, 134, 0.13);
-    --appBackgroundColor: #303030;
-    --menuPanelColor: #424242;
-    --defaultDividerColor: rgba(161, 161, 161, 0.25);
-    --SwitchesBorders: rgb(134, 134, 134);
-    --textColor: rgb(250, 250, 250);
-    --contrastTextColor: #fdfdfd;
-    --rippleDefaultColor: #ffffff26;
-    --fieldsetColor: hsla(0, 0%, 100%, 0.15);
-    --fieldsetUnderlineColor: rgb(179, 179, 179);
-    --snackbarDefaultColor: rgb(255, 255, 255);
-    --snackbarTextColor: #262626;
-    --backdropColor: rgba(117, 114, 114, 1);
-    color-scheme: dark;
-  }
-} */
+
 
 :root.dark {
   --primary: #e91e63;
@@ -1584,10 +1564,11 @@ label {
 .p-table .p-table-header th {
   user-select: none;
   position: relative;
-  line-height: 56px;
+  height: 56px;
   font-size: 14px;
   text-align: left;
   padding: 0 1.5rem;
+  vertical-align: middle;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1600,7 +1581,7 @@ label {
 }
 
 .p-table .p-table-body td {
-  line-height: 50px;
+  height: 50px;
   padding: 0 1.5rem;
   font-weight: 400;
   font-size: 15px;
@@ -1625,7 +1606,7 @@ label {
 }
 
 .p-table .table-expanded-row td {
-  line-height: unset;
+  height: unset;
   padding: 0;
 }
 .p-table .table-expanded-row {
@@ -1670,7 +1651,7 @@ label {
 
 .p-table .p-table-footer td {
   padding: 0 1.5rem;
-  line-height: 56px;
+  height: 56px;
   text-align: left;
 }
 

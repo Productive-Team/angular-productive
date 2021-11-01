@@ -7,28 +7,38 @@ export class DarkModeService {
   darkModeEnabled: boolean;
 
   constructor() {
-    const token = sessionStorage.getItem('dark_active');
+    this.detectDarkMode();
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (change) => {
+        localStorage.removeItem('dark_active');
+        this.detectDarkMode();
+      });
+  }
+
+  detectDarkMode(): void {
+    const token = localStorage.getItem('dark_active');
     if (!token) {
       if (window?.matchMedia('(prefers-color-scheme: dark)').matches) {
         this.darkModeEnabled = true;
-        sessionStorage.setItem('dark_active', this.darkModeEnabled.toString());
+        localStorage.setItem('dark_active', this.darkModeEnabled.toString());
         document.documentElement.classList.add('dark');
         document.documentElement.classList.remove('light');
       } else {
         this.darkModeEnabled = false;
-        sessionStorage.setItem('dark_active', this.darkModeEnabled.toString());
+        localStorage.setItem('dark_active', this.darkModeEnabled.toString());
         document.documentElement.classList.add('light');
         document.documentElement.classList.remove('dark');
       }
     } else {
       if (token === 'true') {
         this.darkModeEnabled = true;
-        sessionStorage.setItem('dark_active', this.darkModeEnabled.toString());
+        localStorage.setItem('dark_active', this.darkModeEnabled.toString());
         document.documentElement.classList.add('dark');
         document.documentElement.classList.remove('light');
       } else {
         this.darkModeEnabled = false;
-        sessionStorage.setItem('dark_active', this.darkModeEnabled.toString());
+        localStorage.setItem('dark_active', this.darkModeEnabled.toString());
         document.documentElement.classList.add('light');
         document.documentElement.classList.remove('dark');
       }
@@ -37,7 +47,7 @@ export class DarkModeService {
 
   darkModeToggle(): void {
     this.darkModeEnabled = !this.darkModeEnabled;
-    sessionStorage.setItem('dark_active', this.darkModeEnabled.toString());
+    localStorage.setItem('dark_active', this.darkModeEnabled.toString());
     this.darkModeSet();
   }
 

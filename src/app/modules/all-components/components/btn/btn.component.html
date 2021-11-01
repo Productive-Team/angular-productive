@@ -1,14 +1,10 @@
 <p-tab-group>
   <p-tab label="Documentation">
     <h5 class="t-700">Usage</h5>
-    <br>
     <p>Buttons are used to perform actions through the application.</p>
-    <br>
     <h5 class="t-700">Behaviour</h5>
-    <br>
     <p>The buttons behave like a normal HTML <code>&lt;button&gt;</code> element, and accepts all of angular bindings.
     </p>
-    <br>
     <h5 class="t-700">Styling</h5>
     <br>
     <p>The Productive custom button stylings are achieved by simple css classes. You just need to add the classes listed
@@ -223,13 +219,8 @@
     <br>
     <div class="table-container">
       <p-table [pTableData]="buttonClasses">
-        <p-table-column columnName="test">
-          <ng-template pTableCellTemplate>
-            hello
-          </ng-template>
-        </p-table-column>
-        <p-table-column columnName="Class" columnProp="class" [columnTemplate]="template">
-          <ng-template #template let-data>
+        <p-table-column columnName="Class" columnProp="class">
+          <ng-template appTableCellTemplate let-data>
             <code>{{data.class}}</code>
           </ng-template>
         </p-table-column>

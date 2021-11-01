@@ -82,12 +82,12 @@ const expandAnimation = trigger('expandAnimation', [
             </td>
             <td *ngFor="let header of actualTableData.header">
               <ng-container
-                *ngIf="header.template !== undefined"
-                [ngTemplateOutlet]="header.template"
+                *ngIf="header.cellTemplate !== undefined"
+                [ngTemplateOutlet]="header.cellTemplate"
                 [ngTemplateOutletContext]="{ $implicit: item }"
               ></ng-container>
               {{
-                header.template !== undefined
+                header.cellTemplate !== undefined
                   ? ''
                   : getPropByString(item, header.prop)
               }}
@@ -184,7 +184,7 @@ export class TableComponent implements OnInit, OnChanges {
       this.tableColumns.toArray().forEach((v) => {
         const obj: TableDataHeader = {
           name: v.columnName,
-          cellTemplate: v.tableCell.templateRef,
+          cellTemplate: v.columnCellTemplate,
           prop: v.columnProp,
         };
         hdrArr.push(obj);
@@ -415,54 +415,73 @@ export class TableComponent implements OnInit, OnChanges {
   selector: '[appTableCellTemplate], [pTableCellTemplate]',
 })
 export class TableCellTemplateDirective {
-  constructor(public templateRef: TemplateRef<unknown>) {
-    console.log(templateRef);
-  }
+  constructor(public templateRef: TemplateRef<unknown>) {}
+}
+@Directive({
+  selector: '[appTableHeaderTemplate], [pTableHeaderTemplate]',
+})
+export class TableHeaderTemplateDirective {
+  constructor(public templateRef: TemplateRef<unknown>) {}
 }
 
 @Component({
   selector: 'app-table-column, p-table-column',
   template: `
-    <th *ngIf="!columnSort" [width]="columnWidth">{{ columnName }}</th>
     <th
-      *ngIf="columnSort"
-      (click)="sort()"
-      class="p-column-sortable"
+      (click)="columnSort ? sort() : ''"
+      [class.p-column-sortable]="columnSort"
       [width]="columnWidth"
     >
       <div class="dFlex align-items-center">
-        {{ columnName }}
-        <div class="spacer"></div>
-        <i class="material-icons">{{
-          sortingState === 'normal'
-            ? ''
-            : sortingState === 'asc'
-            ? 'arrow_upward'
-            : 'arrow_downward'
-        }}</i>
+        <ng-container
+          *ngIf="columnHeaderTemplate"
+          [ngTemplateOutlet]="columnHeaderTemplate"
+        ></ng-container>
+        {{ columnHeaderTemplate ? '' : columnName }}
+        <ng-container *ngIf="columnSort">
+          <div class="spacer"></div>
+          <i class="material-icons">{{
+            sortingState === 'normal'
+              ? ''
+              : sortingState === 'asc'
+              ? 'arrow_upward'
+              : 'arrow_downward'
+          }}</i>
+        </ng-container>
       </div>
     </th>
   `,
 })
-export class TableColumnComponent {
+export class TableColumnComponent implements AfterContentInit {
   @Input() columnName: string;
   @Input() columnProp: string;
   @Input() columnSort: boolean;
-  @Input() columnTemplate: TemplateRef<any>;
   @Input() columnWidth: number;
   @Input() customSortFunction: any;
 
   sortingState: TableSortState = 'normal';
 
   columnCellTemplate: TemplateRef<any>;
+  columnHeaderTemplate: TemplateRef<any>;
 
   @ContentChild(TableCellTemplateDirective)
   tableCell!: TableCellTemplateDirective;
+  @ContentChild(TableHeaderTemplateDirective)
+  tableHeader!: TableHeaderTemplateDirective;
 
   constructor(
     public parentComponent: TableComponent,
     public elementRef: ElementRef
   ) {}
+
+  ngAfterContentInit(): void {
+    if (this.tableCell) {
+      this.columnCellTemplate = this.tableCell.templateRef;
+    }
+    if (this.tableHeader) {
+      this.columnHeaderTemplate = this.tableHeader.templateRef;
+    }
+  }
 
   sort(): void {
     switch (this.sortingState) {
