@@ -107,6 +107,19 @@ footer {
 }
 
 /* #region Typography */
+/*
+Typography widths:
+3840px
+2048px
+1920px
+1660px
+1280px
+960px
+840px
+600px
+480px
+280px
+*/
 h1 {
   font-size: 2.5rem;
   font-weight: 500;
@@ -1420,96 +1433,6 @@ label {
 }
 /* #endregion Card */
 
-/* #region Tabs */
-.tab-group-container {
-  display: flex;
-  flex-direction: column;
-  -webkit-user-drag: none;
-  -moz-window-dragging: none;
-}
-.tab-group-header {
-  display: flex;
-  overflow: hidden;
-  position: relative;
-  flex-shrink: 0;
-  border-bottom: 1px solid var(--defaultDividerColor);
-}
-.tab-header-container {
-  display: flex;
-  flex-grow: 1;
-  overflow: hidden;
-  z-index: 1;
-  scroll-behavior: smooth;
-}
-.tab-list {
-  flex-grow: 1;
-  position: relative;
-  transition: transform 300ms ease-in-out;
-}
-.all-tabs {
-  display: flex;
-}
-.tab-content {
-  display: contents;
-  position: relative;
-  overflow: hidden;
-}
-
-.tab {
-  position: relative;
-  height: 46px;
-  box-sizing: border-box;
-  padding: 0 25px;
-  line-height: 46px;
-  user-select: none;
-  min-width: 150px;
-  max-width: 250px;
-  padding: 0 25px;
-  display: inline-flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.tab span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  pointer-events: none;
-  font-weight: 600;
-  color: var(--textColor);
-}
-.tab i {
-  color: var(--textColor);
-}
-.tab.disabled {
-  opacity: 0.4;
-  pointer-events: none;
-}
-.tab.active span,
-.tab.active i {
-  color: var(--primary);
-  opacity: 1;
-}
-
-.tab-body {
-  padding: 1rem 0;
-  display: none;
-  box-sizing: border-box;
-}
-.tab-ink-bar {
-  position: absolute;
-  display: block;
-  bottom: 0;
-  height: 2.6px;
-  background-color: var(--primary);
-  border-radius: 5px 5px 0 0;
-  transition: 400ms cubic-bezier(0.54, 0, 0.61, 1);
-}
-/*#endregion Tabs */
-
 /* #region Collapsible */
 .collapsible-wrap {
   overflow: hidden;
@@ -2024,7 +1947,7 @@ label {
 }
 /* #endregion Modal */
 
-/* #region NewTab */
+/* #region Tabs */
 .p-tab-group {
   display: flex;
   flex-direction: column;
@@ -2075,7 +1998,6 @@ label {
 
 .p-tabs-list {
   position: relative;
-  /* display: flex; */
   flex-grow: 1;
   transition: transform 400ms cubic-bezier(0, 0, 0, 1);
 }
@@ -2146,4 +2068,4 @@ label {
   font-size: 14px;
   font-weight: 600;
 }
-/* #endregion NewTab */
+/* #endregion Tabs */
