@@ -1,190 +1,24 @@
-<p-card style="width: 20%;">
-  <div class="dFlex fDirectionColumn">
-    <p-card-header>
-      <h2>Header</h2>
-    </p-card-header>
-    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg">
-    <div>
-      <p-card-content>Hello World, I am a card</p-card-content>
-      <p-card-footer>
-        <button class="btn flat fab" pRipple [pRippleCentered]="true">
-          <p-icon>favorite</p-icon>
-        </button>
-        <button class="btn flat fab" pRipple [pRippleCentered]="true">
-          <p-icon>share</p-icon>
-        </button>
-      </p-card-footer>
-    </div>
-  </div>
-</p-card>
+<p-fieldset>
+  <app-select-ref>
+    <app-opt value="23">Opt</app-opt>
+    <app-opt>Opt1</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
 
-<p-slider [(pSliderValue)]="numb" [pSliderMinValue]="50" [pSliderMaxValue]="250"></p-slider>
-{{numb}}
-
-<button [pModalTrigger]="modal">Modal</button>
-
-<p-checkbox [(ngModel)]="bolltest">Modal Static</p-checkbox>
-
-<p-modal #modal [pModalStatic]="bolltest">
-  <p-modal-header>
-    <h3>Header</h3>
-  </p-modal-header>
-  <p-modal-content>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis venenatis arcu et feugiat. Pellentesque
-      lorem
-      nulla, malesuada ac est eu, imperdiet condimentum leo. Pellentesque vel rhoncus purus. Vestibulum pharetra, dui
-      feugiat
-      rutrum condimentum, neque risus facilisis arcu, et venenatis tellus eros quis quam. Pellentesque euismod eros non
-      est
-      laoreet, vel aliquam risus porta. Suspendisse id lacinia purus, nec tempus sapien. Phasellus id est commodo,
-      sagittis
-      urna vitae, finibus neque. Maecenas interdum metus id pellentesque pharetra. Pellentesque luctus, velit quis
-      imperdiet
-      sodales, purus mauris tincidunt felis, id vestibulum odio elit ut ligula. Sed at pretium augue, elementum tempor
-      risus.
-      Praesent cursus gravida faucibus. In est odio, sollicitudin ut fermentum vitae, placerat sed eros.
-    </p>
-  </p-modal-content>
-  <p-modal-footer>
-    <div class="spacer"></div>
-    <button class="btn flat" (click)="refuse(modal)" pRipple>Refuse</button>
-    <button class="btn flat" (click)="accept(modal)" pRipple>Accept</button>
-  </p-modal-footer>
-</p-modal>
-
-{{accepText}}
-
-<br>
-
-<p-checkbox #sel>Select Created</p-checkbox>
-<p-checkbox #dis>Disable Created</p-checkbox>
-<button class="btn elevation" pRipple (click)="addNew(dis.checked, sel.checked)">Add Tab</button>
-<!-- <p-fieldset pFieldsetLabelText="Inkbar Aligment">
-  <p-select [(ngModel)]="inkbarAlign">
-    <p-option value="bottom">
-      Bottom
-    </p-option>
-    <p-option value="top">
-      Top
-    </p-option>
-  </p-select>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+    <app-opt>Opt2</app-opt>
+  </app-select-ref>
 </p-fieldset>
-<p-fieldset pFieldsetLabelText="Tab Alignments">
-  <p-select [(ngModel)]="tabAlign">
-    <p-option value="left">Left</p-option>
-    <p-option value="center">Center</p-option>
-    <p-option value="right">Right</p-option>
-  </p-select>
-</p-fieldset> -->
-<div class="dFlex">
-  <p-section>
-    <p-section-header>
-      <span>Content Alignment</span>
-    </p-section-header>
-    <p-section-content>
-      <p-radio-group [(ngModel)]="inkbarAlign" collection="ink">
-        <p-radio-button value="top">Top</p-radio-button>
-        <p-radio-button value="bottom">Bottom</p-radio-button>
-      </p-radio-group>
-    </p-section-content>
-  </p-section>
-  <p-section>
-    <p-section-header>
-      <span>Tabs Alignment</span>
-    </p-section-header>
-    <p-section-content>
-      <p-radio-group [(ngModel)]="tabAlign" collection="tab">
-        <p-radio-button value="left">Left</p-radio-button>
-        <p-radio-button value="center">Center</p-radio-button>
-        <p-radio-button value="right">Right</p-radio-button>
-      </p-radio-group>
-    </p-section-content>
-  </p-section>
-  <p-section>
-    <p-section-header>
-      Inkbar Style
-    </p-section-header>
-    <p-section-content>
-      <p-radio-group [(ngModel)]="inkbarStyle" collection="inkbarst">
-        <p-radio-button value="full">Full</p-radio-button>
-        <p-radio-button value="short">Short</p-radio-button>
-      </p-radio-group>
-    </p-section-content>
-  </p-section>
-</div>
-
-<p-tab-group [(selectedIndex)]="otherIdx" [contentAligment]="inkbarAlign" [tabAlignment]="tabAlign"
-  [inkbarStyle]="inkbarStyle">
-  <p-tab *ngFor="let tab of newTabs" [label]="tab.name" [disabled]="tab.disabled">
-    {{tab.content}}
-    <button class="btn outlined" pRipple (click)="removeNewTab(tab)">Remove Tab</button>
-  </p-tab>
-</p-tab-group>
-
-<!-- <p-newtab-group>
-  <p-new-tab label="Tab 1">
-    Content
-  </p-new-tab>
-  <p-new-tab label="Gaming">
-    <p-newtab-group>
-      <p-new-tab label="Plataformers">
-        Mario
-      </p-new-tab>
-      <p-new-tab label="Fps">
-        FPS
-      </p-new-tab>
-    </p-newtab-group>
-  </p-new-tab>
-</p-newtab-group> -->
-
-<!-- <p-newtab-group inkbarAlignment="top" tabAlignment="center">
-  <p-new-tab label="Books" icon="bookmark"></p-new-tab>
-  <p-new-tab label="Gaming" icon="sports_esports"></p-new-tab>
-  <p-new-tab label="Music" icon="headset"></p-new-tab>
-</p-newtab-group> -->
-
-<!-- <p-newtab-group [(selectedIndex)]="otherIdx">
-  <p-new-tab tabIcon="verified">ONE</p-new-tab>
-  <p-new-tab tabLabel="some2" [disabled]="true">TOW</p-new-tab>
-  <p-new-tab tabLabel="some">THREE</p-new-tab>
-  <p-new-tab tabLabel="some">GOR</p-new-tab>
-  <p-new-tab tabLabel="some">
-    sadasda
-  </p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-  <p-new-tab tabLabel="some"></p-new-tab>
-</p-newtab-group> -->
-
-{{otherIdx}}

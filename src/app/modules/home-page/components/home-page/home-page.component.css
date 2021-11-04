@@ -9,6 +9,11 @@
   margin: 0 1rem 1rem 0;
 }
 
-.exp-item h5 {
-  margin-bottom: 1rem;
+@media screen and (max-width: 768px) {
+  .text-info {
+    flex-direction: column;
+  }
+  .exp-item {
+    margin: 0 0 2rem 0;   
+  }
 }

@@ -1,0 +1,18 @@
+<div class="pRelative">
+  <input type="text" [placeholder]="placeholder" readonly class="p-select-value" (focus)="openSelectMenu()" #valueInput>
+</div>
+<div class="p-select-wrapper-new" #selectMenu>
+  <div class="p-select-body elevation-p8" *ngIf="menuOpen">
+    <div class="p-select-header">
+      <div class="p-search-input" *ngIf="search">
+        <input type="text" placeholder="Search..." class="p-select-search">
+      </div>
+      <div class="p-select-all" *ngIf="selectAllForMultiple && selectMode === 'multiple'">
+        <p-checkbox color="var(--primary)">Select All</p-checkbox>
+      </div>
+    </div>
+    <div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

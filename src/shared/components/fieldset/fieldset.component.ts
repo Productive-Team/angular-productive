@@ -163,7 +163,7 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
     }
   }
 
-  @HostListener('click', ['$event']) focused(event) {
+  @HostListener('click', ['$event']) focused(event): void {
     let input = this.el.nativeElement.querySelectorAll(
       'input',
       'select',
@@ -222,7 +222,8 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
       !input[0].parentElement.classList.contains('p-select-parent-wrapper') &&
       input[0].closest('.p-select-search') === null &&
       !input[0].classList.contains('picker-trigger') &&
-      !input[0].classList.contains('calendar-trigger')
+      !input[0].classList.contains('calendar-trigger') &&
+      !input[0].classList.contains('p-select-value')
     ) {
       if (input[0].readOnly) {
         return true;

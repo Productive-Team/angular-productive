@@ -71,6 +71,10 @@ import {
   TabGroupComponent,
 } from './components/tabs/tabs.component';
 import { HighlightCodeDirective } from './directives/highlight/highlight.directive';
+import {
+  SelectOptComponent,
+  SelectRefComponent,
+} from './components/select-ref/select-ref.component';
 
 const components = [
   TableComponent,
@@ -114,6 +118,8 @@ const components = [
   SectionCodeFooterComponent,
   TableColumnComponent,
   TableExpandedRowComponent,
+  SelectRefComponent,
+  SelectOptComponent,
 ];
 const directives = [
   RippleDirective,
@@ -139,6 +145,6 @@ const directives = [
   exports: [components, directives],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
-  providers: [SelectComponent],
+  providers: [SelectComponent, SelectRefComponent],
 })
 export class ProductiveModule {}

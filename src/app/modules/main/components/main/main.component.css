@@ -15,8 +15,17 @@
 
 @keyframes rotateRev {
   0% {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
   } 100% {
     transform: rotate(0);
+  }
+}
+
+.smallnav {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .smallnav {
+    display: block;
   }
 }
