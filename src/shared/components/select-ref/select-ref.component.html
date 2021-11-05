@@ -1,8 +1,8 @@
 <div class="pRelative">
   <input type="text" [placeholder]="placeholder" readonly class="p-select-value" (focus)="openSelectMenu()" #valueInput>
 </div>
-<div class="p-select-wrapper-new" #selectMenu>
-  <div class="p-select-body elevation-p8" *ngIf="menuOpen">
+<div class="p-select-wrapper-new" #selectMenu [style]="styleString">
+  <div class="p-select-body elevation-p8" *ngIf="menuOpen" @menuAnimation>
     <div class="p-select-header">
       <div class="p-search-input" *ngIf="search">
         <input type="text" placeholder="Search..." class="p-select-search">
@@ -13,6 +13,11 @@
     </div>
     <div>
       <ng-content></ng-content>
+      <ng-container *ngIf="selectData.length > 0" [ngTemplateOutlet]="arrayGeneratedOptions"></ng-container>
     </div>
   </div>
 </div>
+
+<ng-template #arrayGeneratedOptions>
+  <app-opt *ngFor="let data of selectData" [value]="data.value">{{data.label}}</app-opt>
+</ng-template>

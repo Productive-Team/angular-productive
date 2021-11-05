@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalComponent } from 'src/shared/components/modal/modal.component';
+import { SnackbarComponent } from 'src/shared/components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-all-ex',
@@ -11,7 +12,7 @@ export class AllExComponent {
   otherCheck: boolean = false;
 
   accepText = 'Please open the dialog and select an option';
-
+  value: string = '23';
   numb: number = 250;
 
   otherIdx: number;
@@ -23,10 +24,21 @@ export class AllExComponent {
     },
   ];
 
+  selectData = [
+    {
+      value: 'garaio',
+      label: 'Option 1',
+    },
+    {
+      value: 'garaio2',
+      label: 'Option 2',
+    },
+  ];
+
   tabAlign: string = 'left';
   inkbarAlign: string = 'bottom';
   inkbarStyle: string = 'short';
-  constructor() {}
+  constructor(private snackbar: SnackbarComponent) {}
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {
     const obj = {
@@ -56,5 +68,9 @@ export class AllExComponent {
   refuse(modalInstance: ModalComponent) {
     this.accepText = 'Oh, you refused it...';
     modalInstance.closeModal();
+  }
+
+  open() {
+    this.snackbar.openSnackbar('Hello Word');
   }
 }

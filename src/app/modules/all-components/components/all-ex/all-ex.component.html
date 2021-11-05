@@ -1,24 +1,16 @@
-<p-fieldset>
-  <app-select-ref>
+<p-fieldset pFieldsetAppearence="filled" pFieldsetLabelText="Select World">
+  <app-select-ref placeholder="caraio" [(selectValue)]="value" [selectData]="selectData">
     <app-opt value="23">Opt</app-opt>
-    <app-opt>Opt1</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
-    <app-opt>Opt2</app-opt>
+    <!-- <app-opt>Opt1</app-opt> -->
+    <!-- <app-opt>Opt2</app-opt> -->
+    <!-- <app-opt>Opt3</app-opt> -->
   </app-select-ref>
 </p-fieldset>
+
+{{value}}
+
+<button class="btn small outlined" pRipple (click)="open()">
+  Open Snack
+</button>
+
+<app-snackbar></app-snackbar>

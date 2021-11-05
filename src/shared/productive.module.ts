@@ -75,6 +75,7 @@ import {
   SelectOptComponent,
   SelectRefComponent,
 } from './components/select-ref/select-ref.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 const components = [
   TableComponent,
@@ -120,6 +121,7 @@ const components = [
   TableExpandedRowComponent,
   SelectRefComponent,
   SelectOptComponent,
+  SnackbarComponent,
 ];
 const directives = [
   RippleDirective,
