@@ -1,6 +1,11 @@
 <p-fieldset pFieldsetAppearence="filled" pFieldsetLabelText="Select World">
-  <app-select-ref placeholder="caraio" [(selectValue)]="value" [selectData]="selectData">
-    <app-opt value="23">Opt</app-opt>
+  <app-select-ref placeholder="caraio" [(selectValue)]="value" [selectMode]="'multiple'"
+    selectMultipleInputMode="length">
+    <!-- [selectData]="selectData" -->
+    <app-opt value="23">Opt 1</app-opt>
+    <app-opt value="3">Opt 5</app-opt>
+    <app-opt value="7">Opt 4 </app-opt>
+    <app-opt value="0">Opt 2</app-opt>
     <!-- <app-opt>Opt1</app-opt> -->
     <!-- <app-opt>Opt2</app-opt> -->
     <!-- <app-opt>Opt3</app-opt> -->

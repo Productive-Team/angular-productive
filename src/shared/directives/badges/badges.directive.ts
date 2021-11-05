@@ -1,13 +1,14 @@
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appBadges], [p-badges], [pBadges]',
+  selector: '[appBadges], [p-badges], [pBadge]',
 })
 export class BadgesDirective implements AfterViewInit {
   @Input() pBadgeHorizontalPosition: string;
   @Input() pBadgeVerticalPosition: string;
-  @Input() pBadgeCircle = true;
-  @Input() pBadgeText: string;
+  @Input() pBadgePosition: BadgePosition;
+  @Input() pBadgeCircle: boolean;
+  @Input('pBadge') pBadgeText: string;
   @Input() pBadgeColor: string;
   constructor(private el: ElementRef) {}
 
@@ -35,24 +36,25 @@ export class BadgesDirective implements AfterViewInit {
   }
 
   private setBadgePosition(element): void {
-    switch (this.pBadgeVerticalPosition) {
-      case 'top':
+    switch (this.pBadgePosition) {
+      case 'top-left':
         element.classList.add('top');
-        break;
-      case 'bottom':
-        element.classList.add('bottom');
-        break;
-      default:
-        element.classList.add('top');
-    }
-    switch (this.pBadgeHorizontalPosition) {
-      case 'left':
         element.classList.add('left');
         break;
-      case 'right':
+      case 'top-right':
+        element.classList.add('top');
+        element.classList.add('right');
+        break;
+      case 'bottom-left':
+        element.classList.add('bottom');
+        element.classList.add('left');
+        break;
+      case 'bottom-right':
+        element.classList.add('bottom');
         element.classList.add('right');
         break;
       default:
+        element.classList.add('top');
         element.classList.add('right');
     }
   }
@@ -111,3 +113,5 @@ export class BadgesDirective implements AfterViewInit {
     }
   }
 }
+
+type BadgePosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';

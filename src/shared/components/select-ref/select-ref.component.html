@@ -1,5 +1,12 @@
-<div class="pRelative">
+<div class="pRelative dFlex">
   <input type="text" [placeholder]="placeholder" readonly class="p-select-value" (focus)="openSelectMenu()" #valueInput>
+  <ng-container
+    *ngIf="allSelectedOption && selectMode === 'multiple' && selectMultipleInputMode === 'length' && allSelectedOption.length > 1">
+    <span style="white-space: nowrap; font-size: 14px;" class="t-500">
+      (+{{allSelectedOption.length - 1}} {{allSelectedOption.length > 2 ? 'others':'other'}})
+    </span>
+  </ng-container>
+  <i class="material-icons">arrow_drop_down</i>
 </div>
 <div class="p-select-wrapper-new" #selectMenu [style]="styleString">
   <div class="p-select-body elevation-p8" *ngIf="menuOpen" @menuAnimation>

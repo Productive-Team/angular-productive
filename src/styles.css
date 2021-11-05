@@ -14,12 +14,12 @@
   --fieldsetColor: hsla(0, 0%, 94%, 1);
   --fieldsetUnderlineColor: rgb(179, 179, 179);
   --snackbarDefaultColor: rgb(24, 24, 24);
+  --tooltipBackground: rgb(97,97,97);
+  --tooltipText: white;
   --snackbarTextColor: white;
   --backdropColor: #000;
   color-scheme: light;
 }
-
-
 
 :root.dark {
   --primary: #e91e63;
@@ -37,6 +37,8 @@
   --fieldsetUnderlineColor: rgb(179, 179, 179);
   --snackbarDefaultColor: rgb(255, 255, 255);
   --snackbarTextColor: #262626;
+  --tooltipBackground: rgb(97,97,97);
+  --tooltipText: white;
   --backdropColor: rgba(117, 114, 114, 1);
   color-scheme: dark;
 }
@@ -1458,10 +1460,11 @@ label {
   display: flex;
   align-items: center;
   z-index: 1000;
+  padding: 0.5rem 1rem;
 }
 .pTooltip {
-  background-color: rgb(97, 97, 97);
-  color: white;
+  background-color: var(--tooltipBackground);
+  color: var(--tooltipText);
   user-select: none;
   border-radius: 5px;
   max-width: 350px;

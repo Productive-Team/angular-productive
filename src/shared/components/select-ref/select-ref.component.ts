@@ -292,7 +292,9 @@ export class SelectOptComponent implements OnInit {
     this.selectComponent.handleSingleSelect(this);
   }
 
-  selectMultiple(): void {}
+  selectMultiple(): void {
+    this.selectComponent.handleMultipleSelect(this);
+  }
 }
 
 type SelectMode = 'single' | 'multiple';
