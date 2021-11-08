@@ -1,6 +1,6 @@
+import { Snackbar } from './../../../../../shared/components/snackbar/snackbar';
 import { Component, OnInit } from '@angular/core';
 import { ModalComponent } from 'src/shared/components/modal/modal.component';
-import { SnackbarComponent } from 'src/shared/components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-all-ex',
@@ -38,7 +38,7 @@ export class AllExComponent {
   tabAlign: string = 'left';
   inkbarAlign: string = 'bottom';
   inkbarStyle: string = 'short';
-  constructor(private snackbar: SnackbarComponent) {}
+  constructor(private snackbar: Snackbar) {}
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {
     const obj = {
@@ -70,7 +70,12 @@ export class AllExComponent {
     modalInstance.closeModal();
   }
 
+  customAction = () => {
+    console.log('I am an action');
+  };
+
   open() {
-    this.snackbar.openSnackbar('Hello Word');
+    this.snackbar.snackbarCustomAction = this.customAction;
+    this.snackbar.openSnackbar('Hello Word', 'Action');
   }
 }

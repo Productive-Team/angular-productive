@@ -4,11 +4,9 @@ import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
   selector: '[appBadges], [p-badges], [pBadge]',
 })
 export class BadgesDirective implements AfterViewInit {
-  @Input() pBadgeHorizontalPosition: string;
-  @Input() pBadgeVerticalPosition: string;
+  @Input('pBadge') pBadgeText: string;
   @Input() pBadgePosition: BadgePosition;
   @Input() pBadgeCircle: boolean;
-  @Input('pBadge') pBadgeText: string;
   @Input() pBadgeColor: string;
   constructor(private el: ElementRef) {}
 

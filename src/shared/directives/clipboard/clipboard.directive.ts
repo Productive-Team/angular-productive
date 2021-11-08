@@ -1,12 +1,12 @@
 import { Directive, HostListener, Input } from '@angular/core';
-import { SnackbarService } from 'src/shared/services/snackbar.service';
+import { Snackbar } from 'src/shared/components/snackbar/snackbar';
 
 @Directive({
   selector: '[appClipboard], [pClipboard]',
 })
 export class ClipboardDirective {
   @Input() contentToCopy: any;
-  constructor(private snackbar: SnackbarService) {}
+  constructor(private snackbar: Snackbar) {}
 
   @HostListener('click', ['$event'])
   copyToClipboard(): void {

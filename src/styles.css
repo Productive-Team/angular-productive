@@ -1213,122 +1213,6 @@ label {
 }
 /* #endregion Elevation */
 
-/* #region Snackbars */
-.snackbar {
-  position: fixed;
-  box-sizing: border-box;
-  padding: 15px;
-  border-radius: 5px;
-  min-height: 20px;
-  width: 344px;
-  color: var(--snackbarTextColor);
-  background-color: var(--snackbarDefaultColor);
-  z-index: 1004;
-  line-height: 20px;
-  max-height: 250px;
-  display: none;
-  overflow: hidden;
-  transition: opacity 0.1s linear;
-}
-.snackbar.top {
-  top: 15px;
-}
-.snackbar.bottom {
-  bottom: 15px;
-}
-.snackbar.left {
-  animation: fadeInSnackbar 0.15s;
-  left: 15px;
-}
-.snackbar.right {
-  animation: fadeInSnackbar 0.15s;
-  right: 15px;
-}
-.snackbar.center {
-  animation: fadeInCenterSnackbar 0.15s;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.snackbar button {
-  position: absolute;
-  transform: translateY(-50%);
-  top: 50%;
-  right: 15px;
-  max-width: 56.17px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.snackbar span {
-  word-break: break-all;
-}
-@media only screen and (max-width: 500px) {
-  .snackbar {
-    margin: 0;
-    width: 100%;
-    height: 50px;
-    border-radius: 0;
-    box-sizing: border-box;
-  }
-  .snackbar.left {
-    left: 0;
-  }
-  .snackbar.right {
-    right: 0;
-  }
-  .snackbar.center {
-    left: 0;
-    transform: translateX(0);
-  }
-  .snackbar.top {
-    animation: mobileTopSnackbar 0.25s;
-    top: 0px;
-  }
-  .snackbar.bottom {
-    animation: mobileBottomSnackbar 0.25s;
-    bottom: 0px;
-  }
-}
-.snackbar-button {
-  bottom: 8px;
-}
-@keyframes fadeInSnackbar {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes fadeInCenterSnackbar {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
-}
-@keyframes mobileBottomSnackbar {
-  from {
-    bottom: -150px;
-  }
-  to {
-    bottom: 0;
-  }
-}
-@keyframes mobileTopSnackbar {
-  from {
-    top: -150px;
-  }
-  to {
-    top: 0;
-  }
-}
-/* #endregion Snackbars */
-
 /* #region Divider */
 .p-divider {
   display: block;
@@ -2219,11 +2103,12 @@ label {
 }
 /* #endregion SelectNew */
 
-/* #region SnackbarNew */
+/* #region Snackbar */
 .p-snackbar-wrapper {
   position: fixed;
-  margin: 2rem;
+  padding: 2rem;
   width: 350px;
+  z-index: 1150;
 }
 
 .p-snackbar {
@@ -2231,12 +2116,23 @@ label {
   background-color: var(--snackbarDefaultColor);
   color: var(--snackbarTextColor);
   width: 100%;
-  min-height: 48px;
-  padding: 0 .75rem;
+  min-height: 56px;
+  padding: 0.5rem .75rem;
   box-sizing: border-box;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  border-radius: 5px;
+  animation: enterAnimation 100ms linear;
+}
+
+.p-snackbar.leaving {
+  animation: leaveAnimation 150ms cubic-bezier(0, 0, 0.5, 1);
+}
+
+.p-snackbar span {
+  word-break: break-word;
+  padding-right: 0.5rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -2245,4 +2141,23 @@ label {
     box-sizing: border-box;
   }
 }
-/* #endregion SnackbarNew */
+
+@keyframes enterAnimation {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  } 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes leaveAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+/* #endregion Snackbar */

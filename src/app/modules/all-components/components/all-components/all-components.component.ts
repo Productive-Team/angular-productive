@@ -1,6 +1,6 @@
-import { SnackbarService } from '../../../../../shared/services/snackbar.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
+import { Snackbar } from 'src/shared/components/snackbar/snackbar';
 
 @Component({
   selector: 'app-all-components',
@@ -117,7 +117,7 @@ export class AllComponentsComponent implements OnInit {
 
   sectionName: string;
 
-  constructor(private snackbar: SnackbarService, private router: Router) {
+  constructor(private snackbar: Snackbar, private router: Router) {
     this.router.events.subscribe((x) => {
       if (x instanceof ActivationEnd) {
         const route = this.router.url.split('/');
