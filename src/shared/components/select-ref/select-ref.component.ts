@@ -70,7 +70,8 @@ export class SelectRefComponent implements AfterContentInit, OnDestroy {
   @ViewChild('valueInput') valueInput: ElementRef<HTMLInputElement>;
 
   styleString: string;
-  constructor() {}
+
+  constructor(private elementRef: ElementRef<HTMLElement>) {}
 
   ngAfterContentInit(): void {
     this.setMenuToGlobalContainer();
@@ -166,13 +167,21 @@ export class SelectRefComponent implements AfterContentInit, OnDestroy {
   }
 
   setSelectMenuPositioning(): void {
+    // Creates an empty string to store future styling values.
     let styleString = '';
 
+    // Gets the closest fieldset element to be able to know input's width.
+    // and also gets input's DOMRect allowing for top, left and width values to be used.
     const inputRect = this.getPositions(this.valueInput.nativeElement);
+    const fiedsetElement = this.elementRef.nativeElement.closest(
+      '.fieldset'
+    ) as HTMLElement;
+
+    // Select menu is declared here, to be used on top calcuation.
     const menu = this.menuWrapper.nativeElement;
 
-    // menu.style.left = inputRect.left + 'px';
-
+    // Gets the main option, beign the first option on the list, or the first selected option on the list
+    // this is used later to calculate the translation Y value
     let mainOption: HTMLElement;
     if (this.mainSelectedOption) {
       mainOption = this.mainSelectedOption.elementRef.nativeElement;
@@ -180,35 +189,77 @@ export class SelectRefComponent implements AfterContentInit, OnDestroy {
       mainOption = this.allSelectOptions[0].elementRef.nativeElement;
     }
 
+    // Gets the offset height of the main option
     const mainOptionHeight = mainOption.offsetHeight;
 
+    // Declares the actual content of the select menu
     const selectContent = this.menuWrapper.nativeElement
       .firstChild as HTMLElement;
 
+    // Calculates the "top" css value, dividing the value of the subtraction between the main option's height and
+    // the input's offset height by two, and then subtracting that value from the top value of the inputRect
+    // correctly calculates the positioning based on the selected value
     let topPositioning =
       inputRect.top -
       (mainOptionHeight - this.valueInput.nativeElement.offsetHeight) / 2;
 
+    // Calculates the "translateY" css value, by subtracting the scrollTop value of the menu content from the main option's
+    // offsetTop, it correctly calculates how much the menu shall translate vertically to acomodate the option's text,
+    // independent of it's scrolling position, to the input text
     let translatePositioning = Math.abs(
       mainOption.offsetTop - selectContent.scrollTop
     );
 
-    const realDistanceToViewPort = topPositioning - translatePositioning;
+    // Gets the real distance between the select menu and the top of the viewport
+    const realDistanceToTopViewPort = topPositioning - translatePositioning;
 
-    selectContent.style.transformOrigin = `50% ${translatePositioning}px 0px`;
-    console.log(mainOption.offsetHeight);
+    // Sets the transform origin for animation purposes
+    selectContent.style.transformOrigin = `50% ${
+      translatePositioning + 9
+    }px 0px`;
 
+    // Calculates the amount of pixels missing between the input's width and fiedset's width
+    let widthDifference = fiedsetElement.offsetWidth - inputRect.width;
+
+    // Gets the "translateX" css value, by getting the offsetTop of the <span> element in the menu
+    let horizontalTranslateValue = (
+      mainOption.firstChild.lastChild as HTMLElement
+    ).offsetLeft;
+
+    // Checks to see if the select menu is not overflowing to the left side of the viewport
+    if (inputRect.left - horizontalTranslateValue <= 0) {
+      horizontalTranslateValue -= Math.abs(
+        inputRect.left - horizontalTranslateValue
+      );
+    }
+
+    // Adds the horizontalTranslate value to the widthDifference, to fill the remaining space
+    widthDifference += horizontalTranslateValue;
+
+    // Checks if the real distance is not overflowing outside of the top of the viewport
+    if (realDistanceToTopViewPort <= 0) {
+      topPositioning = 0;
+      translatePositioning = -24;
+    }
+
+    // Checks if the real distance is not overflowing outside of the bottom of the viewport
+    if (realDistanceToTopViewPort + menu.offsetHeight >= window.innerHeight) {
+      topPositioning = window.innerHeight - menu.offsetHeight;
+      translatePositioning = -24;
+    }
+
+    // Sets all styles to the previously declared styleString
     styleString = `
       top: ${topPositioning}px;
       left: ${inputRect.left}px;
-      transform: translateX(${mainOption.offsetWidth - 16}px) translateY(-${
-      translatePositioning + 24
-    }px);
-      width: ${inputRect.width}px;
+      transform: translateX(${
+        mainOption.offsetWidth - horizontalTranslateValue
+      }px) translateY(-${translatePositioning + 24}px);
+      width: ${inputRect.width + widthDifference}px;
     `;
+
+    // Sets private let variable to global variable, to properly set it in the select menu
     this.styleString = styleString;
-    // menu.style.top = `${topPositioning}px`;
-    // menu.style.transform = `translateY(-${translatePositioning}px)`;
   }
 
   scrollOptionIntoView(): void {

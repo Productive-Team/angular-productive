@@ -1,11 +1,17 @@
-<p-fieldset pFieldsetAppearence="filled" pFieldsetLabelText="Select World">
-  <app-select-ref [(selectValue)]="value" [selectMode]="'multiple'" selectMultipleInputMode="length">
-    <app-opt value="23">Opt 1</app-opt>
-    <app-opt value="3">Opt 5</app-opt>
-    <app-opt value="7">Opt 4 </app-opt>
-    <app-opt value="0">Opt 2</app-opt>
-  </app-select-ref>
-</p-fieldset>
+<div>
+  <p-fieldset pFieldsetAppearence="filled" pFieldsetLabelText="Select World">
+    <app-select-ref [(selectValue)]="value" [selectMode]="'multiple'">
+      <app-opt value="23">Opt 1</app-opt>
+      <app-opt value="3">Opt 5</app-opt>
+      <app-opt value="7">Opt 4 </app-opt>
+      <app-opt value="0">Opt 2</app-opt>
+      <app-opt value="0">Opt 2</app-opt>
+      <app-opt value="0">Opt 2</app-opt>
+      <app-opt value="0">Opt 2</app-opt>
+      <app-opt value="0">Opt 2</app-opt>
+    </app-select-ref>
+  </p-fieldset>
+</div>
 
 {{value}}
 

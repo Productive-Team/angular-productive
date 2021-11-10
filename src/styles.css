@@ -2046,11 +2046,11 @@ label {
   z-index: 10010;
 }
 .p-select-body {
-  max-height: 350px;
+  max-height: 300px;
   overflow-y: auto;
   background-color:var(--menuPanelColor);
   border-radius: 5px;
-  animation: openAnimation 150ms cubic-bezier(0,0,0.8,1);
+  animation: openAnimation 150ms cubic-bezier(0,0,0.3,1);
 }
 .p-select-header {
   position: sticky;
@@ -2084,6 +2084,9 @@ label {
 }
 .p-select-opt-new span {
   pointer-events: none;
+  user-select: none;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 .p-select-value {
   cursor: pointer;
@@ -2161,3 +2164,19 @@ label {
   }
 }
 /* #endregion Snackbar */
+
+
+/* #region hljs */
+.hljs-tag {
+  font-family: monospace !important;
+}
+.hljs-name {
+  color: #ff79c6;
+}
+.hljs-attr {
+  color: #50fa7b;
+}
+.hljs-string {
+  color: #f1fa8c;
+}
+/* #endregion hljs */
