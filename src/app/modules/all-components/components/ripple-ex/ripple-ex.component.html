@@ -1,9 +1,5 @@
 <p-tab-group>
   <p-tab label="Documentation">
-    <pre><code highlight class="language-html">
-        {{codeSection1}}
-      </code></pre>
-    <br>
     <h4>Usage</h4>
     <br>
     <span>The Ripple Effect is used to represent when the user has clicked something, sending a visual feedback to the
@@ -69,23 +65,27 @@
               <div class="dFlex">
                 <div class="spacer"></div>
                 <button class="btn fab flat code-button" pRipple [pRippleCentered]="true" pClipboard
-                  [contentToCopy]="code" pTooltip="Copy Code">
+                  [contentToCopy]="codeSection1" pTooltip="Copy Code">
                   <p-icon>content_copy</p-icon>
                 </button>
               </div>
-              <ng-container #code>
-                {{codeSection1}}</ng-container>
+              <code highlight class="language-html">
+                <ng-container #code>
+                  {{codeSection1}}</ng-container>
+              </code>
             </p-section-code-content>
           </p-tab>
           <p-tab label="CSS">
             <p-section-code-content>
-              <button class="btn fab flat code-button" pRipple [pRippleCentered]="true" pClipboard [contentToCopy]="css"
-                pTooltip="Copy Code">
+              <button class="btn fab flat code-button" pRipple [pRippleCentered]="true" pClipboard
+                [contentToCopy]="codeSection2" pTooltip="Copy Code">
                 <p-icon>content_copy</p-icon>
               </button>
-              <ng-container #css>
-                {{codeSection2}}
-              </ng-container>
+              <code highlight class="language-css">
+                <ng-container #css>
+                  {{codeSection2}}
+                </ng-container>
+              </code>
             </p-section-code-content>
           </p-tab>
         </p-tab-group>

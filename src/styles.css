@@ -2172,11 +2172,29 @@ label {
 }
 .hljs-name {
   color: #ff79c6;
+  font-family: monospace !important;
 }
 .hljs-attr {
   color: #50fa7b;
+  font-family: monospace !important;
 }
 .hljs-string {
   color: #f1fa8c;
+  font-family: monospace !important;
+}
+
+.hljs-selector-class {
+  color: #50fa7b;
+  font-family: monospace !important;
+}
+
+.hljs-attribute {
+  color: #8be9fd;
+  font-family: monospace !important;
+}
+
+.hljs-number {
+  color: #bd93f9;
+  font-family: monospace !important;
 }
 /* #endregion hljs */
