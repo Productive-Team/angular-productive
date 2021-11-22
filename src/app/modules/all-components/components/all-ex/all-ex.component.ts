@@ -7,7 +7,7 @@ import { ModalComponent } from 'src/shared/components/modal/modal.component';
   templateUrl: './all-ex.component.html',
   styleUrls: ['./all-ex.component.css'],
 })
-export class AllExComponent {
+export class AllExComponent implements OnInit {
   bolltest: boolean = false;
   otherCheck: boolean = false;
 
@@ -24,21 +24,34 @@ export class AllExComponent {
     },
   ];
 
-  selectData = [
-    {
-      value: 'garaio',
-      label: 'Option 1',
-    },
-    {
-      value: 'garaio2',
-      label: 'Option 2',
-    },
-  ];
+  selectData = [];
 
   tabAlign: string = 'left';
   inkbarAlign: string = 'bottom';
   inkbarStyle: string = 'short';
   constructor(private snackbar: Snackbar) {}
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.selectData = [
+        {
+          value: null,
+          label: 'Empty',
+        },
+        {
+          value: 'garaio',
+          label: 'Option 1',
+        },
+        {
+          value: 'garaio2',
+          label: 'Option 2',
+        },
+      ];
+      setTimeout(() => {
+        this.value = 'garaio';
+      }, 0);
+    }, 1500);
+  }
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {
     const obj = {
@@ -73,6 +86,10 @@ export class AllExComponent {
   customAction = () => {
     console.log('I am an action');
   };
+
+  insertVal(): void {
+    this.value = null;
+  }
 
   open() {
     this.snackbar.snackbarCustomAction = this.customAction;

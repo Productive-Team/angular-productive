@@ -7,6 +7,7 @@ import {
 } from '@angular/animations';
 import {
   AfterContentInit,
+  AfterViewChecked,
   Component,
   ContentChildren,
   ElementRef,
@@ -14,10 +15,12 @@ import {
   forwardRef,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -44,7 +47,9 @@ const selectMenuAnimation = trigger('menuAnimation', [
   styleUrls: ['./select-ref.component.css'],
   animations: [selectMenuAnimation],
 })
-export class SelectRefComponent implements AfterContentInit, OnDestroy {
+export class SelectRefComponent
+  implements AfterContentInit, OnDestroy, OnChanges, AfterViewChecked
+{
   menuOpen: boolean;
 
   @Input() placeholder: string = '';
@@ -75,9 +80,6 @@ export class SelectRefComponent implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     this.setMenuToGlobalContainer();
-    setTimeout(() => {
-      console.log(this.projectedSelectOptions);
-    }, 0);
     this.allSelectOptions = this.projectedSelectOptions.toArray();
   }
 
@@ -94,18 +96,24 @@ export class SelectRefComponent implements AfterContentInit, OnDestroy {
     this.removeBackdrop();
   }
 
-  handleSingleSelect(selectedOption: SelectOptComponent): void {
+  handleSingleSelect(selectedOption?: SelectOptComponent): void {
     const previouslySelected = this.allSelectOptions.find((x) => x.selected);
     if (previouslySelected) {
       previouslySelected.selected = false;
     }
-    selectedOption.selected = true;
+    if (selectedOption) {
+      selectedOption.selected = true;
+      this.selectValueChange.emit(selectedOption.value);
+    } else {
+      this.selectValueChange.emit(this.selectValue);
+    }
     this.mainSelectedOption = selectedOption;
+
     this.setInputShowValue();
 
-    this.selectValueChange.emit(selectedOption.value);
-
-    this.closeSelectMenu();
+    if (this.menuOpen) {
+      this.closeSelectMenu();
+    }
   }
 
   handleMultipleSelect(selectedOption: SelectOptComponent): void {
@@ -134,11 +142,14 @@ export class SelectRefComponent implements AfterContentInit, OnDestroy {
         input.value = allValues.join(', ');
       } else {
         input.value =
-          this.mainSelectedOption.elementRef.nativeElement.textContent;
+          this.mainSelectedOption?.elementRef.nativeElement.textContent;
       }
     } else {
       input.value =
-        this.mainSelectedOption.elementRef.nativeElement.textContent;
+        this.mainSelectedOption?.elementRef.nativeElement.textContent;
+      if (!this.mainSelectedOption?.value) {
+        input.value = '';
+      }
     }
   }
 
@@ -281,6 +292,45 @@ export class SelectRefComponent implements AfterContentInit, OnDestroy {
     return element.getBoundingClientRect();
   }
 
+  ngOnChanges(event: SimpleChanges): void {
+    if (!event.selectValue?.isFirstChange()) {
+      if (this.selectMode === 'single') {
+        const selectedOption = this.allSelectOptions.find(
+          (x) => x.value === event.selectValue.currentValue
+        );
+        this.handleSingleSelect(selectedOption);
+      } else {
+        const isArray = Array.isArray(event.selectValue.currentValue);
+        let allSelectOptions = [];
+        if (isArray || event.selectValue.currentValue.length > 1) {
+          event.selectValue.currentValue.forEach((x) => {
+            const option = this.allSelectOptions.find((c) => c === x);
+            allSelectOptions.push(option);
+          });
+        } else {
+          allSelectOptions = [
+            this.allSelectOptions.find(
+              (x) => x.value === event.selectValue.currentValue
+            ),
+          ];
+        }
+        allSelectOptions.forEach((c) => {
+          this.handleMultipleSelect(c);
+        });
+      }
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    this.projectedSelectOptions.changes.subscribe(
+      (queryList: QueryList<SelectOptComponent>) => {
+        if (queryList) {
+          this.allSelectOptions = queryList.toArray();
+        }
+      }
+    );
+  }
+
   @HostBinding('class.p-select-focusable')
   get DefaultClass() {
     return true;
@@ -326,7 +376,7 @@ export class SelectOptComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.value) {
+    if (this.value === undefined) {
       this.value = this.elementRef.nativeElement.textContent;
     }
   }

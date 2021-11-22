@@ -1,19 +1,25 @@
 <div>
   <p-fieldset pFieldsetAppearence="filled" pFieldsetLabelText="Select World">
     <app-select-ref [(selectValue)]="value" [selectMode]="'multiple'">
-      <app-opt value="23">Opt 1</app-opt>
-      <app-opt value="3">Opt 5</app-opt>
-      <app-opt value="7">Opt 4 </app-opt>
-      <app-opt value="0">Opt 2</app-opt>
-      <app-opt value="0">Opt 2</app-opt>
-      <app-opt value="0">Opt 2</app-opt>
-      <app-opt value="0">Opt 2</app-opt>
-      <app-opt value="0">Opt 2</app-opt>
+      <app-opt *ngFor="let i of selectData" [value]="i.value">{{i.label}}</app-opt>
+      <!-- <app-opt [value]="null">--none--</app-opt>
+      <app-opt value="1">Opt 1</app-opt>
+      <app-opt value="2">Opt 2</app-opt>
+      <app-opt value="3">Opt 3</app-opt>
+      <app-opt value="4">Opt 4</app-opt>
+      <app-opt value="5">Opt 5</app-opt>
+      <app-opt value="6">Opt 6</app-opt>
+      <app-opt value="7">Opt 7</app-opt>
+      <app-opt value="8">Opt 8</app-opt> -->
     </app-select-ref>
   </p-fieldset>
 </div>
 
 {{value}}
+
+<button class="btn small" pRipple (click)="insertVal()">
+  Insert Value
+</button>
 
 <button class="btn small outlined" pRipple (click)="open()">
   Open Snack
