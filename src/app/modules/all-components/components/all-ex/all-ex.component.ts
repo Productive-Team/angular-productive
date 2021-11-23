@@ -47,10 +47,10 @@ export class AllExComponent implements OnInit {
           label: 'Option 2',
         },
       ];
-      setTimeout(() => {
-        this.value = 'garaio';
-      }, 0);
     }, 1500);
+    // setTimeout(() => {
+    //   this.value = 'garaio';
+    // }, 2000);
   }
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {

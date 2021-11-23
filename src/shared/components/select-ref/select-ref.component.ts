@@ -117,6 +117,7 @@ export class SelectRefComponent
   }
 
   handleMultipleSelect(selectedOption: SelectOptComponent): void {
+    console.log(selectedOption);
     selectedOption.selected = !selectedOption.selected;
 
     const allSelectedOptions = this.allSelectOptions.filter((x) => x.selected);
@@ -300,9 +301,10 @@ export class SelectRefComponent
         );
         this.handleSingleSelect(selectedOption);
       } else {
+        console.log(event.selectValue);
         const isArray = Array.isArray(event.selectValue.currentValue);
         let allSelectOptions = [];
-        if (isArray || event.selectValue.currentValue.length > 1) {
+        if (isArray) {
           event.selectValue.currentValue.forEach((x) => {
             const option = this.allSelectOptions.find((c) => c === x);
             allSelectOptions.push(option);
@@ -314,6 +316,7 @@ export class SelectRefComponent
             ),
           ];
         }
+        console.log(allSelectOptions);
         allSelectOptions.forEach((c) => {
           this.handleMultipleSelect(c);
         });
