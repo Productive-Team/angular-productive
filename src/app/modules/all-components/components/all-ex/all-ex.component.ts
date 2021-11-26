@@ -26,12 +26,15 @@ export class AllExComponent implements OnInit {
 
   selectData = [];
 
+  isLoading: boolean;
+
   tabAlign: string = 'left';
   inkbarAlign: string = 'bottom';
   inkbarStyle: string = 'short';
   constructor(private snackbar: Snackbar) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     setTimeout(() => {
       this.selectData = [
         {
@@ -47,6 +50,7 @@ export class AllExComponent implements OnInit {
           label: 'Option 2',
         },
       ];
+      this.isLoading = false;
     }, 1500);
     // setTimeout(() => {
     //   this.value = 'garaio';
