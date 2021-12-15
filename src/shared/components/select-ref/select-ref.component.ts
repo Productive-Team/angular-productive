@@ -276,15 +276,28 @@ export class SelectRefComponent
 
   scrollOptionIntoView(): void {
     setTimeout(() => {
+      const containerMaxHeight = Number(
+        getComputedStyle(
+          this.mainSelectedOption?.elementRef.nativeElement.parentElement
+            .parentElement
+        ).maxHeight.substring(0, 3)
+      );
+
+      const containerHeight =
+        this.mainSelectedOption?.elementRef.nativeElement.parentElement
+          .parentElement.offsetHeight;
+
       if (this.mainSelectedOption) {
-        const element = this.mainSelectedOption.elementRef
-          .nativeElement as HTMLElement;
-        const scrollOpt: ScrollIntoViewOptions = {
-          behavior: 'auto',
-          block: 'center',
-          inline: 'nearest',
-        };
-        element.scrollIntoView(scrollOpt);
+        if (containerMaxHeight === containerHeight) {
+          const element = this.mainSelectedOption.elementRef
+            .nativeElement as HTMLElement;
+          const scrollOpt: ScrollIntoViewOptions = {
+            behavior: 'auto',
+            block: 'center',
+            inline: 'nearest',
+          };
+          element.scrollIntoView(scrollOpt);
+        }
       }
     }, 0);
   }

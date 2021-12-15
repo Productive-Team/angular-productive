@@ -42,18 +42,18 @@ export class AllExComponent implements OnInit {
           label: 'Empty',
         },
         {
-          value: 'garaio',
+          value: 'value',
           label: 'Option 1',
         },
         {
-          value: 'garaio2',
+          value: 'value1',
           label: 'Option 2',
         },
       ];
       this.isLoading = false;
-    }, 1500);
+    }, 0);
     // setTimeout(() => {
-    //   this.value = 'garaio';
+    //   this.value = 'value';
     // }, 2000);
   }
 
