@@ -2096,6 +2096,11 @@ label {
   color: var(--primary);
   background-color: var(--primaryLowOpacity);
 }
+.p-select-opt-new.disabled {
+  opacity: 0.5;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
 @keyframes openAnimation {
   0% {
     transform: scaleY(0.85);

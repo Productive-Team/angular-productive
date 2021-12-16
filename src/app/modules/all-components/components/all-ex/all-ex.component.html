@@ -1,4 +1,4 @@
-<p-card>
+<!-- <p-card>
   <p-progress-bar pProgressBarMode="indeterminate" *ngIf="isLoading"></p-progress-bar>
   <p-card-content>
     <div>
@@ -12,9 +12,40 @@
       </p-fieldset>
     </div>
   </p-card-content>
-</p-card>
+</p-card> -->
 
-{{value}}
+<p-fieldset pFieldsetLabelText="label">
+  <app-select-ref [(selectValue)]="value" selectMode="multiple" [selectAllForMultiple]="true">
+    <app-opt>o</app-opt>
+    <app-opt [disabled]="true">v</app-opt>
+    <app-opt>a</app-opt>
+    <app-opt>as</app-opt>
+    <app-opt>f</app-opt>
+    <app-opt>b</app-opt>
+    <app-opt>n</app-opt>
+    <app-opt>e</app-opt>
+    <app-opt>t</app-opt>
+  </app-select-ref>
+</p-fieldset>
+<div class="dFlex">
+  <p-fieldset pFieldsetLabelText="first">
+    <input type="text" pInput [pDatepickerTrigger]="first">
+    <p-datepicker #first [(ngModel)]="date" [maxDate]="date2"></p-datepicker>
+    <i class="material-icons" p-suffix>event</i>
+  </p-fieldset>
+  <p-fieldset pFieldsetLabelText="last">
+    <input type="text" pInput [pDatepickerTrigger]="datepciker ">
+    <p-datepicker #datepciker [(ngModel)]="date2" [minDate]="date"></p-datepicker>
+    <i class="material-icons" p-suffix>event</i>
+  </p-fieldset>
+</div>
+{{date | date : 'dd/MM/yyyy'}}
+{{date2 | date : 'dd/MM/yyyy'}}
+
+
+<div>
+  {{value}}
+</div>
 
 <button class="btn small" pRipple (click)="insertVal()">
   Insert Value

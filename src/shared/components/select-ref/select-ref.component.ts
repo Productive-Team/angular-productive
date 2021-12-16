@@ -117,7 +117,6 @@ export class SelectRefComponent
   }
 
   handleMultipleSelect(selectedOption: SelectOptComponent): void {
-    console.log(selectedOption);
     selectedOption.selected = !selectedOption.selected;
 
     const allSelectedOptions = this.allSelectOptions.filter((x) => x.selected);
@@ -144,6 +143,9 @@ export class SelectRefComponent
       } else {
         input.value =
           this.mainSelectedOption?.elementRef.nativeElement.textContent;
+        if (!this.mainSelectedOption?.value) {
+          input.value = '';
+        }
       }
     } else {
       input.value =
@@ -276,18 +278,17 @@ export class SelectRefComponent
 
   scrollOptionIntoView(): void {
     setTimeout(() => {
-      const containerMaxHeight = Number(
-        getComputedStyle(
-          this.mainSelectedOption?.elementRef.nativeElement.parentElement
-            .parentElement
-        ).maxHeight.substring(0, 3)
-      );
-
-      const containerHeight =
-        this.mainSelectedOption?.elementRef.nativeElement.parentElement
-          .parentElement.offsetHeight;
-
       if (this.mainSelectedOption) {
+        const containerMaxHeight = Number(
+          getComputedStyle(
+            this.mainSelectedOption?.elementRef.nativeElement.parentElement
+              .parentElement
+          ).maxHeight.substring(0, 3)
+        );
+
+        const containerHeight =
+          this.mainSelectedOption?.elementRef.nativeElement.parentElement
+            .parentElement.offsetHeight;
         if (containerMaxHeight === containerHeight) {
           const element = this.mainSelectedOption.elementRef
             .nativeElement as HTMLElement;
@@ -314,12 +315,11 @@ export class SelectRefComponent
         );
         this.handleSingleSelect(selectedOption);
       } else {
-        console.log(event.selectValue);
         const isArray = Array.isArray(event.selectValue.currentValue);
         let allSelectOptions = [];
         if (isArray) {
           event.selectValue.currentValue.forEach((x) => {
-            const option = this.allSelectOptions.find((c) => c === x);
+            const option = this.allSelectOptions.find((c) => c.value === x);
             allSelectOptions.push(option);
           });
         } else {
@@ -329,8 +329,10 @@ export class SelectRefComponent
             ),
           ];
         }
-        console.log(allSelectOptions);
         allSelectOptions.forEach((c) => {
+          if (c.selected) {
+            c.selected = false;
+          }
           this.handleMultipleSelect(c);
         });
       }
@@ -363,10 +365,12 @@ export class SelectRefComponent
     <div
       pRipple
       class="p-select-opt-new"
+      [pRippleDisabled]="disabled"
       [class.selected]="selected"
+      [class.disabled]="disabled"
       [attr.aria-value]="value"
       [attr.disabled]="disabled"
-      (click)="selectOption()"
+      (click)="disabled ? false : selectOption()"
     >
       <p-checkbox
         class="no-click-events"
@@ -374,6 +378,7 @@ export class SelectRefComponent
         color="var(--primary)"
         (click)="(false)"
         [checked]="selected"
+        [disabled]="disabled"
       ></p-checkbox>
       <span>
         <ng-content></ng-content>

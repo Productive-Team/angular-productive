@@ -12,8 +12,11 @@ export class AllExComponent implements OnInit {
   otherCheck: boolean = false;
 
   accepText = 'Please open the dialog and select an option';
-  value: string = '23';
+  value: string = '';
   numb: number = 250;
+
+  date: Date;
+  date2: Date;
 
   otherIdx: number;
   newTabs = [
@@ -92,7 +95,7 @@ export class AllExComponent implements OnInit {
   };
 
   insertVal(): void {
-    this.value = null;
+    this.value = undefined;
   }
 
   open() {
