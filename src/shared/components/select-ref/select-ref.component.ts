@@ -52,15 +52,41 @@ export class SelectRefComponent
 {
   menuOpen: boolean;
 
+  /**
+   * Adds a placeholder text to the select input
+   */
   @Input() placeholder: string = '';
+  /**
+   * Adds a search bar to the top of the select menu, that lets the user filter through option title and value
+   */
   @Input() search: boolean;
+  /**
+   * The mode of the select input, accepts either 'single' or 'multiple' values
+   */
   @Input() selectMode: SelectMode = 'single';
+  /**
+   * The mode that shows the selected options when the input is set to multiple
+   *
+   * Can be either length or extend
+   */
   @Input() selectMultipleInputMode: SelectMultipleInputMode = 'length';
+  /**
+   * Adds a checkbox that selects all the options avaliable for multi-select, except disabled options
+   */
   @Input() selectAllForMultiple: boolean;
 
+  /**
+   * Creates options based on SelectData array
+   */
   @Input() selectData: SelectData[] = [];
 
+  /**
+   * The current value of the select component
+   */
   @Input() selectValue: any;
+  /**
+   * Change event for when the value changes
+   */
   @Output() selectValueChange: EventEmitter<any> = new EventEmitter<any>();
 
   @ContentChildren(forwardRef(() => SelectOptComponent))
@@ -387,7 +413,13 @@ export class SelectRefComponent
   `,
 })
 export class SelectOptComponent implements OnInit {
+  /**
+   * Value of the select option
+   */
   @Input() value: any;
+  /**
+   * Sets the option to be disabled
+   */
   @Input() disabled: boolean;
   selected: boolean;
 
