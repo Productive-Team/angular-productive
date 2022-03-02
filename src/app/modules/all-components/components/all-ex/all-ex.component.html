@@ -15,9 +15,9 @@
 </p-card> -->
 
 <div style="width: 120px">
-  <p-fieldset pFieldsetLabelText="label">
-    <app-select-ref [(selectValue)]="value" selectMode="multiple" selectMultipleInputMode="extend"
-      [selectAllForMultiple]="false">
+  <p-fieldset>
+    <app-select-ref placeholder="placeholder" [(selectValue)]="value" selectMode="multiple"
+      selectMultipleInputMode="extend" [selectAllForMultiple]="false">
       <app-opt>o</app-opt>
       <app-opt [disabled]="true">v</app-opt>
       <app-opt>a</app-opt>

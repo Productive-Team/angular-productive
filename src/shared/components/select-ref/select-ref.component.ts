@@ -143,18 +143,23 @@ export class SelectRefComponent
   }
 
   handleMultipleSelect(selectedOption: SelectOptComponent): void {
-    selectedOption.selected = !selectedOption.selected;
+    if (selectedOption) {
+      selectedOption.selected = !selectedOption.selected;
+    }
+    setTimeout(() => {
+      const allSelectedOptions = this.allSelectOptions.filter(
+        (x) => x.selected
+      );
+      this.allSelectedOption = allSelectedOptions;
+      let allSelectedValues = [];
+      this.allSelectedOption.forEach((x) => {
+        allSelectedValues.push(x.value);
+      });
+      this.mainSelectedOption = this.allSelectedOption[0];
+      this.setInputShowValue();
 
-    const allSelectedOptions = this.allSelectOptions.filter((x) => x.selected);
-    this.allSelectedOption = allSelectedOptions;
-    let allSelectedValues = [];
-    this.allSelectedOption.forEach((x) => {
-      allSelectedValues.push(x.value);
-    });
-    this.mainSelectedOption = this.allSelectedOption[0];
-    this.setInputShowValue();
-
-    this.selectValueChange.emit(allSelectedValues);
+      this.selectValueChange.emit(allSelectedValues);
+    }, 0);
   }
 
   setInputShowValue(): void {
@@ -356,7 +361,7 @@ export class SelectRefComponent
           ];
         }
         allSelectOptions.forEach((c) => {
-          if (c.selected) {
+          if (c?.selected) {
             c.selected = false;
           }
           this.handleMultipleSelect(c);
@@ -376,7 +381,7 @@ export class SelectRefComponent
   }
 
   @HostBinding('class.p-select-focusable')
-  get DefaultClass() {
+  get DefaultClass(): boolean {
     return true;
   }
 
