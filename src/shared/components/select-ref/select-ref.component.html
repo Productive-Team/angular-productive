@@ -20,11 +20,17 @@
     </div>
     <div>
       <ng-content></ng-content>
-      <ng-container *ngIf="selectData.length > 0" [ngTemplateOutlet]="arrayGeneratedOptions"></ng-container>
+      <!-- <ng-content select="[test]"></ng-content> -->
+      <app-opt *ngFor="let data of selectData" [value]="data.value">{{data.label}}</app-opt>
+      <!-- <ng-container *ngIf="selectData.length > 0" [ngTemplateOutlet]="arrayGeneratedOptions"></ng-container> -->
     </div>
   </div>
 </div>
 
-<ng-template #arrayGeneratedOptions>
+<div test>
+  <!-- <app-opt *ngFor="let data of selectData" [value]="data.value">{{data.label}}</app-opt> -->
+</div>
+
+<!-- <ng-template #arrayGeneratedOptions>
   <app-opt *ngFor="let data of selectData" [value]="data.value">{{data.label}}</app-opt>
-</ng-template>
+</ng-template> -->

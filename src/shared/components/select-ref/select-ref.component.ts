@@ -8,6 +8,7 @@ import {
 import {
   AfterContentInit,
   AfterViewChecked,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
@@ -22,6 +23,7 @@ import {
   QueryList,
   SimpleChanges,
   ViewChild,
+  ViewChildren,
 } from '@angular/core';
 
 const selectMenuAnimation = trigger('menuAnimation', [
@@ -44,7 +46,6 @@ const selectMenuAnimation = trigger('menuAnimation', [
 @Component({
   selector: 'app-select-ref',
   templateUrl: './select-ref.component.html',
-  styleUrls: ['./select-ref.component.css'],
   animations: [selectMenuAnimation],
 })
 export class SelectRefComponent
@@ -92,6 +93,16 @@ export class SelectRefComponent
   @ContentChildren(forwardRef(() => SelectOptComponent))
   projectedSelectOptions: QueryList<SelectOptComponent>;
 
+  selectGeneratedOptions: QueryList<SelectOptComponent>;
+  @ViewChildren(forwardRef(() => SelectOptComponent)) set content(
+    content: QueryList<SelectOptComponent>
+  ) {
+    if (content) {
+      this.selectGeneratedOptions = content;
+      this.allSelectOptions = this.selectGeneratedOptions.toArray();
+    }
+  }
+
   allSelectOptions: SelectOptComponent[] = [];
 
   mainSelectedOption: SelectOptComponent;
@@ -102,21 +113,25 @@ export class SelectRefComponent
 
   styleString: string;
 
-  constructor(private elementRef: ElementRef<HTMLElement>) {}
+  constructor(
+    private elementRef: ElementRef<HTMLElement>,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngAfterContentInit(): void {
     this.setMenuToGlobalContainer();
+    this.changeDetectorRef.detectChanges();
     this.allSelectOptions = this.projectedSelectOptions.toArray();
   }
 
   openSelectMenu(): void {
     this.menuOpen = true;
+    this.changeDetectorRef.detectChanges();
     this.scrollOptionIntoView();
     this.setBackdrop();
-    setTimeout(() => {
-      this.setSelectMenuPositioning();
-    }, 0);
+    this.setSelectMenuPositioning();
   }
+
   closeSelectMenu(): void {
     this.menuOpen = false;
     this.removeBackdrop();
@@ -308,30 +323,28 @@ export class SelectRefComponent
   }
 
   scrollOptionIntoView(): void {
-    setTimeout(() => {
-      if (this.mainSelectedOption) {
-        const containerMaxHeight = Number(
-          getComputedStyle(
-            this.mainSelectedOption?.elementRef.nativeElement.parentElement
-              .parentElement
-          ).maxHeight.substring(0, 3)
-        );
-
-        const containerHeight =
+    if (this.mainSelectedOption) {
+      const containerMaxHeight = Number(
+        getComputedStyle(
           this.mainSelectedOption?.elementRef.nativeElement.parentElement
-            .parentElement.offsetHeight;
-        if (containerMaxHeight === containerHeight) {
-          const element = this.mainSelectedOption.elementRef
-            .nativeElement as HTMLElement;
-          const scrollOpt: ScrollIntoViewOptions = {
-            behavior: 'auto',
-            block: 'center',
-            inline: 'nearest',
-          };
-          element.scrollIntoView(scrollOpt);
-        }
+            .parentElement
+        ).maxHeight.substring(0, 3)
+      );
+
+      const containerHeight =
+        this.mainSelectedOption?.elementRef.nativeElement.parentElement
+          .parentElement.offsetHeight;
+      if (containerMaxHeight === containerHeight) {
+        const element = this.mainSelectedOption.elementRef
+          .nativeElement as HTMLElement;
+        const scrollOpt: ScrollIntoViewOptions = {
+          behavior: 'auto',
+          block: 'center',
+          inline: 'nearest',
+        };
+        element.scrollIntoView(scrollOpt);
       }
-    }, 0);
+    }
   }
 
   private getPositions(element: any): DOMRect {
@@ -339,33 +352,35 @@ export class SelectRefComponent
   }
 
   ngOnChanges(event: SimpleChanges): void {
-    if (!event.selectValue?.isFirstChange()) {
-      if (this.selectMode === 'single') {
-        const selectedOption = this.allSelectOptions.find(
-          (x) => x.value === event.selectValue.currentValue
-        );
-        this.handleSingleSelect(selectedOption);
-      } else {
-        const isArray = Array.isArray(event.selectValue.currentValue);
-        let allSelectOptions = [];
-        if (isArray) {
-          event.selectValue.currentValue.forEach((x) => {
-            const option = this.allSelectOptions.find((c) => c.value === x);
-            allSelectOptions.push(option);
-          });
+    if (event.selectValue !== undefined) {
+      if (!event.selectValue?.isFirstChange()) {
+        if (this.selectMode === 'single') {
+          const selectedOption = this.allSelectOptions.find(
+            (x) => x.value === event.selectValue.currentValue
+          );
+          this.handleSingleSelect(selectedOption);
         } else {
-          allSelectOptions = [
-            this.allSelectOptions.find(
-              (x) => x.value === event.selectValue.currentValue
-            ),
-          ];
-        }
-        allSelectOptions.forEach((c) => {
-          if (c?.selected) {
-            c.selected = false;
+          const isArray = Array.isArray(event.selectValue.currentValue);
+          let allSelectOptions = [];
+          if (isArray) {
+            event.selectValue.currentValue.forEach((x) => {
+              const option = this.allSelectOptions.find((c) => c.value === x);
+              allSelectOptions.push(option);
+            });
+          } else {
+            allSelectOptions = [
+              this.allSelectOptions.find(
+                (x) => x.value === event.selectValue.currentValue
+              ),
+            ];
           }
-          this.handleMultipleSelect(c);
-        });
+          allSelectOptions.forEach((c) => {
+            if (c?.selected) {
+              c.selected = false;
+            }
+            this.handleMultipleSelect(c);
+          });
+        }
       }
     }
   }
