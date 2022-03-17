@@ -13,7 +13,7 @@ export class AllExComponent implements OnInit {
   otherCheck: boolean = false;
 
   accepText = 'Please open the dialog and select an option';
-  value: string = '';
+  value: string[] = ['12'];
   numb: number = 250;
 
   date: Date;

@@ -97,7 +97,7 @@ export class SelectRefComponent
   @ViewChildren(forwardRef(() => SelectOptComponent)) set content(
     content: QueryList<SelectOptComponent>
   ) {
-    if (content) {
+    if (this.projectedSelectOptions.toArray().length === 0 && content) {
       this.selectGeneratedOptions = content;
       this.allSelectOptions = this.selectGeneratedOptions.toArray();
     }
@@ -344,6 +344,11 @@ export class SelectRefComponent
         };
         element.scrollIntoView(scrollOpt);
       }
+    }
+  }
+
+  checkToSeeIfThereAreSelected(): void {
+    if (this.selectMode === 'multiple') {
     }
   }
 
