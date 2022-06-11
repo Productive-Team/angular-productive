@@ -25,6 +25,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { CoerceBoolean } from 'src/shared/decorators/coerce-boolean-decorator';
 
 const selectMenuAnimation = trigger('menuAnimation', [
   transition(':enter', [
@@ -60,7 +61,9 @@ export class SelectRefComponent
   /**
    * Adds a search bar to the top of the select menu, that lets the user filter through option title and value
    */
-  @Input() search: boolean;
+  @Input()
+  @CoerceBoolean()
+  search: boolean;
   /**
    * The mode of the select input, accepts either 'single' or 'multiple' values
    */
