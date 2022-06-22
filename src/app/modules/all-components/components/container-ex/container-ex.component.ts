@@ -1,11 +1,5 @@
-import { SelectDataModel } from '../../../../../shared/components/select_old/select_old.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  FormGroup,
-  FormControlName,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-container-ex',
@@ -97,41 +91,7 @@ export class ContainerExComponent implements OnInit {
 
   disDates = [new Date(2021, 8, 7), new Date(2021, 0, 26)];
 
-  optionArr: SelectDataModel[] = [
-    // {
-    //   id: null,
-    //   name: '--none--',
-    // },
-    {
-      id: 'opt1',
-      name: 'Option 1',
-      selected: true,
-    },
-    {
-      id: 'opt2',
-      name: 'Option 2',
-    },
-    {
-      id: 'opt3',
-      name: 'Option 3',
-    },
-    {
-      id: 'opt4',
-      name: 'Option 4',
-      disabled: true,
-    },
-    {
-      id: 'opt5',
-      name: 'Option 5',
-    },
-    {
-      id: 'opt6',
-      name: 'Option 6',
-    },
-  ];
-
   variab;
-  // variab: Date;
   vev = new Date();
 
   indet = true;

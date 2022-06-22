@@ -46,12 +46,6 @@ import { SectionContentComponent } from './components/section/section-content/se
 import { SectionFooterComponent } from './components/section/section-footer/section-footer.component';
 import { SectionHeaderComponent } from './components/section/section-header/section-header.component';
 import { SectionComponent } from './components/section/section.component';
-import {
-  SelectMultipleDirective,
-  SelectOldComponent,
-  SelectOptionOldComponent,
-  SelectSearchDirective,
-} from './components/select_old/select_old.component';
 import { SidenavComponent } from './components/sidenav/sidenav-component/sidenav.component';
 import { SidenavContainerComponent } from './components/sidenav/sidenav-container/sidenav-container.component';
 import { SidenavContentComponent } from './components/sidenav/sidenav-content/sidenav-content.component';
@@ -118,8 +112,6 @@ const components = [
   SectionCodeFooterComponent,
   TableColumnComponent,
   TableExpandedRowComponent,
-  SelectOldComponent,
-  SelectOptionOldComponent,
 ];
 const directives = [
   RippleDirective,
@@ -131,8 +123,6 @@ const directives = [
   TooltipsDirective,
   DatepickerTriggerDirective,
   TableExpandedTriggerDirective,
-  SelectMultipleDirective,
-  SelectSearchDirective,
   HighlightCodeDirective,
   ClipboardDirective,
   TableCellTemplateDirective,
@@ -144,7 +134,5 @@ const directives = [
   declarations: [components, directives],
   exports: [components, directives],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-
-  providers: [SelectOldComponent],
 })
 export class ProductiveModule {}

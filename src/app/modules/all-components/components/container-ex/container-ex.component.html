@@ -31,11 +31,6 @@
       <p-option>!!</p-option>
     </p-select>
   </p-fieldset>
-  <p-fieldset pFieldsetLabelText="Select ngFor">
-    <p-select search [(value)]="variab" multiple multipleAll>
-      <p-option *ngFor="let item of optionArr" [value]="item.id" [disabled]="item.disabled">{{item.name}}</p-option>
-    </p-select>
-  </p-fieldset>
 </div>
 <p-fieldset pFieldsetLabelText="Input" pFieldsetAppearence="classic">
   <input type="text" pInput>
