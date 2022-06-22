@@ -1,4 +1,4 @@
-import { SelectDataModel } from './../../../../../shared/components/select/select.component';
+import { SelectDataModel } from '../../../../../shared/components/select_old/select_old.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,

@@ -22,9 +22,9 @@ export class InputDirective {
       '.input-wrapper'
     ) as HTMLInputElement;
     input.classList.add('focused');
-    const label = this.el.nativeElement.parentElement.querySelector(
-      '.label-wrap'
-    ).firstChild as HTMLSpanElement;
+    const label = this.el.nativeElement
+      .closest('.form-field')
+      .querySelector('.label-wrap').firstChild as HTMLSpanElement;
     label.classList.add('active');
   }
   @HostListener('blur', ['$event']) onFocusOut(event) {
@@ -33,9 +33,9 @@ export class InputDirective {
     ) as HTMLInputElement;
     input.classList.remove('focused');
     const inputFil = this.el.nativeElement as HTMLInputElement;
-    const label = this.el.nativeElement.parentElement.querySelector(
-      '.label-wrap'
-    ).firstChild as HTMLSpanElement;
+    const label = this.el.nativeElement
+      .closest('.form-field')
+      .querySelector('.label-wrap').firstChild as HTMLSpanElement;
     if (
       inputFil.value.length === 0 &&
       !input.parentElement.parentElement.parentElement.classList.contains(

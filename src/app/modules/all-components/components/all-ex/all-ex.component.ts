@@ -1,7 +1,6 @@
 import { Snackbar } from './../../../../../shared/components/snackbar/snackbar';
 import { Component, OnInit } from '@angular/core';
 import { ModalComponent } from 'src/shared/components/modal/modal.component';
-import { SelectData } from 'src/shared/components/select-ref/select-ref.component';
 
 @Component({
   selector: 'app-all-ex',
@@ -28,9 +27,9 @@ export class AllExComponent implements OnInit {
     },
   ];
 
-  selectData: SelectData[] = [];
-
   isLoading: boolean;
+
+  val;
 
   tabAlign: string = 'left';
   inkbarAlign: string = 'bottom';
@@ -39,23 +38,9 @@ export class AllExComponent implements OnInit {
 
   ngOnInit(): void {
     // this.isLoading = true;
-    this.selectData = [
-      {
-        value: null,
-        label: 'Empty',
-      },
-      {
-        value: 'value',
-        label: 'Option 1',
-      },
-      {
-        value: 'value1',
-        label: 'Option 2',
-      },
-    ];
     // this.isLoading = false;
     // setTimeout(() => {
-    //   this.value = 'value';
+    this.value = ['value'];
     // }, 2000);
   }
 

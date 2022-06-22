@@ -1,63 +1,8 @@
-<!-- <p-card>
-  <p-progress-bar pProgressBarMode="indeterminate" *ngIf="isLoading"></p-progress-bar>
-  <p-card-content>
-    <div>
-      <p-fieldset pFieldsetAppearence="outlined" pFieldsetLabelText="Select World">
-        <app-select-ref [(selectValue)]="value">
-          <app-opt *ngFor="let i of selectData" [value]="i.value">{{i.label}}</app-opt>
-          <app-opt *ngFor="let i of selectData" [value]="i.value">{{i.label}}</app-opt>
-          <app-opt *ngFor="let i of selectData" [value]="i.value">{{i.label}}</app-opt>
-          <app-opt *ngFor="let i of selectData" [value]="i.value">{{i.label}}</app-opt>
-        </app-select-ref>
-      </p-fieldset>
-    </div>
-  </p-card-content>
-</p-card> -->
+<p-fieldset pFieldsetLabelText="Label">
+  <app-component-test [(value)]="val">
+    <app-component-test-option [value]="1234">teste</app-component-test-option>
+    <app-component-test-option [value]="5678">teste2</app-component-test-option>
+  </app-component-test>
+</p-fieldset>
 
-<div style="width: 300px">
-  <p-fieldset pFieldsetLabelText="test label">
-    <app-select-ref placeholder="placeholder" [(selectValue)]="value" selectMode="multiple"
-      selectMultipleInputMode="extend" search [selectAllForMultiple]="false">
-      <app-opt>o</app-opt>
-      <app-opt [disabled]="true">v</app-opt>
-      <app-opt>a</app-opt>
-      <app-opt>as</app-opt>
-      <app-opt>f</app-opt>
-      <app-opt>b</app-opt>
-      <app-opt>n</app-opt>
-      <app-opt>e</app-opt>
-      <app-opt value="12">t</app-opt>
-    </app-select-ref>
-  </p-fieldset>
-  <!-- <p-fieldset>
-    <app-select-ref placeholder="test" [selectData]="selectData"></app-select-ref>
-  </p-fieldset> -->
-</div>
-
-<!-- <div class="dFlex">
-  <p-fieldset pFieldsetLabelText="first">
-    <input type="text" pInput [pDatepickerTrigger]="first">
-    <p-datepicker #first [(ngModel)]="date" [maxDate]="date2"></p-datepicker>
-    <i class="material-icons" p-suffix>event</i>
-  </p-fieldset>
-  <p-fieldset pFieldsetLabelText="last">
-    <input type="text" pInput [pDatepickerTrigger]="datepciker ">
-    <p-datepicker #datepciker [(ngModel)]="date2" [minDate]="date"></p-datepicker>
-    <i class="material-icons" p-suffix>event</i>
-  </p-fieldset>
-</div>
-{{date | date : 'dd/MM/yyyy'}}
-{{date2 | date : 'dd/MM/yyyy'}} -->
-
-
-<div>
-  {{value | json}}
-</div>
-
-<button class="btn small" pRipple (click)="insertVal()">
-  Insert Value
-</button>
-
-<button class="btn small outlined" pRipple (click)="open()">
-  Open Snack
-</button>
+{{val | json}}
