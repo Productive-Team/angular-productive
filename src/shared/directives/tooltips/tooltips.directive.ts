@@ -1,114 +1,124 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appTooltips], [p-tooltip], [pTooltip]',
+  selector: '[appTooltip], [pTooltip]',
 })
 export class TooltipsDirective {
-  @Input('pTooltip') pTooltipText: string;
-  @Input() pTooltipPosition: string;
-  @Input() pTooltipClickOpen = false;
-  @Input() pTooltipClickDuration = 2500;
+  @Input('pTooltip') label: string;
+  @Input() positioning: TooltipPositioning;
+  @Input() showDelay: number;
+  @Input() dismissDelay: number;
 
-  constructor(private el: ElementRef) {}
+  private _tooltipContainer: HTMLElement;
+  private _mobileShowTimer: any;
 
-  @HostListener('mouseover', ['$event']) showTooltip(event): void {
-    const allTooltips = document.querySelectorAll('.pTooltip');
-    if (!this.pTooltipClickOpen) {
-      if (allTooltips.length < 1) {
-        this.createToolTip(this.el.nativeElement, this.pTooltipText);
-      }
-    }
+  constructor(private elementRef: ElementRef<HTMLElement>) {}
+
+  @HostListener('mouseover', ['$event'])
+  openTooltip(): void {
+    this.createTooltip();
   }
 
-  @HostListener('mouseout', ['$event']) hideTooltip(event): void {
-    if (!this.pTooltipClickOpen) {
+  @HostListener('mouseout', ['$event'])
+  dismissTooltip(): void {
+    this.removeTooltip();
+  }
+
+  @HostListener('touchstart', ['$event'])
+  openTooltipOnMobile(): void {
+    this._mobileShowTimer = window.setTimeout(() => {
+      this.createTooltip();
+    }, 1000);
+  }
+
+  @HostListener('touchend', ['$event'])
+  touchEndInMobile(): void {
+    if (this._mobileShowTimer) {
+      window.clearTimeout(this._mobileShowTimer);
       this.removeTooltip();
     }
   }
 
-  @HostListener('click', ['$event']) showTooltipClick(event): void {
-    if (this.pTooltipClickOpen) {
-      const allTooltips = document.querySelectorAll('.pTooltip');
-      if (allTooltips.length < 1) {
-        this.createToolTip(this.el.nativeElement, this.pTooltipText);
-        setTimeout(
-          () => {
-            const tt = allTooltips[0] as HTMLElement;
-            tt.style.opacity = '0';
-            tt.addEventListener('transitionend', () => {
-              this.removeTooltip();
-            });
-          },
-          this.pTooltipClickDuration > 0 ? this.pTooltipClickDuration : 2500
-        );
-      }
+  private createTooltip(): void {
+    const tooltipContainer = document.createElement('div');
+    const tooltip = document.createElement('div');
+
+    tooltipContainer.classList.add('tooltip-container');
+    tooltip.classList.add('pTooltip');
+
+    tooltip.innerText = this.label;
+
+    tooltipContainer.insertAdjacentElement('beforeend', tooltip);
+
+    if (this.showDelay) {
+      setTimeout(() => {
+        document.body.insertAdjacentElement('beforeend', tooltipContainer);
+
+        this._tooltipContainer = tooltipContainer;
+
+        this.setTooltipPositions(tooltipContainer);
+      }, this.showDelay);
+    } else {
+      document.body.insertAdjacentElement('beforeend', tooltipContainer);
+
+      this._tooltipContainer = tooltipContainer;
+
+      this.setTooltipPositions(tooltipContainer);
     }
   }
 
-  @HostListener('touchstart', ['$event'])
-  showTooltipMobile(event): void {
-    setTimeout(() => {
-      this.createToolTip(this.el.nativeElement, this.pTooltipText);
-    }, 500);
-  }
+  private setTooltipPositions(tooltipContainer: HTMLElement): void {
+    const nativeElement = this.elementRef.nativeElement;
+    const nativeRect = nativeElement.getBoundingClientRect();
 
-  private setTooltipPosition(element: HTMLElement, tooltip: HTMLElement): void {
-    const elPos = element.getBoundingClientRect();
-    tooltip.style.height = elPos.height + 'px';
-    switch (this.pTooltipPosition) {
-      case 'left':
-        tooltip.style.top = elPos.top + 'px';
-        tooltip.style.left = elPos.left - elPos.width + 'px';
-        break;
+    switch (this.positioning) {
       case 'top':
-        tooltip.style.top = elPos.top - elPos.height + 'px';
-        tooltip.style.left =
-          elPos.left + (element.offsetWidth - tooltip.offsetWidth) / 2 + 'px';
+        tooltipContainer.style.top = nativeRect.top - nativeRect.height + 'px';
+        tooltipContainer.style.left =
+          nativeRect.left +
+          (nativeElement.offsetWidth - tooltipContainer.offsetWidth) / 2 +
+          'px';
         break;
-      case 'bottom':
-        tooltip.style.top = elPos.bottom + 'px';
-        tooltip.style.left =
-          elPos.left + (element.offsetWidth - tooltip.offsetWidth) / 2 + 'px';
+      case 'left':
+        tooltipContainer.style.top = nativeRect.top + 'px';
+        tooltipContainer.style.left = nativeRect.left + 'px';
         break;
       case 'right':
-        tooltip.style.top = elPos.top + 'px';
-        tooltip.style.left = elPos.right + 'px';
+        tooltipContainer.style.top = nativeRect.top + 'px';
+        tooltipContainer.style.left = nativeRect.right + 'px';
         break;
       default:
-        tooltip.style.top = elPos.bottom + 'px';
-        tooltip.style.left =
-          elPos.left + (element.offsetWidth - tooltip.offsetWidth) / 2 + 'px';
+        tooltipContainer.style.top = nativeRect.bottom + 'px';
+        tooltipContainer.style.left =
+          nativeRect.left +
+          (nativeElement.offsetWidth - tooltipContainer.offsetWidth) / 2 +
+          'px';
     }
-    const toolPos = tooltip.getBoundingClientRect();
 
-    if (toolPos.top + toolPos.height > window.innerHeight) {
-      tooltip.style.top = elPos.top - elPos.height + 'px';
-    } else if (toolPos.top < 0) {
-      tooltip.style.top = elPos.bottom + 'px';
+    const tooltipRect = tooltipContainer.getBoundingClientRect();
+
+    if (tooltipRect.top + tooltipRect.height > window.innerHeight) {
+      tooltipContainer.style.top = nativeRect.top - nativeRect.height + 'px';
+    } else if (tooltipRect.top < 0) {
+      tooltipContainer.style.top = nativeRect.bottom + 'px';
     }
-    if (toolPos.left + toolPos.width > window.innerWidth) {
-      tooltip.style.left = null;
-      tooltip.style.right = '1rem';
-    } else if (toolPos.left < 0) {
-      tooltip.style.left = '1rem';
+    if (tooltipRect.left + tooltipRect.width > window.innerWidth) {
+      tooltipContainer.style.left = null;
+      tooltipContainer.style.right = '0';
+    } else if (tooltipRect.left < 0) {
+      tooltipContainer.style.left = '0';
     }
   }
 
-  private createToolTip(element: HTMLElement, tooltipText: string): void {
-    const tooltipContainer = document.createElement('div');
-    tooltipContainer.classList.add('tooltip-container');
-    const tooltip = document.createElement('span');
-    tooltip.classList.add('pTooltip');
-    tooltip.innerHTML = tooltipText;
-    tooltipContainer.insertAdjacentElement('beforeend', tooltip);
-    document.body.insertAdjacentElement('beforeend', tooltipContainer);
-    this.setTooltipPosition(element, tooltipContainer);
-  }
-
-  private removeTooltip(): any {
-    const allTooltips = document.querySelectorAll('.tooltip-container');
-    allTooltips.forEach((x) => {
-      x.remove();
-    });
+  private removeTooltip(): void {
+    if (this.dismissDelay) {
+      setTimeout(() => {
+        this._tooltipContainer?.remove();
+      }, this.dismissDelay);
+    } else {
+      this._tooltipContainer?.remove();
+    }
   }
 }
+
+type TooltipPositioning = 'top' | 'bottom' | 'left' | 'right';

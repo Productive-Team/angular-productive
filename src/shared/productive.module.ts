@@ -1,74 +1,74 @@
-import { SectionCodeComponent } from './components/section/section-code/section-code.component';
-import { RadioGroupComponent } from './components/radio-btn/radio-group/radio-group.component';
+import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CardContentComponent } from './components/card/card-content/card-content.component';
+import { CardFooterComponent } from './components/card/card-footer/card-footer.component';
+import { CardHeaderComponent } from './components/card/card-header/card-header.component';
+import { CardComponent } from './components/card/card/card.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { CollapsibleGroupComponent } from './components/collapsible/collapsible-group/collapsible-group.component';
+import { CollapsibleComponent } from './components/collapsible/collapsible/collapsible.component';
 import {
-  TableColumnComponent,
-  TableComponent,
-  TableExpandedRowComponent,
-  TableExpandedTriggerDirective,
-} from './components/table/table.component';
-import { IconComponent } from './components/icon/icon.component';
+  SelectComponent,
+  SelectOptionComponent,
+} from './components/select/select.component';
 import { ContainerComponent } from './components/container/container.component';
-import { SidenavContentComponent } from './components/sidenav/sidenav-content/sidenav-content.component';
-import { SidenavContainerComponent } from './components/sidenav/sidenav-container/sidenav-container.component';
 import {
   DatepickerComponent,
   DatepickerTriggerDirective,
 } from './components/datepicker/datepicker.component';
-import { SliderComponent } from './components/slider/slider.component';
-import { TabsService } from './services/tabs.service';
-import { TabsComponent } from './components/tabs/tab/tabs.component';
-import { TabGroupComponent } from './components/tabs/tab-group/tab-group.component';
-import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
-import { SectionComponent } from './components/section/section.component';
-import { RadioBtnComponent } from './components/radio-btn/radio-button/radio-btn.component';
-import { TooltipsDirective } from './directives/tooltips/tooltips.directive';
-import { BadgesDirective } from './directives/badges/badges.directive';
-import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { RippleDirective } from './directives/ripple/ripple.directive';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SidenavComponent } from './components/sidenav/sidenav-component/sidenav.component';
-import { CardComponent } from './components/card/card/card.component';
 import {
   FieldsetComponent,
   InputDirective,
 } from './components/fieldset/fieldset.component';
+import { IconComponent } from './components/icon/icon.component';
+import {
+  MenuComponent,
+  MenuTriggerDirective,
+} from './components/menu/menu.component';
+import { ModalContentComponent } from './components/modal/modal-content/modal-content.component';
+import { ModalFooterComponent } from './components/modal/modal-footer/modal-footer.component';
+import { ModalHeaderComponent } from './components/modal/modal-header/modal-header.component';
 import {
   ModalCloseDirective,
   ModalComponent,
   ModalTriggerDirective,
 } from './components/modal/modal.component';
-import {
-  MenuComponent,
-  MenuTriggerDirective,
-} from './components/menu/menu.component';
-import { FormsModule } from '@angular/forms';
-import { CollapsibleComponent } from './components/collapsible/collapsible/collapsible.component';
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
-import {
-  SelectComponent,
-  SelectOptionComponent,
-  SelectMultipleDirective,
-  SelectSearchDirective,
-} from './components/select/select.component';
-import { CollapsibleGroupComponent } from './components/collapsible/collapsible-group/collapsible-group.component';
-import { CardFooterComponent } from './components/card/card-footer/card-footer.component';
-import { CardContentComponent } from './components/card/card-content/card-content.component';
-import { CardHeaderComponent } from './components/card/card-header/card-header.component';
-import { SectionFooterComponent } from './components/section/section-footer/section-footer.component';
-import { SectionHeaderComponent } from './components/section/section-header/section-header.component';
-import { SectionContentComponent } from './components/section/section-content/section-content.component';
-import { ClipboardDirective } from './directives/clipboard/clipboard.directive';
-import { ModalContentComponent } from './components/modal/modal-content/modal-content.component';
-import { ModalFooterComponent } from './components/modal/modal-footer/modal-footer.component';
-import { ModalHeaderComponent } from './components/modal/modal-header/modal-header.component';
+import { RadioBtnComponent } from './components/radio-btn/radio-button/radio-btn.component';
+import { RadioGroupComponent } from './components/radio-btn/radio-group/radio-group.component';
+import { SectionCodeContentComponent } from './components/section/section-code/section-code-content/section-code-content.component';
 import { SectionCodeFooterComponent } from './components/section/section-code/section-code-footer/section-code-footer.component';
 import { SectionCodeHeaderComponent } from './components/section/section-code/section-code-header/section-code-header.component';
-import { SectionCodeContentComponent } from './components/section/section-code/section-code-content/section-code-content.component';
-import { NewTabComponent } from './components/newtabs/newtab-group/newtab-group.component';
-import { NewtabGroupComponent } from './components/newtabs/newtab-group/newtab-group.component';
+import { SectionCodeComponent } from './components/section/section-code/section-code.component';
+import { SectionContentComponent } from './components/section/section-content/section-content.component';
+import { SectionFooterComponent } from './components/section/section-footer/section-footer.component';
+import { SectionHeaderComponent } from './components/section/section-header/section-header.component';
+import { SectionComponent } from './components/section/section.component';
+import { SidenavComponent } from './components/sidenav/sidenav-component/sidenav.component';
+import { SidenavContainerComponent } from './components/sidenav/sidenav-container/sidenav-container.component';
+import { SidenavContentComponent } from './components/sidenav/sidenav-content/sidenav-content.component';
+import { SliderComponent } from './components/slider/slider.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SwitchToggleComponent } from './components/switch-toggle/switch-toggle.component';
+import {
+  TableCellTemplateDirective,
+  TableColumnComponent,
+  TableComponent,
+  TableExpandedRowComponent,
+  TableExpandedTriggerDirective,
+  TableHeaderTemplateDirective,
+} from './components/table/table.component';
+import {
+  TabComponent,
+  TabGroupComponent,
+} from './components/tabs/tabs.component';
+import { BadgesDirective } from './directives/badges/badges.directive';
+import { ClipboardDirective } from './directives/clipboard/clipboard.directive';
+import { HighlightCodeDirective } from './directives/highlight/highlight.directive';
+import { RippleDirective } from './directives/ripple/ripple.directive';
+import { TooltipsDirective } from './directives/tooltips/tooltips.directive';
 
 const components = [
   TableComponent,
@@ -93,7 +93,7 @@ const components = [
   SectionContentComponent,
   SwitchToggleComponent,
   TabGroupComponent,
-  TabsComponent,
+  TabComponent,
   SliderComponent,
   CollapsibleComponent,
   CollapsibleGroupComponent,
@@ -109,11 +109,9 @@ const components = [
   SectionCodeContentComponent,
   SelectOptionComponent,
   SectionCodeHeaderComponent,
-  NewTabComponent,
   SectionCodeFooterComponent,
   TableColumnComponent,
   TableExpandedRowComponent,
-  NewtabGroupComponent,
 ];
 const directives = [
   RippleDirective,
@@ -125,9 +123,10 @@ const directives = [
   TooltipsDirective,
   DatepickerTriggerDirective,
   TableExpandedTriggerDirective,
-  SelectMultipleDirective,
-  SelectSearchDirective,
+  HighlightCodeDirective,
   ClipboardDirective,
+  TableCellTemplateDirective,
+  TableHeaderTemplateDirective,
 ];
 
 @NgModule({
@@ -135,7 +134,5 @@ const directives = [
   declarations: [components, directives],
   exports: [components, directives],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-
-  providers: [TabsService, SelectComponent],
 })
 export class ProductiveModule {}

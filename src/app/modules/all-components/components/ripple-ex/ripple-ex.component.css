@@ -12,3 +12,9 @@
 .ripple-opt {
   margin: 0 1rem 0 0;
 }
+
+.code-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

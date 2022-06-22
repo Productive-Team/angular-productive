@@ -18,7 +18,10 @@
         <ng-content select="[p-suffix]"></ng-content>
       </div>
     </div>
-    <div class="p-input-bar"></div>
+    <!-- <div class="p-input-bar"></div> -->
+    <div class="input-ink-bar">
+      <div class="input-ink-bar-ripple"></div>
+    </div>
   </div>
   <span class="helper-text {{helperState}}" *ngIf="hasHelperText || hasError()">
     {{helperText}}

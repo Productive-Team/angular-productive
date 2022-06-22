@@ -1,0 +1,31 @@
+.animation-class {
+  animation: rotate 500ms cubic-bezier(.12,0,.04,.99);
+}
+.animation-class-inverse {
+  animation: rotateRev 500ms cubic-bezier(.12,0,.04,.99);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  } 100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotateRev {
+  0% {
+    transform: rotate(90deg);
+  } 100% {
+    transform: rotate(0);
+  }
+}
+
+.smallnav {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .smallnav {
+    display: block;
+  }
+}

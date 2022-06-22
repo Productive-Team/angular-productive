@@ -19,16 +19,18 @@
         <button class="btn flat" pRipple pRippleColor="#ffffff26" pTooltip="Angular Productive Version">v1.0</button>
         <button class="btn fab flat" pRipple [pRippleCentered]="true" pRippleColor="#ffffff26"
           (click)="toggleDarkMode()" pTooltip="Toggle application theme">
-          <p-icon>{{darkActive === 'true' ? 'light_mode' : 'dark_mode'}}</p-icon>
+          <i class="material-icons" [class.animation-class]="transitionState"
+            [class.animation-class-inverse]="transitionStateInverse">{{darkModeService.darkModeEnabled ?
+            'light_mode' :
+            'dark_mode'}}</i>
         </button>
         <a class="btn flat fab" pRipple pRippleColor="#ffffff26" [pRippleCentered]="true"
           href="https://github.com/Productive-Team/angular-productive" target="_blank" pTooltip="Source Code">
-          <img src="../../../../../assets/img/github-white-transparent.svg"
-            style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); pointer-events: none;">
+          <img src="../../../../../assets/img/github-white-transparent.svg" style="pointer-events: none;">
         </a>
       </ng-container>
     </app-navbar>
-    <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="display-on-small-only">
+    <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="smallnav">
       <ng-container navbarContent>
         <button class="btn small flat" pRipple pRippleColor="#ffffff26" style="width: 100%;">
           Get Started

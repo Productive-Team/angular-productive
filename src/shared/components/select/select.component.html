@@ -1,33 +1,32 @@
-<div class="p-select-parent-wrapper" (click)="openMenu()">
-  <input type="text" #input readonly style="user-select: none; cursor: pointer;" [disabled]="pSelectDisabled"
-    (focus)="menuOpen ? '' : openMenu()">
-  <ng-container *ngIf="selectedTotal > 0 && pSelectMultiple">
-    <span class="p-select-multiple-total">
-      (+{{selectedTotal}} {{selectedTotal > 1 ? 'others':'other'}})
-    </span>
+<div class="dFlex p-select-parent-wrapper">
+  <input type="text" style="cursor: pointer; user-select: none;" (focus)="openSelectMenu()" [disabled]="disabled"
+    [placeholder]="placeholder" readonly pInput #mainInput>
+  <ng-container *ngIf="multiple && multipleValueAppearence === 'short' && totalSelectedOptions > 0">
+    <small style="white-space: nowrap">
+      (+{{totalSelectedOptions}} {{totalSelectedOptions === 1 ? 'other' : 'others'}})
+    </small>
   </ng-container>
-  <p-icon class="p-select-arrow">arrow_drop_down</p-icon>
-  <div class="p-select-wrapper" #menu>
-    <div class="p-select" *ngIf="menuOpen && !pSelectDisabled" @menuAnimation [style]="postionStyle">
-      <div class="p-select-content elevation-p8">
-        <div class="p-select-header">
-          <div class="p-select-search" *ngIf="pSelectSearch">
-            <input type="text" placeholder="Search" [(ngModel)]="searchText" (ngModelChange)="searchOptions()">
-          </div>
-          <div class="p-select-all-multiple" *ngIf="pSelectMultiple && pSelectAllInput">
-            <p-checkbox [checked]="allSelected" [indeterminate]="indeterminateSelected()"
-              (change)="selectAll($event.target.checked)" color="var(--primary)">
-              {{allSelected? 'Deselect All':'Select All'}}
-            </p-checkbox>
-          </div>
+  <span class="material-icons">
+    arrow_drop_down
+  </span>
+</div>
+
+<div class="p_select_wrap" #selectMenu>
+  <div class="p_select_menu" #selectMenuBody *ngIf="openMenu" @menuOpeningAnimation>
+    <div class="dFlex fDirectionColumn p_select_content elevation-p8">
+      <div class="p_select_header">
+        <div class="p_select_search" *ngIf="search">
+          <input type="text" placeholder="Search" [ngModel]="searchValue" (ngModelChange)="handleSearchInput($event)">
         </div>
-        <div class="p-select-content-options" #optionContent>
-          <ng-content></ng-content>
-          <ng-container>
-            <p-option *ngFor="let option of pSelectData" [value]="option.id" [disabled]="option.disabled">
-              {{option.name}}</p-option>
-          </ng-container>
+        <div class="p_select_check_all" *ngIf="multiple && multipleAll">
+          <p-checkbox [checked]="selectAllCurrentOptions" [indeterminate]="isSelectAllIndeterminate()"
+            (change)="handleSelectAll($event.target.checked)" [color]="'var(--primary)'">
+            {{selectAllCurrentOptions ? 'Desselect All' : 'Select All'}}
+          </p-checkbox>
         </div>
+      </div>
+      <div class="dFlex fDirectionColumn">
+        <ng-content></ng-content>
       </div>
     </div>
   </div>

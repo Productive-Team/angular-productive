@@ -1,6 +1,6 @@
 <div>
   <p-tab-group>
-    <p-tab pTabLabel="Documentation">
+    <p-tab label="Documentation">
       <br>
       <h5>Checkboxes are check</h5>
       <p-section>
@@ -37,17 +37,17 @@
             <p-icon>code</p-icon>
           </button>
         </p-section-header>
-        <p-section-code>
+        <p-section-code *ngIf="show">
           <p-section-code-header>
             Code Example
           </p-section-code-header>
           <p-tab-group>
-            <p-tab pTabLabel="HTML">
+            <p-tab label="HTML">
               <p-section-code-content>
                 {{checkboxTreeHTMLCode}}
               </p-section-code-content>
             </p-tab>
-            <p-tab pTabLabel="TS">
+            <p-tab label="TS">
               <p-section-code-content>
                 {{checkboxTreeTSCode}}
               </p-section-code-content>
@@ -70,7 +70,7 @@
         </p-section-content>
       </p-section>
     </p-tab>
-    <p-tab pTabLabel="References">
+    <p-tab label="References">
       <code>
       </code>
     </p-tab>

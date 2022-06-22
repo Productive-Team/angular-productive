@@ -7,12 +7,20 @@ import { DarkModeService } from 'src/shared/services/dark-mode.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent {
-  constructor(private darkModeService: DarkModeService) {}
-
-  darkActive = localStorage.getItem('dark_active');
-
+  constructor(public darkModeService: DarkModeService) {}
+  transitionState: boolean;
+  transitionStateInverse: boolean;
   toggleDarkMode(): void {
+    if (this.darkModeService.darkModeEnabled) {
+      this.transitionStateInverse = true;
+    }
+    if (!this.darkModeService.darkModeEnabled) {
+      this.transitionState = true;
+    }
     this.darkModeService.darkModeToggle();
-    this.darkActive = localStorage.getItem('dark_active');
+    setTimeout(() => {
+      this.transitionStateInverse = false;
+      this.transitionState = false;
+    }, 500);
   }
 }

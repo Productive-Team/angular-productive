@@ -1,0 +1,4 @@
+.isLoading {
+  background-color: rgba(143, 143, 143, 0.25);
+  pointer-events: none;
+}

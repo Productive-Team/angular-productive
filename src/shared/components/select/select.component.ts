@@ -1,25 +1,27 @@
-/* eslint-disable @angular-eslint/no-input-rename */
+/* eslint-disable @angular-eslint/no-host-metadata-property */
 import { animate, style, transition, trigger } from '@angular/animations';
 import {
+  AfterContentInit,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  Input,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  forwardRef,
-  EventEmitter,
-  Directive,
-  Output,
   ContentChildren,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Input,
   OnDestroy,
-  ViewChildren,
-  AfterViewChecked,
-  DoCheck,
-  AfterContentChecked,
+  OnInit,
+  Output,
+  QueryList,
+  Renderer2,
+  ViewChild,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CoerceBoolean } from 'src/shared/decorators/coerce-boolean-decorator';
 
-const menuAnim = trigger('menuAnimation', [
+const menuOpeningAnimation = trigger('menuOpeningAnimation', [
   transition(':enter', [
     style({
       opacity: 0,
@@ -32,15 +34,13 @@ const menuAnim = trigger('menuAnimation', [
     ),
   ]),
   transition(':leave', [
-    animate('150ms cubic-bezier(.1,.5,.65,.99)', style({ opacity: 0 })),
+    animate('100ms cubic-bezier(.1,.5,.65,.99)', style({ opacity: 0 })),
   ]),
 ]);
 
 @Component({
   selector: 'app-select, p-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.css'],
-  animations: [menuAnim],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -48,172 +48,125 @@ const menuAnim = trigger('menuAnimation', [
       multi: true,
     },
   ],
+  animations: [menuOpeningAnimation],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(blur)': 'blur()',
+    '(change)': 'change(this.value)',
+  },
 })
-export class SelectComponent implements OnInit, OnDestroy, DoCheck {
-  @Input() pSelectAppearence: string;
-  @Input() pSelectLabel: string;
+export class SelectComponent
+  implements ControlValueAccessor, AfterViewInit, OnDestroy, AfterContentInit
+{
+  /**
+   * Select Value
+   */
+  @Input()
+  value: any;
+  /**
+   * Select Value change emitter
+   */
+  @Output()
+  valueChange: EventEmitter<any> = new EventEmitter<any>();
 
-  pSelectMultiple: boolean;
-  pSelectAllInput: boolean;
-  @Input('disabled') pSelectDisabled: boolean;
+  /**
+   * Input placeholder text
+   */
+  @Input() placeholder: string = '';
 
-  pSelectSearch: boolean;
+  /**
+   * Disable select input
+   */
+  @CoerceBoolean()
+  @Input()
+  disabled: boolean;
 
-  @Input() pSelectData: SelectDataModel[] = [];
+  /**
+   * Enables the search bar in componente
+   */
+  @CoerceBoolean()
+  @Input()
+  search: boolean;
+  /**
+   * Stops the default search function to be executed if set to true.
+   */
+  @Input()
+  searchCustomFunction: boolean;
+  /**
+   * Search input value emitter
+   */
+  @Output()
+  searchValueChange: EventEmitter<string> = new EventEmitter<string>();
 
-  @Input() pSelectValue: any;
-  @Output() pSelectValueChange = new EventEmitter<any>();
+  /**
+   * Allow for multiple options to be selected
+   */
+  @CoerceBoolean()
+  @Input()
+  multiple: boolean;
 
-  selectedOptions = [];
-  multipleValues = [];
+  /**
+   * Enables the select all checkbox at the top of the menu
+   */
+  @CoerceBoolean()
+  @Input()
+  multipleAll: boolean;
 
-  optionButtons = [];
+  /**
+   * Changes appearence when multiple options are selected
+   */
+  @Input()
+  multipleValueAppearence: MultipleValueAppearence = 'extend';
 
-  allSelected = false;
+  public openMenu: boolean;
 
-  selectedTotal = 0;
+  public selectAllCurrentOptions: boolean;
 
-  selectedOption: any;
+  public searchValue: string = '';
 
-  menuOpen: boolean;
+  public totalSelectedOptions: number = 0;
 
-  searchText: string;
+  private _mainSelectedOption: SelectOptionComponent;
+  private _selectedOptions: SelectOptionComponent[] = [];
 
-  @ViewChild('menu') selectMenu: ElementRef;
-  @ViewChild('input') selectInput: ElementRef;
+  private _searchTimeout: any;
 
-  @ViewChild('optionContent') optionContent: ElementRef;
+  private _selectedOptionsValues: any[] = [];
 
-  @ViewChildren(forwardRef(() => SelectOptionComponent))
-  arrayGeneratedButtons: any;
+  @ViewChild('selectMenu') private _selectMenu: ElementRef<HTMLElement>;
+  @ViewChild('mainInput') private _mainInput: ElementRef<HTMLInputElement>;
+  @ViewChild('selectMenuBody') private _selectMenuBody: ElementRef<HTMLElement>;
 
-  @ContentChildren(forwardRef(() => SelectOptionComponent), {
-    descendants: true,
-  })
-  contentProjectionButtons: any;
+  @ContentChildren(forwardRef(() => SelectOptionComponent))
+  private _selectOptions: QueryList<SelectOptionComponent>;
 
-  selectedOptionText: string;
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _renderer2: Renderer2
+  ) {}
 
-  postionStyle: string;
+  ngAfterViewInit(): void {
+    this._setMenuToBody();
+  }
 
-  public transformOrigin = '50% 0px 0px';
-
-  constructor(private el: ElementRef) {}
-
-  change = (_) => {};
-  blur = (_) => {};
-
-  ngOnInit() {
+  ngAfterContentInit(): void {
     setTimeout(() => {
-      this.setToBody();
-      if (this.pSelectData.length === 0) {
-        if (!this.pSelectMultiple) {
-          this.checkToSelectSingle(this.pSelectValue);
+      if (this.multiple) {
+        if (Array.isArray(this.value)) {
+          this.value.forEach((value) => {
+            this.setMultipleValue(value);
+          });
         } else {
-          const array = Array.isArray(this.pSelectValue);
-          if (array) {
-            this.pSelectValue.forEach((x) => {
-              this.checkToSelectMultiple(x);
-            });
-          } else {
-            this.checkToSelectMultiple(this.pSelectValue);
-          }
+          this.setMultipleValue(this.value);
         }
       } else {
-        const text = this.pSelectData.find((x) => x.id === this.pSelectValue);
-        if (text !== undefined) {
-          this.selectInput.nativeElement.value = text.name.trim();
-        }
+        this.setSingleValue(this.value);
       }
     }, 0);
   }
 
-  ngDoCheck(): void {
-    if (this.arrayGeneratedButtons !== undefined) {
-      const genLength = this.arrayGeneratedButtons._results.length;
-      let i = 0;
-      for (; i < genLength; i++) {
-        const idx = this.optionButtons.findIndex(
-          (x) => x.value === this.arrayGeneratedButtons._results[i].value
-        );
-
-        if (idx >= 0) {
-          this.optionButtons.splice(idx, 1);
-
-          if (this.selectedOption !== undefined) {
-            if (
-              this.arrayGeneratedButtons._results[i].value ===
-              this.selectedOption.value
-            ) {
-              this.arrayGeneratedButtons._results[i].selected = true;
-              this.selectedOption = this.arrayGeneratedButtons._results[i];
-            }
-          }
-
-          if (this.pSelectMultiple) {
-            const isArray = Array.isArray(this.pSelectValue);
-            if (isArray) {
-              this.pSelectValue.forEach((c) => {
-                if (this.arrayGeneratedButtons._results[i].value === c) {
-                  this.arrayGeneratedButtons._results[i].selected = true;
-                }
-              });
-            } else {
-              if (
-                this.arrayGeneratedButtons._results[i].value ===
-                this.pSelectValue
-              ) {
-                this.arrayGeneratedButtons._results[i].selected = true;
-              }
-            }
-          }
-
-          this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
-        } else {
-          this.optionButtons.push(this.arrayGeneratedButtons._results[i]);
-        }
-      }
-    }
-    if (this.contentProjectionButtons !== undefined) {
-      const genLength = this.contentProjectionButtons._results.length;
-      let i = 0;
-      for (; i < genLength; i++) {
-        const idx = this.optionButtons.findIndex(
-          (x) => x.value === this.contentProjectionButtons._results[i].value
-        );
-        if (idx < 0) {
-          this.optionButtons.push(this.contentProjectionButtons._results[i]);
-        }
-      }
-    }
-  }
-
-  setToBody(): void {
-    const menu = this.selectMenu.nativeElement as HTMLElement;
-    document.body
-      .querySelector('.p-components-container')
-      .insertAdjacentElement('beforeend', menu);
-  }
-
-  writeValue(obj: any): void {
-    this.pSelectValue = obj;
-    // setTimeout(() => {
-    //   if (obj) {
-    //     if (!this.pSelectMultiple) {
-    //       this.checkToSelectSingle(obj);
-    //     } else {
-    //       const isArr = Array.isArray(obj);
-    //       if (isArr) {
-    //         obj.forEach((x) => {
-    //           this.checkToSelectMultiple(x);
-    //         });
-    //       } else {
-    //         this.checkToSelectMultiple(obj);
-    //       }
-    //     }
-    //   }
-    // }, 1);
-  }
+  change = (_) => {};
+  blur = (_) => {};
 
   registerOnChange(fn: any): void {
     this.change = fn;
@@ -223,357 +176,505 @@ export class SelectComponent implements OnInit, OnDestroy, DoCheck {
     this.blur = fn;
   }
 
-  openMenu(): void {
-    this.menuOpen = true;
-    this.setBackdrop();
-    this.scrollOptToView();
-    setTimeout(() => {
-      this.setPositions();
-    }, 0);
-  }
-
-  closeMenu(): void {
-    this.menuOpen = false;
-    this.removeBackdrop();
-  }
-
-  setBackdrop(): void {
-    const backdrop = document.createElement('div');
-    backdrop.classList.add('backdrop');
-    backdrop.style.zIndex = '1005';
-    backdrop.addEventListener('click', () => {
-      this.closeMenu();
-    });
-    document.body.insertAdjacentElement('beforeend', backdrop);
-  }
-
-  removeBackdrop(): void {
-    const backdrop = document.querySelector('.backdrop');
-    backdrop.remove();
-  }
-
-  setSingleValue(value: any) {
-    this.checkToSelectSingle(value);
-    this.pSelectValueChange.emit(value);
-    this.change(value);
-    this.selectInput.nativeElement.closest('.fieldset').parentElement.click();
-    this.closeMenu();
-  }
-
-  setMultipleValue(value: any) {
-    this.pSelectValueChange.emit(value);
-    this.change(value);
-  }
-
-  checkToSelectSingle(value: any): void {
-    this.optionButtons.forEach((x) => {
-      x.selected = false;
-    });
-    const component = this.optionButtons.find((x) => x.value === value);
-    this.selectedOption = component;
-    if (component && value.length > 0) {
-      const elementComp = component.el.nativeElement
-        .firstChild as HTMLButtonElement;
-      const text = elementComp.textContent.trim();
-      this.selectInput.nativeElement.value = text;
-      component.selected = true;
-    } else {
-      this.selectInput.nativeElement.value = '';
-    }
-  }
-
-  checkToSelectMultiple(value: any): any[] {
-    const input = this.selectInput.nativeElement as HTMLInputElement;
-    const select = this.optionButtons.findIndex((o) => o.value === value);
-    const opt = this.selectedOptions.find(
-      (v) => v.value === this.optionButtons[select].value
-    );
-    if (opt === undefined) {
-      if (select >= 0) {
-        this.optionButtons[select].selected = true;
-        this.selectedOptions.push(this.optionButtons[select]);
+  writeValue(obj: any): void {
+    this.value = obj;
+    if (this.multiple) {
+      if (Array.isArray(obj)) {
+        obj.forEach((value) => {
+          this.setMultipleValue(value);
+        });
+      } else {
+        this.setMultipleValue(obj);
       }
     } else {
-      const index = this.selectedOptions.indexOf(opt);
-      this.selectedOptions.splice(index, 1);
-      this.optionButtons[select].selected = false;
+      this.setSingleValue(obj);
     }
-    const allSelected = this.optionButtons.filter((x) => x.selected);
-    if (allSelected.length > 0) {
-      this.selectedOption = allSelected[0];
-      input.value =
-        allSelected[0].el.nativeElement.firstChild.textContent.trim();
-      this.selectedTotal = this.selectedOptions.length - 1;
-    } else {
-      this.selectedOption = undefined;
-      input.value = null;
-      this.selectedTotal = 0;
-    }
-    const val = [];
-    if (this.selectedOptions.length > 0) {
-      this.selectedOptions.forEach((v) => {
-        val.push(v.value);
-        this.multipleValues = val;
-      });
-    } else {
-      this.multipleValues = [];
-    }
-    return this.multipleValues;
   }
 
-  selectAll(event): void {
-    this.optionButtons.forEach((x) => {
-      if (event === true) {
-        if (x.selected) {
-          const idx = this.selectedOptions.findIndex(
-            (c) => x.value === c.value
+  setDisabledState(isDisabled?: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  /**
+   * Opens the select menu
+   */
+  public openSelectMenu(): void {
+    this.openMenu = true;
+    this._setBackdrop();
+    this._centerSelectedOption();
+    this._setPositioning();
+  }
+
+  /**
+   * Closes the select menu
+   */
+  public closeSelectMenu = (): void => {
+    this.openMenu = false;
+    this._changeDetectorRef.markForCheck();
+    this._removeBackdrop();
+  };
+
+  /**
+   * Emits values for single selection
+   */
+  public setSingleValue(newValue: any): void {
+    this._changeDetectorRef.markForCheck();
+
+    this.closeSelectMenu();
+
+    this._selectSingleOnly(newValue);
+    this.change(newValue);
+    this.valueChange.emit(newValue);
+  }
+
+  /**
+   * Emits values for multiple selection
+   */
+  public setMultipleValue(newValue: any): void {
+    this._changeDetectorRef.markForCheck();
+
+    this._selectMultipleValue(newValue);
+
+    this.areAllOptionsSelected();
+    this.change(this._selectedOptionsValues);
+    this.valueChange.emit(this._selectedOptionsValues);
+  }
+
+  /**
+   * Selects all avaliable options in current array
+   */
+  public handleSelectAll(event: boolean): void {
+    const allOptions = this._selectOptions.toArray();
+    this.selectAllCurrentOptions = event;
+
+    allOptions.map((x) => {
+      if (event) {
+        if (
+          x.selected ||
+          (this._selectedOptionsValues.includes(x.value) &&
+            this._selectedOptions.includes(x))
+        ) {
+          if (x.selected) x.selected = false;
+
+          const selectedOptionIndex = this._selectedOptions?.findIndex(
+            (y) => y.value === x.value
           );
-          this.selectedOptions.splice(idx, 1);
+
+          const selectedOptionValueIndex =
+            this._selectedOptionsValues?.findIndex((z) => z === x.value);
+
+          this._selectedOptions.splice(selectedOptionIndex, 1);
+          this._selectedOptionsValues.splice(selectedOptionValueIndex, 1);
         }
       }
-      const selected = this.checkToSelectMultiple(x.value);
-      this.setMultipleValue(selected);
+      if (!x.disabled) {
+        this.setMultipleValue(x.value);
+      }
     });
-    this.allSelected = event;
   }
 
-  isEverySelected(): void {
-    this.allSelected = this.optionButtons.every((t) => t.selected);
-  }
-
-  indeterminateSelected(): boolean {
+  /**
+   * Checks to see if only some of the avaliable options are selected
+   */
+  public isSelectAllIndeterminate(): boolean {
     return (
-      this.optionButtons.filter((x) => x.selected).length > 0 &&
-      !this.allSelected
+      this._selectOptions.toArray().filter((x) => x.selected && !x.disabled)
+        .length > 0 && !this.selectAllCurrentOptions
     );
   }
 
-  scrollOptToView(): void {
-    setTimeout(() => {
-      if (this.selectedOption) {
-        const element = this.selectedOption.el.nativeElement as HTMLElement;
+  /**
+   * Handles the search input event emit
+   */
+  public handleSearchInput(searchValue: string): void {
+    this.searchValueChange.emit(searchValue);
+    if (!this.searchCustomFunction) {
+      if (searchValue !== this.searchValue) {
+        this.searchValue = searchValue;
+        clearTimeout(this._searchTimeout);
+      }
+
+      this._searchTimeout = setTimeout(() => {
+        this._searchInArray(searchValue.toUpperCase());
+      }, 300);
+    }
+  }
+
+  /**
+   * Searches value and text labels and hides the ones that are different than the informed value
+   */
+  private _searchInArray(value: string): void {
+    this._selectOptions.toArray().map((x) => {
+      const optionValue = x.value.toString().trim().toUpperCase();
+      const textContent = x.elementRef.nativeElement.innerText
+        .trim()
+        .toUpperCase();
+
+      if (value.length === 0) {
+        x.elementRef.nativeElement.removeAttribute('style');
+      } else {
+        if (
+          optionValue.indexOf(value) >= 0 ||
+          textContent.indexOf(value) >= 0
+        ) {
+          x.elementRef.nativeElement.style.display = '';
+        } else {
+          x.elementRef.nativeElement.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  /**
+   * Checks if all avaliable options are selected
+   */
+  private areAllOptionsSelected(): void {
+    this.selectAllCurrentOptions = this._selectOptions
+      ?.toArray()
+      .filter((x) => !x.disabled)
+      .every((t) => t.selected);
+  }
+
+  /**
+   * Handles selection of single option
+   */
+  private _selectSingleOnly(value: any): void {
+    const selectOptions = this._selectOptions?.toArray();
+    selectOptions?.map((option) => (option.selected = false));
+
+    const selectedOption = selectOptions?.find((x) => x.value === value);
+
+    if (selectedOption) {
+      selectedOption.selected = true;
+      this._mainSelectedOption = selectedOption;
+      if (value) {
+        this._handleInputValue(
+          selectedOption.elementRef.nativeElement.innerText
+        );
+      } else {
+        this._handleInputValue(null);
+      }
+    } else {
+      this._mainSelectedOption = undefined;
+      this._handleInputValue(null);
+    }
+  }
+
+  /**
+   * Handles selection of multiple options
+   */
+  private _selectMultipleValue(value: any): void {
+    const selectOptions = this._selectOptions?.toArray();
+
+    const selectedOption = selectOptions?.find((x) => x.value === value);
+
+    if (selectedOption) {
+      if (
+        !this._selectedOptionsValues.includes(value) &&
+        !this._selectedOptions.includes(selectedOption)
+      ) {
+        if (!selectedOption.selected) selectedOption.selected = true;
+
+        this._selectedOptions.push(selectedOption);
+        this._selectedOptionsValues.push(selectedOption.value);
+      } else {
+        if (selectedOption.selected) selectedOption.selected = false;
+
+        const selectedOptionIndex = this._selectedOptions?.findIndex(
+          (x) => x.value === value
+        );
+
+        const selectedOptionValueIndex = this._selectedOptionsValues?.findIndex(
+          (x) => x === value
+        );
+
+        this._selectedOptions.splice(selectedOptionIndex, 1);
+        this._selectedOptionsValues.splice(selectedOptionValueIndex, 1);
+      }
+      this._mainSelectedOption = selectOptions.filter((x) => x.selected)[0];
+
+      if (this.multipleValueAppearence === 'short') {
+        if (this._mainSelectedOption) {
+          this._handleInputValue(
+            this._mainSelectedOption.elementRef.nativeElement.innerText
+          );
+        } else {
+          this._handleInputValue('');
+        }
+      } else {
+        let innerTexts = [];
+        selectOptions
+          .filter((x) => x.selected)
+          .forEach((x) => {
+            innerTexts.push(x.elementRef.nativeElement.innerText);
+          });
+        this._handleInputValue(innerTexts.join(', '));
+      }
+    } else {
+      this._handleInputValue('');
+    }
+    this.totalSelectedOptions = this._selectedOptionsValues.length - 1;
+  }
+
+  /**
+   * Sets the text in the input
+   */
+  private _handleInputValue(showValue: string): void {
+    const mainInput = this._mainInput?.nativeElement;
+
+    if (mainInput) mainInput.value = showValue;
+  }
+
+  /**
+   * Handles the custom positioning on menu
+   */
+  private _setPositioning(): void {
+    this._changeDetectorRef.detectChanges();
+
+    // Gets the closest fieldset element to be able to know input's width.
+    // and also gets input's DOMRect allowing for top, left and width values to be used.
+    const mainInputRect = this._getPositions(this._mainInput.nativeElement);
+    const fiedsetElement = this._mainInput?.nativeElement.closest(
+      '.fieldset'
+    ) as HTMLElement;
+
+    // Select menu is declared here, to be used on top calcuation.
+    const selectMenu = this._selectMenu.nativeElement;
+
+    // Gets the main option, beign the first option on the list, or the first selected option on the list
+    // this is used later to calculate the translation Y value
+    let mainOption: HTMLElement;
+    if (this._mainSelectedOption) {
+      mainOption = this._mainSelectedOption.elementRef.nativeElement;
+    } else {
+      mainOption = this._selectOptions.toArray()[0].elementRef.nativeElement;
+    }
+
+    // Gets the offset height of the main option
+    const mainOptionHeight = mainOption.offsetHeight;
+
+    // Declares the actual content of the select menu
+    const selectContent = this._selectMenuBody.nativeElement as HTMLElement;
+
+    // Calculates the "top" css value, dividing the value of the subtraction between the main option's height and
+    // the input's offset height by two, and then subtracting that value from the top value of the inputRect
+    // correctly calculates the positioning based on the selected value
+    let topPositioning =
+      mainInputRect.top -
+      (mainOptionHeight - this._mainInput.nativeElement.offsetHeight) / 2;
+
+    // Calculates the "translateY" css value, by subtracting the scrollTop value of the menu content from the main option's
+    // offsetTop, it correctly calculates how much the menu shall translate vertically to acomodate the option's text,
+    // independent of it's scrolling position, to the input text
+    let translatePositioning = Math.abs(
+      mainOption.offsetTop - selectContent.firstElementChild.scrollTop
+    );
+
+    // Gets the real distance between the select menu and the top of the viewport
+    const realDistanceToTopViewPort = topPositioning - translatePositioning;
+
+    // Sets the transform origin for animation purposes
+    // selectContent.style.transformOrigin = ;
+    this._renderer2.setStyle(
+      selectContent,
+      'transformOrigin',
+      `50% ${translatePositioning + 9}px 0px`
+    );
+
+    // Calculates the amount of pixels missing between the input's width and fiedset's width
+    let widthDifference = fiedsetElement.offsetWidth - mainInputRect.width;
+
+    // Gets the "translateX" css value, by getting the offsetTop of the <span> element in the menu
+    let horizontalTranslateValue = (
+      mainOption.firstChild.lastChild as HTMLElement
+    ).offsetLeft;
+
+    // Checks to see if the select menu is not overflowing to the left side of the viewport
+    if (mainInputRect.left - horizontalTranslateValue <= 0) {
+      horizontalTranslateValue -= Math.abs(
+        mainInputRect.left - horizontalTranslateValue
+      );
+    }
+
+    // Adds the horizontalTranslate value to the widthDifference, to fill the remaining space
+    widthDifference += horizontalTranslateValue;
+
+    // Checks if the real distance is not overflowing outside of the top of the viewport
+    if (realDistanceToTopViewPort <= 0) {
+      topPositioning = 0;
+      translatePositioning = 0;
+    }
+
+    // Checks if the real distance is not overflowing outside of the bottom of the viewport
+    if (
+      realDistanceToTopViewPort + selectMenu.offsetHeight >=
+      window.innerHeight
+    ) {
+      topPositioning = window.innerHeight - selectMenu.offsetHeight;
+      translatePositioning = 0;
+    }
+
+    this._renderer2.setStyle(selectContent, 'top', topPositioning + 'px');
+    this._renderer2.setStyle(selectContent, 'left', mainInputRect.left + 'px');
+    this._renderer2.setStyle(
+      selectContent,
+      'transform',
+      `translateY(-${translatePositioning}px) translateX(-${horizontalTranslateValue}px)`
+    );
+
+    this._renderer2.setStyle(
+      selectContent,
+      'width',
+      mainInputRect.width + widthDifference + 'px'
+    );
+  }
+
+  /**
+   * Centers selected option in select
+   */
+  private _centerSelectedOption(): void {
+    this._changeDetectorRef.detectChanges();
+    if (this._mainSelectedOption) {
+      const scrollContainerMaxHeight = +getComputedStyle(
+        this._selectMenuBody.nativeElement.firstElementChild
+      ).maxHeight.match(/(\d+)/)[0];
+
+      const scrollContainerHeight =
+        this._selectMenuBody.nativeElement.offsetHeight;
+
+      if (scrollContainerMaxHeight === scrollContainerHeight) {
         const scrollOpt: ScrollIntoViewOptions = {
           behavior: 'auto',
           block: 'center',
           inline: 'nearest',
         };
-        element.scrollIntoView(scrollOpt);
+        this._mainSelectedOption.elementRef.nativeElement.scrollIntoView(
+          scrollOpt
+        );
       }
-    }, 0);
+    }
   }
 
-  setPositions(): void {
-    let styleStr = '';
+  /**
+   * Creates and sets a backdrop DOM element
+   */
+  private _setBackdrop(): void {
+    const backdrop = document.createElement('div') as HTMLElement;
+    backdrop.classList.add('backdrop');
 
-    // Get the input and the input positions
-    const input = this.selectInput.nativeElement as HTMLInputElement;
-    const inputPositions = this.getPositions(input);
+    backdrop.addEventListener('click', this.closeSelectMenu, { passive: true });
 
-    // Gets the selected or first option in the list
-    let selectedOpt;
-    if (!this.selectedOption) {
-      selectedOpt = this.optionButtons[0].el.nativeElement
-        .firstChild as HTMLElement;
-    } else {
-      selectedOpt = this.selectedOption.el.nativeElement
-        .firstChild as HTMLElement;
-    }
-
-    const selectedOptHeight = selectedOpt.offsetHeight;
-
-    // Gets the select content
-    // <div class="p-select-content"></div>
-
-    const select = this.selectMenu.nativeElement.firstChild
-      .firstChild as HTMLDivElement;
-
-    // Calculates the top distance in pixels, by subtracting the offsetHeight of the
-    // selected option and the input, diving the result by two, and then subtracting
-    // the DOMRect top from the input by the result of the division
-    let topPosition =
-      inputPositions.top - (selectedOptHeight - input.offsetHeight) / 2;
-
-    // Calculates the positioning the menu needs to translate backwards via transform.
-    // This is done by subtracting the offsetTop of the selected option by the scrollTop value
-    // of the p-select-content div, which scrolls
-    let topPositioning = Math.abs(selectedOpt.offsetTop - select.scrollTop);
-
-    // By subtracting the two values above you will find the real distance between the menu
-    // and the top of the viewport
-    const topValue = topPosition - topPositioning;
-
-    // Calculates the transform origin
-    select.style.transformOrigin = `50% ${topPositioning + 9}px 0px`;
-
-    const fieldset = this.getPositions(input.closest('.fieldset'));
-
-    let topString = `top: ${topPosition}px;`;
-    if (topValue < 0) {
-      topPosition = 0;
-      topPositioning = 0;
-    } else if (topValue + select.offsetHeight > window.innerHeight) {
-      topPosition = topPosition - select.offsetHeight;
-      if (topPosition < 0) {
-        topPosition = 0;
-      }
-      topPositioning = 0;
-      topString = `top: ${topPosition}px;`;
-    } else if (topValue > window.innerHeight) {
-      topPosition = 0;
-      topString = `bottom: ${topPosition}px;`;
-    }
-
-    let inputDifferece = Math.round(fieldset.width - input.offsetWidth - 24);
-
-    let inputWidth = fieldset.width;
-
-    if (inputDifferece === 0) {
-      inputDifferece = 24;
-      inputWidth = fieldset.width + inputDifferece;
-    }
-
-    let leftPos = inputPositions.left - inputDifferece / 2;
-
-    if (this.pSelectMultiple) {
-      leftPos = inputPositions.left - 52;
-      if (leftPos < 0) {
-        leftPos = 0;
-      }
-      inputWidth = fieldset.width + 52;
-    }
-
-    styleStr =
-      topString +
-      `left: ${leftPos}px;` +
-      `width: ${inputWidth}px;` +
-      `transform: scaleY(1) translateY(-${topPositioning}px); bottom: ${
-        topValue > window.innerHeight ? topPosition : null
-      }; `;
-
-    this.postionStyle = styleStr;
+    document.body.insertAdjacentElement('beforeend', backdrop);
   }
 
-  private getPositions(element: any): DOMRect {
+  /**
+   * Removes the click event listener and destroys the backdrop DOM element
+   */
+  private _removeBackdrop(): void {
+    const backdrop = document.body.querySelector('.backdrop') as HTMLElement;
+
+    if (backdrop) {
+      backdrop.removeEventListener('click', this.closeSelectMenu);
+      backdrop.remove();
+    }
+  }
+
+  /**
+   * Sets the menu element to outside the scope of the current component
+   */
+  private _setMenuToBody(): void {
+    let documentDOM = document.body.querySelector(
+      '.p-components-container'
+    ) as HTMLElement;
+
+    if (!documentDOM) documentDOM = document.body;
+
+    documentDOM.appendChild(this._selectMenu.nativeElement);
+  }
+
+  /**
+   * Returns rect value of an element
+   */
+  private _getPositions(element: any): DOMRect {
     return element.getBoundingClientRect();
   }
 
-  searchOptions(): void {
-    const value = this.searchText.toUpperCase();
-    const li = this.optionContent.nativeElement as HTMLElement;
-    const buttons = li.getElementsByTagName('p-option');
-
-    let b = 0;
-    for (; b < buttons.length; b++) {
-      const opt = buttons[b] as HTMLElement;
-      const buttonInsideOpt = opt.firstChild as HTMLButtonElement;
-      const buttonValue = buttonInsideOpt.value.trim().toUpperCase();
-      const textContent = buttonInsideOpt.innerText.trim().toUpperCase();
-
-      if (value.length === 0) {
-        opt.removeAttribute('style');
-      } else {
-        if (
-          buttonValue.indexOf(value) >= 0 ||
-          textContent.indexOf(value) >= 0
-        ) {
-          opt.style.display = '';
-        } else {
-          opt.style.display = 'none';
-        }
-      }
-    }
-  }
-
   ngOnDestroy(): void {
-    const menu = this.selectMenu.nativeElement as HTMLElement;
-    menu.remove();
+    this._changeDetectorRef.markForCheck();
+    this._selectMenu?.nativeElement?.remove();
+    this._removeBackdrop();
   }
 }
 
 @Component({
-  selector: 'app-option, p-option',
-  styleUrls: ['./select.component.css'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectOptionComponent),
-      multi: true,
-    },
-  ],
+  selector: 'app-select-option, p-option',
   template: ` <button
+    class="p_select_option"
+    [class.option_selected]="selected"
     pRipple
-    [class]="selected ? 'selected' : ''"
     [value]="value"
     [disabled]="disabled"
-    (click)="
-      parent.pSelectMultiple
-        ? selectMultiple($event.target.value)
-        : selectSingleValue($event.target.value)
-    "
+    [pRippleDisabled]="disabled || noRipple"
+    [attr.aria-value]="value"
+    [attr.aria-disabled]="disabled"
+    (click)="disabled ? false : handleSelect()"
   >
     <p-checkbox
-      class="p-select-no-pointer-events"
+      [color]="'var(--primary)'"
       [(checked)]="selected"
-      color="var(--primary)"
-      *ngIf="parent.pSelectMultiple"
+      [disabled]="disabled"
+      *ngIf="parentComponent.multiple"
     ></p-checkbox>
-    <ng-content></ng-content>
+    <span>
+      <ng-content></ng-content>
+    </span>
   </button>`,
 })
 export class SelectOptionComponent implements OnInit {
-  @Input() value: any;
-  @Input() disabled: boolean;
+  /**
+   * Value of the select option
+   */
+  @Input()
+  value: any;
 
-  selected: boolean;
-  constructor(public parent: SelectComponent, private el: ElementRef) {}
-
-  ngOnInit(): void {
-    if (this.value === undefined) {
-      this.value = this.el.nativeElement.firstChild.textContent.trim();
-    }
-  }
-
-  selectSingleValue(value: any): void {
-    this.selected = true;
-    this.parent.setSingleValue(value);
-  }
-
-  selectMultiple(value: any): void {
-    this.selected = !this.selected;
-    const values = this.parent.checkToSelectMultiple(value);
-    this.parent.setMultipleValue(values);
-    this.parent.isEverySelected();
-  }
-}
-
-@Directive({
-  selector: '[multiple], [appMultiple]',
-})
-export class SelectMultipleDirective implements OnInit {
-  @Input() pSelectAllInput: boolean;
-  constructor(public parent: SelectComponent) {
-    this.parent.pSelectMultiple = true;
-  }
-
-  ngOnInit(): void {
-    if (this.pSelectAllInput) {
-      this.parent.pSelectAllInput = true;
-    }
-  }
-}
-
-@Directive({
-  selector: '[search], [appSearch]',
-})
-export class SelectSearchDirective {
-  constructor(public parent: SelectComponent) {
-    this.parent.pSelectSearch = true;
-  }
-}
-
-export class SelectDataModel {
-  id: any;
-  name: string;
+  /**
+   * Disable select option
+   */
+  @CoerceBoolean()
+  @Input()
   disabled?: boolean;
-  selected?: boolean;
+
+  /**
+   * Removes ripple effect from select option
+   */
+  @CoerceBoolean()
+  @Input()
+  noRipple?: boolean;
+
+  /**
+   * Selects the option
+   */
+  public selected?: boolean;
+
+  constructor(
+    public parentComponent: SelectComponent,
+    public elementRef: ElementRef<HTMLElement>
+  ) {}
+
+  ngOnInit(): void {
+    if (!this.value) {
+      this.value = this.elementRef.nativeElement.textContent;
+    }
+  }
+
+  public handleSelect(): void {
+    if (this.parentComponent.multiple) {
+      this.selected = !this.selected;
+      this.parentComponent.setMultipleValue(this.value);
+    } else {
+      this.parentComponent.setSingleValue(this.value);
+    }
+  }
 }
+
+type MultipleValueAppearence = 'extend' | 'short';

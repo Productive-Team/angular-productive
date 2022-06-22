@@ -22,9 +22,9 @@ export class InputDirective {
       '.input-wrapper'
     ) as HTMLInputElement;
     input.classList.add('focused');
-    const label = this.el.nativeElement.parentElement.querySelector(
-      '.label-wrap'
-    ).firstChild as HTMLSpanElement;
+    const label = this.el.nativeElement
+      .closest('.form-field')
+      .querySelector('.label-wrap').firstChild as HTMLSpanElement;
     label.classList.add('active');
   }
   @HostListener('blur', ['$event']) onFocusOut(event) {
@@ -33,9 +33,9 @@ export class InputDirective {
     ) as HTMLInputElement;
     input.classList.remove('focused');
     const inputFil = this.el.nativeElement as HTMLInputElement;
-    const label = this.el.nativeElement.parentElement.querySelector(
-      '.label-wrap'
-    ).firstChild as HTMLSpanElement;
+    const label = this.el.nativeElement
+      .closest('.form-field')
+      .querySelector('.label-wrap').firstChild as HTMLSpanElement;
     if (
       inputFil.value.length === 0 &&
       !input.parentElement.parentElement.parentElement.classList.contains(
@@ -149,12 +149,13 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
 
   hasValue(): boolean {
-    let input = this.el.nativeElement.querySelector('input');
-    if (input === null) {
-      input = this.el.nativeElement.querySelector('select');
-    }
-    if (input.closest('.p-select-search') === null) {
-      if (input.value.length > 0) {
+    let input = this.el.nativeElement.querySelectorAll(
+      'input',
+      'select',
+      'textarea'
+    ) as HTMLInputElement[];
+    if (input[0].closest('.p-select-search') === null) {
+      if (input[0].value.length > 0) {
         return true;
       } else {
         return false;
@@ -162,25 +163,24 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
     }
   }
 
-  @HostListener('click', ['$event']) focused(event) {
-    let input = this.el.nativeElement.querySelector(
-      'input'
-    ) as HTMLInputElement;
-    if (input === null) {
-      input = this.el.nativeElement.querySelector('select');
-    }
+  @HostListener('click', ['$event']) focused(event): void {
+    let input = this.el.nativeElement.querySelectorAll(
+      'input',
+      'select',
+      'textarea'
+    ) as HTMLInputElement[];
     const tgt = event.target.parentElement as HTMLElement;
     if (
       !tgt.classList.contains('suffix') &&
       !tgt.classList.contains('prefix')
     ) {
-      input.focus();
+      input[0].focus();
       const wrap = this.el.nativeElement.firstChild.firstChild
         .firstChild as HTMLDivElement;
-      if (input === document.activeElement) {
+      if (input[0] === document.activeElement) {
         wrap.classList.add('focused');
       }
-      input.addEventListener('blur', () => {
+      input[0].addEventListener('blur', () => {
         wrap.classList.remove('focused');
       });
     }
@@ -197,14 +197,13 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
   }
   @HostBinding('class.disabled')
   get getDisabled() {
-    let input = this.el.nativeElement.querySelector(
-      'input'
-    ) as HTMLInputElement;
-    if (input === null) {
-      input = this.el.nativeElement.querySelector('select') as HTMLInputElement;
-    }
-    if (input.closest('.p-select-search') === null) {
-      if (input.disabled) {
+    let input = this.el.nativeElement.querySelectorAll(
+      'input',
+      'select',
+      'textarea'
+    ) as HTMLInputElement[];
+    if (input[0].closest('.p-select-search') === null) {
+      if (input[0].disabled) {
         return true;
       } else {
         return false;
@@ -214,19 +213,19 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
 
   @HostBinding('class.readonly')
   get inputReadonly() {
-    let input = this.el.nativeElement.querySelector(
-      'input'
-    ) as HTMLInputElement;
-    if (input === null) {
-      input = this.el.nativeElement.querySelector('select') as HTMLInputElement;
-    }
+    let input = this.el.nativeElement.querySelectorAll(
+      'input',
+      'select',
+      'textarea'
+    ) as HTMLInputElement[];
     if (
-      !input.parentElement.classList.contains('p-select-parent-wrapper') &&
-      input.closest('.p-select-search') === null &&
-      !input.classList.contains('picker-trigger') &&
-      !input.classList.contains('calendar-trigger')
+      !input[0].parentElement.classList.contains('p-select-parent-wrapper') &&
+      input[0].closest('.p_select_search') === null &&
+      !input[0].classList.contains('picker-trigger') &&
+      !input[0].classList.contains('calendar-trigger') &&
+      !input[0].classList.contains('p-select-value')
     ) {
-      if (input.readOnly) {
+      if (input[0].readOnly) {
         return true;
       } else {
         return false;

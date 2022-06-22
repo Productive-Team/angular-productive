@@ -1,19 +1,19 @@
 <h5>Datepicker Locale</h5>
 <br>
-<p-radio-group pRadioCollectionName="locales" [(ngModel)]="locale">
-  <p-radio-button pRadioValue="en-US">
+<p-radio-group collection="locales" [(ngModel)]="locale">
+  <p-radio-button value="en-US">
     English
   </p-radio-button>
-  <p-radio-button pRadioValue="pt-BR">
+  <p-radio-button value="pt-BR">
     Português
   </p-radio-button>
-  <p-radio-button pRadioValue="es-es">
+  <p-radio-button value="es-es">
     Español
   </p-radio-button>
-  <p-radio-button pRadioValue="ja-ja">
+  <p-radio-button value="ja-ja">
     日本語
   </p-radio-button>
-  <p-radio-button pRadioValue="zh-ch">
+  <p-radio-button value="zh-ch">
     中国人
   </p-radio-button>
 </p-radio-group>
@@ -31,16 +31,10 @@
       <p-option>!!</p-option>
     </p-select>
   </p-fieldset>
-  <p-fieldset pFieldsetLabelText="Select ngFor">
-    <p-select multiple search [(pSelectValue)]="variab" multiple [pSelectAllInput]="true">
-      <p-option *ngFor="let item of optionArr" [value]="item.id" [disabled]="item.disabled">{{item.name}}</p-option>
-    </p-select>
-  </p-fieldset>
-  <p-fieldset pFieldsetLabelText="Select Array Input" pFieldsetAppearence="classic">
-    <p-select [pSelectData]="optionArr" [(pSelectValue)]="variab" search>
-    </p-select>
-  </p-fieldset>
 </div>
+<p-fieldset pFieldsetLabelText="Input" pFieldsetAppearence="classic">
+  <input type="text" pInput>
+</p-fieldset>
 
 {{variab}}
 <br>

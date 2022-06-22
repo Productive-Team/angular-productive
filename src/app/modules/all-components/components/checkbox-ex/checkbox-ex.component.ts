@@ -10,6 +10,8 @@ export class CheckboxExComponent {
   indet = false;
   chck = false;
 
+  show: boolean;
+
   labelDir = 'right';
 
   child = [

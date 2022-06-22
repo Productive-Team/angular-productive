@@ -196,51 +196,54 @@ export class CheckboxComponent implements AfterViewInit {
     lastState: CheckboxAnimationStates,
     newState: CheckboxAnimationStates
   ) {
-    const checkMark = this.checkMark.nativeElement;
-    const mixedMark = this.mixedMark.nativeElement;
+    const checkMarkElement = this.checkMark;
+    const mixedMarkElement = this.mixedMark;
+    if (checkMarkElement && mixedMarkElement) {
+      const checkMark = checkMarkElement.nativeElement;
+      const mixedMark = mixedMarkElement.nativeElement;
+      switch (lastState) {
+        case 1:
+          if (newState === 3) {
+            checkMark.classList.add('checkmark-checked-indeterminate');
+            mixedMark.classList.add('mixedmark-checked-indeterminate');
+          }
+          break;
+        case 2:
+          if (newState === 1) {
+            checkMark.classList.add('unchecked-checked');
+          }
+          if (newState === 3) {
+            mixedMark.classList.add('unchecked-indeterminate');
+          }
+          break;
+        case 3:
+          if (newState === 1) {
+            checkMark.classList.add('checkmark-indeterminate-checked');
+            mixedMark.classList.add('mixedmark-indeterminate-checked');
+          }
+          break;
+        default:
+          if (newState === 1) {
+            checkMark.classList.add('unchecked-checked');
+          }
+          if (newState === 3) {
+            mixedMark.classList.add('unchecked-indeterminate');
+          }
+      }
 
-    switch (lastState) {
-      case 1:
-        if (newState === 3) {
-          checkMark.classList.add('checkmark-checked-indeterminate');
-          mixedMark.classList.add('mixedmark-checked-indeterminate');
-        }
-        break;
-      case 2:
-        if (newState === 1) {
-          checkMark.classList.add('unchecked-checked');
-        }
-        if (newState === 3) {
-          mixedMark.classList.add('unchecked-indeterminate');
-        }
-        break;
-      case 3:
-        if (newState === 1) {
-          checkMark.classList.add('checkmark-indeterminate-checked');
-          mixedMark.classList.add('mixedmark-indeterminate-checked');
-        }
-        break;
-      default:
-        if (newState === 1) {
-          checkMark.classList.add('unchecked-checked');
-        }
-        if (newState === 3) {
-          mixedMark.classList.add('unchecked-indeterminate');
-        }
+      checkMark.addEventListener('animationend', () => {
+        checkMark.removeAttribute('class');
+      });
+      checkMark.addEventListener('animationcancel', () => {
+        checkMark.removeAttribute('class');
+      });
+      mixedMark.addEventListener('animationend', () => {
+        mixedMark.removeAttribute('class');
+      });
+      mixedMark.addEventListener('animationcancel', () => {
+        mixedMark.removeAttribute('class');
+      });
     }
-
-    checkMark.addEventListener('animationend', () => {
-      checkMark.removeAttribute('class');
-    });
-    checkMark.addEventListener('animationcancel', () => {
-      checkMark.removeAttribute('class');
-    });
-    mixedMark.addEventListener('animationend', () => {
-      mixedMark.removeAttribute('class');
-    });
-    mixedMark.addEventListener('animationcancel', () => {
-      mixedMark.removeAttribute('class');
-    });
   }
 
   syncCheckbox(value: boolean): void {
