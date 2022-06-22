@@ -220,7 +220,7 @@ export class FieldsetComponent implements OnInit, AfterContentInit {
     ) as HTMLInputElement[];
     if (
       !input[0].parentElement.classList.contains('p-select-parent-wrapper') &&
-      input[0].closest('.p-select-search') === null &&
+      input[0].closest('.p_select_search') === null &&
       !input[0].classList.contains('picker-trigger') &&
       !input[0].classList.contains('calendar-trigger') &&
       !input[0].classList.contains('p-select-value')

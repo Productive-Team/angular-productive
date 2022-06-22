@@ -1,13 +1,18 @@
-<div class="dFlex">
-  <input type="text" (focus)="openSelectMenu()" [disabled]="disabled" [placeholder]="placeholder" readonly pInput
-    #mainInput>
+<div class="dFlex p-select-parent-wrapper">
+  <input type="text" style="cursor: pointer; user-select: none;" (focus)="openSelectMenu()" [disabled]="disabled"
+    [placeholder]="placeholder" readonly pInput #mainInput>
+  <ng-container *ngIf="multiple && multipleValueAppearence === 'short' && totalSelectedOptions > 0">
+    <small style="white-space: nowrap">
+      (+{{totalSelectedOptions}} {{totalSelectedOptions === 1 ? 'other' : 'others'}})
+    </small>
+  </ng-container>
   <span class="material-icons">
     arrow_drop_down
   </span>
 </div>
 
 <div class="p_select_wrap" #selectMenu>
-  <div class="p_select_menu" #selectMenuBody *ngIf="openMenu">
+  <div class="p_select_menu" #selectMenuBody *ngIf="openMenu" @menuOpeningAnimation>
     <div class="dFlex fDirectionColumn p_select_content elevation-p8">
       <div class="p_select_header">
         <div class="p_select_search" *ngIf="search">
@@ -15,7 +20,9 @@
         </div>
         <div class="p_select_check_all" *ngIf="multiple && multipleAll">
           <p-checkbox [checked]="selectAllCurrentOptions" [indeterminate]="isSelectAllIndeterminate()"
-            (change)="handleSelectAll($event.target.checked)" [color]="'var(--primary)'">Select All</p-checkbox>
+            (change)="handleSelectAll($event.target.checked)" [color]="'var(--primary)'">
+            {{selectAllCurrentOptions ? 'Desselect All' : 'Select All'}}
+          </p-checkbox>
         </div>
       </div>
       <div class="dFlex fDirectionColumn">

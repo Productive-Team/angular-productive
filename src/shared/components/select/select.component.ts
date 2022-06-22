@@ -1,4 +1,5 @@
 /* eslint-disable @angular-eslint/no-host-metadata-property */
+import { animate, style, transition, trigger } from '@angular/animations';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -11,6 +12,7 @@ import {
   forwardRef,
   Input,
   OnDestroy,
+  OnInit,
   Output,
   QueryList,
   Renderer2,
@@ -18,6 +20,23 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CoerceBoolean } from 'src/shared/decorators/coerce-boolean-decorator';
+
+const menuOpeningAnimation = trigger('menuOpeningAnimation', [
+  transition(':enter', [
+    style({
+      opacity: 0,
+    }),
+    animate(
+      '150ms cubic-bezier(.1,.5,.65,.99)',
+      style({
+        opacity: 1,
+      })
+    ),
+  ]),
+  transition(':leave', [
+    animate('100ms cubic-bezier(.1,.5,.65,.99)', style({ opacity: 0 })),
+  ]),
+]);
 
 @Component({
   selector: 'app-select, p-select',
@@ -29,6 +48,7 @@ import { CoerceBoolean } from 'src/shared/decorators/coerce-boolean-decorator';
       multi: true,
     },
   ],
+  animations: [menuOpeningAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(blur)': 'blur()',
@@ -103,6 +123,8 @@ export class SelectComponent
   public selectAllCurrentOptions: boolean;
 
   public searchValue: string = '';
+
+  public totalSelectedOptions: number = 0;
 
   private _mainSelectedOption: SelectOptionComponent;
   private _selectedOptions: SelectOptionComponent[] = [];
@@ -372,9 +394,13 @@ export class SelectComponent
       this._mainSelectedOption = selectOptions.filter((x) => x.selected)[0];
 
       if (this.multipleValueAppearence === 'short') {
-        this._handleInputValue(
-          this._mainSelectedOption.elementRef.nativeElement.innerText
-        );
+        if (this._mainSelectedOption) {
+          this._handleInputValue(
+            this._mainSelectedOption.elementRef.nativeElement.innerText
+          );
+        } else {
+          this._handleInputValue('');
+        }
       } else {
         let innerTexts = [];
         selectOptions
@@ -382,10 +408,12 @@ export class SelectComponent
           .forEach((x) => {
             innerTexts.push(x.elementRef.nativeElement.innerText);
           });
-        console.log(innerTexts);
         this._handleInputValue(innerTexts.join(', '));
       }
+    } else {
+      this._handleInputValue('');
     }
+    this.totalSelectedOptions = this._selectedOptionsValues.length - 1;
   }
 
   /**
@@ -397,6 +425,9 @@ export class SelectComponent
     if (mainInput) mainInput.value = showValue;
   }
 
+  /**
+   * Handles the custom positioning on menu
+   */
   private _setPositioning(): void {
     this._changeDetectorRef.detectChanges();
 
@@ -436,16 +467,19 @@ export class SelectComponent
     // offsetTop, it correctly calculates how much the menu shall translate vertically to acomodate the option's text,
     // independent of it's scrolling position, to the input text
     let translatePositioning = Math.abs(
-      mainOption.offsetTop - selectContent.scrollTop
+      mainOption.offsetTop - selectContent.firstElementChild.scrollTop
     );
 
     // Gets the real distance between the select menu and the top of the viewport
     const realDistanceToTopViewPort = topPositioning - translatePositioning;
 
     // Sets the transform origin for animation purposes
-    selectContent.style.transformOrigin = `50% ${
-      translatePositioning + 9
-    }px 0px`;
+    // selectContent.style.transformOrigin = ;
+    this._renderer2.setStyle(
+      selectContent,
+      'transformOrigin',
+      `50% ${translatePositioning + 9}px 0px`
+    );
 
     // Calculates the amount of pixels missing between the input's width and fiedset's width
     let widthDifference = fiedsetElement.offsetWidth - mainInputRect.width;
@@ -468,7 +502,7 @@ export class SelectComponent
     // Checks if the real distance is not overflowing outside of the top of the viewport
     if (realDistanceToTopViewPort <= 0) {
       topPositioning = 0;
-      translatePositioning = -24;
+      translatePositioning = 0;
     }
 
     // Checks if the real distance is not overflowing outside of the bottom of the viewport
@@ -477,7 +511,7 @@ export class SelectComponent
       window.innerHeight
     ) {
       topPositioning = window.innerHeight - selectMenu.offsetHeight;
-      translatePositioning = -24;
+      translatePositioning = 0;
     }
 
     this._renderer2.setStyle(selectContent, 'top', topPositioning + 'px');
@@ -485,9 +519,7 @@ export class SelectComponent
     this._renderer2.setStyle(
       selectContent,
       'transform',
-      `translateY(-${translatePositioning}px) translateX(-${
-        mainOption.offsetWidth - horizontalTranslateValue
-      }px)`
+      `translateY(-${translatePositioning}px) translateX(-${horizontalTranslateValue}px)`
     );
 
     this._renderer2.setStyle(
@@ -504,8 +536,8 @@ export class SelectComponent
     this._changeDetectorRef.detectChanges();
     if (this._mainSelectedOption) {
       const scrollContainerMaxHeight = +getComputedStyle(
-        this._selectMenuBody.nativeElement
-      ).maxHeight.substring(0, 3);
+        this._selectMenuBody.nativeElement.firstElementChild
+      ).maxHeight.match(/(\d+)/)[0];
 
       const scrollContainerHeight =
         this._selectMenuBody.nativeElement.offsetHeight;
@@ -530,7 +562,7 @@ export class SelectComponent
     const backdrop = document.createElement('div') as HTMLElement;
     backdrop.classList.add('backdrop');
 
-    backdrop.addEventListener('click', this.closeSelectMenu);
+    backdrop.addEventListener('click', this.closeSelectMenu, { passive: true });
 
     document.body.insertAdjacentElement('beforeend', backdrop);
   }
@@ -598,7 +630,7 @@ export class SelectComponent
     </span>
   </button>`,
 })
-export class SelectOptionComponent {
+export class SelectOptionComponent implements OnInit {
   /**
    * Value of the select option
    */
@@ -628,6 +660,12 @@ export class SelectOptionComponent {
     public parentComponent: SelectComponent,
     public elementRef: ElementRef<HTMLElement>
   ) {}
+
+  ngOnInit(): void {
+    if (!this.value) {
+      this.value = this.elementRef.nativeElement.textContent;
+    }
+  }
 
   public handleSelect(): void {
     if (this.parentComponent.multiple) {

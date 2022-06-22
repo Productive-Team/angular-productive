@@ -145,6 +145,6 @@ const directives = [
   exports: [components, directives],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
-  providers: [SelectComponent],
+  providers: [SelectOldComponent],
 })
 export class ProductiveModule {}

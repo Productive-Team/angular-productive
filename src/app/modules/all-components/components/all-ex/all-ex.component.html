@@ -1,8 +1,20 @@
-<p-fieldset pFieldsetLabelText="Label">
-  <app-component-test [(value)]="val">
-    <app-component-test-option [value]="1234">teste</app-component-test-option>
-    <app-component-test-option [value]="5678">teste2</app-component-test-option>
-  </app-component-test>
-</p-fieldset>
+<div style="margin-top: 20rem">
+
+  <p-fieldset pFieldsetLabelText="Label">
+    <p-select [(value)]="val" search multiple>
+      <p-option [value]="1234">teste</p-option>
+      <p-option [value]="5678">teste2</p-option>
+      <p-option [value]="56789">teste3</p-option>
+      <p-option [value]="567891">teste4</p-option>
+      <p-option [value]="5678925">teste5</p-option>
+      <p-option [value]="567897">teste6</p-option>
+      <p-option [value]="567892">teste7</p-option>
+      <p-option [value]="567859">teste8</p-option>
+      <p-option [value]="5678596">teste9</p-option>
+      <p-option [value]="5678594">teste10</p-option>
+      <p-option [value]="5678592">teste11</p-option>
+    </p-select>
+  </p-fieldset>
+</div>
 
 {{val | json}}
