@@ -29,7 +29,13 @@ export class AllExComponent implements OnInit {
 
   isLoading: boolean;
 
-  val: any = 1234;
+  val = [4, 5];
+
+  content = [
+    { id: 1, name: 'teste' },
+    { id: 2, name: 'teste 2' },
+    { id: 3, name: 'teste 3' },
+  ];
 
   tabAlign: string = 'left';
   inkbarAlign: string = 'bottom';
@@ -37,11 +43,7 @@ export class AllExComponent implements OnInit {
   constructor(private snackbar: Snackbar) {}
 
   ngOnInit(): void {
-    // this.isLoading = true;
-    // this.isLoading = false;
-    // setTimeout(() => {
     this.value = ['value'];
-    // }, 2000);
   }
 
   addNew(disabled?: boolean, selectNewlyCreatedTab?: boolean): void {
@@ -80,6 +82,19 @@ export class AllExComponent implements OnInit {
 
   insertVal(): void {
     this.value = undefined;
+  }
+
+  addContent(): void {
+    const lastItm = this.content[this.content.length - 1];
+
+    this.content.push({
+      id: lastItm.id + 1,
+      name: 'teste ' + (lastItm.id + 1),
+    });
+  }
+
+  removeContent(): void {
+    this.content.splice(this.content.length - 1, 1);
   }
 
   open() {
