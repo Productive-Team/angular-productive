@@ -177,40 +177,7 @@ export class SelectComponent
         this.setSingleValue(this.value);
       }
 
-      this._selectOptions.changes.pipe().subscribe(() => {
-        this._selectOptions.toArray().map((option) => {
-          if (!this._optionsLabels.find((x) => x.value === option.value)) {
-            this._optionsLabels.push({
-              value: option.value,
-              label: option.elementRef.nativeElement.innerText,
-            });
-          }
-        });
-        setTimeout(() => {
-          if (!this._currentValue) {
-            this._currentValue = this.value;
-          }
-
-          if (this.multiple) {
-            setTimeout(() => {
-              this._selectedOptions = [];
-              this._selectedOptionsValues = [];
-              this._mainSelectedOption = undefined;
-              this._selectOptions?.toArray().map((x) => (x.selected = false));
-
-              if (Array.isArray(this._currentValue)) {
-                this._currentValue.forEach((value) => {
-                  this._setChangedMultipleValue(value);
-                });
-              } else {
-                this._setChangedMultipleValue(this._currentValue);
-              }
-            }, 0);
-          } else {
-            this.setSingleValue(this._currentValue);
-          }
-        }, 0);
-      });
+      this._handleContentProjectionChange();
     }, 0);
   }
 
@@ -403,7 +370,45 @@ export class SelectComponent
     });
   }
 
-  private _handleContentProjectionChange(): void {}
+  /**
+   * Watches for changes within the content DOM
+   */
+  private _handleContentProjectionChange(): void {
+    this._selectOptions.changes.pipe().subscribe(() => {
+      this._selectOptions.toArray().map((option) => {
+        if (!this._optionsLabels.find((x) => x.value === option.value)) {
+          this._optionsLabels.push({
+            value: option.value,
+            label: option.elementRef.nativeElement.innerText,
+          });
+        }
+      });
+      setTimeout(() => {
+        if (!this._currentValue) {
+          this._currentValue = this.value;
+        }
+
+        if (this.multiple) {
+          setTimeout(() => {
+            this._selectedOptions = [];
+            this._selectedOptionsValues = [];
+            this._mainSelectedOption = undefined;
+            this._selectOptions?.toArray().map((x) => (x.selected = false));
+
+            if (Array.isArray(this._currentValue)) {
+              this._currentValue.forEach((value) => {
+                this._setChangedMultipleValue(value);
+              });
+            } else {
+              this._setChangedMultipleValue(this._currentValue);
+            }
+          }, 0);
+        } else {
+          this.setSingleValue(this._currentValue);
+        }
+      }, 0);
+    });
+  }
 
   /**
    * Checks if all avaliable options are selected
