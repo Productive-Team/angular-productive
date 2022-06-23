@@ -29,7 +29,7 @@ export class AllExComponent implements OnInit {
 
   isLoading: boolean;
 
-  val = [4, 5];
+  val = 4;
 
   content = [
     { id: 1, name: 'teste' },

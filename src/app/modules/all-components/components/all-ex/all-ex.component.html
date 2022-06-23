@@ -1,7 +1,7 @@
 <div style="margin-top: 20rem">
 
   <p-fieldset pFieldsetLabelText="Label">
-    <p-select [(ngModel)]="val" search>
+    <p-select [(value)]="val" search>
       <p-option *ngFor="let itm of content" [value]="itm.id">{{itm.name}}</p-option>
     </p-select>
   </p-fieldset>

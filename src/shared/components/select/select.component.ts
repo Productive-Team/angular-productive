@@ -21,6 +21,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { CoerceBoolean } from 'src/shared/decorators/coerce-boolean-decorator';
 
 const menuOpeningAnimation = trigger('menuOpeningAnimation', [
@@ -142,6 +143,10 @@ export class SelectComponent
 
   private _currentValue: any | any[];
 
+  private _currentChangeSubscriber: Subscription;
+
+  private _optionsLabels: SelectLabelData[] = [];
+
   @ViewChild('selectMenu') private _selectMenu: ElementRef<HTMLElement>;
   @ViewChild('mainInput') private _mainInput: ElementRef<HTMLInputElement>;
   @ViewChild('selectMenuBody') private _selectMenuBody: ElementRef<HTMLElement>;
@@ -171,7 +176,16 @@ export class SelectComponent
       } else {
         this.setSingleValue(this.value);
       }
+
       this._selectOptions.changes.pipe().subscribe(() => {
+        this._selectOptions.toArray().map((option) => {
+          if (!this._optionsLabels.find((x) => x.value === option.value)) {
+            this._optionsLabels.push({
+              value: option.value,
+              label: option.elementRef.nativeElement.innerText,
+            });
+          }
+        });
         setTimeout(() => {
           if (!this._currentValue) {
             this._currentValue = this.value;
@@ -389,6 +403,8 @@ export class SelectComponent
     });
   }
 
+  private _handleContentProjectionChange(): void {}
+
   /**
    * Checks if all avaliable options are selected
    */
@@ -429,16 +445,25 @@ export class SelectComponent
     this.totalSelectedOptions = this._selectedOptionsValues.length - 1;
   }
 
+  /**
+   * Handles the label text shown inside the input
+   */
   private _handleMainLabel(): void {
     const selectValues = this._selectOptions?.toArray();
 
     if (this.multipleValueAppearence === 'short') {
       if (this._mainSelectedOption) {
-        this._handleInputValue(
-          this._mainSelectedOption.elementRef.nativeElement.innerText
+        const label = this._optionsLabels.find(
+          (x) => x.value === this._mainSelectedOption.value
         );
+        this._handleInputValue(label.label);
       } else if (this._selectedOptionsValues[0]) {
-        this._handleInputValue(this._selectedOptionsValues[0].toString());
+        const label = this._optionsLabels.find(
+          (x) => x.value === this._selectedOptionsValues[0]
+        );
+        this._handleInputValue(
+          label ? label.label : this._selectedOptionsValues[0].toString()
+        );
       }
     } else {
       let innerTexts = [];
@@ -456,7 +481,12 @@ export class SelectComponent
         );
 
         notIncludedOptions.forEach((x) => {
-          innerTexts.push(x);
+          const actualLabel = this._optionsLabels.find((y) => y.value === x);
+          if (actualLabel) {
+            innerTexts.push(actualLabel.label);
+          } else {
+            innerTexts.push(x);
+          }
         });
       }
 
@@ -488,7 +518,8 @@ export class SelectComponent
       if (!value) {
         this._handleInputValue(null);
       } else {
-        this._handleInputValue(value.toString());
+        const label = this._optionsLabels.find((x) => x.value === value);
+        this._handleInputValue(label ? label.label : value.toString());
       }
     }
   }
@@ -725,6 +756,7 @@ export class SelectComponent
   ngOnDestroy(): void {
     this._changeDetectorRef.markForCheck();
     this._selectMenu?.nativeElement?.remove();
+    this._currentChangeSubscriber.unsubscribe();
     this._removeBackdrop();
   }
 }
@@ -801,3 +833,8 @@ export class SelectOptionComponent implements OnInit {
 }
 
 type MultipleValueAppearence = 'extend' | 'short';
+
+class SelectLabelData {
+  value: any;
+  label: string;
+}
