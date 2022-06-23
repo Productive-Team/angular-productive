@@ -1567,89 +1567,6 @@ label {
 }
 /* #endregion Icon */
 
-/* #region Select */
-.p-select-parent-wrapper {
-  display: flex;
-  position: relative;
-  height: 19px;
-}
-
-.p-select {
-  display: inline-block;
-  position: fixed;
-  top: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: transparent;
-  z-index: 1006;
-}
-
-.p-select button {
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  width: 100%;
-  border: none;
-  padding: 0 0.75em;
-  margin: 0;
-  font-size: 16px;
-  height: 48px;
-  text-align: start;
-  outline: none;
-  cursor: pointer;
-  transition: 250ms ease;
-  user-select: none !important;
-}
-.p-select button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.p-select button:disabled {
-  opacity: 0.5;
-  pointer-events: none;
-  filter: grayscale(100%);
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.p-select-content {
-  background-color: var(--menuPanelColor);
-  border-radius: 5px;
-  max-height: 300px;
-  overflow: auto;
-  animation: enterAnim 180ms cubic-bezier(0.1, 0.5, 0.65, 0.99);
-}
-
-.p-select-search input {
-  border: none;
-  outline: none;
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  font-size: 16px;
-  caret-color: var(--primary);
-  color: var(--textColor);
-}
-
-.p-select-arrow {
-  font-size: 19px !important;
-  pointer-events: none;
-}
-
-.focused .p-select-arrow {
-  color: var(--primary);
-}
-
-@keyframes enterAnim {
-  0% {
-    transform: scaleY(0.9);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
-/* #endregion Select */
-
 /* #region Checkbox */
 .checkbox-disabled {
   pointer-events: none;
@@ -2040,7 +1957,7 @@ label {
 /* #endregion Tabs */
 
 
-/* #region AnotherRefact */
+/* #region Select */
 .p_select_wrap {
    display: flex;
   position: relative;
@@ -2131,7 +2048,7 @@ label {
     transform: scaleY(1);
   }
 }
-/* #endregion AnotherRefact */
+/* #endregion Select */
 
 /* #region Snackbar */
 .p-snackbar-wrapper {
