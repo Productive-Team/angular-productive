@@ -1,7 +1,7 @@
 <div style="margin-top: 20rem">
 
   <p-fieldset pFieldsetLabelText="Label">
-    <p-select [(value)]="val" search multiple>
+    <p-select [(ngModel)]="val" search multiple>
       <p-option [value]="1234">teste</p-option>
       <p-option [value]="5678">teste2</p-option>
       <p-option [value]="56789">teste3</p-option>
@@ -16,5 +16,7 @@
     </p-select>
   </p-fieldset>
 </div>
+
+<button (click)="val = [56789, 5678594]">set</button>
 
 {{val | json}}

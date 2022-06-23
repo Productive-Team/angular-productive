@@ -29,7 +29,7 @@ export class AllExComponent implements OnInit {
 
   isLoading: boolean;
 
-  val;
+  val: any = 1234;
 
   tabAlign: string = 'left';
   inkbarAlign: string = 'bottom';

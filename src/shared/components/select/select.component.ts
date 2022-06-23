@@ -11,11 +11,13 @@ import {
   EventEmitter,
   forwardRef,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -56,7 +58,12 @@ const menuOpeningAnimation = trigger('menuOpeningAnimation', [
   },
 })
 export class SelectComponent
-  implements ControlValueAccessor, AfterViewInit, OnDestroy, AfterContentInit
+  implements
+    ControlValueAccessor,
+    AfterViewInit,
+    OnDestroy,
+    AfterContentInit,
+    OnChanges
 {
   /**
    * Select Value
@@ -165,6 +172,29 @@ export class SelectComponent
     }, 0);
   }
 
+  ngOnChanges(simpleChanges: SimpleChanges): void {
+    if (!simpleChanges.value?.firstChange) {
+      if (this.multiple) {
+        setTimeout(() => {
+          this._selectedOptions = [];
+          this._selectedOptionsValues = [];
+          this._mainSelectedOption = undefined;
+          this._selectOptions?.toArray().map((x) => (x.selected = false));
+
+          if (Array.isArray(simpleChanges.value?.currentValue)) {
+            simpleChanges.value?.currentValue.forEach((value) => {
+              this._setChangedMultipleValue(value);
+            });
+          } else {
+            this._setChangedMultipleValue(simpleChanges.value?.currentValue);
+          }
+        }, 0);
+      } else {
+        this.setSingleValue(simpleChanges.value?.currentValue);
+      }
+    }
+  }
+
   change = (_) => {};
   blur = (_) => {};
 
@@ -179,12 +209,17 @@ export class SelectComponent
   writeValue(obj: any): void {
     this.value = obj;
     if (this.multiple) {
+      this._selectedOptions = [];
+      this._selectedOptionsValues = [];
+      this._mainSelectedOption = undefined;
+      this._selectOptions?.toArray().map((x) => (x.selected = false));
+
       if (Array.isArray(obj)) {
         obj.forEach((value) => {
-          this.setMultipleValue(value);
+          this._setChangedMultipleValue(value);
         });
       } else {
-        this.setMultipleValue(obj);
+        this._setChangedMultipleValue(obj);
       }
     } else {
       this.setSingleValue(obj);
@@ -232,10 +267,9 @@ export class SelectComponent
    */
   public setMultipleValue(newValue: any): void {
     this._changeDetectorRef.markForCheck();
-
     this._selectMultipleValue(newValue);
 
-    this.areAllOptionsSelected();
+    this._areAllOptionsSelected();
     this.change(this._selectedOptionsValues);
     this.valueChange.emit(this._selectedOptionsValues);
   }
@@ -328,11 +362,51 @@ export class SelectComponent
   /**
    * Checks if all avaliable options are selected
    */
-  private areAllOptionsSelected(): void {
+  private _areAllOptionsSelected(): void {
     this.selectAllCurrentOptions = this._selectOptions
       ?.toArray()
       .filter((x) => !x.disabled)
       .every((t) => t.selected);
+  }
+
+  /**
+   * Handles the change of multiple values when setting it from outside of component scope
+   */
+  private _setChangedMultipleValue(newValue: any): void {
+    const selectValues = this._selectOptions?.toArray();
+
+    const selectedOption = selectValues?.find(
+      (x) => !x.disabled && x.value === newValue
+    );
+
+    if (selectedOption) {
+      selectedOption.selected = true;
+      this._selectedOptions.push(selectedOption);
+      this._selectedOptionsValues.push(selectedOption.value);
+
+      this._mainSelectedOption = selectValues.filter((x) => x.selected)[0];
+
+      if (this.multipleValueAppearence === 'short') {
+        if (this._mainSelectedOption) {
+          this._handleInputValue(
+            this._mainSelectedOption.elementRef.nativeElement.innerText
+          );
+        } else {
+          this._handleInputValue('');
+        }
+      } else {
+        let innerTexts = [];
+        selectValues
+          .filter((x) => x.selected)
+          .forEach((x) => {
+            innerTexts.push(x.elementRef.nativeElement.innerText);
+          });
+        this._handleInputValue(innerTexts.join(', '));
+      }
+    } else {
+      this._handleInputValue('');
+    }
+    this.totalSelectedOptions = this._selectedOptionsValues.length - 1;
   }
 
   /**
