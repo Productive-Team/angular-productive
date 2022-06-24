@@ -168,13 +168,13 @@ export class SelectComponent
       if (this.multiple) {
         if (Array.isArray(this.value)) {
           this.value.forEach((value) => {
-            this.setMultipleValue(value);
+            this._selectMultipleValue(value);
           });
         } else {
-          this.setMultipleValue(this.value);
+          this._selectMultipleValue(this.value);
         }
       } else {
-        this.setSingleValue(this.value);
+        this._selectSingleOnly(this.value);
       }
 
       this._handleContentProjectionChange();
@@ -384,7 +384,7 @@ export class SelectComponent
         }
       });
       setTimeout(() => {
-        if (!this._currentValue) {
+        if (this._currentValue === undefined) {
           this._currentValue = this.value;
         }
 
@@ -430,7 +430,11 @@ export class SelectComponent
       (x) => !x.disabled && x.value === newValue
     );
 
-    if (selectedOption || newValue) {
+    if (
+      (selectedOption || newValue !== undefined) &&
+      !this._selectedOptionsValues.includes(newValue) &&
+      !this._selectedOptions.includes(selectedOption)
+    ) {
       if (selectedOption) {
         selectedOption.selected = true;
         this._selectedOptions.push(selectedOption);
@@ -443,9 +447,6 @@ export class SelectComponent
       this._mainSelectedOption = selectValues.filter((x) => x.selected)[0];
 
       this._handleMainLabel();
-    } else {
-      this._mainSelectedOption = undefined;
-      this._handleInputValue('');
     }
     this.totalSelectedOptions = this._selectedOptionsValues.length - 1;
   }
@@ -537,7 +538,7 @@ export class SelectComponent
 
     const selectedOption = selectOptions?.find((x) => x.value === value);
 
-    if (selectedOption || value) {
+    if (selectedOption || value !== undefined) {
       if (
         !this._selectedOptionsValues.includes(value) &&
         !this._selectedOptions.includes(selectedOption)
@@ -822,7 +823,7 @@ export class SelectOptionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.value) {
+    if (this.value === undefined) {
       this.value = this.elementRef.nativeElement.textContent;
     }
   }
