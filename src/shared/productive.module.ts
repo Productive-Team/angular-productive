@@ -21,7 +21,6 @@ import {
   FieldsetComponent,
   InputDirective,
 } from './components/fieldset/fieldset.component';
-import { IconComponent } from './components/icon/icon.component';
 import {
   MenuComponent,
   MenuTriggerDirective,
@@ -101,7 +100,6 @@ const components = [
   SidenavContainerComponent,
   SidenavContentComponent,
   ContainerComponent,
-  IconComponent,
   SpinnerComponent,
   ProgressBarComponent,
   RadioGroupComponent,

@@ -1,18 +1,17 @@
 <div class="content-wrapper">
   <div class="elevation-p4" style="z-index: 998;">
-    <app-navbar backgroundColor="bg-primary" [elevated]="false">
-      <ng-container navbarContent>
+    <app-navbar backgroundColor="var(--primary)" [elevation]="false">
+      <ng-container>
         <button class="btn flat" pRipple pRippleColor="#ffffff26" [routerLink]="['/']">
           Angular Productive
         </button>
-        <button class="btn small flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26">
+        <button class="btn small flat" pRipple pRippleColor="#ffffff26">
           Get Started
         </button>
-        <button class="btn small flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26">
+        <button class="btn small flat" pRipple pRippleColor="#ffffff26">
           Features
         </button>
-        <button class="btn small flat display-on-medium-and-above" pRipple pRippleColor="#ffffff26"
-          [routerLink]="['/Components']">
+        <button class="btn small flat" pRipple pRippleColor="#ffffff26" [routerLink]="['/Components']">
           Components
         </button>
         <div class="spacer"></div>
@@ -30,8 +29,8 @@
         </a>
       </ng-container>
     </app-navbar>
-    <app-navbar size="small" [elevated]="false" backgroundColor="bg-primary" class="smallnav">
-      <ng-container navbarContent>
+    <app-navbar size="small" [elevation]="false" backgroundColor="var(--primary)" class="smallnav">
+      <ng-container>
         <button class="btn small flat" pRipple pRippleColor="#ffffff26" style="width: 100%;">
           Get Started
         </button>

@@ -43,8 +43,8 @@
   color-scheme: dark;
 }
 
-* {
-  font-family: "Roboto", Arial, sans-serif;
+*:not(i) {
+  font-family: 'Inter', Arial, sans-serif;
 }
 
 html,
@@ -111,6 +111,8 @@ footer {
   padding: 0.5rem 1.5rem;
   box-sizing: border-box;
 }
+
+
 
 /* #region Typography */
 h1 {
@@ -607,7 +609,7 @@ label {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   vertical-align: middle;
   color: var(--textColor);
@@ -2111,7 +2113,7 @@ label {
 
 
 /* #region hljs */
-.hljs-tag {
+/* .hljs-tag {
   font-family: monospace !important;
 }
 .hljs-name {
@@ -2140,5 +2142,33 @@ label {
 .hljs-number {
   color: #bd93f9;
   font-family: monospace !important;
-}
+} */
 /* #endregion hljs */
+
+/* #region Navbar */
+.p-navbar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 0.75rem;
+  outline: none;
+  border: none;
+  z-index: 998;
+  box-sizing: border-box;
+  color: black;
+  height: 56px;
+  background-color: rgb(240, 240, 240);
+}
+
+.p-navbar.small {
+  height: 46px;
+}
+
+.p-navbar.large {
+  height: 66px;
+}
+
+.p-navbar * {
+  color: inherit;
+}
+/* #endregion Navbar */

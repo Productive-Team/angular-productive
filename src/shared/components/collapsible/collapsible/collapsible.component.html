@@ -2,7 +2,7 @@
   <ng-content select="[collapsible-header]"></ng-content>
   <ng-container *ngIf="CollapisbleIcon">
     <div class="spacer"></div>
-    <p-icon>{{state === 'open' ? 'unfold_less' : 'unfold_more'}}</p-icon>
+    <i class="material-icons">{{state === 'open' ? 'unfold_less' : 'unfold_more'}}</i>
   </ng-container>
 </div>
 <div class="collapsible-content" [@collapseAnimation]="state">

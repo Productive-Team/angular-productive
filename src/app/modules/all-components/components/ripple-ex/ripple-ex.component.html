@@ -52,7 +52,7 @@
         <div class="spacer"></div>
         <button class="btn fab flat" pRipple [pRippleCentered]="true" (click)="showCodeSection2 = !showCodeSection2"
           pTooltip="{{showCodeSection2 ? 'Hide Code' :'Show Code'}}">
-          <p-icon>code</p-icon>
+          <i class="material-icons">code</i>
         </button>
       </p-section-header>
       <p-section-code *ngIf="showCodeSection2">
@@ -66,7 +66,7 @@
                 <div class="spacer"></div>
                 <button class="btn fab flat code-button" pRipple [pRippleCentered]="true" pClipboard
                   [contentToCopy]="codeSection1" pTooltip="Copy Code">
-                  <p-icon>content_copy</p-icon>
+                  <i class="material-icons">content_copy</i>
                 </button>
               </div>
               <code highlight class="language-html">
@@ -79,7 +79,7 @@
             <p-section-code-content>
               <button class="btn fab flat code-button" pRipple [pRippleCentered]="true" pClipboard
                 [contentToCopy]="codeSection2" pTooltip="Copy Code">
-                <p-icon>content_copy</p-icon>
+                <i class="material-icons">content_copy</i>
               </button>
               <code highlight class="language-css">
                 <ng-container #css>
